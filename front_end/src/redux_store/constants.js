@@ -1,0 +1,9 @@
+export const LOGIN_ACTION = "LOGIN_ACTION";
+export const REGISTER_ACTION = "REGISTER_ACTION";
+
+export const GET_USER_LIST = "GET_USER_LIST";
+
+
+export const DISPLAY_LOADING = "DISPLAY_LOADING";
+export const HIDE_LOADING = "HIDE_LOADING";
+
