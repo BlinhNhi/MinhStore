@@ -1,6 +1,5 @@
 import React from "react";
 import { FaStar } from "react-icons/fa";
-import AOS from "aos";
 
 import Img1 from '../../assets/top_product/adidas.jpg';
 import Img2 from '../../assets/top_product/nike.jpg';

@@ -25,12 +25,12 @@ function App() {
   return (
     <Router history={history}>
       {/* <Loading /> */}
-
       <Switch>
         <HomeTemplate path="/home" exact Component={Home}></HomeTemplate>
         <HomeTemplate path="/search/" Component={Search}></HomeTemplate>
         <HomeTemplate path="/productDetail/nike/1" Component={ProductDetail}></HomeTemplate>
         <HomeTemplate path="/login" Component={Login}></HomeTemplate>
+
         <HomeTemplate Component={Home} />
       </Switch>
     </Router>
