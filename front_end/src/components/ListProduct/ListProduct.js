@@ -117,11 +117,10 @@ function ListProduct() {
 
     return (
         <div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 place-items-center gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 place-items-center gap-2">
                 {currentProduct.map((data) => (
                     <div
                         data-aos="flip-left"
-
                     >
                         <div
                             key={data.id}
@@ -131,11 +130,11 @@ function ListProduct() {
 
                             <img src={data.img} alt={data?.title} className="
                         
-                        h-[220px] w-[300px] sm:h-[220px] sm:w-[200px] md:h-[220px] md:w-[300px] 
+                        h-[100px] w-[200px] sm:h-[220px] sm:w-[200px] md:h-[220px] md:w-[300px] 
                         xl:h-[220px] xl:w-[200px] 2xl:h-[220px] 2xl:w-[200px]
                         object-cover rounded-tl-lg rounded-tr-lg"></img>
                             <div className="flex flex-col gap-1 ml-2">
-                                <h3 className="font-semibold">{data?.title}</h3>
+                                <h3 className="font-semibold text-ellipsis overflow-hidden text-base line-clamp-1">{data?.title}</h3>
                                 <p className="text-sm text-gray-600 dark:text-gray-100">{data?.color}</p>
                                 <p className="text-sm text-gray-600 dark:text-gray-100">{data?.price} $</p>
 
