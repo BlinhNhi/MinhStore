@@ -130,7 +130,7 @@ function ListProduct() {
 
                             <img src={data.img} alt={data?.title} className="
                         
-                        h-[100px] w-[200px] sm:h-[220px] sm:w-[200px] md:h-[220px] md:w-[300px] 
+                        h-[129px] w-[129px] sm:h-[220px] sm:w-[200px] md:h-[220px] md:w-[300px] 
                         xl:h-[220px] xl:w-[200px] 2xl:h-[220px] 2xl:w-[200px]
                         object-cover rounded-tl-lg rounded-tr-lg"></img>
                             <div className="flex flex-col gap-1 ml-2">
