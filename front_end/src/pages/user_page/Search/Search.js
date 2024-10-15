@@ -1,33 +1,49 @@
-import { Card, Radio, Checkbox } from "antd";
+import { Card, Radio, Checkbox, Button, Modal } from "antd";
+import { MdFilterList } from "react-icons/md";
 
 import SelectProduct from "../../../components/SelectProduct/SelectProduct";
 import ListProduct from "../../../components/ListProduct/ListProduct";
+import { useState } from "react";
+import FilterProduct from "../../../components/FilterProduct/FilterProduct";
 
 function Search() {
 
-
-    // console.log(ProductData?.length);
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
+    // const [isOpen]
+    const showFilter = () => {
+        console.log('show');
+        console.log(isFilterOpen);
+        setIsFilterOpen(true);
+    };
+    //   const handleOk = () => {
+    //     setIsFilterOpen(false);
+    //   };
+    const handleFilterCancel = () => {
+        setIsFilterOpen(false);
+    };
     return (
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200">
             <div className="container">
-                <div className="hidden sm:block "><SelectProduct></SelectProduct></div>
-                <div className="container">
+                <div className="hidden sm:block ">
+                    <SelectProduct></SelectProduct>
+                </div>
+                <div className="container relative">
                     <div className="xl:flex lg:flex 2xl:flex flex-row block  flex-wrap py-4">
-                        <div className="w-full hidden md:w-full lg:w-1/4 xl:w-1/4 2xl:w-1/4  md:block lg:block xl:block 2xl:block px-2">
-                            <Card className="bg-gray-200" title="Sắp Xếp Theo" onChange={(e) => { }}>
-                                <Radio.Group>
+                        <FilterProduct></FilterProduct>
+                        <button
+                            onClick={showFilter}>
+                            <div className="fixed right-2 top-[65%]">
+                                <MdFilterList className="block sm:hidden md:hidden lg:hidden xl:hidden 2xl:hidden
+                                 dark:bg-gray-200 text-3xl rounded-lg bg-gray-700 text-gray-100  
+                                dark:text-gray-500 hover:bg-primary/80 dark:hover:bg-primary/90 dark:hover:text-gray-100">
+                                </MdFilterList>
+                            </div>
+                        </button>
 
-                                    <Radio value="lowest-price">Giá Thấp Nhất</Radio>
-                                    <Radio value="highest-price">Giá Cao Nhất</Radio>
-                                </Radio.Group>
-                            </Card>
-                            <Card title="Loại Giày" className="mt-3 bg-gray-200">
-                                <Checkbox value="Adidas" onChange={() => { }}>Adidas</Checkbox><br />
-                                <Checkbox value="Nike" onChange={() => { }}>Nike</Checkbox><br />
-                                <Checkbox value="Jordan" onChange={() => { }}>Jordan</Checkbox><br />
-                                <Checkbox value="Khác" onChange={() => { }}>Khác...</Checkbox>
-                            </Card>
-                        </div>
+                        <Modal title="Basic Modal" open={isFilterOpen} onOk={handleFilterCancel} onCancel={handleFilterCancel}>
+                            <SelectProduct get></SelectProduct>
+                            <FilterProduct isFilterOpen={isFilterOpen}></FilterProduct>
+                        </Modal>
 
                         <div className="w-full  pt-1 px-2 md:w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4">
                             <ListProduct></ListProduct>

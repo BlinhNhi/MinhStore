@@ -113,7 +113,6 @@ function ListProduct() {
         indexOfLastPost
     );
 
-    console.log(ProductData?.length);
 
     return (
         <div>

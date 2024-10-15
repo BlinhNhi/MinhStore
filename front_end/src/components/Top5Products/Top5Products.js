@@ -86,7 +86,7 @@ function Top5Product() {
             border-[3px] dark:border-gray-100 dark:hover:border-primary border-gray-400 hover:border-gray-500 rounded-md  mt-2 ">
                 <div className="flex items-center  gap-2 mr-10">
                     <img src={Img1} alt="" className="w-[150px]  h-[150px] object-contain "></img>
-                    <div className="flex flex-col gap-4  ml-6">
+                    <div className="flex flex-col  gap-4  ml-6">
                         <h3 className="font-semibold text-[18px] text-ellipsis overflow-hidden line-clamp-1">Adidas Samba Adidas </h3>
                         <p className="text-base">Giá: 1.000.000đ</p>
                         <div className="w-full flex gap-1 text-base">
