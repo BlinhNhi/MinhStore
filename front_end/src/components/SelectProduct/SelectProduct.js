@@ -1,10 +1,20 @@
 import { Select, } from "antd";
-import { useState } from "react";
+// import { useState } from "react";
 import { ImSearch } from "react-icons/im";
 const { Option } = Select;
 
-function SelectProduct({ }) {
-    const [setValueSize, isSetValueSize] = useState(0)
+function SelectProduct({ onSendData }) {
+    // const [setValueSize, isSetValueSize] = useState(0);
+    // console.log(setValueSize);
+    // console.log(setValueSize);
+
+
+
+    const handleFromChange = (value) => {
+        console.log(value);
+        onSendData(value); // Gọi hàm và truyền giá trị lên cha
+    };
+
     return (
         <div className="pt-10 pb-4">
             <div className="container ">
@@ -37,15 +47,14 @@ function SelectProduct({ }) {
                                 showSearch
                                 // value={From}
                                 placeholder="Tất Cả"
-                            // options={ }
-                            // onChange={handleFromChange}
+                                // options={}
+                                onChange={handleFromChange}
                             >
-                                <Option isSetValueSize={38} value="38">38</Option>
-                                <Option isSetValueSize={39} value="39">39</Option>
-                                <Option isSetValueSize={40} value="40">40</Option>
-                                <Option isSetValueSize={41} value="41">41</Option>
-                                <Option isSetValueSize={42} value="42">42</Option>
-
+                                <Option value="38">38</Option>
+                                <Option value="39">39</Option>
+                                <Option value="40">40</Option>
+                                <Option value="41">41</Option>
+                                <Option value="42">42</Option>
                             </Select>
                         </div>
                         <div className="">

@@ -1,4 +1,4 @@
-import { Card, Radio, Checkbox, Button, Modal } from "antd";
+import { Modal } from "antd";
 import { MdFilterList } from "react-icons/md";
 
 import SelectProduct from "../../../components/SelectProduct/SelectProduct";
@@ -9,10 +9,16 @@ import FilterProduct from "../../../components/FilterProduct/FilterProduct";
 function Search() {
 
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    // const [isOpen]
+    const [childData, setChildData] = useState('');
+    console.log(childData);
+    const handleChildData = (data) => {
+        console.log(data);
+        setChildData(data);
+    };
+
     const showFilter = () => {
-        console.log('show');
-        console.log(isFilterOpen);
+        // console.log('show');
+        // console.log(isFilterOpen);
         setIsFilterOpen(true);
     };
     //   const handleOk = () => {
@@ -40,9 +46,9 @@ function Search() {
                             </div>
                         </button>
 
-                        <Modal title="Basic Modal" open={isFilterOpen} onOk={handleFilterCancel} onCancel={handleFilterCancel}>
-                            <SelectProduct get></SelectProduct>
-                            <FilterProduct isFilterOpen={isFilterOpen}></FilterProduct>
+                        <Modal title="" open={isFilterOpen} onOk={handleFilterCancel} onCancel={handleFilterCancel}>
+                            <SelectProduct onSendData={handleChildData}></SelectProduct>
+                            <FilterProduct isFilterOpen={isFilterOpen} ></FilterProduct>
                         </Modal>
 
                         <div className="w-full  pt-1 px-2 md:w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4">
