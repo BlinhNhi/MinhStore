@@ -9,6 +9,9 @@ import Home from "./pages/user_page/Home/Home";
 import Search from "./pages/user_page/Search/Search";
 import ProductDetail from "./pages/user_page/ProductDetail/ProductDetail";
 import Login from "./pages/user_page/Login/Login";
+import AdminTemplate from "./templates/AdminTemplate";
+import ProductManager from "./pages/admin_page/ProductManager/ProductManager";
+import DashBoard from "./pages/admin_page/DashBoard/DashBoard";
 
 export const history = createBrowserHistory();
 function App() {
@@ -28,8 +31,11 @@ function App() {
       <Switch>
         <HomeTemplate path="/home" exact Component={Home}></HomeTemplate>
         <HomeTemplate path="/search/" Component={Search}></HomeTemplate>
-        <HomeTemplate path="/productDetail/nike/1" Component={ProductDetail}></HomeTemplate>
+        <HomeTemplate path="/product-detail/1" Component={ProductDetail}></HomeTemplate>
         <HomeTemplate path="/login" Component={Login}></HomeTemplate>
+
+        <AdminTemplate path="/admin/product-manager" Component={ProductManager}></AdminTemplate>
+        <AdminTemplate path="/admin/dashboard" Component={DashBoard}></AdminTemplate>
 
         <HomeTemplate Component={Home} />
       </Switch>

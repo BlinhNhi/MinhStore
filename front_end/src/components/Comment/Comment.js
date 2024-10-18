@@ -92,7 +92,9 @@ function Comment() {
                 <div data-aos="zoom-in">
                     <Slider {...settings}>
                         {commentData?.map((data) => (
-                            <div className="my-6">
+                            <div
+                                className="my-6"
+                                key={data?.id}>
                                 <div className="flex flex-col gap-4 shadow-lg py-8 px-6 mx-4 rounded-xl dark:bg-gray-800 bg-orange-400/10 relative w-[80%]" key={data?.id}>
                                     <div className="mb-4">
                                         <img src={data?.avtUser} alt={data?.name} className="rounded-full w-20 h-20"></img>
