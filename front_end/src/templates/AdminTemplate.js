@@ -40,10 +40,13 @@ function AdminTemplate(props) {
     return <Route {...restProps} render={(propsRoute) => { //props.location, props.history, props.match
         return <Fragment>
             <Layout style={{ minHeight: '100vh', }}>
-                <Sider className="bg-gray-800" collapsible width={300} collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-                    <div className="demo-logo-vertical text-white text-base font-bold text-center my-10" >Admin Page</div>
-                    <Menu theme="dark" defaultSelectedKeys={selectedKey} mode="inline" items={itemsAdmin} />
-                </Sider>
+                <div className="bg-bg-blue 2xl:block xl:block lg:block md:block sm:hidden hidden">
+                    <Sider collapsible width={300} collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+                        <div className="demo-logo-vertical text-white text-base font-bold text-center my-10 bg-bg-blue 2xl:block xl:block lg:block md:block sm:hidden" >Admin Page</div>
+                        <Menu theme="dark" defaultSelectedKeys={selectedKey} mode="inline" items={itemsAdmin} />
+                    </Sider>
+                </div>
+
                 <Layout className="bg-gray-200 dark:bg-gray-700">
                     <Header
                         className="bg-gray-300 dark:bg-gray-800 flex items-center justify-end pr-8"
@@ -58,6 +61,7 @@ function AdminTemplate(props) {
                             </div>
                         </div>
                     </Header>
+
                     <Content style={{ margin: '16px' }}>
                         <div
                             className="p-6 min-h-80 bg-gray-100 dark:bg-gray-600"

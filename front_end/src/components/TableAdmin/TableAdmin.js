@@ -130,6 +130,7 @@ function TableAdmin() {
         {
             title: "Hình Ảnh",
             dataIndex: "image",
+            width: '15%',
             key: "image",
             render: (text, data, index) => {
                 console.log(data);
@@ -148,15 +149,15 @@ function TableAdmin() {
 
     return (
         <div className='mt-10'>
-            <div className='flex items-start gap-6'>
-                <div className='flex flex-col gap-4 w-1/2'>
+            <div className='flex flex-col 2xl:flex-row xl:flex-row items-start gap-6'>
+                <div className='flex flex-col gap-4 2xl:w-1/2 xl:w-1/2 w-full'>
                     <h2 className='font-semibold text-gray-400 text-base'>Quản Lý Khách Hàng</h2>
                     <Table columns={columnsUser} dataSource={dataUser} rowKey={'id'} />
                 </div>
 
                 <div className='flex flex-col gap-4'>
                     <h2 className='font-semibold text-gray-400 text-base'>Quản Lý Đơn Hàng</h2>
-                    <Table columns={columnsOrder} dataSource={dataOrder} rowKey={'id'} />
+                    {/* <Table columns={columnsOrder} dataSource={dataOrder} rowKey={'id'} /> */}
                 </div>
             </div>
         </div>

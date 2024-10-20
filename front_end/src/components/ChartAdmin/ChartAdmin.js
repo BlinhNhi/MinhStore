@@ -36,6 +36,15 @@ function ChartAdmin() {
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const data = {
         labels: months,
+        options: {
+            responsive: true, // Tự động responsive
+            maintainAspectRatio: false, // Cho phép tùy chỉnh tỉ lệ
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        },
         datasets: [
             {
                 label: "Tổng Doanh Thu Theo Tháng",
@@ -65,14 +74,18 @@ function ChartAdmin() {
                 borderDash: [5, 5],
                 hidden: !isRevenueVisible
             },
+
         ],
     };
 
     return (
         <div>
             <div>
-                <Bar height={100} data={data} />
-                <div className='flex items-center justify-center gap-4 mt-8'>
+                <div className='2xl:h-[100] xl:h-[100] lg:h-[90] md:h-[80]   hidden md:block lg:block xl:block 2xl:block'>
+                    <Bar data={data} className='' />
+                </div>
+
+                <div className='hidden items-center justify-center gap-4 mt-8 md:flex lg:flex xl:flex 2xl:flex'>
                     {!isOrderVisible ?
                         <button className='flex items-center gap-2 p-2 rounded-md bg-green-300 opacity-50' onClick={() => setOrderVisible(!isOrderVisible)}>
                             <p className='text-sm font-normal text-gray-500'>Doanh Thu</p> <IoBag className='text-green-600 text-xs'></IoBag>

@@ -39,7 +39,7 @@ export default function AdminAvatar(props) {
 
     return <Popover placement="bottomRight" title={userLogin?.email} content={content} trigger="click">
         <button className=''>
-            <div className='flex items-center gap-4 bg-blue-100 px-4 py-2 rounded-md hover:bg-blue-200'>
+            <div className='flex items-center gap-4 bg-blue-100 px-4 py-2 rounded-md mt-4 hover:bg-blue-200'>
                 <img src={Image1} className='w-[32px] h-[32px]  rounded-full' alt=''></img>
                 <div className='flex flex-col items-start justify-between '>
                     <h1 className='font-serif text-sm text-gray-600'>{userLogin?.name}</h1>
