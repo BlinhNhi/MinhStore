@@ -53,7 +53,9 @@ function AdminTemplate(props) {
                                 <button type="link" className="p-[11px] rounded-full hover:bg-blue-200"><a href="/admin/dashboard" ><LuLayoutDashboard className="font-extrabold text-2xl text-gray-400" /></a> </button>
                                 <DarkMode></DarkMode>
                             </div>
-                            <AdminAvatar></AdminAvatar>
+                            <div>
+                                <AdminAvatar></AdminAvatar>
+                            </div>
                         </div>
                     </Header>
                     <Content style={{ margin: '16px' }}>
