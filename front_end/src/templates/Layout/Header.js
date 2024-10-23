@@ -2,8 +2,7 @@ import { useState } from "react";
 
 import { ImSearch } from "react-icons/im";
 import { FaShoppingCart } from "react-icons/fa";
-import { TfiAlignJustify } from "react-icons/tfi";
-import { IoClose } from "react-icons/io5";
+import { IoClose, IoMenu } from "react-icons/io5";
 import { TbUserCircle } from "react-icons/tb";
 
 import Logo from '../../assets/logo.png'
@@ -178,7 +177,7 @@ function Header() {
                     sm:hidden md:hidden lg:hidden xl:hidden 2xl:hidden px-2 py-1 border-white border bg-white rounded-lg
                     hover:bg-yellow-500 hover:border-yellow-500  hover:text-white dark:bg-gray-900 dark:hover:bg-yellow-500
                     ">
-                            <TfiAlignJustify className="font-bold text-xl " />
+                            <IoMenu className="font-bold text-xl " />
                             <p className="font-semibold ">Menu</p>
                         </div>
 
