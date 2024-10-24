@@ -26,16 +26,19 @@ function TableAdmin() {
             title: 'Tên',
             dataIndex: 'name',
             key: 'name',
+            width: '15%',
         },
         {
             title: 'Địa Chỉ',
             dataIndex: 'address',
             key: 'address',
+            width: '15%',
         },
         {
             title: 'Số Điện Thoại',
             dataIndex: 'phoneNumber',
             key: 'phoneNumber',
+            width: '15%',
         },
     ];
 
@@ -152,12 +155,12 @@ function TableAdmin() {
             <div className='flex flex-col 2xl:flex-row xl:flex-row items-start gap-6'>
                 <div className='flex flex-col gap-4 2xl:w-1/2 xl:w-1/2 w-full'>
                     <h2 className='font-semibold text-gray-400 text-base'>Quản Lý Khách Hàng</h2>
-                    <Table columns={columnsUser} dataSource={dataUser} rowKey={'id'} />
+                    <Table columns={columnsUser} dataSource={dataUser} rowKey={'id'} scroll={{ x: 1000 }} />
                 </div>
 
-                <div className='flex flex-col gap-4'>
+                <div className='flex flex-col gap-4 2xl:w-1/2 xl:w-1/2 w-full'>
                     <h2 className='font-semibold text-gray-400 text-base'>Quản Lý Đơn Hàng</h2>
-                    {/* <Table columns={columnsOrder} dataSource={dataOrder} rowKey={'id'} /> */}
+                    <Table columns={columnsOrder} dataSource={dataOrder} rowKey={'id'} scroll={{ x: 1000 }} />
                 </div>
             </div>
         </div>
