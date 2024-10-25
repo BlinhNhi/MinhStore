@@ -81,7 +81,7 @@ function ChartAdmin() {
     return (
         <div>
             <div>
-                <div className='2xl:h-[100] xl:h-[100] lg:h-[90] md:h-[80]   hidden md:block lg:block xl:block 2xl:block'>
+                <div className='2xl:h-[60] xl:h-[60] lg:h-[60] md:h-[80]   hidden md:block lg:block xl:block 2xl:block'>
                     <Bar data={data} className='' />
                 </div>
 

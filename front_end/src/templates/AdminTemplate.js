@@ -2,50 +2,50 @@ import { Fragment, useState } from "react";
 import { Route } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { Layout, Menu, theme } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { PiSneakerFill } from "react-icons/pi";
 import { IoMenu, IoClose } from "react-icons/io5";
+import { Layout, Menu, theme } from 'antd';
 
 import AdminAvatar from "../components/Admin/AdminAvatar";
 import DarkMode from "../components/DarkMode/DarkMode";
 
 const { Header, Content, Sider } = Layout;
 
-function getItem(label, key, icon, children) {
+function getItem(label, key, onClick, icon, children,) {
     return {
         key,
         icon,
         children,
         label,
+        onClick
     };
 }
 
 function AdminTemplate(props) {
     const { Component, ...restProps } = props;
     const [collapsed, setCollapsed] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);  // Thay đổi state sang boolean
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = () => {
+        setIsModalOpen(true); // Hiển thị modal
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false); // Ẩn modal
+    };
 
     const selectedKeys = ['/admin/busmng', '/admin/stationmng', '/admin/theatremng', '/admin/theatrechildmng', '/admin/users'];
     const selectedKey = (selectedKeys.indexOf(props.path) + 1).toString();
     const { token: { colorBgContainer } } = theme.useToken();
 
     const itemsAdmin = [
-        getItem('DashBoard', '1', <NavLink className='text-decoration-none' to="/admin/dashboard"><LuLayoutDashboard /></NavLink>),
-        getItem('Bus Management', 'sub1', <UserOutlined />, [
-            getItem('Bus Management', '2', <NavLink className='text-decoration-none' to="/admin/busmng"><i className="fas fa-bus f3" /></NavLink>),
-            getItem('Bus Type Management', '3', <NavLink className='text-decoration-none' to="/admin/bustypemng"><i className="fas fa-bus f3" /></NavLink>),
-        ]),
+        getItem('Trang Tổng Hợp', '1', closeModal, <NavLink className='text-decoration-none' to="/admin/dashboard"><LuLayoutDashboard /></NavLink>),
+        getItem('Quản Lý Sản Phẩm', '2', closeModal, <NavLink className='text-decoration-none' to="/admin/product-manager"><PiSneakerFill /></NavLink>),
+        // getItem('Quản Lý Sản Phẩm', 'sub1', <UserOutlined />, [
+        //     getItem('Bus Management', '2', <NavLink className='text-decoration-none' to="/admin/busmng"><i className="fas fa-bus f3" /></NavLink>),
+        //     getItem('Bus Type Management', '3', <NavLink className='text-decoration-none' to="/admin/bustypemng"><i className="fas fa-bus f3" /></NavLink>),
+        // ]),
     ];
 
-    // Hàm mở modal
-    const showModal = () => {
-        setIsModalOpen(true); // Hiển thị modal
-    };
-
-    // Hàm đóng modal
-    const closeModal = () => {
-        setIsModalOpen(false); // Ẩn modal
-    };
 
     return (
         <Route {...restProps} render={(propsRoute) => {
@@ -71,9 +71,9 @@ function AdminTemplate(props) {
                                             <IoMenu />
                                         </button>
                                         <button type="link" className="p-[11px] rounded-full hover:bg-blue-200">
-                                            <a href="/admin/dashboard">
+                                            <NavLink to="/admin/dashboard">
                                                 <LuLayoutDashboard className="font-extrabold text-base sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl dark:text-gray-100 text-gray-400" />
-                                            </a>
+                                            </NavLink>
                                         </button>
                                         <DarkMode />
                                     </div>
@@ -90,20 +90,18 @@ function AdminTemplate(props) {
                             </Content>
                         </Layout>
 
-                        {/* Modal */}
+
                         {/* Modal */}
                         <div
                             className={`fixed top-0 left-0 right-0 bottom-0 z-50 bg-black/70 transition-transform duration-500 ease-in-out transform ${isModalOpen ? 'translate-x-0' : '-translate-x-full'}`}
                         >
-                            <div className="bg-white fixed left-0 right-10 bottom-0 top-0   z-20">
+                            <div className="bg-gray-200 fixed left-0 right-10 bottom-0 top-0  z-20">
                                 <div className="flex justify-end p-4">
                                     <button onClick={closeModal}>
-                                        <IoClose />
+                                        <IoClose className="font-bold text-lg text-gray-600 hover:text-red-600" />
                                     </button>
                                 </div>
-                                <div className="p-4">
-                                    <h1>Hello</h1>
-                                </div>
+                                <Menu theme="" defaultSelectedKeys={selectedKey} mode="inline" items={itemsAdmin} />
                             </div>
                         </div>
 
