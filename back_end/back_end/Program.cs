@@ -1,5 +1,8 @@
-﻿using back_end.Models;
+﻿using back_end.IRepository;
+using back_end.Models;
+using back_end.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,13 +14,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add services to the container.
-/*var connectionString = builder.Configuration.GetConnectionString("MySqlConn");
-builder.Services.AddDbContext<ApplicationDbContext>(options => { 
-    options.UseMySQL(connectionString, ServerVersion.AutoDetect(connectionString));
-});*/
-
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("MySqlConn"), new MySqlServerVersion(new Version(7, 0, 0))));
+
+builder.Services.AddScoped<IProductRepo, ProductService>();
+//fix lỗi json bị vòng lặp 
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 
 
 
