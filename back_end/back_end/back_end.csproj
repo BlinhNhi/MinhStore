@@ -9,7 +9,18 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="MailKit" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.18" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MimeKit" Version="4.3.0" />
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.14" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
@@ -22,7 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\" />
-    <Folder Include="Models\" />
     <Folder Include="Services\" />
     <Folder Include="IServices\" />
     <Folder Include="Database\" />
