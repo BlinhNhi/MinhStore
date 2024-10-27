@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 
 import Img1 from '../../assets/top_product/adidas.jpg';
 import Img2 from '../../assets/top_product/nike.jpg';
 import Img3 from '../../assets/top_product/nike2.jpg';
 import Img4 from '../../assets/top_product/nikeJodan.jpg';
+import { useDispatch, useSelector } from "react-redux";
+import { getListProductsAction } from "../../redux_store/actions/ProductAcction";
 
 
 const ProductData = [
@@ -50,6 +52,13 @@ const ProductData = [
     },
 ]
 function Products() {
+    const { arrProducts } = useSelector((state) => state.ProductReducer);
+
+    console.log(arrProducts);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getListProductsAction());
+    }, []);
     return (
         <div className="mt-14 mb-12 ">
             <div className="container">

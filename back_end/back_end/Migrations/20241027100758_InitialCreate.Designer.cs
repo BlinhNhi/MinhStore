@@ -11,7 +11,7 @@ using back_end.Models;
 namespace back_end.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241026175849_InitialCreate")]
+    [Migration("20241027100758_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
