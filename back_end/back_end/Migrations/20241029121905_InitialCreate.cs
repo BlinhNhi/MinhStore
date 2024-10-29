@@ -18,7 +18,7 @@ namespace back_end.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Category",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -28,12 +28,12 @@ namespace back_end.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Color",
+                name: "Colors",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -43,12 +43,12 @@ namespace back_end.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Color", x => x.Id);
+                    table.PrimaryKey("PK_Colors", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Size",
+                name: "Sizes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -58,12 +58,12 @@ namespace back_end.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Size", x => x.Id);
+                    table.PrimaryKey("PK_Sizes", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -80,12 +80,12 @@ namespace back_end.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Product",
+                name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -104,18 +104,18 @@ namespace back_end.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Product_Category_CategoryId",
+                        name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Category",
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Order",
+                name: "Orders",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -125,18 +125,18 @@ namespace back_end.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Order_User_UserId",
+                        name: "FK_Orders_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "ProductColor",
+                name: "ProductColors",
                 columns: table => new
                 {
                     ColorId = table.Column<int>(type: "int", nullable: false),
@@ -145,24 +145,24 @@ namespace back_end.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductColor", x => new { x.ColorId, x.ProductId });
+                    table.PrimaryKey("PK_ProductColors", x => new { x.ColorId, x.ProductId });
                     table.ForeignKey(
-                        name: "FK_ProductColor_Color_ColorId",
+                        name: "FK_ProductColors_Colors_ColorId",
                         column: x => x.ColorId,
-                        principalTable: "Color",
+                        principalTable: "Colors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductColor_Product_ProductId",
+                        name: "FK_ProductColors_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Product",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "ProductSize",
+                name: "ProductSizes",
                 columns: table => new
                 {
                     ProductId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -171,17 +171,17 @@ namespace back_end.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductSize", x => new { x.SizeId, x.ProductId });
+                    table.PrimaryKey("PK_ProductSizes", x => new { x.SizeId, x.ProductId });
                     table.ForeignKey(
-                        name: "FK_ProductSize_Product_ProductId",
+                        name: "FK_ProductSizes_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Product",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductSize_Size_SizeId",
+                        name: "FK_ProductSizes_Sizes_SizeId",
                         column: x => x.SizeId,
-                        principalTable: "Size",
+                        principalTable: "Sizes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -200,33 +200,28 @@ namespace back_end.Migrations
                 {
                     table.PrimaryKey("PK_OrderDetails", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderDetails_Order_OrderId",
+                        name: "FK_OrderDetails_Orders_OrderId",
                         column: x => x.OrderId,
-                        principalTable: "Order",
+                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderDetails_Product_ProductId",
+                        name: "FK_OrderDetails_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Product",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.InsertData(
-                table: "User",
+                table: "Users",
                 columns: new[] { "Id", "Email", "Name", "Password", "Phone", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("51302994-d9c3-45bb-a2d7-babec40112b5"), "admin@minhstore.com", null, "$2a$11$fK9WErWgqTmE8viw15Xqx.ZzP5o8S4Rch2fxrYvjctr8.OshNpvnO", null, "Admin" },
-                    { new Guid("802efc9f-bd78-41ea-987c-8c13082c5fb3"), "user123@gmail.com", null, "$2a$11$lmRduV1euxdcEYDCDoxIM.iQr9Z7NOHL3gtle0xhiIdqdTmvSd9pK", null, "User" }
+                    { new Guid("31d9600d-7f2b-4f67-a10d-30ceb2169e4a"), "admin@minhstore.com", null, "$2a$11$CtU4R1EkNGGzmgYoh7S3KeSKI9bCSz2U2TfYcm4rPEKW/SoaduYee", null, "Admin" },
+                    { new Guid("aaf2e2ea-43a6-43e3-a373-de3fbc4dd686"), "user123@gmail.com", null, "$2a$11$Wc3Z8Rzboe5mqTfvcvA.WObYmcr5mQipdyrvwdHr7CckfqDw/rxvu", null, "User" }
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Order_UserId",
-                table: "Order",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_OrderId",
@@ -239,18 +234,23 @@ namespace back_end.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_CategoryId",
-                table: "Product",
-                column: "CategoryId");
+                name: "IX_Orders_UserId",
+                table: "Orders",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductColor_ProductId",
-                table: "ProductColor",
+                name: "IX_ProductColors_ProductId",
+                table: "ProductColors",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductSize_ProductId",
-                table: "ProductSize",
+                name: "IX_Products_CategoryId",
+                table: "Products",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductSizes_ProductId",
+                table: "ProductSizes",
                 column: "ProductId");
         }
 
@@ -261,28 +261,28 @@ namespace back_end.Migrations
                 name: "OrderDetails");
 
             migrationBuilder.DropTable(
-                name: "ProductColor");
+                name: "ProductColors");
 
             migrationBuilder.DropTable(
-                name: "ProductSize");
+                name: "ProductSizes");
 
             migrationBuilder.DropTable(
-                name: "Order");
+                name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Color");
+                name: "Colors");
 
             migrationBuilder.DropTable(
-                name: "Product");
+                name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Size");
+                name: "Sizes");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "Categories");
         }
     }
 }

@@ -5,8 +5,9 @@ namespace back_end.IRepository
     public interface IProductRepo
     {
         Task<IEnumerable<Product>> GetAllProduct();
-        Task<IEnumerable<Product>> GetProductById(int Id);
+        Task<IEnumerable<Product>> GetProductById(Guid Id);
         Task<bool> CreateProduct(Product product);
-        Task<bool> PutProduct(int Id, Product product);
+        Task<bool> PutProduct(Guid Id, Product product);
+        Task<Product> DeleteProduct(Guid Id);
     }
 }

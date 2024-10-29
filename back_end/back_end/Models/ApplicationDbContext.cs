@@ -8,14 +8,14 @@ namespace back_end.Models
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-        public DbSet<Product> Product { get; set; }
-        public DbSet<User> User{ get; set; }
-        public DbSet<Category> Category { get; set; }
-        public DbSet<Color> Color { get; set; }
-        public DbSet<Size> Size { get; set; }
-        public DbSet<ProductColor> ProductColor { get; set; }
-        public DbSet<ProductSize> ProductSize { get; set; }
-        public DbSet<Order> Order { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<User> Users{ get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Color> Colors { get; set; }
+        public DbSet<Size> Sizes { get; set; }
+        public DbSet<ProductColor> ProductColors { get; set; }
+        public DbSet<ProductSize> ProductSizes { get; set; }
+        public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
      
 

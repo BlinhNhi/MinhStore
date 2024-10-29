@@ -31,7 +31,7 @@ namespace back_end.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("back_end.Models.Color", b =>
@@ -46,7 +46,7 @@ namespace back_end.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Color");
+                    b.ToTable("Colors");
                 });
 
             modelBuilder.Entity("back_end.Models.Order", b =>
@@ -68,7 +68,7 @@ namespace back_end.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("back_end.Models.OrderDetail", b =>
@@ -134,7 +134,7 @@ namespace back_end.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("back_end.Models.ProductColor", b =>
@@ -152,7 +152,7 @@ namespace back_end.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductColor");
+                    b.ToTable("ProductColors");
                 });
 
             modelBuilder.Entity("back_end.Models.ProductSize", b =>
@@ -170,7 +170,7 @@ namespace back_end.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductSize");
+                    b.ToTable("ProductSizes");
                 });
 
             modelBuilder.Entity("back_end.Models.Size", b =>
@@ -185,7 +185,7 @@ namespace back_end.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Size");
+                    b.ToTable("Sizes");
                 });
 
             modelBuilder.Entity("back_end.Models.User", b =>
@@ -213,21 +213,21 @@ namespace back_end.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("51302994-d9c3-45bb-a2d7-babec40112b5"),
+                            Id = new Guid("31d9600d-7f2b-4f67-a10d-30ceb2169e4a"),
                             Email = "admin@minhstore.com",
-                            Password = "$2a$11$fK9WErWgqTmE8viw15Xqx.ZzP5o8S4Rch2fxrYvjctr8.OshNpvnO",
+                            Password = "$2a$11$CtU4R1EkNGGzmgYoh7S3KeSKI9bCSz2U2TfYcm4rPEKW/SoaduYee",
                             Role = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("802efc9f-bd78-41ea-987c-8c13082c5fb3"),
+                            Id = new Guid("aaf2e2ea-43a6-43e3-a373-de3fbc4dd686"),
                             Email = "user123@gmail.com",
-                            Password = "$2a$11$lmRduV1euxdcEYDCDoxIM.iQr9Z7NOHL3gtle0xhiIdqdTmvSd9pK",
+                            Password = "$2a$11$Wc3Z8Rzboe5mqTfvcvA.WObYmcr5mQipdyrvwdHr7CckfqDw/rxvu",
                             Role = "User"
                         });
                 });

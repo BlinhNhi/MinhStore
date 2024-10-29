@@ -18,6 +18,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("MySqlConn"), new MySqlServerVersion(new Version(7, 0, 0))));
 
 builder.Services.AddScoped<IProductRepo, ProductService>();
+builder.Services.AddScoped<ICategoryRepo, CategoryService>();
+builder.Services.AddScoped<IColorRepo, ColorService>();
+builder.Services.AddScoped<ISizeRepo, SizeService>();
 
 //fix lỗi json bị vòng lặp 
 builder.Services.AddControllers().AddJsonOptions(x =>
