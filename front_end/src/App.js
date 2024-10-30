@@ -12,6 +12,11 @@ import Login from "./pages/user_page/Login/Login";
 import AdminTemplate from "./templates/AdminTemplate";
 import ProductManager from "./pages/admin_page/ProductManager/ProductManager";
 import DashBoard from "./pages/admin_page/DashBoard/DashBoard";
+// Color Manager
+import ColorMng from "./pages/admin_page/ColorManager/ColorManager";
+import CreateColor from "./pages/admin_page/ColorManager/CreateColor";
+import UpdateColor from "./pages/admin_page/ColorManager/UpdateColor";
+
 
 export const history = createBrowserHistory();
 function App() {
@@ -36,6 +41,12 @@ function App() {
 
         <AdminTemplate path="/admin/product-manager" Component={ProductManager}></AdminTemplate>
         <AdminTemplate path="/admin/dashboard" Component={DashBoard}></AdminTemplate>
+
+        {/* Color */}
+        {/* FAQ */}
+        <AdminTemplate path="/admin/color-mng" exact Component={ColorMng} />
+        <AdminTemplate path="/admin/color-mng/addcolor" exact Component={CreateColor} />
+        <AdminTemplate path="/admin/color-mng/edit/:id" exact Component={UpdateColor} />
 
         <HomeTemplate Component={Home} />
       </Switch>

@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { PiSneakerFill } from "react-icons/pi";
 import { IoMenu, IoClose } from "react-icons/io5";
+import { IoIosColorPalette, IoIosResize } from "react-icons/io";
 import { Layout, Menu, theme } from 'antd';
 
 import AdminAvatar from "../components/Admin/AdminAvatar";
@@ -40,6 +41,7 @@ function AdminTemplate(props) {
     const itemsAdmin = [
         getItem('Trang Tổng Hợp', '1', closeModal, <NavLink className='text-decoration-none' to="/admin/dashboard"><LuLayoutDashboard /></NavLink>),
         getItem('Quản Lý Sản Phẩm', '2', closeModal, <NavLink className='text-decoration-none' to="/admin/product-manager"><PiSneakerFill /></NavLink>),
+        getItem('Quản Lý Màu Sắc Sản Phẩm', '3', closeModal, <NavLink className='text-decoration-none' to="/admin/color-mng"><IoIosColorPalette /></NavLink>),
         // getItem('Quản Lý Sản Phẩm', 'sub1', <UserOutlined />, [
         //     getItem('Bus Management', '2', <NavLink className='text-decoration-none' to="/admin/busmng"><i className="fas fa-bus f3" /></NavLink>),
         //     getItem('Bus Type Management', '3', <NavLink className='text-decoration-none' to="/admin/bustypemng"><i className="fas fa-bus f3" /></NavLink>),
@@ -84,7 +86,7 @@ function AdminTemplate(props) {
                             </Header>
 
                             <Content style={{ margin: '16px' }}>
-                                <div className="p-6 min-h-80 bg-gray-100 dark:bg-gray-600">
+                                <div className="p-6 min-h-80 bg-gray-100 dark:bg-gray-500">
                                     <Component {...propsRoute} />
                                 </div>
                             </Content>
