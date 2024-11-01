@@ -2,23 +2,27 @@ import React, { useEffect } from 'react';
 import { Form, Input, Button, notification } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { getColorDetailAction, updateColorAction } from '../../../redux_store/actions/ColorAction';
+import { getListCategoriesAction, updateCategoryAction, getCategoryDetailAction } from '../../../redux_store/actions/CategoryAction';
 
 
-const UpdateColor = (props) => {
+const UpdateCategory = (props) => {
     const dispatch = useDispatch();
-    const { colorDetail } = useSelector(state => state.ColorReducer)
+    const { categoryDetail } = useSelector(state => state.CategoryReducer)
+    let { arrCategories } = useSelector(state => state.CategoryReducer);
     let { id } = props.match.params;
     useEffect(() => {
-        dispatch(getColorDetailAction(id));
+        dispatch(getCategoryDetailAction(id));
+        dispatch(getListCategoriesAction())
     }, [dispatch, id])
+
 
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            name: colorDetail?.name,
+            name: categoryDetail?.name,
         },
         onSubmit: (values) => {
+            const categoryExisted = arrCategories?.some(element => element.name === values?.name)
             if (values.name === "" || values?.name?.startsWith(' ') === true) {
                 notification.error({
                     closeIcon: true,
@@ -28,13 +32,24 @@ const UpdateColor = (props) => {
                     ),
                 });
             }
+            else if (categoryExisted === true) {
+                notification.error({
+                    closeIcon: true,
+                    message: 'Lỗi Trùng Tên Danh Mục',
+                    description: (
+                        <>
+                            Danh Mục Này Đã Có Rồi.
+                        </>
+                    ),
+                });
+            }
             else {
                 let formData = new FormData();
                 for (let key in values) {
                     formData.append(key, values[key]);
                 }
                 console.table('formData', [...formData])
-                dispatch(updateColorAction(id, formData))
+                dispatch(updateCategoryAction(id, formData))
             }
         }
     })
@@ -50,11 +65,11 @@ const UpdateColor = (props) => {
             }}
             layout="horizontal"
         >
-            <h3 className="text-lg md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl font-medium mb-4 dark:text-white">Cập Nhật Màu Sản Phẩm:</h3>
+            <h3 className="text-lg md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl font-medium mb-4 dark:text-white">Cập Nhật Danh Mục:</h3>
             <div className='row'>
                 <div className='col-8'>
                     <Form.Item
-                        label="Màu Sắc"
+                        label="Danh Mục"
                         style={{ minWidth: '100%' }}
                         rules={[
                             {
@@ -68,7 +83,7 @@ const UpdateColor = (props) => {
                     </Form.Item>
 
                     <Form.Item label="Action">
-                        <Button htmlType="submit" type='primary'>Cập Nhật Màu Sản Phẩm</Button>
+                        <Button htmlType="submit" type='primary'>Cập Nhật Danh Mục</Button>
                     </Form.Item>
                 </div>
             </div>
@@ -76,4 +91,4 @@ const UpdateColor = (props) => {
     );
 };
 
-export default UpdateColor;
+export default UpdateCategory;

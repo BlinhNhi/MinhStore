@@ -8,7 +8,6 @@ export const getListColorAction = () => {
     return async (dispatch) => {
         try {
             const result = await colorService.getListColor();
-            console.log(result);
             if (result.data.status === 200) {
                 dispatch({
                     type: GET_COLOR_LIST,
@@ -25,7 +24,6 @@ export const addColorAction = (formData) => {
     return async (dispatch) => {
         try {
             const result = await colorService.createColor(formData)
-            console.log(result);
             notification.success({
                 closeIcon: true,
                 message: 'Success',
@@ -48,7 +46,6 @@ export const deleteColorAction = (id) => {
     return async (dispatch) => {
         try {
             const result = await colorService.deleteColor(id)
-            console.log(result);
             if (result.data.status === 200) {
                 notification.success({
                     closeIcon: true,
@@ -87,7 +84,6 @@ export const updateColorAction = (id, formData) => {
     return async () => {
         try {
             const result = await colorService.updateColor(id, formData)
-            console.log(result);
             if (result.data.status === 200) {
                 notification.success({
                     closeIcon: true,

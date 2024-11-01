@@ -5,7 +5,7 @@ const initialState = {
     categoryDetail: {},
 }
 
-export const ColorReducer = (state = initialState, action) => {
+export const CategoryReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_CATEGORY_LIST:

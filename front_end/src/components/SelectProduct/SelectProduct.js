@@ -4,14 +4,8 @@ import { ImSearch } from "react-icons/im";
 const { Option } = Select;
 
 function SelectProduct({ onSendData }) {
-    // const [setValueSize, isSetValueSize] = useState(0);
-    // console.log(setValueSize);
-    // console.log(setValueSize);
-
-
-
     const handleFromChange = (value) => {
-        console.log(value);
+        // console.log(value);
         onSendData(value); // Gọi hàm và truyền giá trị lên cha
     };
 

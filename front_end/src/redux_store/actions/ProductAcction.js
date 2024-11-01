@@ -8,7 +8,7 @@ export const getListProductsAction = () => {
     return async (dispatch) => {
         try {
             const result = await productService.getListProduct();
-            console.log(result);
+            // console.log(result);
             if (result.data.status === 200) {
                 dispatch({
                     type: GET_PRODUCT_LIST,

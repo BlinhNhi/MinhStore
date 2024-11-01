@@ -16,6 +16,10 @@ import DashBoard from "./pages/admin_page/DashBoard/DashBoard";
 import ColorMng from "./pages/admin_page/ColorManager/ColorManager";
 import CreateColor from "./pages/admin_page/ColorManager/CreateColor";
 import UpdateColor from "./pages/admin_page/ColorManager/UpdateColor";
+// Category Manager
+import CategoryMng from "./pages/admin_page/CategoriesMng/CategoriesMng";
+import CreateCategory from "./pages/admin_page/CategoriesMng/CreateCategory";
+import UpdateCategory from "./pages/admin_page/CategoriesMng/UpdateCategory";
 
 
 export const history = createBrowserHistory();
@@ -43,11 +47,14 @@ function App() {
         <AdminTemplate path="/admin/dashboard" Component={DashBoard}></AdminTemplate>
 
         {/* Color */}
-        {/* FAQ */}
         <AdminTemplate path="/admin/color-mng" exact Component={ColorMng} />
         <AdminTemplate path="/admin/color-mng/addcolor" exact Component={CreateColor} />
         <AdminTemplate path="/admin/color-mng/edit/:id" exact Component={UpdateColor} />
 
+        {/* Category */}
+        <AdminTemplate path="/admin/categories-mng" exact Component={CategoryMng} />
+        <AdminTemplate path="/admin/categories-mng/addcate" exact Component={CreateCategory} />
+        <AdminTemplate path="/admin/categories-mng/edit/:id" exact Component={UpdateCategory} />
         <HomeTemplate Component={Home} />
       </Switch>
     </Router>

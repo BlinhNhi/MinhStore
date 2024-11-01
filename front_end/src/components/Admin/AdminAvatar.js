@@ -24,7 +24,6 @@ export default function AdminAvatar(props) {
         email: 'adminMinhCoi@gmail.com'
     }
 
-    console.log(userLogin?.email);
 
     const content = (
         <div style={{ width: 200 }}>

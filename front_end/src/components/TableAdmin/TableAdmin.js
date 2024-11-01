@@ -136,7 +136,6 @@ function TableAdmin() {
             width: '15%',
             key: "image",
             render: (text, data, index) => {
-                console.log(data);
                 return data.image != "null" && data.image != null ? (
                     <img key={index} style={{ width: 60, height: 60, objectFit: "cover", borderRadius: "20%", }}
                         src={data?.image}

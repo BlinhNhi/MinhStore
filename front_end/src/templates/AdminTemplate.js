@@ -1,11 +1,14 @@
 import { Fragment, useState } from "react";
 import { Route } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+// react-icons
 import { LuLayoutDashboard } from "react-icons/lu";
 import { PiSneakerFill } from "react-icons/pi";
 import { IoMenu, IoClose } from "react-icons/io5";
-import { IoIosColorPalette, IoIosResize } from "react-icons/io";
-import { Layout, Menu, theme } from 'antd';
+import { IoIosColorPalette } from "react-icons/io";
+import { MdOutlineCategory } from "react-icons/md";
+
+import { Layout, Menu } from 'antd';
 
 import AdminAvatar from "../components/Admin/AdminAvatar";
 import DarkMode from "../components/DarkMode/DarkMode";
@@ -36,12 +39,14 @@ function AdminTemplate(props) {
 
     const selectedKeys = ['/admin/busmng', '/admin/stationmng', '/admin/theatremng', '/admin/theatrechildmng', '/admin/users'];
     const selectedKey = (selectedKeys.indexOf(props.path) + 1).toString();
-    const { token: { colorBgContainer } } = theme.useToken();
+    // const { token: { colorBgContainer } } = theme.useToken();
 
     const itemsAdmin = [
         getItem('Trang Tổng Hợp', '1', closeModal, <NavLink className='text-decoration-none' to="/admin/dashboard"><LuLayoutDashboard /></NavLink>),
         getItem('Quản Lý Sản Phẩm', '2', closeModal, <NavLink className='text-decoration-none' to="/admin/product-manager"><PiSneakerFill /></NavLink>),
         getItem('Quản Lý Màu Sắc Sản Phẩm', '3', closeModal, <NavLink className='text-decoration-none' to="/admin/color-mng"><IoIosColorPalette /></NavLink>),
+        getItem('Quản Lý Danh Mục', '4', closeModal, <NavLink className='text-decoration-none' to="/admin/categories-mng"><MdOutlineCategory /></NavLink>),
+
         // getItem('Quản Lý Sản Phẩm', 'sub1', <UserOutlined />, [
         //     getItem('Bus Management', '2', <NavLink className='text-decoration-none' to="/admin/busmng"><i className="fas fa-bus f3" /></NavLink>),
         //     getItem('Bus Type Management', '3', <NavLink className='text-decoration-none' to="/admin/bustypemng"><i className="fas fa-bus f3" /></NavLink>),

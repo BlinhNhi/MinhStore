@@ -6,7 +6,7 @@ import { IoFlash } from "react-icons/io5";
 function Login() {
     const [openLogin, setOpenLogin] = useState("flex");
     const [openRegister, setOpenRegister] = useState(false);
-    console.log(openRegister);
+    // console.log(openRegister);
 
     return (
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200">

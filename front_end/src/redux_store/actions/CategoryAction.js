@@ -1,6 +1,6 @@
 import { notification } from 'antd';
 import { history } from '../../App';
-import { categoryService } from '../../service/CategoyService';
+import { categoryService } from '../../service/CategoryService';
 import { GET_CATEGORY_LIST, GET_CATEGORY_DETAIL } from '../constants';
 
 
@@ -8,8 +8,7 @@ import { GET_CATEGORY_LIST, GET_CATEGORY_DETAIL } from '../constants';
 export const getListCategoriesAction = () => {
     return async (dispatch) => {
         try {
-            const result = await categoryService.getListCategroy();
-            console.log(result);
+            const result = await categoryService.getListCategory();
             if (result.data.status === 200) {
                 dispatch({
                     type: GET_CATEGORY_LIST,
@@ -25,7 +24,7 @@ export const getListCategoriesAction = () => {
 export const addCategoryAction = (formData) => {
     return async (dispatch) => {
         try {
-            const result = await categoryService.createCategroy(formData)
+            const result = await categoryService.createCategory(formData)
             console.log(result);
             notification.success({
                 closeIcon: true,
@@ -48,8 +47,7 @@ export const addCategoryAction = (formData) => {
 export const deleteCategoryAction = (id) => {
     return async (dispatch) => {
         try {
-            const result = await categoryService.deleteCategroy(id)
-            console.log(result);
+            const result = await categoryService.deleteCategory(id)
             if (result.data.status === 200) {
                 notification.success({
                     closeIcon: true,
@@ -70,7 +68,7 @@ export const getCategoryDetailAction = (id) => {
 
     return async (dispatch) => {
         try {
-            const result = await categoryService.getCategroyById(id)
+            const result = await categoryService.getCategoryById(id)
             if (result.data.status === 200) {
                 dispatch({
                     type: GET_CATEGORY_DETAIL,
@@ -87,8 +85,7 @@ export const getCategoryDetailAction = (id) => {
 export const updateCategoryAction = (id, formData) => {
     return async () => {
         try {
-            const result = await categoryService.updateCategroy(id, formData)
-            console.log(result);
+            const result = await categoryService.updateCategory(id, formData)
             if (result.data.status === 200) {
                 notification.success({
                     closeIcon: true,
