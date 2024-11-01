@@ -16,7 +16,7 @@ const UpdateColor = (props) => {
         dispatch(getListColorAction());
     }, [dispatch, id])
     const handleSubmitColor = (values) => {
-        const categoryExisted = arrColor?.some(element => element.name === values?.name)
+        const sizeExisted = arrColor?.some(element => element.name === values?.name)
         if (values.name === "" || values?.name?.startsWith(' ') === true) {
             notification.error({
                 closeIcon: true,
@@ -26,7 +26,7 @@ const UpdateColor = (props) => {
                 ),
             });
         }
-        else if (categoryExisted === true) {
+        else if (sizeExisted === true) {
             notification.error({
                 closeIcon: true,
                 message: 'Lỗi Trùng Tên Màu Sắc',

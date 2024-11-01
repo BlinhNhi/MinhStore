@@ -20,6 +20,10 @@ import UpdateColor from "./pages/admin_page/ColorManager/UpdateColor";
 import CategoryMng from "./pages/admin_page/CategoriesMng/CategoriesMng";
 import CreateCategory from "./pages/admin_page/CategoriesMng/CreateCategory";
 import UpdateCategory from "./pages/admin_page/CategoriesMng/UpdateCategory";
+// Size
+import SizeMng from "./pages/admin_page/SizeMng/SizesMng";
+import CreateSize from "./pages/admin_page/SizeMng/CreateSize";
+import UpdateSize from "./pages/admin_page/SizeMng/UpdateSize";
 
 
 export const history = createBrowserHistory();
@@ -45,16 +49,20 @@ function App() {
 
         <AdminTemplate path="/admin/product-manager" Component={ProductManager}></AdminTemplate>
         <AdminTemplate path="/admin/dashboard" Component={DashBoard}></AdminTemplate>
-
         {/* Color */}
         <AdminTemplate path="/admin/color-mng" exact Component={ColorMng} />
         <AdminTemplate path="/admin/color-mng/addcolor" exact Component={CreateColor} />
         <AdminTemplate path="/admin/color-mng/edit/:id" exact Component={UpdateColor} />
-
         {/* Category */}
         <AdminTemplate path="/admin/categories-mng" exact Component={CategoryMng} />
         <AdminTemplate path="/admin/categories-mng/addcate" exact Component={CreateCategory} />
         <AdminTemplate path="/admin/categories-mng/edit/:id" exact Component={UpdateCategory} />
+        {/* Size */}
+        <AdminTemplate path="/admin/sizes-mng" exact Component={SizeMng} />
+        <AdminTemplate path="/admin/sizes-mng/addsize" exact Component={CreateSize} />
+        <AdminTemplate path="/admin/sizes-mng/edit/:id" exact Component={UpdateSize} />
+
+
         <HomeTemplate Component={Home} />
       </Switch>
     </Router>

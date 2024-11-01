@@ -8,8 +8,8 @@ export class CategoryService extends baseService {
     getListCategory = () => {
         return this.get(`/api/Category`);
     };
-    getCategoryById = (colorId) => {
-        return this.get(`/api/Category/${colorId}`);
+    getCategoryById = (cateId) => {
+        return this.get(`/api/Category/${cateId}`);
     }
     createCategory = (formData) => {
         return this.post(`/api/Category`, formData);
@@ -17,8 +17,8 @@ export class CategoryService extends baseService {
     deleteCategory = (id) => {
         return this.delete(`/api/Category/${id}`);
     };
-    updateCategory = (id, color) => {
-        return this.put(`/api/Category?Id=${id}`, color);
+    updateCategory = (id, cate) => {
+        return this.put(`/api/Category?Id=${id}`, cate);
     };
 }
 

@@ -7,6 +7,7 @@ import { PiSneakerFill } from "react-icons/pi";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { IoIosColorPalette } from "react-icons/io";
 import { MdOutlineCategory } from "react-icons/md";
+import { RxDimensions } from "react-icons/rx";
 
 import { Layout, Menu } from 'antd';
 
@@ -46,6 +47,8 @@ function AdminTemplate(props) {
         getItem('Quản Lý Sản Phẩm', '2', closeModal, <NavLink className='text-decoration-none' to="/admin/product-manager"><PiSneakerFill /></NavLink>),
         getItem('Quản Lý Màu Sắc Sản Phẩm', '3', closeModal, <NavLink className='text-decoration-none' to="/admin/color-mng"><IoIosColorPalette /></NavLink>),
         getItem('Quản Lý Danh Mục', '4', closeModal, <NavLink className='text-decoration-none' to="/admin/categories-mng"><MdOutlineCategory /></NavLink>),
+        getItem('Quản Lý Kích Thước', '5', closeModal, <NavLink className='text-decoration-none' to="/admin/sizes-mng"><RxDimensions /></NavLink>),
+
 
         // getItem('Quản Lý Sản Phẩm', 'sub1', <UserOutlined />, [
         //     getItem('Bus Management', '2', <NavLink className='text-decoration-none' to="/admin/busmng"><i className="fas fa-bus f3" /></NavLink>),
