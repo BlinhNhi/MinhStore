@@ -7,7 +7,9 @@ export const GET_PRODUCT_LIST = "GET_PRODUCT_LIST";
 // Color
 export const GET_COLOR_LIST = "GET_COLOR_LIST";
 export const GET_COLOR_DETAIL = "GET_COLOR_DETAIL"
-
+//Category
+export const GET_CATEGORY_LIST = "GETCATEGORY_LIST";
+export const GET_CATEGORY_DETAIL = "GET_ CATEGORY_DETAIL"
 
 export const DISPLAY_LOADING = "DISPLAY_LOADING";
 export const HIDE_LOADING = "HIDE_LOADING";
