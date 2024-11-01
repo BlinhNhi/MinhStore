@@ -2,41 +2,57 @@ import React, { useEffect } from 'react';
 import { Form, Input, Button, notification } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { getColorDetailAction, updateColorAction } from '../../../redux_store/actions/ColorAction';
+import { getColorDetailAction, getListColorAction, updateColorAction } from '../../../redux_store/actions/ColorAction';
 
 
 const UpdateColor = (props) => {
     const dispatch = useDispatch();
     const { colorDetail } = useSelector(state => state.ColorReducer)
+    const { arrColor } = useSelector(state => state.ColorReducer)
+    console.log(arrColor);
     let { id } = props.match.params;
     useEffect(() => {
         dispatch(getColorDetailAction(id));
+        dispatch(getListColorAction());
     }, [dispatch, id])
+    const handleSubmitColor = (values) => {
+        const categoryExisted = arrColor?.some(element => element.name === values?.name)
+        if (values.name === "" || values?.name?.startsWith(' ') === true) {
+            notification.error({
+                closeIcon: true,
+                message: 'Error',
+                description: (
+                    <>Vui lòng điền đầy đủ thông tin và Không để trống đầu câu !.</>
+                ),
+            });
+        }
+        else if (categoryExisted === true) {
+            notification.error({
+                closeIcon: true,
+                message: 'Lỗi Trùng Tên Màu Sắc',
+                description: (
+                    <>
+                        Màu Sắc Này Đã Có Rồi.
+                    </>
+                ),
+            });
+        }
+        else {
+            let formData = new FormData();
+            for (let key in values) {
+                formData.append(key, values[key]);
+            }
+            console.table('formData', [...formData])
+            dispatch(updateColorAction(id, formData))
+        }
+    }
 
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
             name: colorDetail?.name,
         },
-        onSubmit: (values) => {
-            if (values.name === "" || values?.name?.startsWith(' ') === true) {
-                notification.error({
-                    closeIcon: true,
-                    message: 'Error',
-                    description: (
-                        <>Vui lòng điền đầy đủ thông tin và Không để trống đầu câu !.</>
-                    ),
-                });
-            }
-            else {
-                let formData = new FormData();
-                for (let key in values) {
-                    formData.append(key, values[key]);
-                }
-                console.table('formData', [...formData])
-                dispatch(updateColorAction(id, formData))
-            }
-        }
+        onSubmit: handleSubmitColor
     })
 
     return (

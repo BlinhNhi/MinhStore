@@ -13,45 +13,46 @@ const UpdateCategory = (props) => {
     useEffect(() => {
         dispatch(getCategoryDetailAction(id));
         dispatch(getListCategoriesAction())
-    }, [dispatch, id])
+    }, [dispatch, id]);
 
+    const handleSubmitCategory = (values) => {
+        const categoryExisted = arrCategories?.some(element => element.name === values?.name)
+        if (values.name === "" || values?.name?.startsWith(' ') === true) {
+            notification.error({
+                closeIcon: true,
+                message: 'Error',
+                description: (
+                    <>Vui lòng điền đầy đủ thông tin và Không để trống đầu câu !.</>
+                ),
+            });
+        }
+        else if (categoryExisted === true) {
+            notification.error({
+                closeIcon: true,
+                message: 'Lỗi Trùng Tên Danh Mục',
+                description: (
+                    <>
+                        Danh Mục Này Đã Có Rồi.
+                    </>
+                ),
+            });
+        }
+        else {
+            let formData = new FormData();
+            for (let key in values) {
+                formData.append(key, values[key]);
+            }
+            console.table('formData', [...formData])
+            dispatch(updateCategoryAction(id, formData))
+        }
+    }
 
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
             name: categoryDetail?.name,
         },
-        onSubmit: (values) => {
-            const categoryExisted = arrCategories?.some(element => element.name === values?.name)
-            if (values.name === "" || values?.name?.startsWith(' ') === true) {
-                notification.error({
-                    closeIcon: true,
-                    message: 'Error',
-                    description: (
-                        <>Vui lòng điền đầy đủ thông tin và Không để trống đầu câu !.</>
-                    ),
-                });
-            }
-            else if (categoryExisted === true) {
-                notification.error({
-                    closeIcon: true,
-                    message: 'Lỗi Trùng Tên Danh Mục',
-                    description: (
-                        <>
-                            Danh Mục Này Đã Có Rồi.
-                        </>
-                    ),
-                });
-            }
-            else {
-                let formData = new FormData();
-                for (let key in values) {
-                    formData.append(key, values[key]);
-                }
-                console.table('formData', [...formData])
-                dispatch(updateCategoryAction(id, formData))
-            }
-        }
+        onSubmit: handleSubmitCategory
     })
 
     return (
