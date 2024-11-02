@@ -104,8 +104,8 @@ namespace back_end.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ColorProduct")
-                        .HasColumnType("int");
+                    b.Property<string>("ColorId")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ImageProduct")
                         .HasColumnType("longtext");
@@ -124,8 +124,8 @@ namespace back_end.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("SizeProduct")
-                        .HasColumnType("int");
+                    b.Property<string>("SizeId")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("StockQuantity")
                         .HasColumnType("int");
@@ -218,16 +218,16 @@ namespace back_end.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("31d9600d-7f2b-4f67-a10d-30ceb2169e4a"),
+                            Id = new Guid("64fd45c0-f129-483f-91bd-042646f9eec1"),
                             Email = "admin@minhstore.com",
-                            Password = "$2a$11$CtU4R1EkNGGzmgYoh7S3KeSKI9bCSz2U2TfYcm4rPEKW/SoaduYee",
+                            Password = "$2a$11$xigvQF6gkUdixdqQdVjykuQRG0hCfjeJ2/4OV7HudU.L2RoZxXOvG",
                             Role = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("aaf2e2ea-43a6-43e3-a373-de3fbc4dd686"),
+                            Id = new Guid("96d0dcea-3980-42f7-9fcf-fc9af39379f6"),
                             Email = "user123@gmail.com",
-                            Password = "$2a$11$Wc3Z8Rzboe5mqTfvcvA.WObYmcr5mQipdyrvwdHr7CckfqDw/rxvu",
+                            Password = "$2a$11$lQMdoYqKitOdDaD0MIGocumlzn9De3HnqXFOj9IbSEmSI7b2cCn9G",
                             Role = "User"
                         });
                 });

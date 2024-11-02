@@ -9,5 +9,7 @@ namespace back_end.IRepository
         Task<bool> CreateProduct(Product product);
         Task<bool> PutProduct(Guid Id, Product product);
         Task<Product> DeleteProduct(Guid Id);
+
+   
     }
 }

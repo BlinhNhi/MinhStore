@@ -14,24 +14,72 @@ namespace back_end.Services
             this.db = db;
             this.env = env;
         }
-      
+
 
         public async Task<IEnumerable<Product>> GetAllProduct()
         {
-            return await db.Products.ToListAsync();
+            return await db.Products
+                .Include(p => p.Category) // Kết nối với Category
+                .Include(p => p.Colors) // Kết nối với Colors
+                .Include(p => p.Sizes) // Kết nối với Sizes
+                .Select(p => new Product()
+                {
+                    Id = p.Id,
+                    NameProduct = p.NameProduct,
+                    StockQuantity = p.StockQuantity,
+                    NumberOfProductSold = p.NumberOfProductSold,
+                    NumberOfProductInStock = p.NumberOfProductInStock,
+                    ImageProduct = p.ImageProduct,
+                    ColorId = p.ColorId,
+                    Colors = p.Colors, // Lấy Colors liên kết
+                    SizeId = p.SizeId,
+                    Sizes = p.Sizes, // Lấy Sizes liên kết
+                    Category = new Category() // Gán Category
+                    {
+                        Id = p.Category.Id,
+                        Name = p.Category.Name,
+                    }
+                })
+                .ToListAsync();
         }
+
 
         public async Task<bool> CreateProduct(Product product)
         {
-            db.Products.Add(product);
-            int result = await db.SaveChangesAsync();
-            if (result == 0)
+            try
+            {
+                Category category = db.Categories.Where(c => c.Id == product.CategoryId).FirstOrDefault();
+                product.Category = category;
+                await db.Products.AddAsync(product);
+                await db.SaveChangesAsync();
+                if (product.ColorId != null)
+                {
+                    List<string> list = product.ColorId.Split(",").ToList();
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        int id = Int32.Parse(list[i]);
+                        ProductColor color = new ProductColor { ProductId = product.Id, ColorId = id };
+                        db.ProductColors.Add(color);
+                        await db.SaveChangesAsync();
+                    }
+                }
+                if (product.SizeId != null)
+                {
+                    List<string> list = product.SizeId.Split(",").ToList();
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        int id = Int32.Parse(list[i]);
+                        ProductSize size = new ProductSize { ProductId = product.Id, SizeId = id };
+                        db.ProductSizes.Add(size);
+                        await db.SaveChangesAsync();
+                    }
+                }
+                return true;
+
+            }
+            catch (Exception ex)
             {
                 return false;
-            }
-            else
-            {
-                return true;
             }
         }
         public async Task<IEnumerable<Product>> GetProductById(Guid Id)

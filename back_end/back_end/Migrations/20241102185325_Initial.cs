@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace back_end.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -98,8 +98,10 @@ namespace back_end.Migrations
                     NumberOfProductInStock = table.Column<int>(type: "int", nullable: false),
                     ImageProduct = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ColorProduct = table.Column<int>(type: "int", nullable: false),
-                    SizeProduct = table.Column<int>(type: "int", nullable: false),
+                    ColorId = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    SizeId = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -219,8 +221,8 @@ namespace back_end.Migrations
                 columns: new[] { "Id", "Email", "Name", "Password", "Phone", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("31d9600d-7f2b-4f67-a10d-30ceb2169e4a"), "admin@minhstore.com", null, "$2a$11$CtU4R1EkNGGzmgYoh7S3KeSKI9bCSz2U2TfYcm4rPEKW/SoaduYee", null, "Admin" },
-                    { new Guid("aaf2e2ea-43a6-43e3-a373-de3fbc4dd686"), "user123@gmail.com", null, "$2a$11$Wc3Z8Rzboe5mqTfvcvA.WObYmcr5mQipdyrvwdHr7CckfqDw/rxvu", null, "User" }
+                    { new Guid("64fd45c0-f129-483f-91bd-042646f9eec1"), "admin@minhstore.com", null, "$2a$11$xigvQF6gkUdixdqQdVjykuQRG0hCfjeJ2/4OV7HudU.L2RoZxXOvG", null, "Admin" },
+                    { new Guid("96d0dcea-3980-42f7-9fcf-fc9af39379f6"), "user123@gmail.com", null, "$2a$11$lQMdoYqKitOdDaD0MIGocumlzn9De3HnqXFOj9IbSEmSI7b2cCn9G", null, "User" }
                 });
 
             migrationBuilder.CreateIndex(

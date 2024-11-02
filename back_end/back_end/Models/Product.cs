@@ -2,7 +2,7 @@
 {
     public class Product
     {
-        public Guid Id { get; private set; }
+        public Guid Id { get; set; }
         public string PriceProduct { get; set; }
         public string NameProduct { get; set; }
 
@@ -10,8 +10,8 @@
         public int NumberOfProductSold { get; set; }
         public int NumberOfProductInStock { get; set; }
         public string ?ImageProduct { get; set; }
-        public int ColorProduct { get; set; }
-        public int SizeProduct { get; set; }
+        public string? ColorId { get; set; }
+        public string? SizeId { get; set; }
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
         public ICollection<Color>? Colors { get; set; }
