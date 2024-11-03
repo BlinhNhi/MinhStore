@@ -1,5 +1,5 @@
 import { productService } from "../../service/ProductService";
-import { GET_PRODUCT_LIST } from "../constants";
+import { GET_PRODUCT_DETAIL, GET_PRODUCT_LIST } from "../constants";
 import { notification } from 'antd';
 import { history } from '../../App';
 
@@ -8,7 +8,6 @@ export const getListProductsAction = () => {
     return async (dispatch) => {
         try {
             const result = await productService.getListProduct();
-            // console.log(result);
             if (result.data.status === 200) {
                 dispatch({
                     type: GET_PRODUCT_LIST,
@@ -21,65 +20,66 @@ export const getListProductsAction = () => {
     };
 };
 
-// export const addNewsAction = (formData) => {
-//   return async (dispatch) => {
-//     try {
-//       const result = await newService.createNews(formData)
-//       notification.success({
-//         closeIcon: true,
-//         message: 'Success',
-//         description: (
-//           <>Add new News successfully</>
-//         ),
-//       });
-//       history.push('/admin/newsmng');
-//     } catch (error) {
-//       notification.error({
-//         closeIcon: true,
-//         message: "Fail",
-//         description: <>Add News Fail.</>,
-//       });
-//     }
-//   }
-// }
+export const addProductAction = (formData) => {
+    return async (dispatch) => {
+        try {
+            const result = await productService.createProduct(formData)
+            console.log(result);
+            notification.success({
+                closeIcon: true,
+                message: 'Success',
+                description: (
+                    <>Thêm Sản Phẩm Thành Công</>
+                ),
+            });
+            history.push('/admin/product-mng');
+        } catch (error) {
+            notification.error({
+                closeIcon: true,
+                message: "Fail",
+                description: <>Thêm Sản Phẩm Thất Bại.</>,
+            });
+        }
+    }
+}
 
-// export const deleteNewsAction = (id) => {
-//   return async (dispatch) => {
-//     try {
-//       const result = await newService.deleteNews(id)
-//       if (result.data.status === 200) {
-//         notification.success({
-//           closeIcon: true,
-//           message: "Success",
-//           description: (
-//             <>Delete successfully</>
-//           )
-//         });
-//       }
-//       dispatch(getListNewsAction())
-//     }
-//     catch (e) {
-//       console.log(e)
-//     }
-//   };
-// }
-// export const detailNewsAction = (id) => {
+export const deleteProductAction = (id) => {
+    return async (dispatch) => {
+        try {
+            const result = await productService.deleteProduct(id)
+            if (result.data.status === 200) {
+                notification.success({
+                    closeIcon: true,
+                    message: "Xoá Sản Phẩm Thành Công",
+                    description: (
+                        <>Xoá Sản Phẩm Thành Công</>
+                    )
+                });
+            }
+            dispatch(getListProductsAction())
+        }
+        catch (e) {
+            console.log(e)
+        }
+    };
+}
+export const detailNewsAction = (id) => {
 
-//   return async (dispatch) => {
-//     try {
-//       const result = await newService.getNewsById(id)
-//       if (result.data.status === 200) {
-//         dispatch({
-//           type: GET_NEWS_DETAIL,
-//           newsDetail: result.data.data[0],
-//         })
+    return async (dispatch) => {
+        try {
+            const result = await productService.getProductById(id)
+            if (result.data.status === 200) {
+                dispatch({
+                    type: GET_PRODUCT_DETAIL,
+                    productDetail: result.data.data[0],
+                })
 
-//       }
-//     } catch (e) {
-//       console.log(e)
-//     }
-//   }
-// }
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
 
 // export const updateNewsAction = (id, formData) => {
 //   return async () => {

@@ -44,7 +44,7 @@ function AdminTemplate(props) {
 
     const itemsAdmin = [
         getItem('Trang Tổng Hợp', '1', closeModal, <NavLink className='text-decoration-none' to="/admin/dashboard"><LuLayoutDashboard /></NavLink>),
-        getItem('Quản Lý Sản Phẩm', '2', closeModal, <NavLink className='text-decoration-none' to="/admin/product-manager"><PiSneakerFill /></NavLink>),
+        getItem('Quản Lý Sản Phẩm', '2', closeModal, <NavLink className='text-decoration-none' to="/admin/product-mng"><PiSneakerFill /></NavLink>),
         getItem('Quản Lý Màu Sắc Sản Phẩm', '3', closeModal, <NavLink className='text-decoration-none' to="/admin/color-mng"><IoIosColorPalette /></NavLink>),
         getItem('Quản Lý Danh Mục', '4', closeModal, <NavLink className='text-decoration-none' to="/admin/categories-mng"><MdOutlineCategory /></NavLink>),
         getItem('Quản Lý Kích Thước', '5', closeModal, <NavLink className='text-decoration-none' to="/admin/sizes-mng"><RxDimensions /></NavLink>),

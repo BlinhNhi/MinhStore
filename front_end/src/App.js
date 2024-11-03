@@ -10,8 +10,8 @@ import Search from "./pages/user_page/Search/Search";
 import ProductDetail from "./pages/user_page/ProductDetail/ProductDetail";
 import Login from "./pages/user_page/Login/Login";
 import AdminTemplate from "./templates/AdminTemplate";
-import ProductManager from "./pages/admin_page/ProductManager/ProductManager";
 import DashBoard from "./pages/admin_page/DashBoard/DashBoard";
+
 // Color Manager
 import ColorMng from "./pages/admin_page/ColorManager/ColorManager";
 import CreateColor from "./pages/admin_page/ColorManager/CreateColor";
@@ -24,6 +24,9 @@ import UpdateCategory from "./pages/admin_page/CategoriesMng/UpdateCategory";
 import SizeMng from "./pages/admin_page/SizeMng/SizesMng";
 import CreateSize from "./pages/admin_page/SizeMng/CreateSize";
 import UpdateSize from "./pages/admin_page/SizeMng/UpdateSize";
+// Product
+import ProductManager from "./pages/admin_page/ProductManager/ProductManager";
+import CreateProduct from "./pages/admin_page/ProductManager/CreateProduct";
 
 
 export const history = createBrowserHistory();
@@ -46,9 +49,8 @@ function App() {
         <HomeTemplate path="/search/" Component={Search}></HomeTemplate>
         <HomeTemplate path="/product-detail/1" Component={ProductDetail}></HomeTemplate>
         <HomeTemplate path="/login" Component={Login}></HomeTemplate>
-
-        <AdminTemplate path="/admin/product-manager" Component={ProductManager}></AdminTemplate>
         <AdminTemplate path="/admin/dashboard" Component={DashBoard}></AdminTemplate>
+
         {/* Color */}
         <AdminTemplate path="/admin/color-mng" exact Component={ColorMng} />
         <AdminTemplate path="/admin/color-mng/addcolor" exact Component={CreateColor} />
@@ -61,7 +63,9 @@ function App() {
         <AdminTemplate path="/admin/sizes-mng" exact Component={SizeMng} />
         <AdminTemplate path="/admin/sizes-mng/addsize" exact Component={CreateSize} />
         <AdminTemplate path="/admin/sizes-mng/edit/:id" exact Component={UpdateSize} />
-
+        {/* Product */}
+        <AdminTemplate path="/admin/product-mng" exact Component={ProductManager} />
+        <AdminTemplate path="/admin/product-mng/add-product" exact Component={CreateProduct} />
 
         <HomeTemplate Component={Home} />
       </Switch>
