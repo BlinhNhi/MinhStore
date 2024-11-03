@@ -101,6 +101,8 @@ namespace back_end.Services
                 ExistingProduct.StockQuantity = product.StockQuantity;
                 ExistingProduct.NumberOfProductSold = product.NumberOfProductSold;
                 ExistingProduct.NumberOfProductInStock = product.NumberOfProductInStock;
+                ExistingProduct.ColorId = product.ColorId;
+                ExistingProduct.SizeId = product.SizeId;
                 ExistingProduct.Category = category;
 
                 var color = await db.ProductColors.Where(pc => pc.ProductId == Id).ToListAsync();
@@ -121,6 +123,7 @@ namespace back_end.Services
                         await db.SaveChangesAsync();
                     }
                 }
+
                 var size = await db.ProductSizes.Where(pc => pc.ProductId == Id).ToListAsync();
                 foreach (var i in size)
                 {
