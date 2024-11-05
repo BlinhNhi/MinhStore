@@ -4,7 +4,7 @@ import { Button, Input, Space, Table, Tag } from 'antd';
 import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteProductAction, getListProductsAction } from '../../../redux_store/actions/ProductAcction';
+import { deleteProductAction, getDetailProductAction, getListProductsAction } from '../../../redux_store/actions/ProductAcction';
 
 import NoImage from '../../../assets/no-image.jpeg'
 
@@ -206,8 +206,8 @@ export default function ProductMng() {
             width: '10%',
             render: (text, pro) => {
                 return <>
-                    <Button key={1} href={`/admin/color-mng/edit/${pro.id}`} type="link" icon={<EditOutlined />} onClick={() => {
-                        // dispatch(getColorDetailAction(pro.id))
+                    <Button key={1} href={`/admin/product-mng/edit/${pro.id}`} type="link" icon={<EditOutlined />} onClick={() => {
+                        dispatch(getDetailProductAction(pro.id))
                     }}></Button>
                     <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
                         if (window.confirm('Bạn Muốn Xoá Sản Phẩm : ' + pro.nameProduct + '?')) {

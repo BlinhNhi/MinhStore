@@ -63,11 +63,12 @@ export const deleteProductAction = (id) => {
         }
     };
 }
-export const detailNewsAction = (id) => {
+export const getDetailProductAction = (id) => {
 
     return async (dispatch) => {
         try {
-            const result = await productService.getProductById(id)
+            const result = await productService.getProductById(id);
+            console.log(result);
             if (result.data.status === 200) {
                 dispatch({
                     type: GET_PRODUCT_DETAIL,
@@ -81,26 +82,26 @@ export const detailNewsAction = (id) => {
     }
 }
 
-// export const updateNewsAction = (id, formData) => {
-//   return async () => {
-//     try {
-//       const result = await newService.updateNews(id, formData)
-//       if (result.data.status === 200) {
-//         notification.success({
-//           closeIcon: true,
-//           message: 'Success',
-//           description: (
-//             <>Update News successfully</>
-//           ),
-//         });
-//         history.push('/admin/newsmng');
-//       }
-//     } catch (error) {
-//       notification.error({
-//         closeIcon: true,
-//         message: "Fail",
-//         description: <>Update News Fail.</>,
-//       });
-//     }
-//   }
-// }
+export const updateProductAction = (id, formData) => {
+    return async () => {
+        try {
+            const result = await productService.updateProduct(id, formData)
+            if (result.data.status === 200) {
+                notification.success({
+                    closeIcon: true,
+                    message: 'Thành Công',
+                    description: (
+                        <>Cập Nhật Sản Phẩm Thành Công</>
+                    ),
+                });
+                history.push('/admin/product-mng');
+            }
+        } catch (error) {
+            notification.error({
+                closeIcon: true,
+                message: "Thất Bại",
+                description: <>Cập Nhật Sản Phẩm Thất Bại.</>,
+            });
+        }
+    }
+}

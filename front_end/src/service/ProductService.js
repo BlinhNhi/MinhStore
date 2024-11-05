@@ -8,8 +8,8 @@ export class ProductService extends baseService {
     getListProduct = () => {
         return this.get(`/api/Product`);
     };
-    getProductById = (newId) => {
-        return this.get(`/api/Product/${newId}`);
+    getProductById = (id) => {
+        return this.get(`/api/Product/${id}`);
     }
     createProduct = (formData) => {
         return this.post(`/api/Product`, formData);

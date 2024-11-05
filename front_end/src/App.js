@@ -27,6 +27,7 @@ import UpdateSize from "./pages/admin_page/SizeMng/UpdateSize";
 // Product
 import ProductManager from "./pages/admin_page/ProductManager/ProductManager";
 import CreateProduct from "./pages/admin_page/ProductManager/CreateProduct";
+import UpdateProduct from "./pages/admin_page/ProductManager/UpdateProduct";
 
 
 export const history = createBrowserHistory();
@@ -66,6 +67,8 @@ function App() {
         {/* Product */}
         <AdminTemplate path="/admin/product-mng" exact Component={ProductManager} />
         <AdminTemplate path="/admin/product-mng/add-product" exact Component={CreateProduct} />
+        <AdminTemplate path="/admin/product-mng/edit/:id" exact Component={UpdateProduct} />
+
 
         <HomeTemplate Component={Home} />
       </Switch>

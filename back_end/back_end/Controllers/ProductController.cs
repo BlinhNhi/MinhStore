@@ -39,7 +39,7 @@ namespace back_end.Controllers
         }
 
 
-        [AllowAnonymous]
+       /* [AllowAnonymous]*/
         [HttpGet("{Id}")]
         public async Task<ActionResult> getAProductById(Guid Id)
         {
