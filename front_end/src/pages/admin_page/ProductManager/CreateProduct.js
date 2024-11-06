@@ -249,10 +249,10 @@ const CreateProduct = () => {
                             <p className="italic mt-1">
                                 Cập Nhật Hình Ảnh Rõ Ràng
                             </p>
-                            <div className="w-full md:w-[100%] sm:w-[100%] lg:w-[100%] 2xl:w-[100%] xl:w-[100%]">
+                            <div className="w-full md:w-[100%] sm:w-[100%] lg:w-[100%] 2xl:w-[70%] xl:w-[70%]">
                                 <label
-                                    className="w-full border-2  border-orange-400 hover:border-orange-500 text-3xl  text-gray-300 
-                                    flex-col gap-6  my-4 items-center justify-center h-[150px] flex rounded-md bg-gray-50 hover:bg-gray-100
+                                    className="w-full border-2  border-orange-400 hover:border-orange-500 text-3xl  text-gray-300 cursor-pointer
+                                    flex-col gap-6  my-4 items-center justify-center h-[150px] flex rounded-md bg-gray-50 hover:bg-gray-100 
                                     dark:border-gray-50 dark:hover:border-gray-100 dark:bg-orange-100 dark:hover:bg-orange-200 dark:border-4
                                     "
                                     htmlFor="file"
