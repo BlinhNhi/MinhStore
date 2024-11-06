@@ -157,11 +157,44 @@ export default function ProductMng() {
             width: '15%',
             key: "avatar",
             render: (text, data, index) => {
-                return data.avatar != null ? (
-                    <img key={index} style={{ width: 40, height: 40, objectFit: "cover", borderRadius: "50%", }} src={`$/Images/User/${data.avatar}`} alt={data.avatar} />
-                ) : (
-                    <img key={index} src={NoImage} alt='no-image' className='w-[50px] h-[50px] object-cover border-2 rounded-lg' />
-                );
+                const image = JSON.parse(data?.imagesProduct);
+                return data?.imagesProduct != null ? (
+                    <div className='flex flex-col  items-center gap-1'>
+                        <img
+                            // style={{ width: 40, height: 40, objectFit: "cover", borderRadius: "50%", }}
+                            className=' w-[50px] object-contain  rounded-lg border-solid border-gray-300 flex items-center h-[50px]'
+                            src={image[0]}
+                            alt="..." />
+                        <p className='text-xl font-semibold '>... </p>
+
+                    </div>
+                ) : <div className='flex flex-col items-center'><img key={index} src={NoImage} alt='no-image' className='w-[50px] h-[50px] object-cover border-2 rounded-lg' /></div>
+                // data?.imagesProduct?.length > 1
+                //     ?
+                //     JSON.parse(data?.imagesProduct)?.map((image, i) => {
+                //         console.log(image);
+                //         return (
+                //             <div className='' key={i}>
+                //                 <img
+                //                     key={i}
+                //                     style={{ width: 40, height: 40, objectFit: "cover", borderRadius: "50%", }}
+                //                     // className=' w-[100%] object-cover  rounded-lg border-solid border-gray-300 flex items-center h-[700px]'
+                //                     src={image[0]}
+                //                     alt="..." />
+
+                //             </div>
+                //         )
+                //     }
+                //     ) :
+                //     <img 
+                //     className=' w-[100%] object-cover  rounded-lg border-solid border-gray-300 flex items-center h-[700px]' 
+                //     src="/img/placeholder-image.jpg" alt="..." />
+
+                // return data.avatar != null ? (
+                //     <img key={index} style={{ width: 40, height: 40, objectFit: "cover", borderRadius: "50%", }} src={`$/Images/User/${data.avatar}`} alt={data.avatar} />
+                // ) : (
+                //    
+                // );
             },
         },
         {

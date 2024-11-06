@@ -96,13 +96,14 @@ namespace back_end.Migrations
                     StockQuantity = table.Column<int>(type: "int", nullable: false),
                     NumberOfProductSold = table.Column<int>(type: "int", nullable: false),
                     NumberOfProductInStock = table.Column<int>(type: "int", nullable: false),
-                    ImageProduct = table.Column<string>(type: "longtext", nullable: true)
+                    ImagesProduct = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ColorId = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     SizeId = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -221,8 +222,8 @@ namespace back_end.Migrations
                 columns: new[] { "Id", "Email", "Name", "Password", "Phone", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("64fd45c0-f129-483f-91bd-042646f9eec1"), "admin@minhstore.com", null, "$2a$11$xigvQF6gkUdixdqQdVjykuQRG0hCfjeJ2/4OV7HudU.L2RoZxXOvG", null, "Admin" },
-                    { new Guid("96d0dcea-3980-42f7-9fcf-fc9af39379f6"), "user123@gmail.com", null, "$2a$11$lQMdoYqKitOdDaD0MIGocumlzn9De3HnqXFOj9IbSEmSI7b2cCn9G", null, "User" }
+                    { new Guid("c40147d1-61f0-4945-9fcc-867b01b9446e"), "admin@minhstore.com", null, "$2a$11$a/DlO/iMIgR/Qnf9GsCaiOkmfDVuZ.tFVI08aF8UVDjdAPYYC8GUG", null, "Admin" },
+                    { new Guid("c862eaf8-7307-4505-a920-563e4cc68bff"), "user123@gmail.com", null, "$2a$11$9iJN.RyE7PHY5lOxHQfgbOyWY217xSQeebTRkPR63I8jAsvClfRDK", null, "User" }
                 });
 
             migrationBuilder.CreateIndex(

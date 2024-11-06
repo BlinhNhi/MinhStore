@@ -2,6 +2,7 @@ import { productService } from "../../service/ProductService";
 import { GET_PRODUCT_DETAIL, GET_PRODUCT_LIST } from "../constants";
 import { notification } from 'antd';
 import { history } from '../../App';
+import axios from "axios";
 
 
 export const getListProductsAction = () => {
@@ -105,3 +106,18 @@ export const updateProductAction = (id, formData) => {
         }
     }
 }
+
+
+export const apiUploadImages = (images) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await axios({
+            method: 'post',
+            url: `https://api.cloudinary.com/v1_1/dsxrhkdnh/image/upload/`,
+            data: images,
+        })
+        resolve(response)
+
+    } catch (error) {
+        reject(error)
+    }
+})

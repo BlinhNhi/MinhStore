@@ -31,7 +31,8 @@ namespace back_end.Services
                     StockQuantity = p.StockQuantity,
                     NumberOfProductSold = p.NumberOfProductSold,
                     NumberOfProductInStock = p.NumberOfProductInStock,
-                    ImageProduct = p.ImageProduct,
+                    ImagesProduct = p.ImagesProduct,
+                    CreatedDate = DateTime.Now,
                    /* ColorId = p.ColorId,*/
                     Colors = p.Colors, // Lấy Colors liên kết
                   /*  SizeId = p.SizeId,*/
@@ -101,6 +102,7 @@ namespace back_end.Services
                 ExistingProduct.StockQuantity = product.StockQuantity;
                 ExistingProduct.NumberOfProductSold = product.NumberOfProductSold;
                 ExistingProduct.NumberOfProductInStock = product.NumberOfProductInStock;
+                ExistingProduct.ImagesProduct = product.ImagesProduct;
                 ExistingProduct.ColorId = product.ColorId;
                 ExistingProduct.SizeId = product.SizeId;
                 ExistingProduct.Category = category;

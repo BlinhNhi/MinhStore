@@ -107,7 +107,10 @@ namespace back_end.Migrations
                     b.Property<string>("ColorId")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("ImageProduct")
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ImagesProduct")
                         .HasColumnType("longtext");
 
                     b.Property<string>("NameProduct")
@@ -218,16 +221,16 @@ namespace back_end.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("64fd45c0-f129-483f-91bd-042646f9eec1"),
+                            Id = new Guid("c40147d1-61f0-4945-9fcc-867b01b9446e"),
                             Email = "admin@minhstore.com",
-                            Password = "$2a$11$xigvQF6gkUdixdqQdVjykuQRG0hCfjeJ2/4OV7HudU.L2RoZxXOvG",
+                            Password = "$2a$11$a/DlO/iMIgR/Qnf9GsCaiOkmfDVuZ.tFVI08aF8UVDjdAPYYC8GUG",
                             Role = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("96d0dcea-3980-42f7-9fcf-fc9af39379f6"),
+                            Id = new Guid("c862eaf8-7307-4505-a920-563e4cc68bff"),
                             Email = "user123@gmail.com",
-                            Password = "$2a$11$lQMdoYqKitOdDaD0MIGocumlzn9De3HnqXFOj9IbSEmSI7b2cCn9G",
+                            Password = "$2a$11$9iJN.RyE7PHY5lOxHQfgbOyWY217xSQeebTRkPR63I8jAsvClfRDK",
                             Role = "User"
                         });
                 });
