@@ -10,7 +10,6 @@ import NoImage from '../../../assets/no-image.jpeg'
 
 export default function ProductMng() {
     let { arrProducts } = useSelector(state => state.ProductReducer);
-    console.log(arrProducts);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getListProductsAction())
@@ -157,13 +156,14 @@ export default function ProductMng() {
             width: '15%',
             key: "avatar",
             render: (text, data, index) => {
-                const image = JSON.parse(data?.imagesProduct);
-                return data?.imagesProduct != null ? (
+                const images = JSON.parse(data?.imagesProduct);
+                console.log(images);
+                return data?.imagesProduct != null && images?.length > 0 ? (
                     <div className='flex flex-col  items-center gap-1'>
                         <img
 
                             className=' w-[50px] object-contain  rounded-lg border-solid border-gray-300 flex items-center h-[50px]'
-                            src={image[0]}
+                            src={images[0]}
                             alt="..." />
                         <p className='text-xl font-semibold '>... </p>
 

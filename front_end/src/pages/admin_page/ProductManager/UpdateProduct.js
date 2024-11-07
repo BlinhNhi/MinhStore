@@ -2,23 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, notification, Select } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { getListProductsAction, getDetailProductAction, updateProductAction } from '../../../redux_store/actions/ProductAcction';
+import { getListProductsAction, getDetailProductAction, updateProductAction, apiUploadImages } from '../../../redux_store/actions/ProductAcction';
 import { getListColorAction } from '../../../redux_store/actions/ColorAction';
 import { getListSizesAction } from '../../../redux_store/actions/SizeAction'
 import { getListCategoriesAction } from '../../../redux_store/actions/CategoryAction';
+import { FaCamera, FaRegTrashAlt } from 'react-icons/fa';
+import LoadingImage from '../../../components/LoadingImage/LoadingImage';
 
 
 
 const UpdateProduct = (props) => {
     const dispatch = useDispatch();
+    let { id } = props.match.params;
     const { productDetail } = useSelector(state => state.ProductReducer)
     let { arrColor } = useSelector(state => state.ColorReducer);
     let { arrSizes } = useSelector(state => state.SizeReducer);
     let { arrCategories } = useSelector(state => state.CategoryReducer);
-    let { id } = props.match.params;
+    const [loading, setIsLoading] = useState(false);
+    const [imagePreview, setImagePreview] = useState([]);
+
 
     // State để theo dõi xem dữ liệu đã sẵn sàng chưa
-    const [loading, setLoading] = useState(true);
+    const [loadingColor, setLoadingColor] = useState(true);
     const [defaultValue, setDefaultValue] = useState([]);
     useEffect(() => {
         dispatch(getDetailProductAction(id));
@@ -86,22 +91,64 @@ const UpdateProduct = (props) => {
             stockQuantity: productDetail?.stockQuantity,
             numberOfProductSold: productDetail?.numberOfProductSold,
             numberOfProductInStock: productDetail?.numberOfProductInStock,
-            imageProduct: productDetail?.imageProduct || null,
+            // list_image: companyDetail?.list_image ? companyDetail?.list_image : null,
+            imagesProduct: productDetail?.imagesProduct ? productDetail?.imagesProduct : null,
             colorId: productDetail?.colorId || [],
             sizeId: productDetail?.sizeId,
             categoryId: productDetail?.categoryId
         },
         onSubmit: handleSubmitColor
     })
+    // hàm lấy imge khi update
+    useEffect(() => {
+        const images = productDetail?.imagesProduct ? JSON.parse(productDetail?.imagesProduct) : [];
+        console.log(images);
+        images && setImagePreview(images);
+    }, [productDetail?.imagesProduct])
 
     useEffect(() => {
         if (productDetail?.colorId) {
             const colorArray = productDetail.colorId.split(',').map(Number);
             setDefaultValue(colorArray);
-            setLoading(false);
+            setLoadingColor(false);
         }
     }, [productDetail?.colorId]);
 
+
+    const handleFiles = async (e) => {
+        e.stopPropagation();
+        setIsLoading(true);
+        let images = [];
+        const files = e.target.files;
+
+        const formData = new FormData();
+        for (let i of files) {
+            formData.append("file", i);
+            formData.append(
+                "upload_preset",
+                "jzdubdw6"
+            );
+            const response = await apiUploadImages(formData);
+            if (response.status === 200)
+                images = [...images, response.data?.secure_url];
+        }
+        setIsLoading(false);
+        setImagePreview((pre) => [...pre, ...images]);
+
+        if (formik?.values?.imagesProduct !== null) {
+            formik.setFieldValue("imagesProduct", JSON.stringify([...JSON.parse(formik?.values?.imagesProduct), ...images]));
+        }
+        else {
+            formik.setFieldValue("imagesProduct", JSON.stringify([...images]));
+        }
+    };
+
+    const handleDeleteImage = (image) => {
+        // 20:14/64
+        let a = formik?.values?.imagesProduct
+        setImagePreview((pre) => pre?.filter((item) => item !== image));
+        formik.setFieldValue("imagesProduct", JSON.stringify(JSON.parse((a))?.filter((item) => item !== image)));
+    };
 
     const handleChangeColor = (value) => {
         formik.setFieldValue('colorId', value)
@@ -118,9 +165,11 @@ const UpdateProduct = (props) => {
         formik.setFieldValue("categoryId", value);
     };
 
-    if (loading) {
+    if (loadingColor) {
         return <p>Đang tải dữ liệu...</p>;
     }
+
+
 
 
 
@@ -135,7 +184,7 @@ const UpdateProduct = (props) => {
             }}
             layout="horizontal"
         >
-            <h3 className="text-lg md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl font-medium mb-4 dark:text-white">Cập Nhật Màu Sản Phẩm:</h3>
+            <h3 className="text-lg md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl font-medium mb-4 dark:text-white">Cập Nhật Sản Phẩm:</h3>
             <div className='row'>
                 <div className='col-8'>
                     <Form.Item
@@ -206,6 +255,62 @@ const UpdateProduct = (props) => {
                         ]}
                     >
                         <Input name="numberOfProductInStock" onChange={formik.handleChange} value={formik.values.numberOfProductInStock} />
+                    </Form.Item>
+
+                    <Form.Item label="Image">
+                        <div className="w-full mb-6">
+                            {/* <h2 className="font-semibold text-xl py-2">Hình Ảnh</h2> */}
+                            <p className="italic mt-1">
+                                Cập Nhật Hình Ảnh Rõ Ràng
+                            </p>
+                            <div className="w-full md:w-[100%] sm:w-[100%] lg:w-[100%] 2xl:w-[70%] xl:w-[70%]">
+                                <label
+                                    className="w-full border-2  border-orange-400 hover:border-orange-500 text-3xl  text-gray-300 cursor-pointer
+                                    flex-col gap-6  my-4 items-center justify-center h-[150px] flex rounded-md bg-gray-50 hover:bg-gray-100 
+                                    dark:border-gray-50 dark:hover:border-gray-100 dark:bg-orange-100 dark:hover:bg-orange-200 dark:border-4
+                                    "
+                                    htmlFor="file"
+                                >
+                                    {loading ? (
+                                        <LoadingImage></LoadingImage>
+                                    ) : (
+                                        <span className="flex flex-col items-center dark:text-primary  justify-center gap-2">
+                                            <FaCamera></FaCamera>
+                                            <div className="text-gray-500 font-medium dark:text-primary text-base">Thêm Ảnh</div>
+                                        </span>
+                                    )}
+                                </label>
+                                <input
+                                    onChange={handleFiles}
+                                    type="file"
+                                    id="file"
+                                    hidden
+                                    multiple
+                                ></input>
+                                <h3 className="font-medium py-2 text-base">Ảnh Đã Chọn</h3>
+                                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 place-items-center gap-2">
+                                    {imagePreview?.map((item) => {
+                                        return (
+                                            <div className="space-x-4 relative" key={item}>
+                                                <img
+                                                    key={item}
+                                                    alt="img-preview"
+                                                    src={item}
+                                                    className="w-80 h-54 object-contain bg-gray-200 dark:bg-orange-300 rounded-md"
+                                                ></img>
+                                                <span
+                                                    title="Xoá"
+                                                    className="top-1 text-sm bg-gray-500 hover:bg-slate-600 text-white rounded-[60%] cursor-pointer right-0 p-2 absolute "
+                                                    onClick={() => handleDeleteImage(item)}
+                                                >
+                                                    <FaRegTrashAlt />
+                                                </span>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        </div>
                     </Form.Item>
 
                     <Form.Item
