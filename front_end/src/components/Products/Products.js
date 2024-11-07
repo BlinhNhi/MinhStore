@@ -85,7 +85,7 @@ function Products() {
                         ))}
                     </div>
                     <div className="flex justify-center">
-                        <button className="text-center mt-10 cursor-pointer bg-orange-400 text-white py-2 px-3 rounded-md">
+                        <button className="text-center mt-10 hover:bg-orange-500 cursor-pointer bg-orange-400 text-white py-2 px-3 rounded-md">
                             Xem  Thêm
                         </button>
                     </div>

@@ -1,30 +1,8 @@
 import { FaStar } from "react-icons/fa";
 
-import Image1 from '../../assets/top_product/nike.jpg'
-import Image2 from '../../assets/top_product/adidas.jpg'
-import Image3 from '../../assets/top_product/nikeJodan.jpg'
+import { ProductsData } from '../../utils/data/dataNewProduct'
 
-const ProductsData = [
-    {
-        id: 1,
-        img: Image1,
-        title: 'Casual Wear',
-        description: 'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-    },
-    {
-        id: 2,
-        img: Image2,
-        title: 'Printed shirt',
-        description: 'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-    },
-    {
-        id: 3,
-        img: Image3,
-        title: 'Women shirt',
-        description: 'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-    },
-]
-function TopProduct() {
+function NewProduct() {
     return (
         <div>
             <div className="container ">
@@ -33,7 +11,7 @@ function TopProduct() {
                     <h1 className="text-3xl font-bold" data-aos="fade-up">
                         Sản Phẩm Mới Nhất
                     </h1>
-                    <p className="text-sm text-gray-400" data-aos="fade-up">Top sản phẩm mới nhất dành cho bạn. Nếu thích hãy bấm "Order" để đặt hàng.</p>
+                    <p className="text-sm text-gray-400" data-aos="fade-up">Top sản phẩm mới nhất dành cho bạn. Nếu thích hãy bấm "Đặt Hàng Ngay" để đặt hàng.</p>
                 </div>
                 {/* Body */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-20 md:gap-5 place-items-center">
@@ -62,7 +40,7 @@ function TopProduct() {
                                     {data?.title}
                                 </h1>
                                 <p className="text-gray-500 group-hover:text-white duration-300 text-base line-clamp-2">{data?.description}</p>
-                                <button className="bg-orange-400 hover:scale-105 duration-300 text-gray-100 py-1 px-4 rounded-full mt-4 group-hover:bg-white group-hover:text-orange-400">Order Now</button>
+                                <button className="bg-orange-400 hover:scale-105 duration-300 text-gray-100 py-1 px-4 rounded-full mt-4 group-hover:bg-white group-hover:text-orange-400">Đặt Hàng Ngay</button>
                             </div>
                         </div>
                     ))}
@@ -72,4 +50,4 @@ function TopProduct() {
     );
 }
 
-export default TopProduct;
+export default NewProduct;

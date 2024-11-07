@@ -2,29 +2,29 @@ import Slider from 'react-slick'
 
 
 
-import Image1 from '../../assets/hero/sale-cnpHUeHf.png'
-import Image2 from '../../assets/hero/shopping-vpNvhQDE.png'
-import Image3 from '../../assets/hero/women-NhG2D3pl.png'
+import Image1 from '../../assets/hero/nike2.jpg'
+import Image2 from '../../assets/hero/adidas.jpg'
+import Image3 from '../../assets/hero/shopping-vpNvhQDE.png'
 
 
 const ImageList = [
     {
         id: 1,
         image: Image1,
-        title: "70% off on all Products Sale",
-        description: "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        title: "Just Do It",
+        description: "Slogan 'Just Do It' của Nike không chỉ là một câu khẩu hiệu đơn thuần mà còn là một thông điệp truyền cảm hứng, một lời nhắc nhở về việc chúng ta cần phải hành động để đạt được những gì mình muốn."
     },
     {
         id: 2,
         image: Image2,
-        title: "30% off on all Women's Wear",
-        description: "Who's there lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        title: "Impossible is nothing",
+        description: " Adidas và slogan 'Impossible is nothing' đã tạo nên một sự kết hợp hoàn hảo, thể hiện tinh thần vượt qua giới hạn và khát khao chinh phục của con người. Thương hiệu này không chỉ cung cấp những sản phẩm chất lượng cao mà còn truyền cảm hứng cho mọi người sống một cuộc sống năng động và ý nghĩa."
     },
     {
         id: 3,
         image: Image3,
-        title: "Upto 50% off on all Men's Wear",
-        description: "lorem His Life will forever be Changed dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        title: "Cùng Chúng Tôi Mua Sắm?",
+        description: "Bạn có muốn chọn cho mình một đôi giay khác không?"
     }
 
 ]
@@ -46,7 +46,7 @@ function SliderPage() {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        speed: 800,
+        speed: 1000,
         autoplaySpeed: 4000,
         cssEase: "ease-in-out",
         nextArrow: <CancelArrowSlider />,
@@ -68,11 +68,11 @@ function SliderPage() {
                         <div className='' key={data.id}>
                             <div className='grid grid-cols-1 sm:grid-cols-2'>
                                 <div className='flex flex-col justify-center gap-4 pt-12 sm:pt-0 text-center sm:text-left order-2 sm:order-1 relative z-10'>
-                                    <h1 className='text-5xl sm:text-6xl lg:text-7xl font-bold'>{data.title}</h1>
+                                    <h1 className='text-3xl sm:text-4xl lg:text-5xl font-bold'>{data.title}</h1>
                                     <p className='text-sm'>{data?.description}</p>
                                     <div>
                                         <button className='bg-gradient-to-r from-primary to-secondary hover:scale-105 duration-200 text-white py-2 px-4 rounded-full'>
-                                            Order Now
+                                            Đặt Hàng Ngay
                                         </button>
                                     </div>
                                 </div>

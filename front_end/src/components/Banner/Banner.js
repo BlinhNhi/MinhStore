@@ -1,16 +1,12 @@
-import BannerImgAdidas from '../../assets/banner/adidasBanner.jpg'
-import BannerImgNike from '../../assets/banner/nikeBanner.jpg'
-
-import { GrSecure, GrTechnology } from "react-icons/gr";
-import { IoFastFood } from "react-icons/io5";
-import { GiFoodTruck } from "react-icons/gi";
+import { GrTechnology } from "react-icons/gr";
 import { MdDesignServices, MdOutlineHighQuality } from 'react-icons/md';
 import { PiHandCoins } from 'react-icons/pi';
 
+import BannerImgAdidas from '../../assets/banner/adidasBanner.jpg'
+import BannerImgNike from '../../assets/banner/nikeBanner.jpg'
+
 function Banner(data) {
     let dataProduct = data;
-    console.log(dataProduct?.dataAdidas);
-    console.log(dataProduct?.dataNike);
 
     return (
         <div className="min-h-[550px] flex justify-center items-center py-12 sm:py-0">
