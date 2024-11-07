@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { ImSearch } from "react-icons/im";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { IoClose, IoMenu } from "react-icons/io5";
 import { TbUserCircle } from "react-icons/tb";
 
@@ -157,7 +157,7 @@ function Header() {
                             <DarkMode></DarkMode>
                         </div>
                         <div className="hidden sm:block md:block xl:block lg:block 2xl:block relative group cursor-pointer">
-                            <TbUserCircle className="text-3xl text-slate-600 z-50 hover:text-primary dark:text-white dark:hover:text-primary font-bold " />
+                            <FaUser className="text-3xl rounded-2xl p-1 border-2  hover:border-white  border-primary text-gray-400 hover:text-gray-100 bg-gray-50 hover:bg-primary z-50 " />
                             <div className="w-[200px] bg-transparent absolute p-4 right-0 "></div>
                             <ul className="absolute hidden group-hover:block  bg-white  shadow border border-gray-200 z-40 right-0 rounded-md mt-4 px-4 pb-4 text-left w-[200px]">
                                 <li className="text-gray-600  hover:text-primary py-2">

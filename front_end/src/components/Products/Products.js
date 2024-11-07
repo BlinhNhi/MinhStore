@@ -52,13 +52,6 @@ const ProductData = [
     },
 ]
 function Products() {
-    const { arrProducts } = useSelector((state) => state.ProductReducer);
-
-    console.log(arrProducts);
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getListProductsAction());
-    }, []);
     return (
         <div className="mt-14 mb-12 ">
             <div className="container">
