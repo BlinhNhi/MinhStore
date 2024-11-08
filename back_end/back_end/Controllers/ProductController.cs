@@ -120,5 +120,25 @@ namespace back_end.Controllers
             }
 
         }
+
+
+        [HttpGet("Options")]
+        public IActionResult OptionsAsDesired(string? searchCategory, string? fromPrice, string? toPrice, string? sort,  string? size, string? color, string? createDay)
+        {
+            try
+            {
+                var list = repo.OptionsAsDesired(searchCategory, fromPrice, toPrice, sort, size, color, createDay);
+                if (list != null)
+                {
+                    var result = new ResponseData<IEnumerable<Product>>(StatusCodes.Status200OK, "Search Product successfully", list, null);
+                    return Ok(result);
+                }
+                return BadRequest();
+            }
+            catch
+            {
+                return BadRequest("We canot Find Product");
+            }
+        }
     }
 }

@@ -167,5 +167,52 @@ namespace back_end.Services
             }
             return null;
         }
+
+        public List<Product> OptionsAsDesired(string? searchCategory, string? fromPrice, string? toPrice, string? sort, string? size, string? color, string? createDay)
+        {
+           var allProducts = db.Products.Include(ca=>ca.Category).Include(c=>c.Colors).Include(s=>s.Sizes).AsQueryable();
+            var p = searchCategory;
+            if (!string.IsNullOrEmpty(searchCategory))
+            {   
+                List<string> list = searchCategory.Split(",").ToList();
+                if(list.Any())
+                {
+                    allProducts = allProducts.Where(pr => list.Contains(pr.Category.Name));
+                }
+            }
+
+            if (!string.IsNullOrEmpty(color))
+            {
+                allProducts = allProducts.Where(tr => tr.Colors.Any(c => c.Name == color));
+            }
+            if (!string.IsNullOrEmpty(size))
+            {
+                allProducts = allProducts.Where(tr => tr.Sizes.Any(s => s.NumberOfSize == size));
+            }
+            /*  if (!string.IsNullOrEmpty(color))
+              {
+                  allProducts = allProducts.Where(tr => tr.Colors != null && tr.Colors.Any(c => c.Name == color));
+              }
+  */
+
+
+            var result = allProducts.Select(product => new Product
+            {
+                Id = product.Id,
+                NameProduct = product.NameProduct,
+                PriceProduct = product.PriceProduct,
+                StockQuantity = product.StockQuantity,
+                NumberOfProductSold = product.NumberOfProductSold,
+                NumberOfProductInStock = product.NumberOfProductInStock,
+                ImagesProduct = product.ImagesProduct,
+                Colors = product.Colors, 
+
+                Sizes = product.Sizes,
+                CreatedDate = product.CreatedDate,
+                Category = product.Category,
+            });
+
+            return result.ToList();
+        }
     }
 }

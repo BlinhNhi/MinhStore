@@ -6,8 +6,6 @@ import { IoFlash } from "react-icons/io5";
 function Login() {
     const [openLogin, setOpenLogin] = useState("flex");
     const [openRegister, setOpenRegister] = useState(false);
-    // console.log(openRegister);
-
     return (
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200">
             <div className="container ">
@@ -80,11 +78,15 @@ function Login() {
                                      dark:bg-gray-100 dark:hover:bg-gray-200 dark:text-gray-800
                                      w-full md:w-full lg:w-full xl:w-2/3 2xl:w-2/3 sm:w-full
                                     "
+                                        onClick={() => {
+                                            window.confirm('Bạn Muốn Đăng Ký')
+                                        }}
                                     >
                                         Đăng Ký
                                     </button>
                                 </div>
                             </div>
+
                             {/* Đăng Nhập */}
                             <div className={`${openLogin} flex-col gap-2 `}>
                                 <h1 className="font-bold  text-2xl  sm:text-xl  md:text-xl  lg:text-xl  xl:text-2xl 2xl:text-2xl ">
@@ -152,6 +154,7 @@ function Login() {
                                      dark:bg-gray-100 dark:hover:bg-gray-200 dark:text-gray-800
                                      w-full md:w-full lg:w-full xl:w-2/3 2xl:w-2/3 sm:w-full
                                      "
+                                        onClick={() => { window.confirm('Bạn Muốn Đăng Ký?') }}
                                     >
                                         Đăng Nhập
                                     </button>
