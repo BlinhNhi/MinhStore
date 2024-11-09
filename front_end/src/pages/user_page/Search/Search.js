@@ -7,6 +7,9 @@ import { useState } from "react";
 import FilterProduct from "../../../components/FilterProduct/FilterProduct";
 
 function Search() {
+    // const number = 5;
+    // const formattedNumber = Intl.NumberFormat().format(number);
+    // console.log(formattedNumber);  
 
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [childData, setChildData] = useState('');

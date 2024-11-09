@@ -33,7 +33,7 @@ function SelectProduct({ onSendData }) {
                             </Select>
                         </div>
                         <div className="w-40 sm:w-80 md:w-80 lg:w-80 xl:w-80 2xl:w-80  flex flex-col gap-2">
-                            <h4 className="text-sm sm:text-sm md:text-lg xl:text-lg 2xl:text-lg italic dark:text-gray-500 font-medium">Chọn Theo Size </h4>
+                            <h4 className="text-sm sm:text-sm md:text-lg xl:text-lg 2xl:text-lg italic dark:text-gray-500 font-medium">Chọn Theo Danh Mục </h4>
                             <Select
                                 size={"middle"}
                                 id="size"
@@ -44,11 +44,9 @@ function SelectProduct({ onSendData }) {
                                 // options={}
                                 onChange={handleFromChange}
                             >
-                                <Option value="38">38</Option>
-                                <Option value="39">39</Option>
-                                <Option value="40">40</Option>
-                                <Option value="41">41</Option>
-                                <Option value="42">42</Option>
+                                <Option value="38">Nike</Option>
+                                <Option value="39">Adidas</Option>
+                                <Option value="40">Khác...</Option>
                             </Select>
                         </div>
                         <div className="">

@@ -11,11 +11,17 @@ function FilterProduct({ isFilterOpen }) {
                     <Radio className=" text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="highest-price">Giá Cao Nhất</Radio>
                 </Radio.Group>
             </Card>
-            <Card title="Loại Giày" className="mt-3 bg-gray-200 text-base sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base">
-                <Checkbox className="text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="Adidas" onChange={() => { }}>Adidas</Checkbox><br />
-                <Checkbox className="text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="Nike" onChange={() => { }}>Nike</Checkbox><br />
-                <Checkbox className="text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="Jordan" onChange={() => { }}>Jordan</Checkbox><br />
-                <Checkbox className="text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="Khác" onChange={() => { }}>Khác...</Checkbox>
+            <Card title="Màu Sắc" className="mt-3 bg-gray-200 text-base sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base">
+                <Checkbox className="text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="Adidas" onChange={() => { }}>Vàng</Checkbox><br />
+                <Checkbox className="text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="Nike" onChange={() => { }}>Cam</Checkbox><br />
+                <Checkbox className="text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="Jordan" onChange={() => { }}>Đỏ</Checkbox><br />
+                <Checkbox className="text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="Khác" onChange={() => { }}>Tím</Checkbox>
+            </Card>
+            <Card title="Size Giày" className="mt-3 bg-gray-200 text-base sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base">
+                <Checkbox className="text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="Adidas" onChange={() => { }}>38</Checkbox><br />
+                <Checkbox className="text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="Nike" onChange={() => { }}>39</Checkbox><br />
+                <Checkbox className="text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="Jordan" onChange={() => { }}>40</Checkbox><br />
+                <Checkbox className="text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="Khác" onChange={() => { }}>41</Checkbox>
             </Card>
         </div>
     );
