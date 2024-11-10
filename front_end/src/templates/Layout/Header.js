@@ -8,6 +8,9 @@ import { TbUserCircle } from "react-icons/tb";
 import Logo from '../../assets/logo.png'
 import DarkMode from '../../components/DarkMode/DarkMode';
 import { FaAngleDown } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { getProductListOptionsAction } from "../../redux_store/actions/ProductAcction";
+import { history } from "../../App";
 
 
 const Menu = [
@@ -55,8 +58,36 @@ const DropdownLinks = [
         link: "/"
     }
 ]
+
+const setInput = {
+    searchName: "",
+    searchCategory: "",
+    searchColor: "",
+    searchSize: "",
+    fromPrice: "",
+    toPrice: "",
+    sort: "",
+    // dayStart: "",
+};
+
 function Header() {
+    const dispatch = useDispatch();
     const [isOpenMenu, setIsOpenMenu] = useState('hidden ');
+    const [valueSearch, setValueSearch] = useState(null);
+    const handelOnChangeSearch = (e) => {
+        setValueSearch(e.target.value);
+    }
+    const handleSearch = (e) => {
+        e.preventDefault();
+        setInput.searchName = valueSearch;
+        console.log(setInput);
+        if (valueSearch !== null && valueSearch?.startsWith(' ') === false && valueSearch !== "") {
+            dispatch(getProductListOptionsAction(setInput));
+            const queryString = new URLSearchParams(setInput).toString();
+            history.push(`/search?${queryString}`);
+        }
+    }
+
 
     return (
         <div className='shadow-md  dark:bg-gray-900 dark:text-white duration-200 relative z-40'>
@@ -70,7 +101,6 @@ function Header() {
 
                 >
                     <div
-                        // data-aos="flip-left"
                         className="pb-4 flex justify-between mx-2 border-b-2 border-gray-500 "
 
                     >
@@ -135,12 +165,15 @@ function Header() {
                     {/* search bar and order btn */}
                     <div className='flex justify-between items-center gap-4 relative'>
                         <div className='group relative hidden sm:block'>
-                            <input
-                                type='text'
-                                placeholder='Tìm Kiếm'
-                                className='lg:w-[200px]  xl:w-[200px] md:w-[200px]  2xl:w-[200px]  lg:group-hover:w-[240px] xl:group-hover:w-[240px] md:group-hover:w-[240px] 2xl:group-hover:w-[240px]  sm:w-[150px] sm:group-hover:w-[200px] transition-all duration-300 
+                            <form onSubmit={handleSearch}>
+                                <input
+                                    onChange={handelOnChangeSearch}
+                                    type='text'
+                                    placeholder='Tìm Kiếm'
+                                    className='lg:w-[200px]  xl:w-[200px] md:w-[200px]  2xl:w-[200px]  lg:group-hover:w-[240px] xl:group-hover:w-[240px] md:group-hover:w-[240px] 2xl:group-hover:w-[240px]  sm:w-[150px] sm:group-hover:w-[200px] transition-all duration-300 
                          rounded-full border border-priamry px-2 py-1 focus:border-primary focus:outline-none focus:border-1 dark:bg-gray-800 dark:border-gray-500'
-                            ></input>
+                                ></input>
+                            </form>
                             <ImSearch className='text-gray-500 group-hover:text-primary absolute top-1/2 -translate-y-1/2 right-3' />
                         </div>
                         {/* order btn */}
