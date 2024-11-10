@@ -123,17 +123,24 @@ namespace back_end.Controllers
 
 
         [HttpGet("Options")]
-        public IActionResult OptionsAsDesired(string? searchCategory, string? fromPrice, string? toPrice, string? sort,  string? size, string? color, string? createDay)
+        public IActionResult OptionsAsDesired(string? searchName, string? searchCategory, string? searchColor, string? searchSize, string? fromPrice, string? toPrice, string? sort, string? createDay)
         {
             try
             {
-                var list = repo.OptionsAsDesired(searchCategory, fromPrice, toPrice, sort, size, color, createDay);
+                
+                var list = repo.OptionsAsDesired(searchName,searchCategory, searchColor,searchSize, fromPrice, toPrice, sort, createDay);
                 if (list != null)
                 {
-                    var result = new ResponseData<IEnumerable<Product>>(StatusCodes.Status200OK, "Search Product successfully", list, null);
+                    var result = new ResponseData<IEnumerable<Product>>(StatusCodes.Status200OK, "Search Product Successfully", list, null);
                     return Ok(result);
                 }
-                return BadRequest();
+                else
+                {
+                    var emptyList = Enumerable.Empty<Product>(); 
+                    var result = new ResponseData<IEnumerable<Product>>(StatusCodes.Status200OK, "Cannot Found Product", emptyList, null);
+                    return Ok(result);
+                }
+              /*  return BadRequest();*/
             }
             catch
             {

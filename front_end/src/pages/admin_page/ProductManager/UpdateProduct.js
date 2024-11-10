@@ -25,6 +25,8 @@ const UpdateProduct = (props) => {
     // State để theo dõi xem dữ liệu đã sẵn sàng chưa
     const [loadingColor, setLoadingColor] = useState(true);
     const [defaultValue, setDefaultValue] = useState([]);
+    const [defaultSizeValue, setDefaultSizeValue] = useState([]);
+
     useEffect(() => {
         dispatch(getDetailProductAction(id));
         dispatch(getListColorAction());
@@ -62,8 +64,6 @@ const UpdateProduct = (props) => {
             dispatch(updateProductAction(id, formData))
         }
     }
-
-
 
 
     console.log(typeof (productDetail?.colorId));
@@ -107,9 +107,11 @@ const UpdateProduct = (props) => {
     }, [productDetail?.imagesProduct])
 
     useEffect(() => {
-        if (productDetail?.colorId) {
+        if (productDetail?.colorId && productDetail?.sizeId) {
             const colorArray = productDetail.colorId.split(',').map(Number);
             setDefaultValue(colorArray);
+            const sizeArray = productDetail.sizeId.split(',').map(Number);
+            setDefaultSizeValue(sizeArray);
             setLoadingColor(false);
         }
     }, [productDetail?.colorId]);
@@ -333,6 +335,29 @@ const UpdateProduct = (props) => {
                             defaultValue={defaultValue}
                             onChange={handleChangeColor}
                             options={options}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Size Sản Phẩm"
+                        style={{ minWidth: '100%' }}
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Size Sản Phẩm Không Được Để Trống!',
+                                transform: (value) => value.trim(),
+                            },
+                        ]}
+                    >
+                        <Select
+                            mode="multiple"
+                            allowClear
+                            style={{
+                                width: '100%',
+                            }}
+                            defaultValue={defaultValue}
+                            onChange={handleChangeSize}
+                            options={optionsSize}
                         />
                     </Form.Item>
 

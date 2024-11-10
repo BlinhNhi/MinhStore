@@ -82,7 +82,7 @@ const CreateProduct = () => {
             stockQuantity: '',
             numberOfProductSold: '',
             numberOfProductInStock: '',
-            imagesProduct: "",
+            imagesProduct: "[]",
             colorId: [],
             sizeId: [],
             categoryId: ''

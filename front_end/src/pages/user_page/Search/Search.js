@@ -3,30 +3,53 @@ import { MdFilterList } from "react-icons/md";
 
 import SelectProduct from "../../../components/SelectProduct/SelectProduct";
 import ListProduct from "../../../components/ListProduct/ListProduct";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FilterProduct from "../../../components/FilterProduct/FilterProduct";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductListOptionsAction } from "../../../redux_store/actions/ProductAcction";
+import { history } from "../../../App";
 
-function Search() {
+const setInput = {
+    searchName: "",
+    searchCategory: "",
+    searchColor: "",
+    searchSize: "",
+    fromPrice: "",
+    toPrice: "",
+    sort: "",
+    // dayStart: "",
+};
+
+function Search(props) {
     // const number = 5;
     // const formattedNumber = Intl.NumberFormat().format(number);
     // console.log(formattedNumber);  
-
+    const dispatch = useDispatch()
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const [childData, setChildData] = useState('');
-    console.log(childData);
-    const handleChildData = (data) => {
+    const [childDataCategory, setChildDataCategory] = useState('');
+    let { arrProducts } = useSelector(state => state.ProductReducer)
+    console.log(arrProducts);
+    console.log(childDataCategory);
+    const handleChildDataCategory = (data) => {
         console.log(data);
-        setChildData(data);
+        setChildDataCategory(data);
+        setInput.searchCategory = data;
     };
+    let searchParams = new URLSearchParams(props.location.search);
+
+    useEffect(() => {
+        setInput.searchName = searchParams.get('searchName') || '';
+        // if (setInput.searchName === "") {
+        //     history.push("/")
+        // }
+        dispatch(getProductListOptionsAction(setInput));
+    }, [dispatch]);
+
 
     const showFilter = () => {
-        // console.log('show');
-        // console.log(isFilterOpen);
         setIsFilterOpen(true);
     };
-    //   const handleOk = () => {
-    //     setIsFilterOpen(false);
-    //   };
+
     const handleFilterCancel = () => {
         setIsFilterOpen(false);
     };
@@ -34,7 +57,7 @@ function Search() {
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200">
             <div className="container">
                 <div className="hidden sm:block ">
-                    <SelectProduct></SelectProduct>
+                    <SelectProduct onSendData={handleChildDataCategory}></SelectProduct>
                 </div>
                 <div className="container relative">
                     <div className="xl:flex lg:flex 2xl:flex flex-row block  flex-wrap py-4">
@@ -50,7 +73,7 @@ function Search() {
                         </button>
 
                         <Modal title="" open={isFilterOpen} onOk={handleFilterCancel} onCancel={handleFilterCancel}>
-                            <SelectProduct onSendData={handleChildData}></SelectProduct>
+                            <SelectProduct onSendData={handleChildDataCategory}></SelectProduct>
                             <FilterProduct isFilterOpen={isFilterOpen} ></FilterProduct>
                         </Modal>
 

@@ -10,7 +10,7 @@ namespace back_end.IRepository
         Task<bool> PutProduct(Guid Id, Product product);
         Task<Product> DeleteProduct(Guid Id);
 
-        List<Product> OptionsAsDesired(string? searchCategory, string? fromPrice, string? toPrice, string? sort, string? size, string? color, string? createDay);
+        List<Product> OptionsAsDesired(string? searchName,string? searchCategory,string? searchColor, string? searchSize, string? fromPrice, string? toPrice, string? sort, string? createDay);
 
 
     }

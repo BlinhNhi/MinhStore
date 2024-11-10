@@ -3,7 +3,7 @@
     public class Product
     {
         public Guid Id { get; set; }
-        public string PriceProduct { get; set; }
+        public double PriceProduct { get; set; }
         public string NameProduct { get; set; }
 
         public int StockQuantity { get; set; }

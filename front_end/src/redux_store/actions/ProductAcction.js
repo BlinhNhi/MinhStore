@@ -121,3 +121,21 @@ export const apiUploadImages = (images) => new Promise(async (resolve, reject) =
         reject(error)
     }
 })
+
+export const getProductListOptionsAction = (options) => {
+    return async (dispatch) => {
+        try {
+            // dispatch(displayLoadingAction);
+            const result = await productService.getProductListOptions(options);
+            if (result.data.status === 200) {
+                dispatch({
+                    type: GET_PRODUCT_LIST,
+                    arrProducts: result.data.data,
+                });
+                // await dispatch(hideLoadingAction);
+            }
+        } catch (error) {
+            console.log("error", error);
+        }
+    };
+};

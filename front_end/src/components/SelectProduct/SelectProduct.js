@@ -4,8 +4,8 @@ import { ImSearch } from "react-icons/im";
 const { Option } = Select;
 
 function SelectProduct({ onSendData }) {
-    const handleFromChange = (value) => {
-        // console.log(value);
+    const handleChangeCategory = (value) => {
+        console.log(value);
         onSendData(value); // Gọi hàm và truyền giá trị lên cha
     };
 
@@ -24,7 +24,7 @@ function SelectProduct({ onSendData }) {
                                 // value={From}
                                 placeholder="Tất Cả"
                             // options={ }
-                            // onChange={handleFromChange}
+                            // onChange={handleChangeCategory}
                             >
                                 <Option value="jack">Dưới 1 Triệu</Option>
                                 <Option value="kk">Từ 1 đến 3 triệu</Option>
@@ -33,7 +33,7 @@ function SelectProduct({ onSendData }) {
                             </Select>
                         </div>
                         <div className="w-40 sm:w-80 md:w-80 lg:w-80 xl:w-80 2xl:w-80  flex flex-col gap-2">
-                            <h4 className="text-sm sm:text-sm md:text-lg xl:text-lg 2xl:text-lg italic dark:text-gray-500 font-medium">Chọn Theo Danh Mục </h4>
+                            <h4 className="text-sm sm:text-sm md:text-lg xl:text-lg 2xl:text-lg italic dark:text-gray-500 font-medium">Danh Mục </h4>
                             <Select
                                 size={"middle"}
                                 id="size"
@@ -42,11 +42,11 @@ function SelectProduct({ onSendData }) {
                                 // value={From}
                                 placeholder="Tất Cả"
                                 // options={}
-                                onChange={handleFromChange}
+                                onChange={handleChangeCategory}
                             >
-                                <Option value="38">Nike</Option>
-                                <Option value="39">Adidas</Option>
-                                <Option value="40">Khác...</Option>
+                                <Option value="Nike">Nike</Option>
+                                <Option value="Adidas">Adidas</Option>
+                                <Option value="">Khác...</Option>
                             </Select>
                         </div>
                         <div className="">
@@ -58,7 +58,7 @@ function SelectProduct({ onSendData }) {
                              bg-primary/80 text-white hover:bg-primary/60 focus:bg-primary active:bg-primary focus:text-gray-500"
                                 type="submit"
                             >
-                                <p className="text-xs sm:text-xs md:text-base xl:text-base 2xl:text-base">Tìm Giày Ngay</p>
+                                <p className="text-xs sm:text-xs md:text-base lg:text-base xl:text-base 2xl:text-base">Tìm Giày Ngay</p>
                                 <span><ImSearch className="text-xs sm:text-xs md:text-base xl:text-base 2xl:text-base"></ImSearch></span>
                             </button>
                         </div>

@@ -11,7 +11,7 @@ using back_end.Models;
 namespace back_end.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241105144332_Initial")]
+    [Migration("20241109110944_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -126,9 +126,8 @@ namespace back_end.Migrations
                     b.Property<int>("NumberOfProductSold")
                         .HasColumnType("int");
 
-                    b.Property<string>("PriceProduct")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<double>("PriceProduct")
+                        .HasColumnType("double");
 
                     b.Property<string>("SizeId")
                         .HasColumnType("longtext");
@@ -224,16 +223,16 @@ namespace back_end.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c40147d1-61f0-4945-9fcc-867b01b9446e"),
+                            Id = new Guid("e9e6d2a2-0dc4-4c08-807e-cccb5c791a4f"),
                             Email = "admin@minhstore.com",
-                            Password = "$2a$11$a/DlO/iMIgR/Qnf9GsCaiOkmfDVuZ.tFVI08aF8UVDjdAPYYC8GUG",
+                            Password = "$2a$11$jJ3q1I8W127m0UMu6.yAt.V9RzyrSzpkR8C4v6dM3sL/vCOYw8A8i",
                             Role = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("c862eaf8-7307-4505-a920-563e4cc68bff"),
+                            Id = new Guid("086f1733-b0b6-4ccd-9c81-1ad02f9560ab"),
                             Email = "user123@gmail.com",
-                            Password = "$2a$11$9iJN.RyE7PHY5lOxHQfgbOyWY217xSQeebTRkPR63I8jAsvClfRDK",
+                            Password = "$2a$11$7/gll8zIG1jNywXhuyjrs.qKQ/OvVmw/6PHgiKfh5ggxnUbq9dw7G",
                             Role = "User"
                         });
                 });

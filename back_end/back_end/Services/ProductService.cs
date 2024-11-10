@@ -55,6 +55,7 @@ namespace back_end.Services
                 product.Category = category;
                 await db.Products.AddAsync(product);
                 await db.SaveChangesAsync();
+
                 if (product.ColorId != null)
                 {
                     List<string> list = product.ColorId.Split(",").ToList();
@@ -168,10 +169,18 @@ namespace back_end.Services
             return null;
         }
 
-        public List<Product> OptionsAsDesired(string? searchCategory, string? fromPrice, string? toPrice, string? sort, string? size, string? color, string? createDay)
+        public List<Product> OptionsAsDesired(string? searchName, string? searchCategory, string? searchColor,string? searchSize, string? fromPrice, string? toPrice, string? sort, string? createDay)
         {
            var allProducts = db.Products.Include(ca=>ca.Category).Include(c=>c.Colors).Include(s=>s.Sizes).AsQueryable();
             var p = searchCategory;
+            var sc = searchColor;
+            var ss = searchSize;
+
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                allProducts = allProducts.Where(pro => pro.NameProduct.Contains(searchName));
+            }
+
             if (!string.IsNullOrEmpty(searchCategory))
             {   
                 List<string> list = searchCategory.Split(",").ToList();
@@ -180,36 +189,89 @@ namespace back_end.Services
                     allProducts = allProducts.Where(pr => list.Contains(pr.Category.Name));
                 }
             }
-
-            if (!string.IsNullOrEmpty(color))
+            if (!string.IsNullOrEmpty(searchColor))
             {
-                allProducts = allProducts.Where(tr => tr.Colors.Any(c => c.Name == color));
+                List<string> selectedColors = searchColor.Split(",").ToList();
+                if (selectedColors.Count > 1)
+                {
+                    allProducts = allProducts.Where(pr => pr.Colors.Any(c => selectedColors.Contains(c.Name)));
+                }
+                else 
+                {
+                    allProducts = allProducts.Where(pr => pr.Colors.Any(c => c.Name == selectedColors[0]));
+                }
+                if (!allProducts.Any())
+                {
+                    return null;
+                }
             }
-            if (!string.IsNullOrEmpty(size))
+            if (!string.IsNullOrEmpty(searchSize))
             {
-                allProducts = allProducts.Where(tr => tr.Sizes.Any(s => s.NumberOfSize == size));
+                List<string> searchSizes = searchSize.Split(",").ToList();
+                if (searchSizes.Count > 1)
+                {
+                    allProducts = allProducts.Where(pr => pr.Sizes.Any(c => searchSizes.Contains(c.NumberOfSize)));
+                }
+                else
+                {
+                    allProducts = allProducts.Where(pr => pr.Sizes.Any(c => c.NumberOfSize == searchSizes[0]));
+                }
+                if (!allProducts.Any())
+                {
+                    return null;
+                }
             }
-            /*  if (!string.IsNullOrEmpty(color))
-              {
-                  allProducts = allProducts.Where(tr => tr.Colors != null && tr.Colors.Any(c => c.Name == color));
-              }
-  */
 
 
+
+            /*   if (!string.IsNullOrEmpty(color))
+               {
+                   allProducts = allProducts.Where(tr => tr.Colors.Any(c => c.Name == color));
+               }
+               if (!string.IsNullOrEmpty(size))
+               {
+                   allProducts = allProducts.Where(tr => tr.Sizes.Any(s => s.NumberOfSize == size));
+               }*/
+            if (!string.IsNullOrEmpty(fromPrice))
+            {
+                allProducts = allProducts.Where(tr => tr.PriceProduct >= double.Parse(fromPrice));
+            }
+            if (!string.IsNullOrEmpty(toPrice))
+            {
+                allProducts = allProducts.Where(tr => tr.PriceProduct <= double.Parse(toPrice));
+            }
+            if (!string.IsNullOrEmpty(sort))
+            {
+                switch (sort)
+                {
+                    case "lowest-price":
+                        allProducts = allProducts.OrderBy(trip => trip.PriceProduct);
+                        break;
+                    case "highest-price":
+                        allProducts = allProducts.OrderByDescending(trip => trip.PriceProduct);
+                        break;
+                  /*  case "earliest-product-create":
+                        allProducts = allProducts.OrderBy(pro=>pro.CreatedDate);
+                        break;
+                    case "latest-departure":
+                        allProducts = allProducts.OrderByDescending(pro => pro.CreatedDate);
+                        break;*/
+
+                }
+            }
             var result = allProducts.Select(product => new Product
             {
                 Id = product.Id,
                 NameProduct = product.NameProduct,
                 PriceProduct = product.PriceProduct,
-                StockQuantity = product.StockQuantity,
+               /* StockQuantity = product.StockQuantity,
                 NumberOfProductSold = product.NumberOfProductSold,
-                NumberOfProductInStock = product.NumberOfProductInStock,
+                NumberOfProductInStock = product.NumberOfProductInStock,*/
                 ImagesProduct = product.ImagesProduct,
                 Colors = product.Colors, 
-
                 Sizes = product.Sizes,
-                CreatedDate = product.CreatedDate,
                 Category = product.Category,
+                CreatedDate = product.CreatedDate,
             });
 
             return result.ToList();
