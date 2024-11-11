@@ -11,6 +11,9 @@ export class ProductService extends baseService {
     getProductById = (id) => {
         return this.get(`/api/Product/${id}`);
     }
+    getProductByIdForUser = (id) => {
+        return this.get(`/api/Product/user/${id}`);
+    }
     createProduct = (formData) => {
         return this.post(`/api/Product`, formData);
     };

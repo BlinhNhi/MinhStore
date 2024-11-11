@@ -1,5 +1,5 @@
 import { productService } from "../../service/ProductService";
-import { GET_PRODUCT_DETAIL, GET_PRODUCT_LIST } from "../constants";
+import { GET_PRODUCT_DETAIL, GET_PRODUCT_DETAIL_FOR_USER, GET_PRODUCT_LIST } from "../constants";
 import { notification } from 'antd';
 import { history } from '../../App';
 import axios from "axios";
@@ -25,7 +25,6 @@ export const addProductAction = (formData) => {
     return async (dispatch) => {
         try {
             const result = await productService.createProduct(formData)
-            console.log(result);
             notification.success({
                 closeIcon: true,
                 message: 'Success',
@@ -65,15 +64,30 @@ export const deleteProductAction = (id) => {
     };
 }
 export const getDetailProductAction = (id) => {
-
     return async (dispatch) => {
         try {
             const result = await productService.getProductById(id);
-            console.log(result);
             if (result.data.status === 200) {
                 dispatch({
                     type: GET_PRODUCT_DETAIL,
                     productDetail: result.data.data[0],
+                })
+
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
+
+export const getDetailProductForUserAction = (id) => {
+    return async (dispatch) => {
+        try {
+            const result = await productService.getProductByIdForUser(id);
+            if (result.data.status === 200) {
+                dispatch({
+                    type: GET_PRODUCT_DETAIL_FOR_USER,
+                    productDetailForUser: result?.data?.data[0],
                 })
 
             }

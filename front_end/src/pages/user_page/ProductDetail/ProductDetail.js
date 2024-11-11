@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { FaStar, FaOpencart, FaHandPointRight, FaTruck, FaCoins } from "react-icons/fa";
 import { IoIosFlash } from "react-icons/io";
@@ -9,6 +9,9 @@ import Img2 from '../../../assets/top_product/nike.jpg';
 import Img3 from '../../../assets/top_product/nike2.jpg';
 import Img4 from '../../../assets/top_product/nike3.jpg';
 import Top5Product from "../../../components/Top5Products/Top5Products";
+import { useDispatch, useSelector } from "react-redux";
+import { getDetailProductForUserAction } from "../../../redux_store/actions/ProductAcction";
+import { handleFormatPrice } from "../../../utils/format/formatPrice";
 
 function CancelArrowSlider(props) {
     const { style } = props;
@@ -19,8 +22,16 @@ function CancelArrowSlider(props) {
     );
 }
 
-function ProductDetail() {
+function ProductDetail(props) {
+    let { id } = props.match.params;
+    const dispatch = useDispatch();
+    const { productDetailForUser } = useSelector(state => state.ProductReducer)
     const [numberProduct, setNumberProduct] = useState(1);
+    console.log(productDetailForUser);
+    useEffect(() => {
+        dispatch(getDetailProductForUserAction(id))
+    }, [dispatch])
+    let imagesProduct = productDetailForUser?.imagesProduct && JSON.parse(productDetailForUser.imagesProduct);
     const settings = {
         dots: true,
         fade: true,
@@ -55,26 +66,19 @@ function ProductDetail() {
                             className="flex items-center">
                             <div
                                 className="
-                    w-[280px] h-[300px] 
-                    sm:w-[500px] sm:h-[300px]  
-                    md:w-[600px] md:h-[500px] 
-                    lg:w-[800px] lg:h-[700px] 
-                    xl:w-[800px] xl:h-[700px] 
-                    2xl:w-[800px] 2xl:h-[700px]    
+                    w-[350px] h-[350px] 
+                    sm:w-[500px] sm:h-[350px]  
+                    md:w-[500px] md:h-[400px] 
+                    lg:w-[600px] lg:h-[500px] 
+                    xl:w-[600px] xl:h-[500px] 
+                    2xl:w-[700px] 2xl:h-[600px]    
                     block mt-0 xl:mt-9 2xl:mt-9">
                                 <Slider {...settings}>
-                                    <div className="">
-                                        <img className="w-full h-[200px] sm:h-[250px] md:h-[400px] lg:h-[600px] xl:md:h-[600px] 2xl:md:h-[600px] object-cover" src={Img1} alt="" />
-                                    </div>
-                                    <div className="">
-                                        <img className="w-full h-[200px] sm:h-[250px] md:h-[400px] lg:h-[600px] xl:md:h-[600px] 2xl:md:h-[600px] object-cover" src={Img2} alt="" />
-                                    </div>
-                                    <div className="">
-                                        <img className="w-full h-[200px] sm:h-[250px] md:h-[400px] lg:h-[600px] xl:md:h-[600px] 2xl:md:h-[600px] object-cover" src={Img3} alt="" />
-                                    </div>
-                                    <div className="">
-                                        <img className="w-full h-[200px] sm:h-[250px] md:h-[400px] lg:h-[600px] xl:md:h-[600px] 2xl:md:h-[600px] object-cover" src={Img4} alt="" />
-                                    </div>
+                                    {imagesProduct?.map((item, key) => {
+                                        return <div className="" key={key}>
+                                            <img className="w-full h-[300px] sm:h-[300px] md:h-[350px] lg:h-[450px] xl:h-[450px] 2xl:h-[550px] object-contain" src={item} alt="" />
+                                        </div>
+                                    })}
                                 </Slider>
                             </div>
                         </div>
@@ -84,22 +88,13 @@ function ProductDetail() {
                             <div
                                 data-aos="zoom-in"
                                 className="flex flex-col gap-1 ">
-                                <h2 className="font-bold mt-2 text-xl sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl">Adidas Samba</h2>
-                                <div className="mt-2 p-0">
-                                    <div className="w-full flex gap-1 text-base">
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                    </div>
-                                </div>
-                                <h3 className="leading-[0px] p-0 mt-2 text-base sm:text-lg md:text-lg lg:text-lg xl:text-lg 2xl:text-lg font-medium">Mã Sản Phẩm: 001</h3>
+                                <h2 className="font-bold mt-2 text-xl sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl">{productDetailForUser?.nameProduct}</h2>
+                                <h3 className="leading-[0px] p-0 mt-2 text-base sm:text-lg md:text-lg lg:text-lg xl:text-lg 2xl:text-lg font-medium">Mã Sản Phẩm: {productDetailForUser?.id}</h3>
                                 <h3 className="
                             leading-[0px] p-0 mt-[19px]  text-base font-medium
                             sm:text-lg md:text-lg lg:text-lg xl:text-lg 2xl:text-lg 
                             sm:mt-0 md:mt-0 lg:mt-0 xl:mt-0 2xl:mt-0
-                            ">Giá: 1.000.000 đ</h3>
+                            ">Giá: {handleFormatPrice(productDetailForUser?.priceProduct)} vnd</h3>
                                 <div className="mt-1">
                                     <h3 className="
                                 mt-1
@@ -108,11 +103,9 @@ function ProductDetail() {
                                 ">Chọn Size Giày: </h3>
                                     {/* star */}
                                     <div className="flex items-center gap-4 mt-3">
-                                        <button className="border-2 hover:bg-slate-300 hover:text-white dark:bg-white rounded-md dark:text-gray-600 dark:hover:bg-primary dark:hover:text-white dark:hover:border-primary p-2">31</button>
-                                        <button className="border-2 hover:bg-slate-300 hover:text-white dark:bg-white rounded-md dark:text-gray-600 dark:hover:bg-primary dark:hover:text-white dark:hover:border-primary p-2">32</button>
-                                        <button className="border-2 hover:bg-slate-300 hover:text-white dark:bg-white rounded-md dark:text-gray-600 dark:hover:bg-primary dark:hover:text-white dark:hover:border-primary p-2">33</button>
-                                        <button className="border-2 hover:bg-slate-300 hover:text-white dark:bg-white rounded-md dark:text-gray-600 dark:hover:bg-primary dark:hover:text-white dark:hover:border-primary p-2">34</button>
-                                        <button className="border-2 hover:bg-slate-300 hover:text-white dark:bg-white rounded-md dark:text-gray-600 dark:hover:bg-primary dark:hover:text-white dark:hover:border-primary p-2">35</button>
+                                        {productDetailForUser?.sizes?.map((data, key) => {
+                                            return <button key={key} className="border-2 hover:bg-slate-300 hover:text-white dark:bg-white rounded-md dark:text-gray-600 dark:hover:bg-primary dark:hover:text-white dark:hover:border-primary p-2">{data?.numberOfSize}</button>
+                                        })}
                                     </div>
                                 </div>
                                 <div className="

@@ -48,7 +48,7 @@ function App() {
       <Switch>
         <HomeTemplate path="/home" exact Component={Home}></HomeTemplate>
         <HomeTemplate path="/search/" Component={Search}></HomeTemplate>
-        <HomeTemplate path="/product-detail/1" Component={ProductDetail}></HomeTemplate>
+        <HomeTemplate path="/product-detail/:id" Component={ProductDetail}></HomeTemplate>
         <HomeTemplate path="/login" Component={Login}></HomeTemplate>
         <AdminTemplate path="/admin/dashboard" Component={DashBoard}></AdminTemplate>
 

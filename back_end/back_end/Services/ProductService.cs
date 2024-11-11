@@ -32,7 +32,7 @@ namespace back_end.Services
                     NumberOfProductSold = p.NumberOfProductSold,
                     NumberOfProductInStock = p.NumberOfProductInStock,
                     ImagesProduct = p.ImagesProduct,
-                    CreatedDate = DateTime.Now,
+                    CreatedDate = p.CreatedDate,
                    /* ColorId = p.ColorId,*/
                     Colors = p.Colors, // Lấy Colors liên kết
                   /*  SizeId = p.SizeId,*/
@@ -90,6 +90,7 @@ namespace back_end.Services
         {
             return await db.Products.Include(c=>c.Category).Include(co=>co.Colors).Where(p=>p.Id == Id).Include(si=>si.Sizes).Where(p=>p.Id == Id).ToListAsync();
         }
+
 
         public async Task<bool> PutProduct(Guid Id, Product product)
         {
@@ -265,9 +266,6 @@ namespace back_end.Services
                 Id = product.Id,
                 NameProduct = product.NameProduct,
                 PriceProduct = product.PriceProduct,
-               /* StockQuantity = product.StockQuantity,
-                NumberOfProductSold = product.NumberOfProductSold,
-                NumberOfProductInStock = product.NumberOfProductInStock,*/
                 ImagesProduct = product.ImagesProduct,
                 Colors = product.Colors, 
                 Sizes = product.Sizes,
@@ -277,5 +275,36 @@ namespace back_end.Services
 
             return result.ToList();
         }
+
+        public async Task<IEnumerable<Product>> GetProductByIdForUser(Guid Id)
+        {
+            var product = await db.Products
+                .Where(p => p.Id == Id)
+                .Include(p => p.Category)
+                .Include(p => p.Colors)
+                .Include(p => p.Sizes)
+                .Select(p => new Product()
+                {
+                    Id = p.Id,
+                    NameProduct = p.NameProduct,
+                    PriceProduct = p.PriceProduct,
+                    ImagesProduct = p.ImagesProduct,
+                    Colors = p.Colors,
+                    Sizes = p.Sizes,
+                    Category = new Category()
+                    {
+                        Id = p.Category.Id,
+                        Name = p.Category.Name,
+                    }
+                })
+                .FirstOrDefaultAsync();
+
+            // Trả về một mảng chứa `product`, nếu `product` là `null` thì trả về mảng rỗng.
+            return product != null ? new[] { product } : Enumerable.Empty<Product>();
+        }
+
     }
+
+
+
 }

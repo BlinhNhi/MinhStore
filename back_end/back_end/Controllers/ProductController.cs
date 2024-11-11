@@ -1,6 +1,7 @@
 ﻿using back_end.IRepository;
 using back_end.Models;
 using back_end.ReponseData;
+using back_end.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -39,9 +40,9 @@ namespace back_end.Controllers
         }
 
 
-       /* [AllowAnonymous]*/
+        /*    [AllowAnonymous]*/
         [HttpGet("{Id}")]
-        public async Task<ActionResult> getAProductById(Guid Id)
+        public async Task<ActionResult> getProductById(Guid Id)
         {
             try
             {
@@ -59,6 +60,42 @@ namespace back_end.Controllers
             }
 
         }
+
+
+        [HttpGet("user/{Id}")]
+        /*    [HttpGet("{id:guid}")]*/
+        public async Task<IActionResult> GetProductByIdForUser(Guid Id)
+        {
+            try
+            {
+                var products = await repo.GetProductByIdForUser(Id);
+                if (products != null)
+                {
+                    var response = new ResponseData<IEnumerable<Product>>(StatusCodes.Status200OK, "Get Product successfully", products, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+         
+
+            /*if (product == null)
+            {
+                // Nếu không tìm thấy sản phẩm, trả về 404 Not Found
+                return NotFound(new
+                {
+                    message = "Product not found",
+                    productId = Id
+                });
+            }
+
+            // Nếu tìm thấy, trả về 200 OK với sản phẩm
+            return Ok(product);*/
+        }
+
 
         [HttpPost]
         public async Task<ActionResult> CreateProduct([FromForm] Product product)
