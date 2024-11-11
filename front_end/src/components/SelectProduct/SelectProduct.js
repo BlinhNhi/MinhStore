@@ -1,12 +1,35 @@
 import { Select, } from "antd";
 // import { useState } from "react";
 import { ImSearch } from "react-icons/im";
+import { useDispatch } from "react-redux";
+import { getProductListOptionsAction } from "../../redux_store/actions/ProductAcction";
 const { Option } = Select;
 
+const setInput = {
+    searchName: "",
+    searchCategory: "",
+    searchColor: "",
+    searchSize: "",
+    fromPrice: "",
+    toPrice: "",
+    sort: "",
+    dayStart: "",
+};
+
 function SelectProduct({ onSendData }) {
+    const dispatch = useDispatch();
+    const handleChangePrice = (value) => {
+        const [from, to] = value.split('-').map(Number);
+        console.log(from);
+        console.log(to);
+        setInput.fromPrice = from;
+        setInput.toPrice = to;
+        dispatch(getProductListOptionsAction(setInput));
+    }
+
     const handleChangeCategory = (value) => {
-        console.log(value);
-        onSendData(value); // Gọi hàm và truyền giá trị lên cha
+        setInput.searchCategory = value;
+        dispatch(getProductListOptionsAction(setInput));
     };
 
     return (
@@ -21,15 +44,14 @@ function SelectProduct({ onSendData }) {
                                 id="size"
                                 style={{ minWidth: '100%' }}
                                 showSearch
-                                // value={From}
                                 placeholder="Tất Cả"
-                            // options={ }
-                            // onChange={handleChangeCategory}
+                                onChange={handleChangePrice}
                             >
-                                <Option value="jack">Dưới 1 Triệu</Option>
-                                <Option value="kk">Từ 1 đến 3 triệu</Option>
-                                <Option value="kkk">Từ 3 đến 5 triệu</Option>
-                                <Option value="lucy">Trên 5 triệu</Option>
+                                <Option value="0-900000000">Tất Cả</Option>
+                                <Option value="0-1000000">Dưới 1 Triệu</Option>
+                                <Option value="1000000-3000000">Từ 1 đến 3 triệu</Option>
+                                <Option value="3000000-5000000">Từ 3 đến 5 triệu</Option>
+                                <Option value="5000000-900000000">Trên 5 triệu</Option>
                             </Select>
                         </div>
                         <div className="w-40 sm:w-80 md:w-80 lg:w-80 xl:w-80 2xl:w-80  flex flex-col gap-2">
@@ -39,9 +61,7 @@ function SelectProduct({ onSendData }) {
                                 id="size"
                                 style={{ minWidth: '100%' }}
                                 showSearch
-                                // value={From}
                                 placeholder="Tất Cả"
-                                // options={}
                                 onChange={handleChangeCategory}
                             >
                                 <Option value="Nike">Nike</Option>
@@ -49,7 +69,7 @@ function SelectProduct({ onSendData }) {
                                 <Option value="">Khác...</Option>
                             </Select>
                         </div>
-                        <div className="">
+                        {/* <div className="">
                             <button
                                 className="
                                 w-40 lg:w-[300px]  xl:w-[300px] 2xl:w-[300px]  md:w-[180px] px-4 sm:w-[140px]  
@@ -61,7 +81,7 @@ function SelectProduct({ onSendData }) {
                                 <p className="text-xs sm:text-xs md:text-base lg:text-base xl:text-base 2xl:text-base">Tìm Giày Ngay</p>
                                 <span><ImSearch className="text-xs sm:text-xs md:text-base xl:text-base 2xl:text-base"></ImSearch></span>
                             </button>
-                        </div>
+                        </div> */}
                     </div>
                 </form>
             </div>

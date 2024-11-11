@@ -17,7 +17,7 @@ const setInput = {
     fromPrice: "",
     toPrice: "",
     sort: "",
-    // dayStart: "",
+    dayStart: "",
 };
 
 function Search(props) {
@@ -28,20 +28,17 @@ function Search(props) {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [childDataCategory, setChildDataCategory] = useState('');
     let { arrProducts } = useSelector(state => state.ProductReducer)
-    console.log(arrProducts);
-    console.log(childDataCategory);
+
+    // console.log(childDataCategory);
     const handleChildDataCategory = (data) => {
         console.log(data);
         setChildDataCategory(data);
         setInput.searchCategory = data;
     };
     let searchParams = new URLSearchParams(props.location.search);
-
+    let searchNameProduct = searchParams.get('searchName');
     useEffect(() => {
-        setInput.searchName = searchParams.get('searchName') || '';
-        // if (setInput.searchName === "") {
-        //     history.push("/")
-        // }
+        setInput.searchName = searchParams.get('searchName');
         dispatch(getProductListOptionsAction(setInput));
     }, [dispatch]);
 
@@ -61,7 +58,7 @@ function Search(props) {
                 </div>
                 <div className="container relative">
                     <div className="xl:flex lg:flex 2xl:flex flex-row block  flex-wrap py-4">
-                        <FilterProduct></FilterProduct>
+                        <FilterProduct searchNameProduct={searchNameProduct}></FilterProduct>
                         <button
                             onClick={showFilter}>
                             <div className="fixed right-2 top-[65%]">
@@ -74,7 +71,7 @@ function Search(props) {
 
                         <Modal title="" open={isFilterOpen} onOk={handleFilterCancel} onCancel={handleFilterCancel}>
                             <SelectProduct onSendData={handleChildDataCategory}></SelectProduct>
-                            <FilterProduct isFilterOpen={isFilterOpen} ></FilterProduct>
+                            <FilterProduct isFilterOpen={isFilterOpen} searchNameProduct={searchNameProduct}></FilterProduct>
                         </Modal>
 
                         <div className="w-full  pt-1 px-2 md:w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4">

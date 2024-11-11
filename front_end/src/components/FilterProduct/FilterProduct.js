@@ -16,12 +16,15 @@ const setInput = {
     // dayStart: "",
 };
 
-function FilterProduct({ isFilterOpen }) {
+function FilterProduct({ isFilterOpen, searchNameProduct }) {
     let { arrColor } = useSelector(state => state.ColorReducer);
     let { arrSizes } = useSelector(state => state.SizeReducer);
     let { arrProducts } = useSelector(state => state.ProductReducer)
+    const dataNameProduct = searchNameProduct;
     console.log(arrProducts);
+    console.log(dataNameProduct);
     const dispatch = useDispatch();
+
 
 
     useEffect(() => {
@@ -31,6 +34,7 @@ function FilterProduct({ isFilterOpen }) {
 
     const handleOnChangeSort = (e) => {
         setInput.sort = e.target.value;
+        setInput.searchName = dataNameProduct;
         dispatch(getProductListOptionsAction(setInput));
     };
 
@@ -39,6 +43,7 @@ function FilterProduct({ isFilterOpen }) {
             setInput.searchColor += event.target.value + ",";
             console.log(setInput.searchColor);
         } else {
+            setInput.searchName = dataNameProduct;
             setInput.searchColor = setInput.searchColor.replace(event.target.value + ",", "");
         }
         dispatch(getProductListOptionsAction(setInput));
@@ -47,8 +52,9 @@ function FilterProduct({ isFilterOpen }) {
     const handleOnChangeSize = (event) => {
         if (event.target.checked && event.target.value !== "undefine") {
             setInput.searchSize += event.target.value + ",";
-            console.log(setInput.searchSize);
+            setInput.searchName = dataNameProduct;
         } else {
+            setInput.searchName = dataNameProduct;
             setInput.searchSize = setInput.searchSize.replace(event.target.value + ",", "");
         }
         dispatch(getProductListOptionsAction(setInput));
@@ -59,8 +65,8 @@ function FilterProduct({ isFilterOpen }) {
             <Card className="bg-gray-200 text-base sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" title="Sắp Xếp Theo" onChange={(e) => handleOnChangeSort(e)}>
                 <Radio.Group className="flex flex-col gap-2 sm:gap-0 md:gap-0 lg:gap-0 xl:gap-0 2xl:gap-0 ">
                     <Radio key="1" className=" text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="">Tất Cả</Radio>
-                    <Radio key="2" className=" text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="lowest-price">Giá Thấp Nhất</Radio>
                     <Radio key="3" className=" text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="highest-price">Giá Cao Nhất</Radio>
+                    <Radio key="2" className=" text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="lowest-price">Giá Thấp Nhất</Radio>
                 </Radio.Group>
             </Card>
             <Card title="Màu Sắc" className="mt-3 bg-gray-200 text-base sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base">

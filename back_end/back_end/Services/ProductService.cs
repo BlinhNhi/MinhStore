@@ -245,11 +245,12 @@ namespace back_end.Services
                 switch (sort)
                 {
                     case "lowest-price":
-                        allProducts = allProducts.OrderBy(trip => trip.PriceProduct);
+                        allProducts = allProducts.OrderByDescending(pro => pro.PriceProduct);
                         break;
                     case "highest-price":
-                        allProducts = allProducts.OrderByDescending(trip => trip.PriceProduct);
+                        allProducts = allProducts.OrderBy(pro => pro.PriceProduct);
                         break;
+                
                   /*  case "earliest-product-create":
                         allProducts = allProducts.OrderBy(pro=>pro.CreatedDate);
                         break;

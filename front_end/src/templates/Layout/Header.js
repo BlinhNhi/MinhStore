@@ -80,8 +80,8 @@ function Header() {
     const handleSearch = (e) => {
         e.preventDefault();
         setInput.searchName = valueSearch;
-        console.log(setInput);
-        if (valueSearch !== null && valueSearch?.startsWith(' ') === false && valueSearch !== "") {
+        //  && valueSearch?.startsWith(' ') === false && valueSearch !== ""
+        if (valueSearch !== null) {
             dispatch(getProductListOptionsAction(setInput));
             const queryString = new URLSearchParams(setInput).toString();
             history.push(`/search?${queryString}`);
@@ -251,15 +251,18 @@ function Header() {
             {/*  
                          */}
             <div className='h-10 sm:hidden'>
-                <div className="flex items-center justify-center mt-3 sm:hidden rounded-full border mx-2 py-1 px-4  border-1 dark:bg-gray-800 dark:border-gray-500   transition-all duration-300">
-                    <input
-                        type='text'
-                        placeholder='Tìm Kiếm'
-                        className='w-full outline-none  dark:text-gray-100 dark:bg-gray-800 '
-                    ></input>
-                    <ImSearch className=' cursor-pointer w-10 text-2xl p-1 text-gray-500 hover:text-yellow-500 ' />
-                    {/*   absolute top-1/2 -translate-y-1/2 w-4 */}
-                </div>
+                <form onSubmit={handleSearch} >
+                    <div className="flex items-center justify-center mt-3 sm:hidden rounded-full border mx-2 py-1 px-4  border-1 dark:bg-gray-800 dark:border-gray-500   transition-all duration-300">
+                        <input
+                            onChange={handelOnChangeSearch}
+                            type='text'
+                            placeholder='Tìm Kiếm'
+                            className='w-full outline-none  dark:text-gray-100 dark:bg-gray-800 '
+                        ></input>
+                        <ImSearch className=' cursor-pointer w-10 text-2xl p-1 text-gray-500 hover:text-yellow-500 ' />
+                        {/*   absolute top-1/2 -translate-y-1/2 w-4 */}
+                    </div>
+                </form>
             </div>
         </div>);
 }
