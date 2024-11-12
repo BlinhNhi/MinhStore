@@ -181,7 +181,6 @@ namespace back_end.Services
             {
                 allProducts = allProducts.Where(pro => pro.NameProduct.Contains(searchName));
             }
-
             if (!string.IsNullOrEmpty(searchCategory))
             {   
                 List<string> list = searchCategory.Split(",").ToList();
@@ -222,17 +221,6 @@ namespace back_end.Services
                     return null;
                 }
             }
-
-
-
-            /*   if (!string.IsNullOrEmpty(color))
-               {
-                   allProducts = allProducts.Where(tr => tr.Colors.Any(c => c.Name == color));
-               }
-               if (!string.IsNullOrEmpty(size))
-               {
-                   allProducts = allProducts.Where(tr => tr.Sizes.Any(s => s.NumberOfSize == size));
-               }*/
             if (!string.IsNullOrEmpty(fromPrice))
             {
                 allProducts = allProducts.Where(tr => tr.PriceProduct >= double.Parse(fromPrice));

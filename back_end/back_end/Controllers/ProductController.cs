@@ -40,7 +40,7 @@ namespace back_end.Controllers
         }
 
 
-        /*    [AllowAnonymous]*/
+        /*[AllowAnonymous]*/
         [HttpGet("{Id}")]
         public async Task<ActionResult> getProductById(Guid Id)
         {
@@ -63,7 +63,6 @@ namespace back_end.Controllers
 
 
         [HttpGet("user/{Id}")]
-        /*    [HttpGet("{id:guid}")]*/
         public async Task<IActionResult> GetProductByIdForUser(Guid Id)
         {
             try
@@ -80,20 +79,6 @@ namespace back_end.Controllers
             {
                 return BadRequest(ex.Message);
             }
-         
-
-            /*if (product == null)
-            {
-                // Nếu không tìm thấy sản phẩm, trả về 404 Not Found
-                return NotFound(new
-                {
-                    message = "Product not found",
-                    productId = Id
-                });
-            }
-
-            // Nếu tìm thấy, trả về 200 OK với sản phẩm
-            return Ok(product);*/
         }
 
 

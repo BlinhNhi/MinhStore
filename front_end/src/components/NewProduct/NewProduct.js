@@ -19,7 +19,7 @@ function NewProduct() {
                         <div
                             key={data?.id}
                             data-aos="zoom-in"
-                            className="rounded-2xl mt-4 dark:bg-gray-800 hover:bg-black/80 dark:hover:bg-primary hover:text-white relative shadow-xl duration-300 group max-w-[300px]">
+                            className="rounded-2xl mt-4 dark:bg-gray-800 hover:bg-black/80 dark:hover:bg-primary hover:text-white relative shadow-xl  group max-w-[300px]">
                             <div className="h-[120px]">
                                 <img
                                     src={data?.img}
