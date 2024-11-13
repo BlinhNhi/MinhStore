@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace back_end.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initalcreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -221,8 +221,10 @@ namespace back_end.Migrations
                 columns: new[] { "Id", "Email", "Name", "Password", "Phone", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("086f1733-b0b6-4ccd-9c81-1ad02f9560ab"), "user123@gmail.com", null, "$2a$11$7/gll8zIG1jNywXhuyjrs.qKQ/OvVmw/6PHgiKfh5ggxnUbq9dw7G", null, "User" },
-                    { new Guid("e9e6d2a2-0dc4-4c08-807e-cccb5c791a4f"), "admin@minhstore.com", null, "$2a$11$jJ3q1I8W127m0UMu6.yAt.V9RzyrSzpkR8C4v6dM3sL/vCOYw8A8i", null, "Admin" }
+                    { new Guid("217a76bd-a9ec-4e55-a16d-3296f93658a3"), "user456@gmail.com", null, "$2a$11$i0kaLiTwshn/3ugBVZkxj.c.LfshMMu2RoDoxycOo9r9PUgRxoNF2", null, "User" },
+                    { new Guid("8cb346ba-97b6-490a-ba3e-a458462f63cb"), "user789@gmail.com", null, "$2a$11$9OPZn2nvTLFCJDxkWTB2IOTOmn0LK/dnLQhzOllYSx3kYWeF6sU.e", null, "User" },
+                    { new Guid("9cab0d75-ce0c-43d2-af17-48b8b3c3a11f"), "user123@gmail.com", null, "$2a$11$SxHoacyOvQcxiYNCUCfibOzYxNkVrBH2DbA40ZnWA.gcXfbZzhoqW", null, "User" },
+                    { new Guid("ca2a6f23-cef9-4feb-9d7b-f97957007961"), "admin@minhstore.com", null, "$2a$11$v6P3zoNYZnf02BW.ATijgujF8zRFntfwCUB3eJdAEXy17Ri8ywc.u", null, "Admin" }
                 });
 
             migrationBuilder.CreateIndex(

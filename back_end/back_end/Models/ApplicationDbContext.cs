@@ -35,10 +35,24 @@ namespace back_end.Models
                 {
                     Id =  Guid.NewGuid(),
                     Email="user123@gmail.com",
-                    Password=BCrypt.Net.BCrypt.HashPassword("user1234"),
+                    Password=BCrypt.Net.BCrypt.HashPassword("user123"),
                     Role="User"
                 },
-              
+                    new User
+                {
+                    Id =  Guid.NewGuid(),
+                    Email="user456@gmail.com",
+                    Password=BCrypt.Net.BCrypt.HashPassword("user456"),
+                    Role="User"
+                },
+                        new User
+                {
+                    Id =  Guid.NewGuid(),
+                    Email="user789@gmail.com",
+                    Password=BCrypt.Net.BCrypt.HashPassword("user789"),
+                    Role="User"
+                },
+
          });
             modelBuilder.Entity<Category>(p =>
             {

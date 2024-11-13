@@ -6,7 +6,7 @@ import ListProduct from "../../../components/ListProduct/ListProduct";
 import { useEffect, useState } from "react";
 import FilterProduct from "../../../components/FilterProduct/FilterProduct";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductListOptionsAction } from "../../../redux_store/actions/ProductAcction";
+import { getProductListOptionsAction, getProductsOfCategoryAction } from "../../../redux_store/actions/ProductAcction";
 import { history } from "../../../App";
 
 const setInput = {
@@ -21,15 +21,10 @@ const setInput = {
 };
 
 function Search(props) {
-    // const number = 5;
-    // const formattedNumber = Intl.NumberFormat().format(number);
-    // console.log(formattedNumber);  
     const dispatch = useDispatch()
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [childDataCategory, setChildDataCategory] = useState('');
-    let { arrProducts } = useSelector(state => state.ProductReducer)
-
-    // console.log(childDataCategory);
+    console.log(childDataCategory);
     const handleChildDataCategory = (data) => {
         console.log(data);
         setChildDataCategory(data);
@@ -37,9 +32,19 @@ function Search(props) {
     };
     let searchParams = new URLSearchParams(props.location.search);
     let searchNameProduct = searchParams.get('searchName');
+    let searchTypeCategory = searchParams.get('searchCategory');
+    console.log(searchTypeCategory);
+    console.log(setInput.searchCategory);
+
     useEffect(() => {
-        setInput.searchName = searchParams.get('searchName');
-        dispatch(getProductListOptionsAction(setInput));
+        if (searchNameProduct !== "" && searchNameProduct !== null) {
+            setInput.searchName = searchParams.get('searchName')
+            dispatch(getProductListOptionsAction(setInput));
+        }
+        else if (searchTypeCategory !== "" && searchTypeCategory !== null) {
+            setInput.searchCategory = searchParams.get('searchCategory')
+            dispatch(getProductsOfCategoryAction(setInput));
+        }
     }, [dispatch]);
 
 
@@ -58,7 +63,7 @@ function Search(props) {
                 </div>
                 <div className="container relative">
                     <div className="xl:flex lg:flex 2xl:flex flex-row block  flex-wrap py-4">
-                        <FilterProduct searchNameProduct={searchNameProduct}></FilterProduct>
+                        <FilterProduct searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory}></FilterProduct>
                         <button
                             onClick={showFilter}>
                             <div className="fixed right-2 top-[65%]">
@@ -71,7 +76,7 @@ function Search(props) {
 
                         <Modal title="" open={isFilterOpen} onOk={handleFilterCancel} onCancel={handleFilterCancel}>
                             <SelectProduct onSendData={handleChildDataCategory}></SelectProduct>
-                            <FilterProduct isFilterOpen={isFilterOpen} searchNameProduct={searchNameProduct}></FilterProduct>
+                            <FilterProduct isFilterOpen={isFilterOpen} searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory}></FilterProduct>
                         </Modal>
 
                         <div className="w-full  pt-1 px-2 md:w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4">

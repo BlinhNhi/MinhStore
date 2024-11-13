@@ -62,7 +62,7 @@ const CreateCategory = () => {
             }}
             layout="horizontal"
         >
-            <h3 className="text-lg lg:text-2xl xl:text-2xl 2xl:text-2xl md:text-2xl font-normal mb-4 dark:text-gray-200">Tạo Màu Mới Cho Sản Phẩm</h3>
+            <h3 className="text-lg lg:text-2xl xl:text-2xl 2xl:text-2xl md:text-2xl font-normal mb-4 dark:text-gray-200">Tạo Danh Mục Cho Sản Phẩm</h3>
             <div className='row'>
                 <div className='col-8 dark:text-white'>
                     <Form.Item

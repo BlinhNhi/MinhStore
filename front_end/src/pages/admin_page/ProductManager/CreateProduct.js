@@ -9,10 +9,12 @@ import { getListColorAction } from '../../../redux_store/actions/ColorAction';
 import { getListSizesAction } from '../../../redux_store/actions/SizeAction';
 import { getListCategoriesAction } from '../../../redux_store/actions/CategoryAction';
 import LoadingImage from '../../../components/LoadingImage/LoadingImage';
+import moment from 'moment';
 
 
 // const { Option } = Select;
 const CreateProduct = () => {
+    const today = moment();
     const dispatch = useDispatch();
     let { arrColor } = useSelector(state => state.ColorReducer);
     let { arrSizes } = useSelector(state => state.SizeReducer);
@@ -83,6 +85,7 @@ const CreateProduct = () => {
             numberOfProductSold: '',
             numberOfProductInStock: '',
             imagesProduct: "[]",
+            createdDate: today.format("YYYY-MM-DD"),
             colorId: [],
             sizeId: [],
             categoryId: ''

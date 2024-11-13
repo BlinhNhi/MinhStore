@@ -1,9 +1,17 @@
 import { FaStar } from "react-icons/fa";
-import Img1 from '../../assets/top_product/adidas.jpg';
+import NoImage from '../../assets/no-image.jpeg';
 import Slider from "react-slick";
+import { handleFormatPrice } from "../../utils/format/formatPrice";
+import { PiSneakerMoveFill } from "react-icons/pi";
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
 
-function ListNewsProducts() {
+
+function ListNewsProducts(listProducts) {
+    const data = listProducts
+    let listEightProduct = data.listProducts;
+    console.log(listEightProduct);
+
     function SampleArrow(props) {
         const { className, style, onClick } = props;
         return (
@@ -64,7 +72,7 @@ function ListNewsProducts() {
         ),
         responsive: [
             {
-                breakpoint: 1024,
+                breakpoint: 1280, // Đối với màn hình <= 1280px
                 settings: {
                     slidesToShow: 3,
                     slidesToScroll: 3,
@@ -73,11 +81,30 @@ function ListNewsProducts() {
                 }
             },
             {
-                breakpoint: 600,
+                breakpoint: 1024,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
-                    initialSlide: 2
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
                 }
             },
             {
@@ -99,150 +126,25 @@ function ListNewsProducts() {
             <h1 className="font-bold text-2xl">Top Sản Phẩm Mới Nhất</h1>
             <div className="slider-container">
                 <Slider {...settings}>
-                    <div className="px-10 py-8">
-                        <div className=" border-4 border-gray-300 hover:border-gray-400  hover:dark:border-primary hover:cursor-pointer rounded-md  hover:translate-y-2 duration-500">
-                            <div className="flex flex-col dark:bg-gray-800 hover:bg-black/80 dark:hover:bg-primary hover:text-white duration-300 shadow-xl gap-2">
-                                <img src={Img1} className="w-full object-cover" alt="adidas"></img>
-                                <div className="flex flex-col gap-1 text-left pl-2 ">
-                                    <h3 className="font-medium text-lg text-[18px] text-ellipsis overflow-hidden line-clamp-1">Adidas Samba Adidas </h3>
-                                    <p className="text-base ">Giá: 1.000.000đ</p>
-                                    <div className="w-full flex gap-1 text-base items-center mb-2">
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
+                    {listEightProduct?.map((data, i) => (
+                        <div className="px-10 py-8">
+                            <NavLink to={`/product-detail/${data?.id}`}>
+                                <div className=" border-4 border-gray-300 hover:border-gray-400  hover:dark:border-primary hover:cursor-pointer rounded-md  hover:translate-y-2 duration-500">
+                                    <div className="flex flex-col dark:bg-gray-800 hover:bg-black/80 dark:hover:bg-primary hover:text-white duration-300 shadow-xl gap-2">
+                                        <img src={JSON.parse(data?.imagesProduct)[0]?.length > 0 ? JSON.parse(data?.imagesProduct)[0] : NoImage} alt={data?.nameProduct} className="w-full object-cover h-[300px]  xl:h-[250px] 2xl:h-[300px]"></img>
+                                        <div className="flex flex-col gap-1 text-left pl-2 ">
+                                            <h3 className="font-medium text-lg text-[18px] text-ellipsis overflow-hidden line-clamp-1">{data?.nameProduct}</h3>
+                                            <p className="text-base ">{handleFormatPrice(data?.priceProduct)} vnd</p>
+                                            <div className="flex items-center gap-2">
+                                                <PiSneakerMoveFill className="text-primary text-lg dark:text-gray-100" />
+                                                <span className="text-base">{data?.category?.name}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </NavLink>
                         </div>
-                    </div>
-                    <div className="px-10 py-8">
-                        <div className=" border-4 border-gray-300 hover:border-gray-400  hover:dark:border-primary hover:cursor-pointer rounded-md  hover:translate-y-2 duration-500">
-                            <div className="flex flex-col dark:bg-gray-800 hover:bg-black/80 dark:hover:bg-primary hover:text-white duration-300 shadow-xl gap-2">
-                                <img src={Img1} className="w-full object-cover" alt="adidas"></img>
-                                <div className="flex flex-col gap-1 text-left pl-2 ">
-                                    <h3 className="font-medium text-lg text-[18px] text-ellipsis overflow-hidden line-clamp-1">Adidas Samba Adidas </h3>
-                                    <p className="text-base ">Giá: 1.000.000đ</p>
-                                    <div className="w-full flex gap-1 text-base items-center mb-2">
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="px-10 py-8">
-                        <div className=" border-4 border-gray-300 hover:border-gray-400  hover:dark:border-primary hover:cursor-pointer rounded-md  hover:translate-y-2 duration-500">
-                            <div className="flex flex-col dark:bg-gray-800 hover:bg-black/80 dark:hover:bg-primary hover:text-white duration-300 shadow-xl gap-2">
-                                <img src={Img1} className="w-full object-cover" alt="adidas"></img>
-                                <div className="flex flex-col gap-1 text-left pl-2 ">
-                                    <h3 className="font-medium text-lg text-[18px] text-ellipsis overflow-hidden line-clamp-1 dark:">Adidas Samba Adidas </h3>
-                                    <p className="text-base ">Giá: 1.000.000đ</p>
-                                    <div className="w-full flex gap-1 text-base items-center mb-2">
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="px-10 py-8">
-                        <div className=" border-4 border-gray-300 hover:border-gray-400  hover:dark:border-primary hover:cursor-pointer rounded-md  hover:translate-y-2 duration-500">
-                            <div className="flex flex-col dark:bg-gray-800 hover:bg-black/80 dark:hover:bg-primary hover:text-white duration-300 shadow-xl gap-2">
-                                <img src={Img1} className="w-full object-cover" alt="adidas"></img>
-                                <div className="flex flex-col gap-1 text-left pl-2 ">
-                                    <h3 className="font-medium text-lg text-[18px] text-ellipsis overflow-hidden line-clamp-1">Adidas Samba Adidas </h3>
-                                    <p className="text-base ">Giá: 1.000.000đ</p>
-                                    <div className="w-full flex gap-1 text-base items-center mb-2">
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="px-10 py-8">
-                        <div className=" border-4 border-gray-300 hover:border-gray-400  hover:dark:border-primary hover:cursor-pointer rounded-md  hover:translate-y-2 duration-500">
-                            <div className="flex flex-col dark:bg-gray-800 hover:bg-black/80 dark:hover:bg-primary hover:text-white duration-300 shadow-xl gap-2">
-                                <img src={Img1} className="w-full object-cover" alt="adidas"></img>
-                                <div className="flex flex-col gap-1 text-left pl-2 ">
-                                    <h3 className="font-medium text-lg text-[18px] text-ellipsis overflow-hidden line-clamp-1">Adidas Samba Adidas </h3>
-                                    <p className="text-base ">Giá: 1.000.000đ</p>
-                                    <div className="w-full flex gap-1 text-base items-center mb-2">
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="px-10 py-8">
-                        <div className=" border-4 border-gray-300 hover:border-gray-400  hover:dark:border-primary hover:cursor-pointer rounded-md  hover:translate-y-2 duration-500">
-                            <div className="flex flex-col dark:bg-gray-800 hover:bg-black/80 dark:hover:bg-primary hover:text-white duration-300 shadow-xl gap-2">
-                                <img src={Img1} className="w-full object-cover" alt="adidas"></img>
-                                <div className="flex flex-col gap-1 text-left pl-2 ">
-                                    <h3 className="font-medium text-lg text-[18px] text-ellipsis overflow-hidden line-clamp-1">Adidas Samba Adidas </h3>
-                                    <p className="text-base ">Giá: 1.000.000đ</p>
-                                    <div className="w-full flex gap-1 text-base items-center mb-2">
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="px-10 py-8">
-                        <div className=" border-4 border-gray-300 hover:border-gray-400  hover:dark:border-primary hover:cursor-pointer rounded-md  hover:translate-y-2 duration-500">
-                            <div className="flex flex-col dark:bg-gray-800 hover:bg-black/80 dark:hover:bg-primary hover:text-white duration-300 shadow-xl gap-2">
-                                <img src={Img1} className="w-full object-cover" alt="adidas"></img>
-                                <div className="flex flex-col gap-1 text-left pl-2 ">
-                                    <h3 className="font-medium text-lg text-[18px] text-ellipsis overflow-hidden line-clamp-1">Adidas Samba Adidas </h3>
-                                    <p className="text-base ">Giá: 1.000.000đ</p>
-                                    <div className="w-full flex gap-1 text-base items-center mb-2">
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="px-10 py-8">
-                        <div className=" border-4 border-gray-300 hover:border-gray-400  hover:dark:border-primary hover:cursor-pointer rounded-md  hover:translate-y-2 duration-500">
-                            <div className="flex flex-col dark:bg-gray-800 hover:bg-black/80 dark:hover:bg-primary hover:text-white duration-300 shadow-xl gap-2">
-                                <img src={Img1} className="w-full object-cover" alt="adidas"></img>
-                                <div className="flex flex-col gap-1 text-left pl-2 ">
-                                    <h3 className="font-medium text-lg text-[18px] text-ellipsis overflow-hidden line-clamp-1">Adidas Samba Adidas </h3>
-                                    <p className="text-base ">Giá: 1.000.000đ</p>
-                                    <div className="w-full flex gap-1 text-base items-center mb-2">
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                        <FaStar className="text-yellow-400"></FaStar>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    ))}
                 </Slider>
             </div>
         </div>

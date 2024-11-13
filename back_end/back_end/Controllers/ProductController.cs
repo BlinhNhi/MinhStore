@@ -169,5 +169,25 @@ namespace back_end.Controllers
                 return BadRequest("We canot Find Product");
             }
         }
+
+
+        [HttpGet("GetEightProducts")]
+        public IActionResult OptionsAsDesired(string? sort, int page = 1)
+        {
+            try
+            {
+                var list = repo.GetEightProduct(sort, page);
+                if (list != null)
+                {
+                    var result = new ResponseData<IEnumerable<Product>>(StatusCodes.Status200OK, "Get Product Successfully", list, null);
+                    return Ok(result);
+                }
+                return BadRequest();
+            }
+            catch
+            {
+                return BadRequest("We Canot Get Product");
+            }
+        }
     }
 }

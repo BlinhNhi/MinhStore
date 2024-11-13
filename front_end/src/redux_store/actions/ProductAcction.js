@@ -1,5 +1,5 @@
 import { productService } from "../../service/ProductService";
-import { GET_PRODUCT_DETAIL, GET_PRODUCT_DETAIL_FOR_USER, GET_PRODUCT_LIST } from "../constants";
+import { GET_EIGHT_PRODUCTS, GET_PRODUCT_DETAIL, GET_PRODUCT_DETAIL_FOR_USER, GET_PRODUCT_LIST } from "../constants";
 import { notification } from 'antd';
 import { history } from '../../App';
 import axios from "axios";
@@ -147,6 +147,59 @@ export const getProductListOptionsAction = (options) => {
                     arrProducts: result.data.data,
                 });
                 // await dispatch(hideLoadingAction);
+            }
+        } catch (error) {
+            console.log("error", error);
+        }
+    };
+};
+
+export const getProductsOfSearchNameAction = (options) => {
+    return async (dispatch) => {
+        try {
+            // dispatch(displayLoadingAction);
+            const result = await productService.getProductsOfSearch(options);
+            if (result.data.status === 200) {
+                dispatch({
+                    type: GET_PRODUCT_LIST,
+                    arrProducts: result.data.data,
+                });
+                // await dispatch(hideLoadingAction);
+            }
+        } catch (error) {
+            console.log("error", error);
+        }
+    };
+};
+
+export const getProductsOfCategoryAction = (options) => {
+    return async (dispatch) => {
+        try {
+            // dispatch(displayLoadingAction);
+            const result = await productService.getProductsOfCategory(options);
+            if (result.data.status === 200) {
+                dispatch({
+                    type: GET_PRODUCT_LIST,
+                    arrProducts: result.data.data,
+                });
+                // await dispatch(hideLoadingAction);
+            }
+        } catch (error) {
+            console.log("error", error);
+        }
+    };
+};
+
+export const getEightProductsAction = () => {
+    return async (dispatch) => {
+        try {
+            const result = await productService.getEightProducts();
+            console.log(result);
+            if (result.data.status === 200) {
+                dispatch({
+                    type: GET_EIGHT_PRODUCTS,
+                    arrEightProducts: result.data.data,
+                });
             }
         } catch (error) {
             console.log("error", error);

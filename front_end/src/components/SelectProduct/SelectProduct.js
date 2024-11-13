@@ -20,14 +20,14 @@ function SelectProduct({ onSendData }) {
     const dispatch = useDispatch();
     const handleChangePrice = (value) => {
         const [from, to] = value.split('-').map(Number);
-        console.log(from);
-        console.log(to);
+        console.log(setInput.searchCategory);
         setInput.fromPrice = from;
         setInput.toPrice = to;
         dispatch(getProductListOptionsAction(setInput));
     }
 
     const handleChangeCategory = (value) => {
+        // onSendData(value)
         setInput.searchCategory = value;
         dispatch(getProductListOptionsAction(setInput));
     };
@@ -69,19 +69,7 @@ function SelectProduct({ onSendData }) {
                                 <Option value="">Khác...</Option>
                             </Select>
                         </div>
-                        {/* <div className="">
-                            <button
-                                className="
-                                w-40 lg:w-[300px]  xl:w-[300px] 2xl:w-[300px]  md:w-[180px] px-4 sm:w-[140px]  
-                                mt-0 lg:mt-8   xl:mt-8  2xl:mt-8   md:mt-8  sm:mt-8 
-                                py-2 focus:outline-none  rounded-full font-semibold  flex items-center justify-center gap-3
-                             bg-primary/80 text-white hover:bg-primary/60 focus:bg-primary active:bg-primary focus:text-gray-500"
-                                type="submit"
-                            >
-                                <p className="text-xs sm:text-xs md:text-base lg:text-base xl:text-base 2xl:text-base">Tìm Giày Ngay</p>
-                                <span><ImSearch className="text-xs sm:text-xs md:text-base xl:text-base 2xl:text-base"></ImSearch></span>
-                            </button>
-                        </div> */}
+
                     </div>
                 </form>
             </div>

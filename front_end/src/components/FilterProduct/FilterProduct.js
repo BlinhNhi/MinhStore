@@ -16,16 +16,16 @@ const setInput = {
     // dayStart: "",
 };
 
-function FilterProduct({ isFilterOpen, searchNameProduct }) {
+function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory }) {
     let { arrColor } = useSelector(state => state.ColorReducer);
     let { arrSizes } = useSelector(state => state.SizeReducer);
     let { arrProducts } = useSelector(state => state.ProductReducer)
     const dataNameProduct = searchNameProduct;
-    console.log(arrProducts);
     console.log(dataNameProduct);
+    const categoryProduct = searchTypeCategory;
+    console.log(searchTypeCategory);
+    // console.log(arrProducts);
     const dispatch = useDispatch();
-
-
 
     useEffect(() => {
         dispatch(getListColorAction())
@@ -34,7 +34,15 @@ function FilterProduct({ isFilterOpen, searchNameProduct }) {
 
     const handleOnChangeSort = (e) => {
         setInput.sort = e.target.value;
-        setInput.searchName = dataNameProduct;
+        if (dataNameProduct !== null) {
+            setInput.searchName = dataNameProduct;
+            setInput.searchCategory = "";
+            dispatch(getProductListOptionsAction(setInput));
+        } else if (searchTypeCategory != null) {
+            setInput.searchCategory = categoryProduct;
+            dispatch(getProductListOptionsAction(setInput));
+        }
+        setInput.searchCategory = "";
         dispatch(getProductListOptionsAction(setInput));
     };
 
@@ -43,7 +51,14 @@ function FilterProduct({ isFilterOpen, searchNameProduct }) {
             setInput.searchColor += event.target.value + ",";
             console.log(setInput.searchColor);
         } else {
-            setInput.searchName = dataNameProduct;
+            if (dataNameProduct !== null) {
+                setInput.searchName = dataNameProduct;
+                setInput.searchCategory = "";
+                dispatch(getProductListOptionsAction(setInput));
+            } else if (searchTypeCategory != null) {
+                setInput.searchCategory = categoryProduct;
+                dispatch(getProductListOptionsAction(setInput));
+            }
             setInput.searchColor = setInput.searchColor.replace(event.target.value + ",", "");
         }
         dispatch(getProductListOptionsAction(setInput));
@@ -52,9 +67,15 @@ function FilterProduct({ isFilterOpen, searchNameProduct }) {
     const handleOnChangeSize = (event) => {
         if (event.target.checked && event.target.value !== "undefine") {
             setInput.searchSize += event.target.value + ",";
-            setInput.searchName = dataNameProduct;
         } else {
-            setInput.searchName = dataNameProduct;
+            if (dataNameProduct !== null) {
+                setInput.searchName = dataNameProduct;
+                setInput.searchCategory = "";
+                dispatch(getProductListOptionsAction(setInput));
+            } else if (searchTypeCategory !== null) {
+                setInput.searchCategory = categoryProduct;
+                dispatch(getProductListOptionsAction(setInput));
+            }
             setInput.searchSize = setInput.searchSize.replace(event.target.value + ",", "");
         }
         dispatch(getProductListOptionsAction(setInput));

@@ -28,6 +28,20 @@ export class ProductService extends baseService {
             `/api/Product/Options?searchName=${options.searchName}&searchCategory=${options.searchCategory}&searchColor=${options.searchColor}&searchSize=${options.searchSize}&fromPrice=${options.fromPrice}&toPrice=${options.toPrice}&sort=${options.sort}`
         );
     };
+    getProductsOfSearch = (options) => {
+        return this.get(
+            `/api/Product/Options?searchName=${options.searchName}`
+        );
+    };
+    getProductsOfCategory = (options) => {
+        return this.get(
+            `/api/Product/Options?searchCategory=${options.searchCategory}`
+        );
+    };
+    getEightProducts = (options) => {
+        return this.get(`/api/Product/GetEightProducts?sort=earliest-product-create&page=1`);
+    };
+
 }
 
 export const productService = new ProductService();

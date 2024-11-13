@@ -1,7 +1,8 @@
-import { GET_PRODUCT_LIST, GET_PRODUCT_DETAIL, GET_PRODUCT_DETAIL_FOR_USER } from "../constants";
+import { GET_PRODUCT_LIST, GET_PRODUCT_DETAIL, GET_PRODUCT_DETAIL_FOR_USER, GET_EIGHT_PRODUCTS } from "../constants";
 
 const initialState = {
     arrProducts: [],
+    arrEightProducts: [],
     productDetail: {},
     productDetailForUser: ""
 }
@@ -11,6 +12,9 @@ export const ProductReducer = (state = initialState, action) => {
 
         case GET_PRODUCT_LIST:
             state.arrProducts = action.arrProducts;
+            return { ...state }
+        case GET_EIGHT_PRODUCTS:
+            state.arrEightProducts = action.arrEightProducts;
             return { ...state }
         case GET_PRODUCT_DETAIL:
             state.productDetail = action.productDetail;

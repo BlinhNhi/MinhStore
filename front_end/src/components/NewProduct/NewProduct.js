@@ -1,8 +1,11 @@
 import { FaStar } from "react-icons/fa";
 
 import { ProductsData } from '../../utils/data/dataNewProduct'
+import { useDispatch } from "react-redux";
 
 function NewProduct() {
+
+
     return (
         <div>
             <div className="container ">

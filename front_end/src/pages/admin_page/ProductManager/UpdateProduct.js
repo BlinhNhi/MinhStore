@@ -94,6 +94,7 @@ const UpdateProduct = (props) => {
             // list_image: companyDetail?.list_image ? companyDetail?.list_image : null,
             imagesProduct: productDetail?.imagesProduct ? productDetail?.imagesProduct : null,
             colorId: productDetail?.colorId || [],
+            createdDate: productDetail?.createdDate,
             sizeId: productDetail?.sizeId,
             categoryId: productDetail?.categoryId
         },

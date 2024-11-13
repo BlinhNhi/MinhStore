@@ -9,7 +9,7 @@ import Logo from '../../assets/logo.png'
 import DarkMode from '../../components/DarkMode/DarkMode';
 import { FaAngleDown } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { getProductListOptionsAction } from "../../redux_store/actions/ProductAcction";
+import { getProductListOptionsAction, getProductsOfSearchNameAction } from "../../redux_store/actions/ProductAcction";
 import { history } from "../../App";
 
 
@@ -22,17 +22,17 @@ const Menu = [
     {
         id: 2,
         name: "Mới Nhất",
-        link: "/"
+        link: `/`
     },
     {
         id: 3,
         name: "Adidas",
-        link: "/"
+        link: `/search?searchCategory=${"Adidas"}`
     },
     {
         id: 4,
         name: "Nike",
-        link: "/"
+        link: `/search?searchCategory=${"Nike"}`
     },
     {
         id: 5,
@@ -61,12 +61,12 @@ const DropdownLinks = [
 
 const setInput = {
     searchName: "",
-    searchCategory: "",
-    searchColor: "",
-    searchSize: "",
-    fromPrice: "",
-    toPrice: "",
-    sort: "",
+    // searchCategory: "",
+    // searchColor: "",
+    // searchSize: "",
+    // fromPrice: "",
+    // toPrice: "",
+    // sort: "",
     // dayStart: "",
 };
 
@@ -82,7 +82,7 @@ function Header() {
         setInput.searchName = valueSearch;
         //  && valueSearch?.startsWith(' ') === false && valueSearch !== ""
         if (valueSearch !== null) {
-            dispatch(getProductListOptionsAction(setInput));
+            dispatch(getProductsOfSearchNameAction(setInput));
             const queryString = new URLSearchParams(setInput).toString();
             history.push(`/search?${queryString}`);
         }

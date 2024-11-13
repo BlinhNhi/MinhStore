@@ -12,7 +12,7 @@ import { } from "react-icons/fa";
 
 import ListNewsProducts from "../../../components/ListNewProducts/ListNewsProducts";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetailProductForUserAction } from "../../../redux_store/actions/ProductAcction";
+import { getDetailProductForUserAction, getEightProductsAction } from "../../../redux_store/actions/ProductAcction";
 import { handleFormatPrice } from "../../../utils/format/formatPrice";
 import { getCodeProduct } from "../../../utils/format/getCodeProduct";
 
@@ -25,11 +25,14 @@ function ProductDetail(props) {
     let { id } = props.match.params;
     const dispatch = useDispatch();
     const { productDetailForUser } = useSelector((state) => state.ProductReducer);
+    const { arrEightProducts } = useSelector((state) => state.ProductReducer);
     const [numberProduct, setNumberProduct] = useState(1);
-    console.log(numberProduct);
-    // console.log(productDetailForUser);
+
+    console.log(arrEightProducts);
+
     useEffect(() => {
         dispatch(getDetailProductForUserAction(id));
+        dispatch(getEightProductsAction())
     }, [dispatch]);
     let imagesProduct =
         productDetailForUser?.imagesProduct &&
@@ -55,6 +58,7 @@ function ProductDetail(props) {
         nextArrow: <CancelArrowSlider />,
         prevArrow: <CancelArrowSlider />,
     };
+
     return (
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200">
             <div className="container pt-10">
@@ -245,7 +249,7 @@ flex items-start mt-3 gap-4 mb-5
                     </h1>
                 </div>
 
-                <ListNewsProducts></ListNewsProducts>
+                <ListNewsProducts listProducts={arrEightProducts}></ListNewsProducts>
             </div>
         </div>
     );

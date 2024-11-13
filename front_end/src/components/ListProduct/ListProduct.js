@@ -41,10 +41,10 @@ function ListProduct() {
 
                                     <img src={JSON.parse(data?.imagesProduct)[0]?.length > 0 ? JSON.parse(data?.imagesProduct)[0] : NoImage} alt={data?.nameProduct} className="
                         
-                        h-[129px] w-[129px] sm:h-[220px] sm:w-[200px] md:h-[220px] md:w-[300px] 
-                        xl:h-[220px] xl:w-[200px] 2xl:h-[220px] 2xl:w-[200px]
-                        object-fill rounded-tl-lg rounded-tr-lg"></img>
-                                    <div className="flex flex-col gap-1 ml-2">
+                        h-[129px] w-[129px] sm:h-[220px] sm:w-[200px] md:h-[220px] md:w-[200px] 
+                        xl:h-[220px] xl:max-w-[200px] 2xl:h-[220px] 2xl:max-w-[200px]
+                        object-cover rounded-tl-lg rounded-tr-lg"></img>
+                                    <div className="flex flex-col gap-1 ml-2 w-3/4">
                                         <h3 className="font-semibold text-ellipsis overflow-hidden text-base line-clamp-1">{data?.nameProduct}</h3>
                                         <p className="text-sm text-gray-600 dark:text-gray-100">{handleFormatPrice(data?.priceProduct)} vnd</p>
                                         <div className="flex items-center gap-2">
