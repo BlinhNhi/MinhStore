@@ -1,9 +1,10 @@
-import { FaStar } from "react-icons/fa";
-import NoImage from '../../assets/no-image.jpeg';
-import Slider from "react-slick";
-import { handleFormatPrice } from "../../utils/format/formatPrice";
-import { PiSneakerMoveFill } from "react-icons/pi";
+
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import Slider from "react-slick";
+import { PiSneakerMoveFill } from "react-icons/pi";
+
+import NoImage from '../../assets/no-image.jpeg';
+import { handleFormatPrice } from "../../utils/format/formatPrice";
 
 
 

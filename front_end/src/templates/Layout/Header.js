@@ -11,63 +11,16 @@ import { FaAngleDown } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { getProductListOptionsAction, getProductsOfSearchNameAction } from "../../redux_store/actions/ProductAcction";
 import { history } from "../../App";
+import { Menu } from "../../utils/data/dataMenuNavbar";
+import LowerNavbar from "../../components/LowerNavbar/LowerNavbar";
 
 
-const Menu = [
-    {
-        id: 1,
-        name: "Home",
-        link: "/"
-    },
-    {
-        id: 2,
-        name: "Mới Nhất",
-        link: `/`
-    },
-    {
-        id: 3,
-        name: "Adidas",
-        link: `/search?searchCategory=${"Adidas"}`
-    },
-    {
-        id: 4,
-        name: "Nike",
-        link: `/search?searchCategory=${"Nike"}`
-    },
-    {
-        id: 5,
-        name: "Hãng Khác",
-        link: "/"
-    },
-]
 
-const DropdownLinks = [
-    {
-        id: 1,
-        name: "Trending Products",
-        link: "/"
-    },
-    {
-        id: 2,
-        name: "Best Selling",
-        link: "/"
-    },
-    {
-        id: 3,
-        name: "Top Rated",
-        link: "/"
-    }
-]
+
+
 
 const setInput = {
     searchName: "",
-    // searchCategory: "",
-    // searchColor: "",
-    // searchSize: "",
-    // fromPrice: "",
-    // toPrice: "",
-    // sort: "",
-    // dayStart: "",
 };
 
 function Header() {
@@ -189,6 +142,7 @@ function Header() {
                         <div className="hidden  sm:block md:block xl:block lg:block 2xl:block">
                             <DarkMode></DarkMode>
                         </div>
+                        {/* Information User */}
                         <div className="hidden sm:block md:block xl:block lg:block 2xl:block relative group cursor-pointer">
                             <FaUser className="text-3xl rounded-2xl p-1 border-2  hover:border-white  border-primary text-gray-400 hover:text-gray-100 bg-gray-50 hover:bg-primary z-50 " />
                             <div className="w-[200px] bg-transparent absolute p-4 right-0 "></div>
@@ -217,39 +171,7 @@ function Header() {
                     </div>
                 </div>
             </div>
-            {/* lower Navbar */}
-            <div className="flex justify-center">
-                <ul className="sm:flex md:flex lg:flex xl:flex 2xl:flex hidden  items-center gap-4 sm:text-sm md:text-base lg:text-base xl:text-base 2xl:text-base">
-                    {Menu.map((data) => (
-                        <li key={data.id}>
-                            <a className="inline-block px-4 hover:text-primary duration-200 hover:no-underline text-base" href={data.link}>{data.name}</a>
-                        </li>
-                    ))}
-                    <li className="group relative cursor-pointer">
-                        <div className="flex items-center gap-[4px]  py-2  hover:no-underline dark:hover:text-orange-400">
-                            Có Thể Bạn Quan Tâm
-                            <span>
-                                <FaAngleDown className="transiton-all duration-200 group-hover:rotate-180 " />
-                            </span>
-                        </div>
-                        <div className="w-[200px] bg-red-500 absolute p-4 right-0 bg-transparent"></div>
-                        <div className="mt-2 absolute z-[30] hidden group-hover:block group-focus:block w-[200px] right-0 rounded-md bg-white p-2 text-black shadow-md">
-                            <ul>
-                                {DropdownLinks.map((data) => (
-                                    <li key={data.id} >
-                                        <a href={data.link} className="inline-block w-full text-base rounded-md p-2 hover:bg-primary/20 hover:no-underline">{data.name}</a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                    </li>
-                </ul>
-
-
-            </div>
-            {/*  
-                         */}
+            <LowerNavbar></LowerNavbar>
             <div className='h-10 sm:hidden'>
                 <form onSubmit={handleSearch} >
                     <div className="flex items-center justify-center mt-3 sm:hidden rounded-full border mx-2 py-1 px-4  border-1 dark:bg-gray-800 dark:border-gray-500   transition-all duration-300">
