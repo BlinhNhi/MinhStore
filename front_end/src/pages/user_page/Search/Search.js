@@ -5,9 +5,9 @@ import SelectProduct from "../../../components/SelectProduct/SelectProduct";
 import ListProduct from "../../../components/ListProduct/ListProduct";
 import { useEffect, useState } from "react";
 import FilterProduct from "../../../components/FilterProduct/FilterProduct";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getProductListOptionsAction, getProductsOfCategoryAction } from "../../../redux_store/actions/ProductAcction";
-import { history } from "../../../App";
+
 
 const setInput = {
     searchName: "",
@@ -23,13 +23,6 @@ const setInput = {
 function Search(props) {
     const dispatch = useDispatch()
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const [childDataCategory, setChildDataCategory] = useState('');
-    console.log(childDataCategory);
-    const handleChildDataCategory = (data) => {
-        console.log(data);
-        setChildDataCategory(data);
-        setInput.searchCategory = data;
-    };
     let searchParams = new URLSearchParams(props.location.search);
     let searchNameProduct = searchParams.get('searchName');
     let searchTypeCategory = searchParams.get('searchCategory');
@@ -59,7 +52,7 @@ function Search(props) {
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200">
             <div className="container">
                 <div className="hidden sm:block ">
-                    <SelectProduct onSendData={handleChildDataCategory}></SelectProduct>
+                    <SelectProduct searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory}></SelectProduct>
                 </div>
                 <div className="container relative">
                     <div className="xl:flex lg:flex 2xl:flex flex-row block  flex-wrap py-4">
@@ -75,7 +68,7 @@ function Search(props) {
                         </button>
 
                         <Modal title="" open={isFilterOpen} onOk={handleFilterCancel} onCancel={handleFilterCancel}>
-                            <SelectProduct onSendData={handleChildDataCategory}></SelectProduct>
+                            <SelectProduct searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory}></SelectProduct>
                             <FilterProduct isFilterOpen={isFilterOpen} searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory}></FilterProduct>
                         </Modal>
 

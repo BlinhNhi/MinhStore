@@ -14,7 +14,6 @@ function NewProduct() {
         dispatch(getEightProductsAction())
     }, [dispatch])
     let arrGetNewProduct = arrEightProducts.slice(0, 3);
-    console.log(arrGetNewProduct);
     return (
         <div>
             <div className="container ">
@@ -44,7 +43,7 @@ function NewProduct() {
                                 <h1 className="text-xl font-bold">
                                     {data?.nameProduct}
                                 </h1>
-                                <p className="text-gray-500 group-hover:text-white duration-300 text-base line-clamp-2">{handleFormatPrice(data?.priceProduct)}</p>
+                                <p className="text-gray-500 group-hover:text-white duration-300 text-base line-clamp-2">{handleFormatPrice(data?.priceProduct)} vnd</p>
                                 <button className="bg-orange-400 hover:scale-105 duration-300 text-gray-100 py-1 px-4 rounded-full mt-4 group-hover:bg-white group-hover:text-orange-400">Đặt Hàng Ngay</button>
                             </div>
                         </div>

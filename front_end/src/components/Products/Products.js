@@ -5,8 +5,12 @@ import Img1 from '../../assets/top_product/adidas.jpg';
 import Img2 from '../../assets/top_product/nike.jpg';
 import Img3 from '../../assets/top_product/nike2.jpg';
 import Img4 from '../../assets/top_product/nikeJodan.jpg';
+import NoImage from "../../assets/no-image.jpeg"
+
 import { useDispatch, useSelector } from "react-redux";
-import { getListProductsAction } from "../../redux_store/actions/ProductAcction";
+import { getEightCheapProductsAction } from "../../redux_store/actions/ProductAcction";
+import { PiSneakerMoveFill } from "react-icons/pi";
+import { handleFormatPrice } from "../../utils/format/formatPrice";
 
 
 const ProductData = [
@@ -52,6 +56,14 @@ const ProductData = [
     },
 ]
 function Products() {
+
+    const { arrEightCheapProducts } = useSelector((state) => state.ProductReducer);
+    let arrGetNewProduct = arrEightCheapProducts.slice(0, 5);
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getEightCheapProductsAction());
+    }, [dispatch])
     return (
         <div className="mt-14 mb-12 ">
             <div className="container">
@@ -66,19 +78,20 @@ function Products() {
                 {/* Body */}
                 <div>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 place-items-center gap-5">
-                        {ProductData.map((data) => (
+                        {arrGetNewProduct.map((data) => (
                             <div
                                 key={data.id}
                                 data-aos="fade-up"
-                                data-aos-delay={data?.aosDelay}
+                                data-aos-delay={300}
                                 className="space-y-3">
-                                <img src={data.img} alt={data?.title} className="h-[220px] w-[150px] object-cover rounded-md"></img>
+                                <img src={JSON.parse(data?.imagesProduct)[0]?.length > 0 ? JSON.parse(data?.imagesProduct)[0] : NoImage} alt={data?.nameProduct} className="h-[220px] w-[150px] object-cover rounded-md"></img>
                                 <div className="flex flex-col gap-1">
                                     <h3 className="font-semibold">{data?.title}</h3>
-                                    <p className="text-sm text-gray-600">{data?.color}</p>
+                                    <p className="text-sm text-gray-600">{handleFormatPrice(data?.priceProduct)} vnd</p>
                                     <div className="flex items-center gap-1">
-                                        <FaStar className="text-yellow-400" />
-                                        <span className="">{data?.rate}</span>
+                                        <PiSneakerMoveFill className="text-yellow-600 text-lg dark:text-gray-100" />
+                                        <span className="text-base">{data?.category?.name}</span>
+
                                     </div>
                                 </div>
                             </div>

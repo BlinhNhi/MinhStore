@@ -296,7 +296,10 @@ namespace back_end.Services
             {
                 switch (sort)
                 {
-                   
+                    case "cheap-products":
+                        allProducts = allProducts.OrderBy(pro => pro.PriceProduct);
+                        break;
+
                     case "earliest-product-create":
                         allProducts = allProducts.OrderByDescending(pro => pro.CreatedDate);
                         break;

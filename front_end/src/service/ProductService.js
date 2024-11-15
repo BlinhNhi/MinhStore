@@ -41,6 +41,9 @@ export class ProductService extends baseService {
     getEightProducts = (options) => {
         return this.get(`/api/Product/GetEightProducts?sort=earliest-product-create&page=1`);
     };
+    getEightCheapProducts = (options) => {
+        return this.get(`/api/Product/GetEightProducts?sort=cheap-products&page=1`);
+    };
 
 }
 

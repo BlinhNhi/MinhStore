@@ -24,7 +24,7 @@ function ListProduct() {
     return (
         <div>
             {
-                currentProduct?.length > 0 ? <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 place-items-center gap-2">
+                currentProduct?.length > 0 ? <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 place-items-center gap-2">
                     {currentProduct?.map((data) => (
 
                         <a href={`/product-detail/${data?.id}`}>

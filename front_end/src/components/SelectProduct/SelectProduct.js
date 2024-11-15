@@ -1,4 +1,4 @@
-import { Select, } from "antd";
+import { Card, Radio, Select, } from "antd";
 // import { useState } from "react";
 import { ImSearch } from "react-icons/im";
 import { useDispatch } from "react-redux";
@@ -16,8 +16,13 @@ const setInput = {
     dayStart: "",
 };
 
-function SelectProduct({ onSendData }) {
+function SelectProduct({ searchNameProduct, searchTypeCategory }) {
     const dispatch = useDispatch();
+    const dataNameProduct = searchNameProduct;
+    console.log(dataNameProduct);
+    const categoryProduct = searchTypeCategory;
+    console.log(searchTypeCategory);
+
     const handleChangePrice = (value) => {
         const [from, to] = value.split('-').map(Number);
         console.log(setInput.searchCategory);
@@ -26,11 +31,22 @@ function SelectProduct({ onSendData }) {
         dispatch(getProductListOptionsAction(setInput));
     }
 
-    const handleChangeCategory = (value) => {
-        // onSendData(value)
-        setInput.searchCategory = value;
+    const handleChangeSort = (value) => {
+        console.log(value);
+        setInput.sort = value;
+        if (dataNameProduct !== null) {
+            setInput.searchName = dataNameProduct;
+            setInput.searchCategory = "";
+            dispatch(getProductListOptionsAction(setInput));
+        } else if (searchTypeCategory != null) {
+            setInput.searchCategory = categoryProduct;
+            dispatch(getProductListOptionsAction(setInput));
+        }
+        // setInput.searchCategory = "";
         dispatch(getProductListOptionsAction(setInput));
     };
+
+
 
     return (
         <div className="pt-10 pb-4">
@@ -55,18 +71,17 @@ function SelectProduct({ onSendData }) {
                             </Select>
                         </div>
                         <div className="w-40 sm:w-80 md:w-80 lg:w-80 xl:w-80 2xl:w-80  flex flex-col gap-2">
-                            <h4 className="text-sm sm:text-sm md:text-lg xl:text-lg 2xl:text-lg italic dark:text-gray-500 font-medium">Danh Mục </h4>
+                            <h4 className="text-sm sm:text-sm md:text-lg xl:text-lg 2xl:text-lg italic dark:text-gray-500 font-medium">Sắp Xếp Theo </h4>
                             <Select
                                 size={"middle"}
                                 id="size"
                                 style={{ minWidth: '100%' }}
                                 showSearch
-                                placeholder="Tất Cả"
-                                onChange={handleChangeCategory}
+                                placeholder="Sắp Xếp Theo...."
+                                onChange={handleChangeSort}
                             >
-                                <Option value="Nike">Nike</Option>
-                                <Option value="Adidas">Adidas</Option>
-                                <Option value="">Khác...</Option>
+                                <Option value="highest-price">Giá Cao Nhất</Option>
+                                <Option value="lowest-price">Giá Thấp Nhất</Option>
                             </Select>
                         </div>
 

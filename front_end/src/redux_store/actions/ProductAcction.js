@@ -1,5 +1,5 @@
 import { productService } from "../../service/ProductService";
-import { GET_EIGHT_PRODUCTS, GET_PRODUCT_DETAIL, GET_PRODUCT_DETAIL_FOR_USER, GET_PRODUCT_LIST } from "../constants";
+import { GET_EIGHT_CHEAP_PRODUCTS, GET_EIGHT_PRODUCTS, GET_PRODUCT_DETAIL, GET_PRODUCT_DETAIL_FOR_USER, GET_PRODUCT_LIST } from "../constants";
 import { notification } from 'antd';
 import { history } from '../../App';
 import axios from "axios";
@@ -199,6 +199,23 @@ export const getEightProductsAction = () => {
                 dispatch({
                     type: GET_EIGHT_PRODUCTS,
                     arrEightProducts: result.data.data,
+                });
+            }
+        } catch (error) {
+            console.log("error", error);
+        }
+    };
+};
+
+export const getEightCheapProductsAction = () => {
+    return async (dispatch) => {
+        try {
+            const result = await productService.getEightCheapProducts();
+            console.log(result);
+            if (result.data.status === 200) {
+                dispatch({
+                    type: GET_EIGHT_CHEAP_PRODUCTS,
+                    arrEightCheapProducts: result.data.data,
                 });
             }
         } catch (error) {

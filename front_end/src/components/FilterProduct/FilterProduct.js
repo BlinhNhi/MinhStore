@@ -19,7 +19,7 @@ const setInput = {
 function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory }) {
     let { arrColor } = useSelector(state => state.ColorReducer);
     let { arrSizes } = useSelector(state => state.SizeReducer);
-    let { arrProducts } = useSelector(state => state.ProductReducer)
+    // let { arrProducts } = useSelector(state => state.ProductReducer)
     const dataNameProduct = searchNameProduct;
     console.log(dataNameProduct);
     const categoryProduct = searchTypeCategory;
@@ -32,19 +32,19 @@ function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory }) 
         dispatch(getListSizesAction())
     }, [dispatch])
 
-    const handleOnChangeSort = (e) => {
-        setInput.sort = e.target.value;
-        if (dataNameProduct !== null) {
-            setInput.searchName = dataNameProduct;
-            setInput.searchCategory = "";
-            dispatch(getProductListOptionsAction(setInput));
-        } else if (searchTypeCategory != null) {
-            setInput.searchCategory = categoryProduct;
-            dispatch(getProductListOptionsAction(setInput));
-        }
-        setInput.searchCategory = "";
-        dispatch(getProductListOptionsAction(setInput));
-    };
+    // const handleOnChangeSort = (e) => {
+    //     setInput.sort = e.target.value;
+    //     if (dataNameProduct !== null) {
+    //         setInput.searchName = dataNameProduct;
+    //         setInput.searchCategory = "";
+    //         dispatch(getProductListOptionsAction(setInput));
+    //     } else if (searchTypeCategory != null) {
+    //         setInput.searchCategory = categoryProduct;
+    //         dispatch(getProductListOptionsAction(setInput));
+    //     }
+    //     setInput.searchCategory = "";
+    //     dispatch(getProductListOptionsAction(setInput));
+    // };
 
     const handleOnChangeColor = (event) => {
         if (event.target.checked && event.target.value !== "undefine") {
@@ -83,13 +83,7 @@ function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory }) 
 
     return (
         <div className={`w-full ${isFilterOpen === true ? 'block' : 'hidden'} md:w-full lg:w-1/4 xl:w-1/4 2xl:w-1/4 sm:block md:block lg:block xl:block 2xl:block px-2`}>
-            <Card className="bg-gray-200 text-base sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" title="Sắp Xếp Theo" onChange={(e) => handleOnChangeSort(e)}>
-                <Radio.Group className="flex flex-col gap-2 sm:gap-0 md:gap-0 lg:gap-0 xl:gap-0 2xl:gap-0 ">
-                    <Radio key="1" className=" text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="">Tất Cả</Radio>
-                    <Radio key="3" className=" text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="highest-price">Giá Cao Nhất</Radio>
-                    <Radio key="2" className=" text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value="lowest-price">Giá Thấp Nhất</Radio>
-                </Radio.Group>
-            </Card>
+
             <Card title="Màu Sắc" className="mt-3 bg-gray-200 text-base sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base">
                 {arrColor?.map((item, key) => {
                     return <>
