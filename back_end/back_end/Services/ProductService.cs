@@ -17,6 +17,8 @@ namespace back_end.Services
         }
 
         public static int PAGE_SIZE_EIGHT_PRODUCTS { get; set; } = 8;
+        public static int PAGE_SIZE_SEARCH_PRODUCT { get; set; } = 12;
+
 
         public async Task<IEnumerable<Product>> GetAllProduct()
         {
