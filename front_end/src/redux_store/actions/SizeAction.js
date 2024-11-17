@@ -2,6 +2,7 @@ import { notification } from 'antd';
 import { history } from '../../App';
 import { sizeService } from '../../service/SizeService';
 import { GET_SIZE_LIST, GET_SIZE_DETAIL } from '../constants';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -21,10 +22,36 @@ export const getListSizesAction = () => {
     };
 };
 
+// export const addSizeAction = (formData) => {
+//     return async (dispatch) => {
+//         const navigate = useNavigate();
+//         try {
+//             const result = await sizeService.createSize(formData)
+//             console.log(result);
+//             notification.success({
+//                 closeIcon: true,
+//                 message: 'Thành Công',
+//                 description: (
+//                     <>Tạo Kích Thước Thành Công</>
+//                 ),
+//             });
+//             navigate('/admin/sizes-mng');
+//         } catch (error) {
+//             notification.error({
+//                 closeIcon: true,
+//                 message: "Thất Bại",
+//                 description: <>Tạo Kích Thước Thất Bại.</>,
+//             });
+//         }
+//     }
+// }
+
+
 export const addSizeAction = (formData) => {
     return async (dispatch) => {
+
         try {
-            const result = await sizeService.createSize(formData)
+            const result = await sizeService.createSize(formData);
             console.log(result);
             notification.success({
                 closeIcon: true,
@@ -33,7 +60,7 @@ export const addSizeAction = (formData) => {
                     <>Tạo Kích Thước Thành Công</>
                 ),
             });
-            history.push('/admin/sizes-mng');
+            window.location.href = '/admin/sizes-mng';
         } catch (error) {
             notification.error({
                 closeIcon: true,
@@ -41,8 +68,8 @@ export const addSizeAction = (formData) => {
                 description: <>Tạo Kích Thước Thất Bại.</>,
             });
         }
-    }
-}
+    };
+};
 
 export const deleteSizeAction = (id) => {
     return async (dispatch) => {
@@ -94,7 +121,7 @@ export const updateSizeAction = (id, formData) => {
                         <>Cập Nhật Kích Thước Thành Công</>
                     ),
                 });
-                history.push('/admin/sizes-mng');
+                window.location.href = '/admin/sizes-mng';
             }
         } catch (error) {
             notification.error({

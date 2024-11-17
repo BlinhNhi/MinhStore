@@ -3,6 +3,7 @@ import { Form, Input, Button, notification } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { getColorDetailAction, getListColorAction, updateColorAction } from '../../../redux_store/actions/ColorAction';
+import { useParams } from 'react-router-dom';
 
 
 const UpdateColor = (props) => {
@@ -10,7 +11,7 @@ const UpdateColor = (props) => {
     const { colorDetail } = useSelector(state => state.ColorReducer)
     const { arrColor } = useSelector(state => state.ColorReducer)
     console.log(arrColor);
-    let { id } = props.match.params;
+    let { id } = useParams();
     useEffect(() => {
         dispatch(getColorDetailAction(id));
         dispatch(getListColorAction());

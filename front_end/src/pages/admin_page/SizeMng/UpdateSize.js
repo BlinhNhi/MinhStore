@@ -3,6 +3,7 @@ import { Form, Input, Button, notification } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSizeDetailAction, getListSizesAction, updateSizeAction } from '../../../redux_store/actions/SizeAction';
+import { useParams } from 'react-router-dom';
 
 
 const UpdateSize = (props) => {
@@ -10,7 +11,7 @@ const UpdateSize = (props) => {
     const { sizeDetail } = useSelector(state => state.SizeReducer)
     const { arrSizes } = useSelector(state => state.SizeReducer)
 
-    let { id } = props.match.params;
+    let { id } = useParams();
     useEffect(() => {
         dispatch(getListSizesAction());
         dispatch(getSizeDetailAction(id));

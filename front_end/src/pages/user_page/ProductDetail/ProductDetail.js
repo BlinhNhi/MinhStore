@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDetailProductForUserAction, getEightProductsAction } from "../../../redux_store/actions/ProductAcction";
 import { handleFormatPrice } from "../../../utils/format/formatPrice";
 import { getCodeProduct } from "../../../utils/format/getCodeProduct";
+import { useParams } from "react-router-dom";
 
 function CancelArrowSlider(props) {
     const { style } = props;
@@ -22,7 +23,8 @@ function CancelArrowSlider(props) {
 }
 
 function ProductDetail(props) {
-    let { id } = props.match.params;
+    let { id } = useParams();
+    console.log(id);
     const dispatch = useDispatch();
     const { productDetailForUser } = useSelector((state) => state.ProductReducer);
     const { arrEightProducts } = useSelector((state) => state.ProductReducer);
@@ -60,9 +62,9 @@ function ProductDetail(props) {
     };
 
     return (
-        <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200">
+        <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200 ">
             <div className="container pt-10">
-                <div className="block xl:flex 2xl:flex mb-10">
+                <div className="block xl:flex 2xl:flex mb-10 gap-6">
                     <div className="flex items-start flex-col">
                         <div data-aos="fade-up" className="flex items-center">
                             <div
@@ -237,7 +239,7 @@ flex items-start mt-3 gap-4 mb-5
                 </div>
                 {/* Body */}
 
-                <div className="py-4 border-t-2 border-gray-400 w-full lg:w-[50%] xl:w-[50%] 2xl:w-[50%]">
+                <div className="py-4 border-t-2  border-gray-400 w-full lg:w-[50%] xl:w-[50%] 2xl:w-[50%]">
                     <h1 className="font-medium text-base sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base items-center  flex gap-4 mt-4">
                         <FaCoins /> Miễn phí vận chuyển toàn quốc cho đơn hàng trên 1tr.
                     </h1>

@@ -8,12 +8,15 @@ import { getListSizesAction } from '../../../redux_store/actions/SizeAction'
 import { getListCategoriesAction } from '../../../redux_store/actions/CategoryAction';
 import { FaCamera, FaRegTrashAlt } from 'react-icons/fa';
 import LoadingImage from '../../../components/LoadingImage/LoadingImage';
+import { useParams } from 'react-router-dom';
 
 
 
 const UpdateProduct = (props) => {
     const dispatch = useDispatch();
-    let { id } = props.match.params;
+
+    let { id } = useParams();
+    console.log(id);
     const { productDetail } = useSelector(state => state.ProductReducer)
     let { arrColor } = useSelector(state => state.ColorReducer);
     let { arrSizes } = useSelector(state => state.SizeReducer);

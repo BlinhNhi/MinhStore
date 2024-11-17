@@ -128,7 +128,7 @@ function ListNewsProducts(listProducts) {
                 <Slider {...settings}>
                     {listEightProduct?.map((data, i) => (
                         <div className="px-10 py-8">
-                            <NavLink to={`/product-detail/${data?.id}`}>
+                            <a href={`/product-detail/${data?.id}`}>
                                 <div className=" border-4 border-gray-300 hover:border-gray-400  hover:dark:border-primary hover:cursor-pointer rounded-md  hover:translate-y-2 duration-500">
                                     <div className="flex flex-col dark:bg-gray-800 hover:bg-black/80 dark:hover:bg-primary hover:text-white duration-300 shadow-xl gap-2">
                                         <img src={JSON.parse(data?.imagesProduct)[0]?.length > 0 ? JSON.parse(data?.imagesProduct)[0] : NoImage} alt={data?.nameProduct} className="w-full object-cover h-[300px]  xl:h-[250px] 2xl:h-[300px]"></img>
@@ -142,7 +142,7 @@ function ListNewsProducts(listProducts) {
                                         </div>
                                     </div>
                                 </div>
-                            </NavLink>
+                            </a>
                         </div>
                     ))}
                 </Slider>

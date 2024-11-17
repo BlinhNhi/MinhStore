@@ -32,7 +32,7 @@ export const addProductAction = (formData) => {
                     <>Thêm Sản Phẩm Thành Công</>
                 ),
             });
-            history.push('/admin/product-mng');
+            window.location.href = '/admin/product-mng';
         } catch (error) {
             notification.error({
                 closeIcon: true,
@@ -109,7 +109,8 @@ export const updateProductAction = (id, formData) => {
                         <>Cập Nhật Sản Phẩm Thành Công</>
                     ),
                 });
-                history.push('/admin/product-mng');
+                window.location.href = '/admin/product-mng';
+
             }
         } catch (error) {
             notification.error({

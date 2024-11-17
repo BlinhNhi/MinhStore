@@ -3,13 +3,14 @@ import { Form, Input, Button, notification } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { getListCategoriesAction, updateCategoryAction, getCategoryDetailAction } from '../../../redux_store/actions/CategoryAction';
+import { useParams } from 'react-router-dom';
 
 
 const UpdateCategory = (props) => {
     const dispatch = useDispatch();
     const { categoryDetail } = useSelector(state => state.CategoryReducer)
     let { arrCategories } = useSelector(state => state.CategoryReducer);
-    let { id } = props.match.params;
+    let { id } = useParams();
     useEffect(() => {
         dispatch(getCategoryDetailAction(id));
         dispatch(getListCategoriesAction())
