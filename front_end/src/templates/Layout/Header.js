@@ -14,6 +14,7 @@ import { history } from "../../App";
 import { Menu } from "../../utils/data/dataMenuNavbar";
 import LowerNavbar from "../../components/LowerNavbar/LowerNavbar";
 import { notification } from "antd";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -21,6 +22,7 @@ import { notification } from "antd";
 
 
 const setInput = {
+    page: 1,
     searchName: "",
 };
 
@@ -28,17 +30,19 @@ function Header() {
     const dispatch = useDispatch();
     const [isOpenMenu, setIsOpenMenu] = useState('hidden ');
     const [valueSearch, setValueSearch] = useState(null);
+    const navigate = useNavigate();
     const handelOnChangeSearch = (e) => {
         setValueSearch(e.target.value);
     }
     const handleSearch = (e) => {
         e.preventDefault();
         setInput.searchName = valueSearch;
+        console.log(valueSearch);
         //  && valueSearch?.startsWith(' ') === false && valueSearch !== ""
         if (valueSearch !== null) {
             dispatch(getProductsOfSearchNameAction(setInput));
             const queryString = new URLSearchParams(setInput).toString();
-            history.push(`/search?${queryString}`);
+            navigate(`/search?${queryString}`);
         }
     }
 

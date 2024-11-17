@@ -1,36 +1,29 @@
 import React, { useState } from "react";
 import { PiSneakerMoveFill } from "react-icons/pi";
-import { Pagination } from 'antd';
 import { useSelector } from "react-redux";
 import { FaRegSadTear } from "react-icons/fa";
 
 import NoImage from '../../assets/no-image.jpeg'
 import { handleFormatPrice } from "../../utils/format/formatPrice";
+import Pagination from "../Pagination/Pagination";
 
 
 function ListProduct() {
     let { arrProducts } = useSelector(state => state.ProductReducer)
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(8);
+    // console.log(quantityProducts);
+    // console.log(arrProducts);
 
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const reverseArrProduct = arrProducts.slice().reverse();
-    const currentProduct = reverseArrProduct.slice(
-        indexOfFirstPost,
-        indexOfLastPost
-    );
 
     return (
         <div>
             {
-                currentProduct?.length > 0 ? <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 place-items-center gap-2">
-                    {currentProduct?.map((data) => (
+                arrProducts?.length > 0 ? <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 place-items-center gap-2">
+                    {arrProducts?.map((data) => (
 
-                        <a href={`/product-detail/${data?.id}`}>
+                        <a key={data?.id} href={`/product-detail/${data?.id}`}>
                             <div
                                 data-aos="flip-left"
-                                key={data?.id}
+
                             >
                                 <div
 
@@ -68,19 +61,7 @@ function ListProduct() {
             }
 
 
-            <div className="mt-10">
-                <div>
-                    <Pagination
-                        className='d-flex justify-center line-clamp-3 mb-20'
-                        pageSize={8}
-                        currentPage={1}
-                        total={arrProducts?.length}
-                        onChange={(page) => {
-                            setCurrentPage(page);
-                        }}
-                    />
-                </div>
-            </div>
+
         </div>
     );
 }

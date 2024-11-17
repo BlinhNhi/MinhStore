@@ -5,6 +5,7 @@ using back_end.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace back_end.Controllers
 {
@@ -145,24 +146,25 @@ namespace back_end.Controllers
 
 
         [HttpGet("Options")]
-        public IActionResult OptionsAsDesired(string? searchName, string? searchCategory, string? searchColor, string? searchSize, string? fromPrice, string? toPrice, string? sort, string? createDay)
+        public IActionResult OptionsAsDesired(string? searchName, string? searchCategory, string? searchColor, string? searchSize, string? fromPrice, string? toPrice, string? sort, string? createDay,int page =1)
         {
             try
             {
-                
-                var list = repo.OptionsAsDesired(searchName,searchCategory, searchColor,searchSize, fromPrice, toPrice, sort, createDay);
+
+                var (list, countProducts) = repo.OptionsAsDesired(searchName, searchCategory,searchColor,searchSize,fromPrice,toPrice,sort,createDay, page);
                 if (list != null)
                 {
-                    var result = new ResponseData<IEnumerable<Product>>(StatusCodes.Status200OK, "Search Product Successfully", list, null);
+                    var result = new
+                    {
+                        Status = StatusCodes.Status200OK,
+                        Message = "Get Product Successfully",
+                        Data = list,
+                        quantityProducts = countProducts
+                    };
                     return Ok(result);
                 }
-                else
-                {
-                    var emptyList = Enumerable.Empty<Product>(); 
-                    var result = new ResponseData<IEnumerable<Product>>(StatusCodes.Status200OK, "Cannot Found Product", emptyList, null);
-                    return Ok(result);
-                }
-              /*  return BadRequest();*/
+                return BadRequest();
+              
             }
             catch
             {
@@ -170,24 +172,49 @@ namespace back_end.Controllers
             }
         }
 
-
         [HttpGet("GetEightProducts")]
         public IActionResult OptionsAsDesired(string? sort, int page = 1)
         {
             try
             {
-                var list = repo.GetEightProduct(sort, page);
+                var (list, totalCount) = repo.GetEightProduct(sort, page);
                 if (list != null)
                 {
-                    var result = new ResponseData<IEnumerable<Product>>(StatusCodes.Status200OK, "Get Product Successfully", list, null);
+                    var result = new
+                    {
+                        Status = StatusCodes.Status200OK,
+                        Message = "Get Product Successfully",
+                        Data = list,
+                        TotalCount = totalCount
+                    };
                     return Ok(result);
                 }
                 return BadRequest();
             }
             catch
             {
-                return BadRequest("We Canot Get Product");
+                return BadRequest("We Cannot Get Product");
             }
         }
+
+        /*
+                [HttpGet("GetEightProducts")]
+                public IActionResult OptionsAsDesired(string? sort, int page = 1)
+                {
+                    try
+                    {
+                        var list = repo.GetEightProduct(sort, page);
+                        if (list != null)
+                        {
+                            var result = new ResponseData<IEnumerable<Product>>(StatusCodes.Status200OK, "Get Product Successfully", list, null);
+                            return Ok(result);
+                        }
+                        return BadRequest();
+                    }
+                    catch
+                    {
+                        return BadRequest("We Canot Get Product");
+                    }
+                }*/
     }
 }

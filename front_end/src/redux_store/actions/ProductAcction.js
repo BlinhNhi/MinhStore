@@ -141,10 +141,12 @@ export const getProductListOptionsAction = (options) => {
         try {
             // dispatch(displayLoadingAction);
             const result = await productService.getProductListOptions(options);
+            console.log(result?.data?.quantityProducts);
             if (result.data.status === 200) {
                 dispatch({
                     type: GET_PRODUCT_LIST,
                     arrProducts: result.data.data,
+                    quantityProducts: result?.data?.quantityProducts
                 });
                 // await dispatch(hideLoadingAction);
             }
@@ -163,6 +165,7 @@ export const getProductsOfSearchNameAction = (options) => {
                 dispatch({
                     type: GET_PRODUCT_LIST,
                     arrProducts: result.data.data,
+                    quantityProducts: result?.data?.quantityProducts
                 });
                 // await dispatch(hideLoadingAction);
             }
@@ -181,6 +184,7 @@ export const getProductsOfCategoryAction = (options) => {
                 dispatch({
                     type: GET_PRODUCT_LIST,
                     arrProducts: result.data.data,
+                    quantityProducts: result?.data?.quantityProducts
                 });
                 // await dispatch(hideLoadingAction);
             }
@@ -194,7 +198,6 @@ export const getEightProductsAction = () => {
     return async (dispatch) => {
         try {
             const result = await productService.getEightProducts();
-            console.log(result);
             if (result.data.status === 200) {
                 dispatch({
                     type: GET_EIGHT_PRODUCTS,
@@ -211,7 +214,6 @@ export const getEightCheapProductsAction = () => {
     return async (dispatch) => {
         try {
             const result = await productService.getEightCheapProducts();
-            console.log(result);
             if (result.data.status === 200) {
                 dispatch({
                     type: GET_EIGHT_CHEAP_PRODUCTS,

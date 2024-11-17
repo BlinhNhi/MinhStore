@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import FilterProduct from "../../../components/FilterProduct/FilterProduct";
 import { useDispatch } from "react-redux";
 import { getProductListOptionsAction, getProductsOfCategoryAction } from "../../../redux_store/actions/ProductAcction";
+import Pagination from "../../../components/Pagination/Pagination";
 
 
 const setInput = {
@@ -18,16 +19,24 @@ const setInput = {
     toPrice: "",
     sort: "",
     dayStart: "",
+    page: 1
 };
-
+console.log('test setinput : ', setInput);
 function Search(props) {
     const dispatch = useDispatch()
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     let searchParams = new URLSearchParams(props.location.search);
     let searchNameProduct = searchParams.get('searchName');
     let searchTypeCategory = searchParams.get('searchCategory');
-    console.log(searchTypeCategory);
-    console.log(setInput.searchCategory);
+    const [valuePagination, setValuePagination] = useState(1);
+    let numberOfCategory = valuePagination;
+
+    console.log('test pagination : ', valuePagination);
+    // Hàm để nhận giá trị từ con
+    const handleValueFromChild = (valueFromPagination) => {
+        setValuePagination(valueFromPagination); // Cập nhật giá trị từ con
+    };
+
 
     useEffect(() => {
         if (searchNameProduct !== "" && searchNameProduct !== null) {
@@ -38,6 +47,7 @@ function Search(props) {
             setInput.searchCategory = searchParams.get('searchCategory')
             dispatch(getProductsOfCategoryAction(setInput));
         }
+
     }, [dispatch]);
 
 
@@ -74,6 +84,7 @@ function Search(props) {
 
                         <div className="w-full  pt-1 px-2 md:w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4">
                             <ListProduct></ListProduct>
+                            <Pagination sendValueToSearch={handleValueFromChild}></Pagination>
                         </div>
                     </div>
                 </div>

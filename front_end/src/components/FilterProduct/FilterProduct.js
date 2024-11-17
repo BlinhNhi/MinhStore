@@ -14,6 +14,7 @@ const setInput = {
     toPrice: "",
     sort: "",
     // dayStart: "",
+    page: 1
 };
 
 function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory }) {
@@ -21,9 +22,9 @@ function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory }) 
     let { arrSizes } = useSelector(state => state.SizeReducer);
     // let { arrProducts } = useSelector(state => state.ProductReducer)
     const dataNameProduct = searchNameProduct;
-    console.log(dataNameProduct);
+    // console.log(dataNameProduct);
     const categoryProduct = searchTypeCategory;
-    console.log(searchTypeCategory);
+    // console.log(searchTypeCategory);
     // console.log(arrProducts);
     const dispatch = useDispatch();
 

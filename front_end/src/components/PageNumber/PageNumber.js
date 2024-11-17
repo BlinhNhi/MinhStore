@@ -1,7 +1,6 @@
 import { memo } from "react";
 import { createSearchParams, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
-// số và icon phân trang
 const notActive =
     "w-[46px] h-[48px] flex justify-center items-center bg-white hover:bg-gray-300  cursor-pointer rounded-md";
 const active =
@@ -11,32 +10,52 @@ function PageNumber({ number, currentPage, icon, setCurrentPage, type }) {
     // console.log(currentPage);
     const [searchParams] = useSearchParams()
     let entries = searchParams.entries();
+    console.log('entries', entries);
     const location = useLocation()
+    // const append = (entries) => {
+    //     let params = [];
+    //     searchParams.append('page', +number);
+    //     for (let entry of entries) {
+    //         params.push(entry)
+    //         console.log('entry', entry);
+    //         console.log('entries', entries);
+
+    //     }
+    //     let searchParamsObject = {};
+    //     params?.forEach(i => {
+    //         if (Object.keys(searchParamsObject)?.some(item => item === i[0] && item !== 'page')) {
+    //             searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
+    //         } else {
+
+    //             searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
+    //         }
+
+    //     });
+    //     return searchParamsObject
+    // }
     const append = (entries) => {
-        let params = [];
-        searchParams.append('page', +number);
-        for (let entry of entries) {
-            params.push(entry)
-        }
-        let searchParamsObject = {};
-        params?.forEach(i => {
-            // searchParamsObject = { ...searchParamsObject, [i[0]]: i[1] }
-            // ?
-            if (Object.keys(searchParamsObject)?.some(item => item === i[0] && item !== 'page')) {
-                searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
-            } else {
-
-                searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
+        let params = {};
+        for (let [key, value] of entries) {
+            if (key !== "page") {
+                params[key] = value;
             }
-
-        });
-        return searchParamsObject
-    }
+        }
+        params["page"] = +number; // Thêm `page` vào sau cùng
+        return params;
+    };
     const navigate = useNavigate();
-    const handleChangePage = () => {
-        if (!(number === "...")) {
-            // console.log(append(entries));
+    // const handleChangePage = () => {
+    //     if (!(number === "...")) {
+    //         setCurrentPage(+number);
+    //         navigate({
+    //             pathname: location.pathname,
+    //             search: createSearchParams(append(entries)).toString(),
+    //         });
+    //     }
+    // };
 
+    const handleChangePage = () => {
+        if (number !== "...") {
             setCurrentPage(+number);
             navigate({
                 pathname: location.pathname,

@@ -30,7 +30,7 @@ function LowerNavbar() {
                         <ul>
                             {arrCategories?.map((data, i) => (
                                 data?.name === "Adidas" || data?.name === "Nike" ? <div></div> : <li key={data.id}>
-                                    <a key={i} href={`/search?searchCategory=${data.name} `} className="inline-block w-full text-base rounded-md p-2 hover:bg-primary/20 hover:no-underline">{data?.name}</a>
+                                    <a key={i} href={`/search?searchCategory=${data.name}&page=1`} className="inline-block w-full text-base rounded-md p-2 hover:bg-primary/20 hover:no-underline">{data?.name}</a>
                                 </li>
                             ))}
 

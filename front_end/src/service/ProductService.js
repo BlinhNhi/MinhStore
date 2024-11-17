@@ -25,12 +25,12 @@ export class ProductService extends baseService {
     };
     getProductListOptions = (options) => {
         return this.get(
-            `/api/Product/Options?searchName=${options.searchName}&searchCategory=${options.searchCategory}&searchColor=${options.searchColor}&searchSize=${options.searchSize}&fromPrice=${options.fromPrice}&toPrice=${options.toPrice}&sort=${options.sort}`
+            `/api/Product/Options?searchName=${options.searchName}&searchCategory=${options.searchCategory}&searchColor=${options.searchColor}&searchSize=${options.searchSize}&fromPrice=${options.fromPrice}&toPrice=${options.toPrice}&sort=${options.sort}&page=${options.page}`
         );
     };
     getProductsOfSearch = (options) => {
         return this.get(
-            `/api/Product/Options?searchName=${options.searchName}`
+            `/api/Product/Options?searchName=${options.searchName}&page=${options.page}`
         );
     };
     getProductsOfCategory = (options) => {

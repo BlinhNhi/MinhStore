@@ -14,6 +14,7 @@ const setInput = {
     toPrice: "",
     sort: "",
     dayStart: "",
+    page: 1
 };
 
 function SelectProduct({ searchNameProduct, searchTypeCategory }) {

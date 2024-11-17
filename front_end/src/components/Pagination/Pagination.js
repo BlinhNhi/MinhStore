@@ -1,31 +1,55 @@
-import { PageNumber } from "../../components";
-import { useSelector } from "react-redux";
-import {
-    faAngleDoubleRight,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { useDispatch, useSelector } from "react-redux";
+
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import PageNumber from "../PageNumber/PageNumber";
+import { getProductListOptionsAction } from "../../redux_store/actions/ProductAcction";
 
-function Pagination() {
+const setInput = {
+    searchName: "",
+    searchCategory: "",
+    searchColor: "",
+    searchSize: "",
+    fromPrice: "",
+    toPrice: "",
+    sort: "",
+    dayStart: "",
+    page: 1
+};
+
+function Pagination({ sendValueToSearch }) {
     //?
-    const { count, posts } = useSelector((state) => state.post);
+    const dispatch = useDispatch();
+    let { arrProducts, quantityProducts } = useSelector(state => state.ProductReducer)
     const [arrPage, setArrPage] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [isHideEnd, setIsHideEnd] = useState(false);
     const [isHideStart, setIsHideStart] = useState(false);
     const [searchParams] = useSearchParams();
 
+
     // console.log("currentPage : ", currentPage);
     useEffect(() => {
-        let page = searchParams.get('page');
+        const page = searchParams.get('page');
+        console.log('page', page);
         page && +page !== currentPage && setCurrentPage(+page);
         !page && setCurrentPage(1)
+        // handleSendToParent();
+        setInput.page = currentPage;
+        dispatch(getProductListOptionsAction(setInput));
     }, [searchParams]);
 
+
+    console.log('test', currentPage);
+    const handleSendToParent = () => {
+        sendValueToSearch(currentPage); // Gửi giá trị từ con ra cha
+        console.log(currentPage);
+    };
+
     useEffect(() => {
-        let maxPage = Math.ceil(count / 12);
-        // console.log('max page : ' , maxPage);
+        let maxPage = Math.ceil(quantityProducts / 8);
+        console.log('max page : ', maxPage);
         let end = (currentPage + 2) > maxPage ? maxPage : (currentPage + 2);
         let start = (currentPage - 2) <= 0 ? 1 : (currentPage - 2);
         let temp = [];
@@ -40,7 +64,7 @@ function Pagination() {
         currentPage >= (maxPage - 2) ? setIsHideEnd(true) : setIsHideEnd(false);
         currentPage <= 3 ? setIsHideStart(true) : setIsHideStart(false);
 
-    }, [count, posts, currentPage]);
+    }, [quantityProducts, arrProducts, currentPage]);
     // console.log(arrPage);
 
 
@@ -70,8 +94,8 @@ function Pagination() {
             {!isHideEnd && <PageNumber number={"..."}></PageNumber>}
             {!isHideEnd && (
                 <PageNumber
-                    icon={<FontAwesomeIcon icon={faAngleDoubleRight}></FontAwesomeIcon>}
-                    number={Math.floor(count / posts.length)}
+                    icon={">"}
+                    number={Math.floor(quantityProducts / arrProducts.length)}
                     // ?
                     setCurrentPage={setCurrentPage}
                 ></PageNumber>

@@ -5,15 +5,19 @@ const initialState = {
     arrEightProducts: [],
     arrEightCheapProducts: [],
     productDetail: {},
-    productDetailForUser: ""
+    productDetailForUser: "",
+    quantityProducts: 0
 }
 
 export const ProductReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_PRODUCT_LIST:
-            state.arrProducts = action.arrProducts;
-            return { ...state }
+            return {
+                ...state,
+                arrProducts: action.arrProducts || [],
+                quantityProducts: action.quantityProducts || 0,
+            }
         case GET_EIGHT_PRODUCTS:
             state.arrEightProducts = action.arrEightProducts;
             return { ...state }

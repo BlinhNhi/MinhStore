@@ -1,5 +1,4 @@
-
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import { NavLink } from "react-router-dom";
 import Slider from "react-slick";
 import { PiSneakerMoveFill } from "react-icons/pi";
 
