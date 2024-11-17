@@ -84,7 +84,7 @@ function Search(props) {
 
                         <div className="w-full  pt-1 px-2 md:w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4">
                             <ListProduct></ListProduct>
-                            <Pagination sendValueToSearch={handleValueFromChild}></Pagination>
+                            <Pagination sendValueToSearch={handleValueFromChild} searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory}></Pagination>
                         </div>
                     </div>
                 </div>

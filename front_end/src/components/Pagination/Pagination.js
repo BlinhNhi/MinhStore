@@ -18,7 +18,7 @@ const setInput = {
     page: 1
 };
 
-function Pagination({ sendValueToSearch }) {
+function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory }) {
     //?
     const dispatch = useDispatch();
     let { arrProducts, quantityProducts } = useSelector(state => state.ProductReducer)
@@ -28,24 +28,33 @@ function Pagination({ sendValueToSearch }) {
     const [isHideStart, setIsHideStart] = useState(false);
     const [searchParams] = useSearchParams();
 
-
+    console.log("searchTypeCategory : ", searchTypeCategory);
+    console.log("searchNameProduct : ", searchNameProduct);
     // console.log("currentPage : ", currentPage);
     useEffect(() => {
         const page = searchParams.get('page');
-        console.log('page', page);
         page && +page !== currentPage && setCurrentPage(+page);
         !page && setCurrentPage(1)
-        // handleSendToParent();
-        setInput.page = currentPage;
-        dispatch(getProductListOptionsAction(setInput));
+        if (searchNameProduct != null) {
+            setInput.page = currentPage;
+            setInput.searchName = searchNameProduct
+            setInput.searchCategory = "";
+            dispatch(getProductListOptionsAction(setInput));
+        }
+        else if (searchTypeCategory != null) {
+            setInput.page = currentPage;
+            setInput.searchCategory = searchTypeCategory
+            setInput.searchName = ""
+            dispatch(getProductListOptionsAction(setInput));
+        }
     }, [searchParams]);
 
 
     console.log('test', currentPage);
-    const handleSendToParent = () => {
-        sendValueToSearch(currentPage); // Gửi giá trị từ con ra cha
-        console.log(currentPage);
-    };
+    // const handleSendToParent = () => {
+    //     sendValueToSearch(currentPage); // Gửi giá trị từ con ra cha
+    //     console.log(currentPage);
+    // };
 
     useEffect(() => {
         let maxPage = Math.ceil(quantityProducts / 8);

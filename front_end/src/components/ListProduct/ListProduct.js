@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { PiSneakerMoveFill } from "react-icons/pi";
 import { useSelector } from "react-redux";
 import { FaRegSadTear } from "react-icons/fa";
 
 import NoImage from '../../assets/no-image.jpeg'
 import { handleFormatPrice } from "../../utils/format/formatPrice";
-import Pagination from "../Pagination/Pagination";
+
 
 
 function ListProduct() {

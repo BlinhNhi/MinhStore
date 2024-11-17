@@ -50,7 +50,6 @@ function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory }) 
     const handleOnChangeColor = (event) => {
         if (event.target.checked && event.target.value !== "undefine") {
             setInput.searchColor += event.target.value + ",";
-            console.log(setInput.searchColor);
         } else {
             if (dataNameProduct !== null) {
                 setInput.searchName = dataNameProduct;
