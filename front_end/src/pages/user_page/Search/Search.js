@@ -28,19 +28,28 @@ function Search(props) {
     let searchParams = new URLSearchParams(props.location.search);
     let searchNameProduct = searchParams.get('searchName');
     let searchTypeCategory = searchParams.get('searchCategory');
-    const [valuePagination, setValuePagination] = useState(1);
-    let numberOfCategory = valuePagination;
+    const [valueSortPrice, setValueSortPrice] = useState("");
+    let dataOfSort = valueSortPrice;
 
-    console.log('test pagination : ', valuePagination);
+    console.log('test sort : ', dataOfSort);
     // Hàm để nhận giá trị từ con
-    const handleValueFromChild = (valueFromPagination) => {
-        setValuePagination(valueFromPagination); // Cập nhật giá trị từ con
+    const handleValueFromSortPrice = (valueSortPrice) => {
+        setValueSortPrice(valueSortPrice); // Cập nhật giá trị từ con
     };
 
 
     useEffect(() => {
         if (searchNameProduct !== "" && searchNameProduct !== null) {
             setInput.searchName = searchParams.get('searchName')
+            // Reset các giá trị khác
+            setInput.searchCategory = "";
+            setInput.searchColor = "";
+            setInput.searchSize = "";
+            setInput.fromPrice = "";
+            setInput.toPrice = "";
+            setInput.sort = "";
+            setInput.dayStart = "";
+            setInput.page = 1;
             dispatch(getProductListOptionsAction(setInput));
         }
         else if (searchTypeCategory !== "" && searchTypeCategory !== null) {
@@ -62,7 +71,7 @@ function Search(props) {
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200">
             <div className="container">
                 <div className="hidden sm:block ">
-                    <SelectProduct searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory}></SelectProduct>
+                    <SelectProduct searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory} onSendDataSortPrice={handleValueFromSortPrice}></SelectProduct>
                 </div>
                 <div className="container relative">
                     <div className="xl:flex lg:flex 2xl:flex flex-row block  flex-wrap py-4">
@@ -84,7 +93,7 @@ function Search(props) {
 
                         <div className="w-full  pt-1 px-2 md:w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4">
                             <ListProduct></ListProduct>
-                            <Pagination sendValueToSearch={handleValueFromChild} searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory}></Pagination>
+                            <Pagination searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory} valueSortPrice={valueSortPrice}></Pagination>
                         </div>
                     </div>
                 </div>

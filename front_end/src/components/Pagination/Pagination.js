@@ -18,8 +18,9 @@ const setInput = {
     page: 1
 };
 
-function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory }) {
+function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, valueSortPrice }) {
     //?
+    console.log(valueSortPrice);
     const dispatch = useDispatch();
     let { arrProducts, quantityProducts } = useSelector(state => state.ProductReducer)
     const [arrPage, setArrPage] = useState([]);
@@ -28,9 +29,7 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory }
     const [isHideStart, setIsHideStart] = useState(false);
     const [searchParams] = useSearchParams();
 
-    console.log("searchTypeCategory : ", searchTypeCategory);
-    console.log("searchNameProduct : ", searchNameProduct);
-    // console.log("currentPage : ", currentPage);
+
     useEffect(() => {
         const page = searchParams.get('page');
         page && +page !== currentPage && setCurrentPage(+page);
@@ -38,23 +37,26 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory }
         if (searchNameProduct != null) {
             setInput.page = currentPage;
             setInput.searchName = searchNameProduct
+            setInput.sort = valueSortPrice
             setInput.searchCategory = "";
             dispatch(getProductListOptionsAction(setInput));
         }
         else if (searchTypeCategory != null) {
             setInput.page = currentPage;
             setInput.searchCategory = searchTypeCategory
+            setInput.sort = valueSortPrice
             setInput.searchName = ""
             dispatch(getProductListOptionsAction(setInput));
         }
+        // else if (valueSortPrice !== "") {
+        //     setInput.sort = valueSortPrice
+        //     dispatch(getProductListOptionsAction(setInput));
+        // }
     }, [searchParams]);
 
 
     console.log('test', currentPage);
-    // const handleSendToParent = () => {
-    //     sendValueToSearch(currentPage); // Gửi giá trị từ con ra cha
-    //     console.log(currentPage);
-    // };
+
 
     useEffect(() => {
         let maxPage = Math.ceil(quantityProducts / 8);

@@ -17,12 +17,19 @@ const setInput = {
     page: 1
 };
 
-function SelectProduct({ searchNameProduct, searchTypeCategory }) {
+function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPrice }) {
     const dispatch = useDispatch();
     const dataNameProduct = searchNameProduct;
     console.log(dataNameProduct);
     const categoryProduct = searchTypeCategory;
     console.log(searchTypeCategory);
+
+    // gọi hàm chuuyển giá trị price ra ngoài component search để truyền vào pagination
+    const sendDataPriceToSearch = (value) => {
+        const data = value
+        console.log('test data from sort price : ', value);
+        onSendDataSortPrice(data); // Gọi hàm và truyền giá trị lên cha
+    };
 
     const handleChangePrice = (value) => {
         const [from, to] = value.split('-').map(Number);
@@ -33,6 +40,7 @@ function SelectProduct({ searchNameProduct, searchTypeCategory }) {
     }
 
     const handleChangeSort = (value) => {
+        sendDataPriceToSearch(value)
         console.log(value);
         setInput.sort = value;
         if (dataNameProduct !== null) {
@@ -43,7 +51,7 @@ function SelectProduct({ searchNameProduct, searchTypeCategory }) {
             setInput.searchCategory = categoryProduct;
             dispatch(getProductListOptionsAction(setInput));
         }
-        // setInput.searchCategory = "";
+
         dispatch(getProductListOptionsAction(setInput));
     };
 
@@ -81,8 +89,8 @@ function SelectProduct({ searchNameProduct, searchTypeCategory }) {
                                 placeholder="Sắp Xếp Theo...."
                                 onChange={handleChangeSort}
                             >
-                                <Option value="highest-price">Giá Cao Nhất</Option>
-                                <Option value="lowest-price">Giá Thấp Nhất</Option>
+                                <Option value="highest-price">Giá Thấp Đến Cao</Option>
+                                <Option value="lowest-price">Giá Cao Đến Thấp</Option>
                             </Select>
                         </div>
 

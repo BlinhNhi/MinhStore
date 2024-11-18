@@ -42,7 +42,7 @@ function Header() {
         if (valueSearch !== null) {
             dispatch(getProductsOfSearchNameAction(setInput));
             const queryString = new URLSearchParams(setInput).toString();
-            navigate(`/search?${queryString}`);
+            window.location.href = `/search?${queryString}`;
         }
     }
 

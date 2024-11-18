@@ -33,7 +33,7 @@ export const addCategoryAction = (formData) => {
                     <>Tạo Danh Mục Thành Công</>
                 ),
             });
-            history.push('/admin/categories-mng');
+            window.location.href = '/admin/categories-mng';
         } catch (error) {
             notification.error({
                 closeIcon: true,
@@ -94,7 +94,8 @@ export const updateCategoryAction = (id, formData) => {
                         <>Cập Nhật Danh Mục Thành Công</>
                     ),
                 });
-                history.push('/admin/categories-mng');
+                window.location.href = '/admin/categories-mng';
+                history.push('');
             }
         } catch (error) {
             notification.error({

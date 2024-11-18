@@ -31,7 +31,7 @@ export const addColorAction = (formData) => {
                     <>Tạo Màu Sảm Phẩm Thành Cơng</>
                 ),
             });
-            history.push('/admin/color-mng');
+            window.location.href = '/admin/color-mng';
         } catch (error) {
             notification.error({
                 closeIcon: true,
@@ -92,7 +92,7 @@ export const updateColorAction = (id, formData) => {
                         <>Cập Nhật Màu Sản Phẩm Thành Công</>
                     ),
                 });
-                history.push('/admin/color-mng');
+                window.location.href = '/admin/color-mng';
             }
         } catch (error) {
             notification.error({
