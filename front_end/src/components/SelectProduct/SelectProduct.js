@@ -1,7 +1,7 @@
-import { Card, Radio, Select, } from "antd";
-// import { useState } from "react";
-import { ImSearch } from "react-icons/im";
 import { useDispatch } from "react-redux";
+import { Select, } from "antd";
+import { createSearchParams, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+
 import { getProductListOptionsAction } from "../../redux_store/actions/ProductAcction";
 const { Option } = Select;
 
@@ -22,36 +22,75 @@ function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPr
     const dataNameProduct = searchNameProduct;
     console.log(dataNameProduct);
     const categoryProduct = searchTypeCategory;
-    console.log(searchTypeCategory);
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const location = useLocation()
+
+    let entries = searchParams.entries();
 
     // gọi hàm chuuyển giá trị price ra ngoài component search để truyền vào pagination
     const sendDataPriceToSearch = (value) => {
         const data = value
-        console.log('test data from sort price : ', value);
-        onSendDataSortPrice(data); // Gọi hàm và truyền giá trị lên cha
+        onSendDataSortPrice(data);
+    };
+
+    const append = (entries) => {
+        let params = {};
+        for (let [key, value] of entries) {
+            if (key !== "page") {
+                params[key] = value;
+            }
+        }
+        params["page"] = 1; // Thêm `page` vào sau cùng
+        return params;
+    };
+
+    const handleSetPage = () => {
+        navigate({
+            pathname: location.pathname,
+            search: createSearchParams(append(entries)).toString(),
+        });
     };
 
     const handleChangePrice = (value) => {
         const [from, to] = value.split('-').map(Number);
-        console.log(setInput.searchCategory);
         setInput.fromPrice = from;
         setInput.toPrice = to;
         dispatch(getProductListOptionsAction(setInput));
     }
 
+    // const pageParams = searchParams.get('page');
+    // console.log('test page from select : ', pageParams);
+
     const handleChangeSort = (value) => {
+        const pageParams = searchParams.get('page');
+        console.log('test page from select : ', pageParams);
         sendDataPriceToSearch(value)
         console.log(value);
+        //     const dataNameProduct = searchNameProduct;
+        // console.log(dataNameProduct);
+        // const categoryProduct = searchTypeCategory;
         setInput.sort = value;
-        if (dataNameProduct !== null) {
+        if (searchNameProduct != null) {
             setInput.searchName = dataNameProduct;
             setInput.searchCategory = "";
+            handleSetPage()
+            console.log('test setInput', setInput);
+            console.log('test page from select name: ', pageParams);
             dispatch(getProductListOptionsAction(setInput));
+
         } else if (searchTypeCategory != null) {
             setInput.searchCategory = categoryProduct;
+            handleSetPage()
+            console.log('test page from select category: ', pageParams);
+            console.log('test setInput', setInput);
             dispatch(getProductListOptionsAction(setInput));
         }
 
+        handleSetPage()
+        console.log('test setinput.Page : ', setInput.page);
+        console.log('test page from select : ', pageParams);
+        console.log('test setInpu 3', setInput);
         dispatch(getProductListOptionsAction(setInput));
     };
 
@@ -89,8 +128,8 @@ function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPr
                                 placeholder="Sắp Xếp Theo...."
                                 onChange={handleChangeSort}
                             >
-                                <Option value="highest-price">Giá Thấp Đến Cao</Option>
-                                <Option value="lowest-price">Giá Cao Đến Thấp</Option>
+                                <Option value="highest-price">Giá Cao Đến Thấp</Option>
+                                <Option value="lowest-price">Giá Thấp Đến Cao</Option>
                             </Select>
                         </div>
 

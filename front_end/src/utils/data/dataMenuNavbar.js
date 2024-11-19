@@ -12,12 +12,12 @@ export const Menu = [
     {
         id: 3,
         name: "Adidas",
-        link: `/search?searchCategory=${"Adidas"}&page=1`
+        link: `/search?searchCategory=${"Adidas"}`
     },
     {
         id: 4,
         name: "Nike",
-        link: `/search?searchCategory=${"Nike"}&page=1`
+        link: `/search?searchCategory=${"Nike"}`
     },
 ]
 

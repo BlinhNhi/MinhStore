@@ -7,10 +7,10 @@ const active =
     "w-[46px] h-[48px] flex justify-center items-center bg-[#E13427] text-white hover:opacity-90 rounded-md";
 
 function PageNumber({ number, currentPage, icon, setCurrentPage, type }) {
-    // console.log(currentPage);
+
     const [searchParams] = useSearchParams()
     let entries = searchParams.entries();
-    console.log('entries', entries);
+    // console.log('entries', entries);
     const location = useLocation()
     // const append = (entries) => {
     //     let params = [];
@@ -44,15 +44,6 @@ function PageNumber({ number, currentPage, icon, setCurrentPage, type }) {
         return params;
     };
     const navigate = useNavigate();
-    // const handleChangePage = () => {
-    //     if (!(number === "...")) {
-    //         setCurrentPage(+number);
-    //         navigate({
-    //             pathname: location.pathname,
-    //             search: createSearchParams(append(entries)).toString(),
-    //         });
-    //     }
-    // };
 
     const handleChangePage = () => {
         if (number !== "...") {

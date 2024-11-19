@@ -29,10 +29,11 @@ function Search(props) {
     let searchNameProduct = searchParams.get('searchName');
     let searchTypeCategory = searchParams.get('searchCategory');
     const [valueSortPrice, setValueSortPrice] = useState("");
-    let dataOfSort = valueSortPrice;
 
-    console.log('test sort : ', dataOfSort);
-    // Hàm để nhận giá trị từ con
+    console.log('test search name product form search : ', searchNameProduct);
+    console.log('test search category product form search : ', searchTypeCategory);
+
+
     const handleValueFromSortPrice = (valueSortPrice) => {
         setValueSortPrice(valueSortPrice); // Cập nhật giá trị từ con
     };

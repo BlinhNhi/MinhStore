@@ -21,6 +21,8 @@ const setInput = {
 function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, valueSortPrice }) {
     //?
     console.log(valueSortPrice);
+    console.log(searchNameProduct);
+    console.log(searchTypeCategory);
     const dispatch = useDispatch();
     let { arrProducts, quantityProducts } = useSelector(state => state.ProductReducer)
     const [arrPage, setArrPage] = useState([]);
@@ -29,38 +31,55 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
     const [isHideStart, setIsHideStart] = useState(false);
     const [searchParams] = useSearchParams();
 
+    console.log(currentPage);
 
     useEffect(() => {
         const page = searchParams.get('page');
         page && +page !== currentPage && setCurrentPage(+page);
         !page && setCurrentPage(1)
+
+        console.log('test page from pagination', page);
         if (searchNameProduct != null) {
             setInput.page = currentPage;
             setInput.searchName = searchNameProduct
             setInput.sort = valueSortPrice
             setInput.searchCategory = "";
+            console.log('value setInput of Pagination', setInput);
             dispatch(getProductListOptionsAction(setInput));
         }
         else if (searchTypeCategory != null) {
             setInput.page = currentPage;
             setInput.searchCategory = searchTypeCategory
-            setInput.sort = valueSortPrice
             setInput.searchName = ""
+            setInput.sort = valueSortPrice
+            console.log('value setInput of Pagination', setInput);
             dispatch(getProductListOptionsAction(setInput));
         }
-        // else if (valueSortPrice !== "") {
-        //     setInput.sort = valueSortPrice
-        //     dispatch(getProductListOptionsAction(setInput));
-        // }
+        else if (valueSortPrice !== "" || valueSortPrice != null) {
+            console.log("kkkk", setInput);
+            if (setInput.searchCategory !== "") {
+                setInput.page = currentPage;
+                // setInput.searchCategory = searchTypeCategory
+                setInput.searchName = ""
+                console.log('value setInput of Pagination', setInput);
+                dispatch(getProductListOptionsAction(setInput));
+            }
+            else if (setInput.searchName != null) {
+                setInput.page = currentPage;
+                setInput.searchName = searchNameProduct
+                setInput.searchCategory = ""
+                console.log('value setInput of Pagination', setInput);
+                dispatch(getProductListOptionsAction(setInput));
+            }
+        }
     }, [searchParams]);
 
 
-    console.log('test', currentPage);
 
 
     useEffect(() => {
         let maxPage = Math.ceil(quantityProducts / 8);
-        console.log('max page : ', maxPage);
+        //console.log('max page : ', maxPage);
         let end = (currentPage + 2) > maxPage ? maxPage : (currentPage + 2);
         let start = (currentPage - 2) <= 0 ? 1 : (currentPage - 2);
         let temp = [];
@@ -69,14 +88,14 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
             temp.push(i);
         }
         setArrPage(temp);
-        // console.log(temp);
+        // //console.log(temp);
 
         // Ẩn thanh start end khi page là 1 và 16
         currentPage >= (maxPage - 2) ? setIsHideEnd(true) : setIsHideEnd(false);
         currentPage <= 3 ? setIsHideStart(true) : setIsHideStart(false);
 
     }, [quantityProducts, arrProducts, currentPage]);
-    // console.log(arrPage);
+    // //console.log(arrPage);
 
 
 
