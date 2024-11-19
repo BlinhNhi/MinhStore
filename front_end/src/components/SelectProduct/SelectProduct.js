@@ -25,7 +25,6 @@ function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPr
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const location = useLocation()
-
     let entries = searchParams.entries();
 
     // gọi hàm chuuyển giá trị price ra ngoài component search để truyền vào pagination
@@ -59,38 +58,36 @@ function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPr
         dispatch(getProductListOptionsAction(setInput));
     }
 
-    // const pageParams = searchParams.get('page');
-    // console.log('test page from select : ', pageParams);
+
 
     const handleChangeSort = (value) => {
         const pageParams = searchParams.get('page');
-        console.log('test page from select : ', pageParams);
         sendDataPriceToSearch(value)
         console.log(value);
-        //     const dataNameProduct = searchNameProduct;
-        // console.log(dataNameProduct);
-        // const categoryProduct = searchTypeCategory;
         setInput.sort = value;
-        if (searchNameProduct != null) {
-            setInput.searchName = dataNameProduct;
-            setInput.searchCategory = "";
-            handleSetPage()
-            console.log('test setInput', setInput);
-            console.log('test page from select name: ', pageParams);
-            dispatch(getProductListOptionsAction(setInput));
-
-        } else if (searchTypeCategory != null) {
+        if (searchTypeCategory != null) {
             setInput.searchCategory = categoryProduct;
+            console.log("Cate : ", setInput.searchCategory);
             handleSetPage()
             console.log('test page from select category: ', pageParams);
             console.log('test setInput', setInput);
             dispatch(getProductListOptionsAction(setInput));
         }
+        else if (searchNameProduct != null) {
+            setInput.searchName = dataNameProduct;
+            console.log("Name : ", setInput.searchName);
+            // setInput.searchCategory = "";
+            handleSetPage()
+            console.log('test setInput', setInput);
+            console.log('test page from select name: ', pageParams);
+            dispatch(getProductListOptionsAction(setInput));
+        }
+
 
         handleSetPage()
         console.log('test setinput.Page : ', setInput.page);
         console.log('test page from select : ', pageParams);
-        console.log('test setInpu 3', setInput);
+        console.log('test setInput 3', setInput);
         dispatch(getProductListOptionsAction(setInput));
     };
 

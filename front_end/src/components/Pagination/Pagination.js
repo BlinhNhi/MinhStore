@@ -40,6 +40,8 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
 
         console.log('test page from pagination', page);
         if (searchNameProduct != null) {
+            console.log('ham 1 chạy');
+
             setInput.page = currentPage;
             setInput.searchName = searchNameProduct
             setInput.sort = valueSortPrice
@@ -48,6 +50,7 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
             dispatch(getProductListOptionsAction(setInput));
         }
         else if (searchTypeCategory != null) {
+            console.log('ham 2 chạy');
             setInput.page = currentPage;
             setInput.searchCategory = searchTypeCategory
             setInput.searchName = ""
@@ -58,16 +61,17 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
         else if (valueSortPrice !== "" || valueSortPrice != null) {
             console.log("kkkk", setInput);
             if (setInput.searchCategory !== "") {
+                console.log('ham 3 chạy');
                 setInput.page = currentPage;
-                // setInput.searchCategory = searchTypeCategory
-                setInput.searchName = ""
+                setInput.sort = valueSortPrice
                 console.log('value setInput of Pagination', setInput);
                 dispatch(getProductListOptionsAction(setInput));
             }
             else if (setInput.searchName != null) {
+                console.log('ham 4 chạy');
                 setInput.page = currentPage;
-                setInput.searchName = searchNameProduct
-                setInput.searchCategory = ""
+                setInput.sort = valueSortPrice
+
                 console.log('value setInput of Pagination', setInput);
                 dispatch(getProductListOptionsAction(setInput));
             }

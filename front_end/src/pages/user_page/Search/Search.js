@@ -42,15 +42,14 @@ function Search(props) {
     useEffect(() => {
         if (searchNameProduct !== "" && searchNameProduct !== null) {
             setInput.searchName = searchParams.get('searchName')
-            // Reset các giá trị khác
-            setInput.searchCategory = "";
-            setInput.searchColor = "";
-            setInput.searchSize = "";
-            setInput.fromPrice = "";
-            setInput.toPrice = "";
-            setInput.sort = "";
-            setInput.dayStart = "";
-            setInput.page = 1;
+            // setInput.searchCategory = "";
+            // setInput.searchColor = "";
+            // setInput.searchSize = "";
+            // setInput.fromPrice = "";
+            // setInput.toPrice = "";
+            // setInput.sort = "";
+            // setInput.dayStart = "";
+            // setInput.page = 1;
             dispatch(getProductListOptionsAction(setInput));
         }
         else if (searchTypeCategory !== "" && searchTypeCategory !== null) {
