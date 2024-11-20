@@ -29,31 +29,41 @@ function Search(props) {
     let searchNameProduct = searchParams.get('searchName');
     let searchTypeCategory = searchParams.get('searchCategory');
     const [valueSortPrice, setValueSortPrice] = useState("");
+    const [valueSelectPrice, setValueSelectPrice] = useState("");
+
 
     console.log('test search name product form search : ', searchNameProduct);
     console.log('test search category product form search : ', searchTypeCategory);
 
 
     const handleValueFromSortPrice = (valueSortPrice) => {
-        setValueSortPrice(valueSortPrice); // Cập nhật giá trị từ con
+        setValueSortPrice(valueSortPrice);
     };
+
+    const handleValueFromSelectPrice = (valueSelectPrice) => {
+        setValueSelectPrice(valueSelectPrice);
+        console.log('test select price : ', valueSelectPrice);
+    };
+
+
 
 
     useEffect(() => {
         if (searchNameProduct !== "" && searchNameProduct !== null) {
             setInput.searchName = searchParams.get('searchName')
-            // setInput.searchCategory = "";
-            // setInput.searchColor = "";
-            // setInput.searchSize = "";
-            // setInput.fromPrice = "";
-            // setInput.toPrice = "";
-            // setInput.sort = "";
-            // setInput.dayStart = "";
-            // setInput.page = 1;
+            setInput.searchCategory = "";
+            setInput.searchColor = "";
+            setInput.searchSize = "";
+            setInput.fromPrice = "";
+            setInput.toPrice = "";
+            setInput.sort = "";
+            setInput.dayStart = "";
+            setInput.page = 1;
             dispatch(getProductListOptionsAction(setInput));
         }
         else if (searchTypeCategory !== "" && searchTypeCategory !== null) {
             setInput.searchCategory = searchParams.get('searchCategory')
+            console.log('test input category', setInput);
             dispatch(getProductsOfCategoryAction(setInput));
         }
 
@@ -71,7 +81,12 @@ function Search(props) {
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200">
             <div className="container">
                 <div className="hidden sm:block ">
-                    <SelectProduct searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory} onSendDataSortPrice={handleValueFromSortPrice}></SelectProduct>
+                    <SelectProduct
+                        searchNameProduct={searchNameProduct}
+                        searchTypeCategory={searchTypeCategory}
+                        onSendDataSortPrice={handleValueFromSortPrice}
+                        onSendDataSelectPrice={handleValueFromSelectPrice}
+                    ></SelectProduct>
                 </div>
                 <div className="container relative">
                     <div className="xl:flex lg:flex 2xl:flex flex-row block  flex-wrap py-4">
@@ -93,7 +108,7 @@ function Search(props) {
 
                         <div className="w-full  pt-1 px-2 md:w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4">
                             <ListProduct></ListProduct>
-                            <Pagination searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory} valueSortPrice={valueSortPrice}></Pagination>
+                            <Pagination searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory} valueSortPrice={valueSortPrice} valueSelectPrice={valueSelectPrice}></Pagination>
                         </div>
                     </div>
                 </div>

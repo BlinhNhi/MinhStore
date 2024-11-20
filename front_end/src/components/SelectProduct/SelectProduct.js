@@ -17,7 +17,7 @@ const setInput = {
     page: 1
 };
 
-function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPrice }) {
+function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPrice, onSendDataSelectPrice }) {
     const dispatch = useDispatch();
     const dataNameProduct = searchNameProduct;
     console.log(dataNameProduct);
@@ -27,12 +27,19 @@ function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPr
     const location = useLocation()
     let entries = searchParams.entries();
 
-    // gọi hàm chuuyển giá trị price ra ngoài component search để truyền vào pagination
+    // gọi hàm chuuyển giá trị sắp xếp của price ra ngoài component search để truyền vào pagination
     const sendDataPriceToSearch = (value) => {
         const data = value
         onSendDataSortPrice(data);
     };
 
+    const sendDataSelectPriceToSearch = (value) => {
+        const dataSelect = value;
+        console.log('data select : ', dataSelect);
+        onSendDataSelectPrice(dataSelect)
+    }
+
+    // hàm dùng để set page lên url
     const append = (entries) => {
         let params = {};
         for (let [key, value] of entries) {
@@ -53,6 +60,7 @@ function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPr
 
     const handleChangePrice = (value) => {
         const [from, to] = value.split('-').map(Number);
+        sendDataSelectPriceToSearch(value)
         setInput.fromPrice = from;
         setInput.toPrice = to;
         dispatch(getProductListOptionsAction(setInput));
@@ -85,9 +93,9 @@ function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPr
 
 
         handleSetPage()
-        console.log('test setinput.Page : ', setInput.page);
-        console.log('test page from select : ', pageParams);
-        console.log('test setInput 3', setInput);
+        // console.log('test setinput.Page : ', setInput.page);
+        // console.log('test page from select : ', pageParams);
+        // console.log('test setInput 3', setInput);
         dispatch(getProductListOptionsAction(setInput));
     };
 

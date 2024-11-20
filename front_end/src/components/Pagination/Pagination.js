@@ -18,9 +18,9 @@ const setInput = {
     page: 1
 };
 
-function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, valueSortPrice }) {
-    //?
+function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, valueSortPrice, valueSelectPrice }) {
     console.log(valueSortPrice);
+    console.log(valueSelectPrice);
     console.log(searchNameProduct);
     console.log(searchTypeCategory);
     const dispatch = useDispatch();
@@ -31,51 +31,90 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
     const [isHideStart, setIsHideStart] = useState(false);
     const [searchParams] = useSearchParams();
 
-    console.log(currentPage);
+    //console.log(currentPage);
 
     useEffect(() => {
         const page = searchParams.get('page');
         page && +page !== currentPage && setCurrentPage(+page);
         !page && setCurrentPage(1)
+        console.log('test select price : ', valueSelectPrice);
+        const [from, to] = valueSelectPrice.split('-').map(Number);
+        console.log('test from to : ', from, to);
 
-        console.log('test page from pagination', page);
+        //console.log('test page from pagination', page);
         if (searchNameProduct != null) {
-            console.log('ham 1 chạy');
-
+            //console.log('ham 1 chạy');
             setInput.page = currentPage;
             setInput.searchName = searchNameProduct
+            // if (valueSelectPrice != null) {
+            //     setInput.fromPrice = from;
+            //     setInput.toPrice = to;
+            // }
             setInput.sort = valueSortPrice
             setInput.searchCategory = "";
             console.log('value setInput of Pagination', setInput);
             dispatch(getProductListOptionsAction(setInput));
         }
         else if (searchTypeCategory != null) {
-            console.log('ham 2 chạy');
+            //console.log('ham 2 chạy');
             setInput.page = currentPage;
             setInput.searchCategory = searchTypeCategory
             setInput.searchName = ""
             setInput.sort = valueSortPrice
+            if (valueSelectPrice !== null && valueSelectPrice !== "") {
+                setInput.fromPrice = from;
+                setInput.toPrice = to;
+            }
             console.log('value setInput of Pagination', setInput);
             dispatch(getProductListOptionsAction(setInput));
         }
         else if (valueSortPrice !== "" || valueSortPrice != null) {
-            console.log("kkkk", setInput);
+            //console.log("kkkk", setInput);
             if (setInput.searchCategory !== "") {
-                console.log('ham 3 chạy');
+                //console.log('ham 3 chạy');
                 setInput.page = currentPage;
                 setInput.sort = valueSortPrice
+                // if (valueSelectPrice != null) {
+                //     setInput.fromPrice = from;
+                //     setInput.toPrice = to;
+                // }
                 console.log('value setInput of Pagination', setInput);
                 dispatch(getProductListOptionsAction(setInput));
             }
             else if (setInput.searchName != null) {
-                console.log('ham 4 chạy');
+                //console.log('ham 4 chạy');
                 setInput.page = currentPage;
                 setInput.sort = valueSortPrice
-
+                // if (valueSelectPrice != null) {
+                //     setInput.fromPrice = from;
+                //     setInput.toPrice = to;
+                // }
                 console.log('value setInput of Pagination', setInput);
                 dispatch(getProductListOptionsAction(setInput));
             }
         }
+        // else if (valueSelectPrice != null || valueSelectPrice !== "") {
+        //     if (setInput.searchCategory !== "") {
+        //         console.log('ham 5 chạy');
+        //         setInput.page = currentPage;
+        //         setInput.sort = valueSortPrice
+        //         // if (valueSelectPrice != null) {
+        //         //     setInput.fromPrice = from;
+        //         //     setInput.toPrice = to;
+        //         // }
+        //         console.log('value setInput of Pagination', setInput);
+        //         dispatch(getProductListOptionsAction(setInput));
+        //     }
+        //     else if (setInput.searchName != null) {
+        //         console.log('ham 6 chạy');
+        //         setInput.page = currentPage;
+        //         setInput.sort = valueSortPrice
+        //         setInput.fromPrice = from;
+        //         setInput.toPrice = to;
+        //         console.log('value setInput of Pagination', setInput);
+        //         dispatch(getProductListOptionsAction(setInput));
+        //     }
+        // }
     }, [searchParams]);
 
 
