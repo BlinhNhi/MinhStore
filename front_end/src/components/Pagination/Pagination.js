@@ -35,6 +35,7 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
 
     useEffect(() => {
         const page = searchParams.get('page');
+        console.log('test page of pagination cate : ', page);
         page && +page !== currentPage && setCurrentPage(+page);
         !page && setCurrentPage(1)
         console.log('test select price : ', valueSelectPrice);
@@ -71,8 +72,9 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
         else if (valueSortPrice !== "" || valueSortPrice != null) {
             //console.log("kkkk", setInput);
             if (setInput.searchCategory !== "") {
-                //console.log('ham 3 chạy');
-                setInput.page = currentPage;
+                const page = searchParams.get('page');
+                console.log('ham 3 chạy');
+                setInput.page = +page;
                 setInput.sort = valueSortPrice
                 // if (valueSelectPrice != null) {
                 //     setInput.fromPrice = from;
@@ -81,9 +83,11 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
                 console.log('value setInput of Pagination', setInput);
                 dispatch(getProductListOptionsAction(setInput));
             }
-            else if (setInput.searchName != null) {
-                //console.log('ham 4 chạy');
-                setInput.page = currentPage;
+            else if (setInput.searchName !== "") {
+                const page = searchParams.get('page');
+                console.log('ham 4 chạy');
+                setInput.page = +page;
+                console.log('page 4 ', page);
                 setInput.sort = valueSortPrice
                 // if (valueSelectPrice != null) {
                 //     setInput.fromPrice = from;
