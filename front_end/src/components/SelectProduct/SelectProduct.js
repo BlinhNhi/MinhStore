@@ -61,8 +61,12 @@ function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPr
     const handleChangePrice = (value) => {
         const [from, to] = value.split('-').map(Number);
         sendDataSelectPriceToSearch(value)
+        setInput.searchCategory = searchTypeCategory || "";
+        setInput.searchName = searchNameProduct || "";
         setInput.fromPrice = from;
         setInput.toPrice = to;
+        handleSetPage()
+        console.log('test set input from handleChangePrice : ', setInput);
         dispatch(getProductListOptionsAction(setInput));
     }
 
@@ -74,6 +78,7 @@ function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPr
         console.log(value);
         setInput.sort = value;
         if (searchTypeCategory != null) {
+            console.log('fun cate run');
             setInput.searchCategory = categoryProduct;
             console.log("Cate : ", setInput.searchCategory);
             handleSetPage()
@@ -82,6 +87,8 @@ function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPr
             dispatch(getProductListOptionsAction(setInput));
         }
         else if (searchNameProduct != null) {
+            console.log('fun name run');
+
             setInput.searchName = dataNameProduct;
             console.log("Name : ", setInput.searchName);
             // setInput.searchCategory = "";
@@ -91,12 +98,6 @@ function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPr
             dispatch(getProductListOptionsAction(setInput));
         }
 
-
-        handleSetPage()
-        // console.log('test setinput.Page : ', setInput.page);
-        // console.log('test page from select : ', pageParams);
-        // console.log('test setInput 3', setInput);
-        dispatch(getProductListOptionsAction(setInput));
     };
 
 

@@ -32,8 +32,8 @@ function Search(props) {
     const [valueSelectPrice, setValueSelectPrice] = useState("");
 
 
-    console.log('test search name product form search : ', searchNameProduct);
-    console.log('test search category product form search : ', searchTypeCategory);
+    // console.log('test search name product form search : ', searchNameProduct);
+    // console.log('test search category product form search : ', searchTypeCategory);
 
 
     const handleValueFromSortPrice = (valueSortPrice) => {

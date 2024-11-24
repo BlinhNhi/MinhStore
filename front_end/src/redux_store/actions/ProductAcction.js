@@ -142,7 +142,6 @@ export const getProductListOptionsAction = (options) => {
         try {
             // dispatch(displayLoadingAction);
             const result = await productService.getProductListOptions(options);
-            console.log(result?.data?.quantityProducts);
             if (result.data.status === 200) {
                 dispatch({
                     type: GET_PRODUCT_LIST,

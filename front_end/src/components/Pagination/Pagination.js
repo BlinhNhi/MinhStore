@@ -19,10 +19,10 @@ const setInput = {
 };
 
 function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, valueSortPrice, valueSelectPrice }) {
-    console.log(valueSortPrice);
-    console.log(valueSelectPrice);
-    console.log(searchNameProduct);
-    console.log(searchTypeCategory);
+    // console.log(valueSortPrice);
+    // console.log(valueSelectPrice);
+    // console.log(searchNameProduct);
+    // console.log(searchTypeCategory);
     const dispatch = useDispatch();
     let { arrProducts, quantityProducts } = useSelector(state => state.ProductReducer)
     const [arrPage, setArrPage] = useState([]);
@@ -35,30 +35,30 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
 
     useEffect(() => {
         const page = searchParams.get('page');
-        console.log('test page of pagination cate : ', page);
+        // console.log('test page of pagination cate : ', page);
         page && +page !== currentPage && setCurrentPage(+page);
         !page && setCurrentPage(1)
-        console.log('test select price : ', valueSelectPrice);
+        // console.log('test select price : ', valueSelectPrice);
         const [from, to] = valueSelectPrice.split('-').map(Number);
-        console.log('test from to : ', from, to);
+        // console.log('test from to : ', from, to);
 
         //console.log('test page from pagination', page);
         if (searchNameProduct != null) {
-            //console.log('ham 1 chạy');
-            setInput.page = currentPage;
+            console.log('ham 1 chạy');
+            setInput.page = +page;
             setInput.searchName = searchNameProduct
-            // if (valueSelectPrice != null) {
-            //     setInput.fromPrice = from;
-            //     setInput.toPrice = to;
-            // }
+            if (valueSelectPrice !== null && valueSelectPrice !== "") {
+                setInput.fromPrice = from;
+                setInput.toPrice = to;
+            }
             setInput.sort = valueSortPrice
             setInput.searchCategory = "";
             console.log('value setInput of Pagination', setInput);
             dispatch(getProductListOptionsAction(setInput));
         }
         else if (searchTypeCategory != null) {
-            //console.log('ham 2 chạy');
-            setInput.page = currentPage;
+            console.log('ham 2 chạy');
+            setInput.page = +page;
             setInput.searchCategory = searchTypeCategory
             setInput.searchName = ""
             setInput.sort = valueSortPrice
@@ -69,34 +69,34 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
             console.log('value setInput of Pagination', setInput);
             dispatch(getProductListOptionsAction(setInput));
         }
-        else if (valueSortPrice !== "" || valueSortPrice != null) {
-            //console.log("kkkk", setInput);
-            if (setInput.searchCategory !== "") {
-                const page = searchParams.get('page');
-                console.log('ham 3 chạy');
-                setInput.page = +page;
-                setInput.sort = valueSortPrice
-                // if (valueSelectPrice != null) {
-                //     setInput.fromPrice = from;
-                //     setInput.toPrice = to;
-                // }
-                console.log('value setInput of Pagination', setInput);
-                dispatch(getProductListOptionsAction(setInput));
-            }
-            else if (setInput.searchName !== "") {
-                const page = searchParams.get('page');
-                console.log('ham 4 chạy');
-                setInput.page = +page;
-                console.log('page 4 ', page);
-                setInput.sort = valueSortPrice
-                // if (valueSelectPrice != null) {
-                //     setInput.fromPrice = from;
-                //     setInput.toPrice = to;
-                // }
-                console.log('value setInput of Pagination', setInput);
-                dispatch(getProductListOptionsAction(setInput));
-            }
-        }
+        // else if (valueSortPrice !== "" || valueSortPrice != null) {
+        //     //console.log("kkkk", setInput);
+        //     if (setInput.searchCategory !== "") {
+        //         const page = searchParams.get('page');
+        //         console.log('ham 3 chạy');
+        //         setInput.page = +page;
+        //         setInput.sort = valueSortPrice
+        //         // if (valueSelectPrice != null) {
+        //         //     setInput.fromPrice = from;
+        //         //     setInput.toPrice = to;
+        //         // }
+        //         console.log('value setInput of Pagination', setInput);
+        //         dispatch(getProductListOptionsAction(setInput));
+        //     }
+        //     else if (setInput.searchName !== "") {
+        //         const page = searchParams.get('page');
+        //         console.log('ham 4 chạy');
+        //         setInput.page = +page;
+        //         console.log('page 4 ', page);
+        //         setInput.sort = valueSortPrice
+        //         if (valueSelectPrice !== null && valueSelectPrice !== "") {
+        //             setInput.fromPrice = from;
+        //             setInput.toPrice = to;
+        //         }
+        //         console.log('value setInput of Pagination', setInput);
+        //         dispatch(getProductListOptionsAction(setInput));
+        //     }
+        // }
         // else if (valueSelectPrice != null || valueSelectPrice !== "") {
         //     if (setInput.searchCategory !== "") {
         //         console.log('ham 5 chạy');
