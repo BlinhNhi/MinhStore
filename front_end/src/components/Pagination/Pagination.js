@@ -31,8 +31,6 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
     const [isHideStart, setIsHideStart] = useState(false);
     const [searchParams] = useSearchParams();
 
-    //console.log(currentPage);
-
     useEffect(() => {
         const page = searchParams.get('page');
         // console.log('test page of pagination cate : ', page);
@@ -40,11 +38,8 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
         !page && setCurrentPage(1)
         // console.log('test select price : ', valueSelectPrice);
         const [from, to] = valueSelectPrice.split('-').map(Number);
-        // console.log('test from to : ', from, to);
-
-        //console.log('test page from pagination', page);
         if (searchNameProduct != null) {
-            console.log('ham 1 chạy');
+            console.log('ham name chạy');
             setInput.page = +page;
             setInput.searchName = searchNameProduct
             if (valueSelectPrice !== null && valueSelectPrice !== "") {
@@ -57,7 +52,7 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
             dispatch(getProductListOptionsAction(setInput));
         }
         else if (searchTypeCategory != null) {
-            console.log('ham 2 chạy');
+            console.log('ham category chạy');
             setInput.page = +page;
             setInput.searchCategory = searchTypeCategory
             setInput.searchName = ""

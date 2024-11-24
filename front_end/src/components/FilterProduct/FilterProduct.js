@@ -4,6 +4,7 @@ import { getListColorAction } from "../../redux_store/actions/ColorAction";
 import { useDispatch, useSelector } from "react-redux";
 import { getListSizesAction } from "../../redux_store/actions/SizeAction";
 import { getProductListOptionsAction } from "../../redux_store/actions/ProductAcction";
+import { createSearchParams, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 const setInput = {
     searchName: "",
@@ -16,46 +17,81 @@ const setInput = {
     page: 1
 };
 
-function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory }) {
+function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory, valueSortPrice, valueSelectPrice }) {
+    console.log('value sort of filter : ', valueSortPrice);
+    console.log('value select of filter : ', valueSelectPrice);
+    console.log('value select of filter : ', searchTypeCategory);
+    console.log('value select of filter : ', searchNameProduct);
+
+
     let { arrColor } = useSelector(state => state.ColorReducer);
     let { arrSizes } = useSelector(state => state.SizeReducer);
+    const [searchParams] = useSearchParams();
     const dataNameProduct = searchNameProduct;
     const categoryProduct = searchTypeCategory;
+    const navigate = useNavigate();
+    const location = useLocation();
     const dispatch = useDispatch();
+    let entries = searchParams.entries();
 
     useEffect(() => {
         dispatch(getListColorAction())
         dispatch(getListSizesAction())
     }, [dispatch])
 
-    // const handleOnChangeSort = (e) => {
-    //     setInput.sort = e.target.value;
-    //     if (dataNameProduct !== null) {
-    //         setInput.searchName = dataNameProduct;
-    //         setInput.searchCategory = "";
-    //         dispatch(getProductListOptionsAction(setInput));
-    //     } else if (searchTypeCategory != null) {
-    //         setInput.searchCategory = categoryProduct;
-    //         dispatch(getProductListOptionsAction(setInput));
-    //     }
-    //     setInput.searchCategory = "";
-    //     dispatch(getProductListOptionsAction(setInput));
-    // };
+    // hàm dùng để set page lên url
+    const append = (entries) => {
+        let params = {};
+        for (let [key, value] of entries) {
+            if (key !== "page") {
+                params[key] = value;
+            }
+        }
+        params["page"] = 1; // Thêm `page` vào sau cùng
+        return params;
+    };
+
+    const handleSetPage = () => {
+        navigate({
+            pathname: location.pathname,
+            search: createSearchParams(append(entries)).toString(),
+        });
+    };
+
 
     const handleOnChangeColor = (event) => {
+        console.log('data prodct name : ', dataNameProduct);
+        console.log('data prodct cate : ', categoryProduct);
+        console.log('data value filter : ', event.target.value);
+        const page = searchParams.get('page');
         if (event.target.checked && event.target.value !== "undefine") {
+            setInput.searchName = dataNameProduct || "";
+            setInput.searchCategory = categoryProduct || "";
+            setInput.sort = valueSortPrice || "";
             setInput.searchColor += event.target.value + ",";
+            setInput.page = +page;
         } else {
-            if (dataNameProduct !== null) {
-                setInput.searchName = dataNameProduct;
-                setInput.searchCategory = "";
-                dispatch(getProductListOptionsAction(setInput));
-            } else if (searchTypeCategory != null) {
-                setInput.searchCategory = categoryProduct;
-                dispatch(getProductListOptionsAction(setInput));
-            }
+            // if (dataNameProduct !== null || dataNameProduct !== "") {
+            //     setInput.searchName = dataNameProduct;
+            //     setInput.sort = valueSortPrice || "";
+            //     setInput.searchColor = setInput.searchColor.replace(event.target.value + ",", "");
+            //     console.log('Value of filter cate : ', setInput);
+            //     dispatch(getProductListOptionsAction(setInput));
+            // } else if (categoryProduct !== null || categoryProduct !== "") {
+            //     setInput.searchCategory = categoryProduct;
+            //     setInput.sort = valueSortPrice || "";
+            //     setInput.searchColor = setInput.searchColor.replace(event.target.value + ",", "");
+            //     console.log('Value of filter name: ', setInput);
+            //     dispatch(getProductListOptionsAction(setInput));
+            // }
+            setInput.searchName = dataNameProduct || "";
+            setInput.searchCategory = categoryProduct || "";
+            setInput.sort = valueSortPrice || "";
+            handleSetPage()
+            console.log('test page from select category: ', page);
             setInput.searchColor = setInput.searchColor.replace(event.target.value + ",", "");
         }
+        console.log('Value of filter  : ', setInput);
         dispatch(getProductListOptionsAction(setInput));
     };
 

@@ -90,7 +90,12 @@ function Search(props) {
                 </div>
                 <div className="container relative">
                     <div className="xl:flex lg:flex 2xl:flex flex-row block  flex-wrap py-4">
-                        <FilterProduct searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory}></FilterProduct>
+                        <FilterProduct
+                            searchNameProduct={searchNameProduct}
+                            searchTypeCategory={searchTypeCategory}
+                            valueSortPrice={valueSortPrice}
+                            valueSelectPrice={valueSelectPrice}
+                        ></FilterProduct>
                         <button
                             onClick={showFilter}>
                             <div className="fixed right-2 top-[65%]">
@@ -102,7 +107,12 @@ function Search(props) {
                         </button>
 
                         <Modal title="" open={isFilterOpen} onOk={handleFilterCancel} onCancel={handleFilterCancel}>
-                            <SelectProduct searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory}></SelectProduct>
+                            <SelectProduct
+                                searchNameProduct={searchNameProduct}
+                                searchTypeCategory={searchTypeCategory}
+                                onSendDataSortPrice={handleValueFromSortPrice}
+                                onSendDataSelectPrice={handleValueFromSelectPrice}
+                            ></SelectProduct>
                             <FilterProduct isFilterOpen={isFilterOpen} searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory}></FilterProduct>
                         </Modal>
 

@@ -308,7 +308,7 @@ namespace back_end.Services
                 }
                 if (!allProducts.Any())
                 {
-                    return (null, 0);
+                    return (new List<Product>(), 0);
                 }
             }
             if (!string.IsNullOrEmpty(searchSize))

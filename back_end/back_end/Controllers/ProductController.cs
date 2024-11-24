@@ -163,7 +163,15 @@ namespace back_end.Controllers
                     };
                     return Ok(result);
                 }
-                return BadRequest();
+                var resultFail = new
+                {
+                    Status = StatusCodes.Status200OK,
+                    Message = "Get Product Fail",
+                    Data = list,
+                    quantityProducts = countProducts
+                };
+
+                return Ok(resultFail);
               
             }
             catch
