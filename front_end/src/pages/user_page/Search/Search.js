@@ -30,6 +30,8 @@ function Search(props) {
     let searchTypeCategory = searchParams.get('searchCategory');
     const [valueSortPrice, setValueSortPrice] = useState("");
     const [valueSelectPrice, setValueSelectPrice] = useState("");
+    const [valueFilterColor, setValueFilterColor] = useState("");
+
 
 
     // console.log('test search name product form search : ', searchNameProduct);
@@ -42,8 +44,14 @@ function Search(props) {
 
     const handleValueFromSelectPrice = (valueSelectPrice) => {
         setValueSelectPrice(valueSelectPrice);
-        console.log('test select price : ', valueSelectPrice);
+        // console.log('test select price : ', valueSelectPrice);
     };
+
+    const handleValueFromFilterColor = (valueFilterColor) => {
+        setValueFilterColor(valueFilterColor)
+        console.log('test filter color : ', valueFilterColor);
+
+    }
 
 
 
@@ -86,6 +94,7 @@ function Search(props) {
                         searchTypeCategory={searchTypeCategory}
                         onSendDataSortPrice={handleValueFromSortPrice}
                         onSendDataSelectPrice={handleValueFromSelectPrice}
+                        valueFilterColor={valueFilterColor}
                     ></SelectProduct>
                 </div>
                 <div className="container relative">
@@ -95,6 +104,7 @@ function Search(props) {
                             searchTypeCategory={searchTypeCategory}
                             valueSortPrice={valueSortPrice}
                             valueSelectPrice={valueSelectPrice}
+                            onSendDataFilterColor={handleValueFromFilterColor}
                         ></FilterProduct>
                         <button
                             onClick={showFilter}>

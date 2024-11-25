@@ -17,7 +17,7 @@ const setInput = {
     page: 1
 };
 
-function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory, valueSortPrice, valueSelectPrice }) {
+function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory, valueSortPrice, valueSelectPrice, onSendDataFilterColor }) {
     console.log('value sort of filter : ', valueSortPrice);
     console.log('value select of filter : ', valueSelectPrice);
     console.log('value select of filter : ', searchTypeCategory);
@@ -58,15 +58,24 @@ function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory, va
         });
     };
 
+    const sendDataFilterColor = (value) => {
+        const dataColorFilter = value;
+        console.log('data color filter : ', dataColorFilter);
+        onSendDataFilterColor(dataColorFilter)
+    }
+
 
     const handleOnChangeColor = (event) => {
         console.log('data prodct name : ', dataNameProduct);
         console.log('data prodct cate : ', categoryProduct);
         console.log('data value filter : ', event.target.value);
+        const [from, to] = valueSelectPrice.split('-').map(Number);
         const page = searchParams.get('page');
         if (event.target.checked && event.target.value !== "undefine") {
             setInput.searchName = dataNameProduct || "";
             setInput.searchCategory = categoryProduct || "";
+            setInput.fromPrice = from || "";
+            setInput.toPrice = to || "";
             setInput.sort = valueSortPrice || "";
             setInput.searchColor += event.target.value + ",";
             setInput.page = +page;
@@ -87,10 +96,15 @@ function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory, va
             setInput.searchName = dataNameProduct || "";
             setInput.searchCategory = categoryProduct || "";
             setInput.sort = valueSortPrice || "";
+            setInput.fromPrice = from || "";
+            setInput.toPrice = to || "";
             handleSetPage()
             console.log('test page from select category: ', page);
             setInput.searchColor = setInput.searchColor.replace(event.target.value + ",", "");
         }
+        sendDataFilterColor(setInput.searchColor)
+        console.log("color filter : ", event.target.value + ",");
+        console.log('color has filter : ', setInput.searchColor);
         console.log('Value of filter  : ', setInput);
         dispatch(getProductListOptionsAction(setInput));
     };
