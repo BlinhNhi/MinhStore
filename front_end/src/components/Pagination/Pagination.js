@@ -18,11 +18,11 @@ const setInput = {
     page: 1
 };
 
-function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, valueSortPrice, valueSelectPrice }) {
+function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, valueSortPrice, valueSelectPrice, valueFilterColor, valueFilterSize }) {
     // console.log(valueSortPrice);
     // console.log(valueSelectPrice);
-    // console.log(searchNameProduct);
-    // console.log(searchTypeCategory);
+    console.log('value of color from pagination : ', valueFilterColor);
+    console.log('value of size from pagination : ', valueFilterSize);
     const dispatch = useDispatch();
     let { arrProducts, quantityProducts } = useSelector(state => state.ProductReducer)
     const [arrPage, setArrPage] = useState([]);
@@ -47,7 +47,9 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
                 setInput.toPrice = to;
             }
             setInput.sort = valueSortPrice
-            setInput.searchCategory = "";
+            // setInput.searchCategory = "";
+            setInput.searchColor = valueFilterColor || "";
+            setInput.searchSize = valueFilterSize || "";
             console.log('value setInput of Pagination', setInput);
             dispatch(getProductListOptionsAction(setInput));
         }
@@ -55,12 +57,14 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
             console.log('ham category chạy');
             setInput.page = +page;
             setInput.searchCategory = searchTypeCategory
-            setInput.searchName = ""
-            setInput.sort = valueSortPrice
             if (valueSelectPrice !== null && valueSelectPrice !== "") {
                 setInput.fromPrice = from;
                 setInput.toPrice = to;
             }
+            setInput.sort = valueSortPrice
+            // setInput.searchName = ""
+            setInput.searchColor = valueFilterColor || "";
+            setInput.searchSize = valueFilterSize || "";
             console.log('value setInput of Pagination', setInput);
             dispatch(getProductListOptionsAction(setInput));
         }

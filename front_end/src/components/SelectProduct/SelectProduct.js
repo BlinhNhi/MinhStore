@@ -17,10 +17,12 @@ const setInput = {
     page: 1
 };
 
-function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPrice, onSendDataSelectPrice, valueFilterColor }) {
+function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPrice, onSendDataSelectPrice, valueFilterColor, valueFilterSize }) {
     const dispatch = useDispatch();
     const dataNameProduct = searchNameProduct;
     console.log("filter color of select product : ", valueFilterColor);
+    console.log("filter size of select product : ", valueFilterSize);
+
     const categoryProduct = searchTypeCategory;
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
@@ -65,8 +67,9 @@ function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPr
         setInput.fromPrice = from;
         setInput.toPrice = to;
         setInput.searchColor = valueFilterColor || ""
+        setInput.searchSize = valueFilterSize || ""
         handleSetPage()
-        console.log('test set input from handleChangePrice : ', setInput);
+        // console.log('test set input from handleChangePrice : ', setInput);
         dispatch(getProductListOptionsAction(setInput));
     }
 
@@ -80,6 +83,7 @@ function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPr
             console.log('fun cate run');
             setInput.searchCategory = categoryProduct;
             setInput.searchColor = valueFilterColor || ""
+            setInput.searchSize = valueFilterSize || ""
             handleSetPage()
             console.log('test setInput', setInput);
             dispatch(getProductListOptionsAction(setInput));
@@ -88,10 +92,11 @@ function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPr
             console.log('fun name run');
             setInput.searchName = dataNameProduct;
             setInput.searchColor = valueFilterColor || ""
+            setInput.searchSize = valueFilterSize || ""
             console.log("Name : ", setInput.searchName);
             handleSetPage()
-            console.log('test setInput', setInput);
-            console.log('test page from select name: ', pageParams);
+            // console.log('test setInput', setInput);
+            // console.log('test page from select name: ', pageParams);
             dispatch(getProductListOptionsAction(setInput));
         }
 

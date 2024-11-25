@@ -17,7 +17,7 @@ const setInput = {
     page: 1
 };
 
-function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory, valueSortPrice, valueSelectPrice, onSendDataFilterColor }) {
+function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory, valueSortPrice, valueSelectPrice, onSendDataFilterColor, onSendDataFilterSize }) {
     console.log('value sort of filter : ', valueSortPrice);
     console.log('value select of filter : ', valueSelectPrice);
     console.log('value select of filter : ', searchTypeCategory);
@@ -64,11 +64,17 @@ function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory, va
         onSendDataFilterColor(dataColorFilter)
     }
 
+    const sendDataFilterSize = (value) => {
+        const dataSizeFilter = value;
+        console.log('data color filter : ', dataSizeFilter);
+        onSendDataFilterSize(dataSizeFilter)
+    }
+
 
     const handleOnChangeColor = (event) => {
-        console.log('data prodct name : ', dataNameProduct);
-        console.log('data prodct cate : ', categoryProduct);
-        console.log('data value filter : ', event.target.value);
+        // console.log('data prodct name : ', dataNameProduct);
+        // console.log('data prodct cate : ', categoryProduct);
+        // console.log('data value filter : ', event.target.value);
         const [from, to] = valueSelectPrice.split('-').map(Number);
         const page = searchParams.get('page');
         if (event.target.checked && event.target.value !== "undefine") {
@@ -80,49 +86,47 @@ function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory, va
             setInput.searchColor += event.target.value + ",";
             setInput.page = +page;
         } else {
-            // if (dataNameProduct !== null || dataNameProduct !== "") {
-            //     setInput.searchName = dataNameProduct;
-            //     setInput.sort = valueSortPrice || "";
-            //     setInput.searchColor = setInput.searchColor.replace(event.target.value + ",", "");
-            //     console.log('Value of filter cate : ', setInput);
-            //     dispatch(getProductListOptionsAction(setInput));
-            // } else if (categoryProduct !== null || categoryProduct !== "") {
-            //     setInput.searchCategory = categoryProduct;
-            //     setInput.sort = valueSortPrice || "";
-            //     setInput.searchColor = setInput.searchColor.replace(event.target.value + ",", "");
-            //     console.log('Value of filter name: ', setInput);
-            //     dispatch(getProductListOptionsAction(setInput));
-            // }
             setInput.searchName = dataNameProduct || "";
             setInput.searchCategory = categoryProduct || "";
             setInput.sort = valueSortPrice || "";
             setInput.fromPrice = from || "";
             setInput.toPrice = to || "";
-            handleSetPage()
             console.log('test page from select category: ', page);
             setInput.searchColor = setInput.searchColor.replace(event.target.value + ",", "");
         }
         sendDataFilterColor(setInput.searchColor)
-        console.log("color filter : ", event.target.value + ",");
-        console.log('color has filter : ', setInput.searchColor);
-        console.log('Value of filter  : ', setInput);
+        handleSetPage()
+        // console.log("color filter : ", event.target.value + ",");
+        // console.log('color has filter : ', setInput.searchColor);
+        console.log('Value  of color filter  : ', setInput);
         dispatch(getProductListOptionsAction(setInput));
     };
 
     const handleOnChangeSize = (event) => {
+        const [from, to] = valueSelectPrice.split('-').map(Number);
+        const page = searchParams.get('page');
         if (event.target.checked && event.target.value !== "undefine") {
+            setInput.searchName = dataNameProduct || "";
+            setInput.searchCategory = categoryProduct || "";
+            setInput.fromPrice = from || "";
+            setInput.toPrice = to || "";
+            setInput.sort = valueSortPrice || "";
             setInput.searchSize += event.target.value + ",";
+            setInput.page = +page;
         } else {
-            if (dataNameProduct !== null) {
-                setInput.searchName = dataNameProduct;
-                setInput.searchCategory = "";
-                dispatch(getProductListOptionsAction(setInput));
-            } else if (searchTypeCategory !== null) {
-                setInput.searchCategory = categoryProduct;
-                dispatch(getProductListOptionsAction(setInput));
-            }
+            setInput.searchName = dataNameProduct || "";
+            setInput.searchCategory = categoryProduct || "";
+            setInput.sort = valueSortPrice || "";
+            setInput.fromPrice = from || "";
+            setInput.toPrice = to || "";
+            console.log('test page from select category: ', page);
             setInput.searchSize = setInput.searchSize.replace(event.target.value + ",", "");
         }
+        sendDataFilterSize(setInput.searchSize)
+        handleSetPage()
+        // console.log("color size : ", event.target.value + ",");
+        // console.log('color has size : ', setInput.searchSize);
+        console.log('Value of size filter : ', setInput);
         dispatch(getProductListOptionsAction(setInput));
     };
 
@@ -148,3 +152,18 @@ function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory, va
 }
 
 export default memo(FilterProduct);
+
+
+// if (dataNameProduct !== null || dataNameProduct !== "") {
+//     setInput.searchName = dataNameProduct;
+//     setInput.sort = valueSortPrice || "";
+//     setInput.searchColor = setInput.searchColor.replace(event.target.value + ",", "");
+//     console.log('Value of filter cate : ', setInput);
+//     dispatch(getProductListOptionsAction(setInput));
+// } else if (categoryProduct !== null || categoryProduct !== "") {
+//     setInput.searchCategory = categoryProduct;
+//     setInput.sort = valueSortPrice || "";
+//     setInput.searchColor = setInput.searchColor.replace(event.target.value + ",", "");
+//     console.log('Value of filter name: ', setInput);
+//     dispatch(getProductListOptionsAction(setInput));
+// }

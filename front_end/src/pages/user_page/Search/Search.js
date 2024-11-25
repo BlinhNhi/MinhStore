@@ -31,6 +31,7 @@ function Search(props) {
     const [valueSortPrice, setValueSortPrice] = useState("");
     const [valueSelectPrice, setValueSelectPrice] = useState("");
     const [valueFilterColor, setValueFilterColor] = useState("");
+    const [valueFilterSize, setValueFilterSize] = useState("");
 
 
 
@@ -50,7 +51,11 @@ function Search(props) {
     const handleValueFromFilterColor = (valueFilterColor) => {
         setValueFilterColor(valueFilterColor)
         console.log('test filter color : ', valueFilterColor);
+    }
 
+    const handleValueFromFilterSize = (valueFilterSize) => {
+        setValueFilterSize(valueFilterSize)
+        console.log('test filter color : ', valueFilterSize);
     }
 
 
@@ -95,6 +100,7 @@ function Search(props) {
                         onSendDataSortPrice={handleValueFromSortPrice}
                         onSendDataSelectPrice={handleValueFromSelectPrice}
                         valueFilterColor={valueFilterColor}
+                        valueFilterSize={valueFilterSize}
                     ></SelectProduct>
                 </div>
                 <div className="container relative">
@@ -105,6 +111,7 @@ function Search(props) {
                             valueSortPrice={valueSortPrice}
                             valueSelectPrice={valueSelectPrice}
                             onSendDataFilterColor={handleValueFromFilterColor}
+                            onSendDataFilterSize={handleValueFromFilterSize}
                         ></FilterProduct>
                         <button
                             onClick={showFilter}>
@@ -122,13 +129,30 @@ function Search(props) {
                                 searchTypeCategory={searchTypeCategory}
                                 onSendDataSortPrice={handleValueFromSortPrice}
                                 onSendDataSelectPrice={handleValueFromSelectPrice}
+                                valueFilterColor={valueFilterColor}
+                                valueFilterSize={valueFilterSize}
                             ></SelectProduct>
-                            <FilterProduct isFilterOpen={isFilterOpen} searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory}></FilterProduct>
+                            <FilterProduct
+                                isFilterOpen={isFilterOpen}
+                                searchNameProduct={searchNameProduct}
+                                searchTypeCategory={searchTypeCategory}
+                                valueSortPrice={valueSortPrice}
+                                valueSelectPrice={valueSelectPrice}
+                                onSendDataFilterColor={handleValueFromFilterColor}
+                                onSendDataFilterSize={handleValueFromFilterSize}
+                            ></FilterProduct>
                         </Modal>
 
                         <div className="w-full  pt-1 px-2 md:w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4">
                             <ListProduct></ListProduct>
-                            <Pagination searchNameProduct={searchNameProduct} searchTypeCategory={searchTypeCategory} valueSortPrice={valueSortPrice} valueSelectPrice={valueSelectPrice}></Pagination>
+                            <Pagination
+                                searchNameProduct={searchNameProduct}
+                                searchTypeCategory={searchTypeCategory}
+                                valueSortPrice={valueSortPrice}
+                                valueSelectPrice={valueSelectPrice}
+                                valueFilterColor={valueFilterColor}
+                                valueFilterSize={valueFilterSize}
+                            ></Pagination>
                         </div>
                     </div>
                 </div>
