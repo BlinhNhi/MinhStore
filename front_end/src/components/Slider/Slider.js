@@ -11,14 +11,14 @@ const ImageList = [
     {
         id: 1,
         image: Image1,
-        title: "Just Do It",
-        description: "Slogan 'Just Do It' của Nike không chỉ là một câu khẩu hiệu đơn thuần mà còn là một thông điệp truyền cảm hứng, một lời nhắc nhở về việc chúng ta cần phải hành động để đạt được những gì mình muốn."
+        title: "Nike",
+        description: "Trải qua hơn 55 hình thành và phát triển, cùng với chất lượng và uy tín của mình, Nike đã trở thành một thương hiệu sản xuất giày và quần áo thể thao được ưa chuộng nhất trên thế giới."
     },
     {
         id: 2,
         image: Image2,
-        title: "Impossible is nothing",
-        description: " Adidas và slogan 'Impossible is nothing' đã tạo nên một sự kết hợp hoàn hảo, thể hiện tinh thần vượt qua giới hạn và khát khao chinh phục của con người. Thương hiệu này không chỉ cung cấp những sản phẩm chất lượng cao mà còn truyền cảm hứng cho mọi người sống một cuộc sống năng động và ý nghĩa."
+        title: "Adidas",
+        description: "Adidas được thành lập vào năm 1948 với hình ảnh ba sọc ngang làm biểu tượng chính cho hãng. Ngày nay những sản phẩm của hãng đã trở nên phủ sóng và dần chiếm lấy tình cảm của giới trẻ."
     },
     {
         id: 3,
