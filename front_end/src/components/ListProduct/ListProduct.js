@@ -62,6 +62,7 @@ function ListProduct() {
                 </div> : <div className="">
                     <div className="flex flex-col gap-1 justify-center items-center bg-primary/40 rounded-md p-2">
                         <span className="text-3xl font-semibold text-gray-400 dark:text-gray-100"><FaRegSadTear /></span>
+                        <h1 className="font-bold text-lg dark:text-gray-100 text-gray-400">Opps !!!</h1>
                         <h3 className="font-semibold text-base dark:text-gray-100 text-gray-400">Không Tìm Được Sản Phẩm Theo Yêu Cầu Của Bạn.</h3>
                     </div>
                 </div>
