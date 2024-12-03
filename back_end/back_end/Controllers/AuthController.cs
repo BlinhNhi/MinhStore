@@ -133,13 +133,14 @@ namespace back_end.Controllers
                     str.Close();
 
                     MailText = MailText.Replace("[logoBusOnlineTicket]", logoPath);
-                    MailText = MailText.Replace("[newPassword]", password.ToString());
+                    MailText = MailText.Replace("[Email]", Email);
+                    MailText = MailText.Replace("[Password]", password.ToString());
                     Mail mail = new Mail()
                     {
                         ToEmail = Email,
                         //Body = "Your new password:" + password.ToString(),
                         Body = MailText,
-                        Subject = "Register Account",
+                        Subject = "Tài khoản của bạn ở Minh Còi Sneaker đã được tạo!",
 
                     };
                     await mailRepo.SendEmailAsync(mail);
