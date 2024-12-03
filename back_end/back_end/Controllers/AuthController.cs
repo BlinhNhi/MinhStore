@@ -132,7 +132,7 @@ namespace back_end.Controllers
                     string MailText = str.ReadToEnd();
                     str.Close();
 
-                    MailText = MailText.Replace("[logoBusOnlineTicket]", logoPath);
+                    MailText = MailText.Replace("[Logo]", logoPath);
                     MailText = MailText.Replace("[Email]", Email);
                     MailText = MailText.Replace("[Password]", password.ToString());
                     Mail mail = new Mail()
