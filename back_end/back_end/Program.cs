@@ -1,7 +1,11 @@
 ﻿using back_end.IRepository;
 using back_end.Models;
 using back_end.Services;
+using back_end.Utils.Settings;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,11 +21,29 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("MySqlConn"), new MySqlServerVersion(new Version(7, 0, 0))));
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>
+{
+    option.RequireHttpsMetadata = false;
+    option.SaveToken = true;
+    option.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        IssuerSigningKey = new SymmetricSecurityKey
+            (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    };
+});
+
 builder.Services.AddScoped<IProductRepo, ProductService>();
 builder.Services.AddScoped<ICategoryRepo, CategoryService>();
 builder.Services.AddScoped<IColorRepo, ColorService>();
 builder.Services.AddScoped<ISizeRepo, SizeService>();
+builder.Services.AddScoped<IUserRepo, UserService>();
+builder.Services.AddScoped<ISendMail, SendMailService>();
 
+builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));
 //fix lỗi json bị vòng lặp 
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);

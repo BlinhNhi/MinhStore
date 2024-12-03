@@ -202,39 +202,7 @@ namespace back_end.Services
             return product != null ? new[] { product } : Enumerable.Empty<Product>();
         }
 
-        /*   public List<Product> GetEightProduct(string? sort, int page = 1)
-           {
-               var allProducts = db.Products.Include(ca => ca.Category).Include(c => c.Colors).Include(s => s.Sizes).AsQueryable();
-               if (!string.IsNullOrEmpty(sort))
-               {
-                   switch (sort)
-                   {
-                       case "cheap-products":
-                           allProducts = allProducts.OrderBy(pro => pro.PriceProduct);
-                           break;
-
-                       case "earliest-product-create":
-                           allProducts = allProducts.OrderByDescending(pro => pro.CreatedDate);
-                           break;
-                   }
-               }
-
-               allProducts = allProducts.Skip((page - 1) * PAGE_SIZE_EIGHT_PRODUCTS).Take(PAGE_SIZE_EIGHT_PRODUCTS);
-               var result = allProducts.Select(product => new Product
-               {
-                   Id = product.Id,
-                   NameProduct = product.NameProduct,
-                   PriceProduct = product.PriceProduct,
-                   ImagesProduct = product.ImagesProduct,
-                   Colors = product.Colors,
-                   Sizes = product.Sizes,
-                   Category = product.Category,
-                   CreatedDate = product.CreatedDate,
-               });
-
-
-               return result.ToList();
-           }*/
+    
 
         public (List<Product> Products, int TotalCount) GetEightProduct(string? sort, int page = 1)
         {

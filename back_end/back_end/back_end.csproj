@@ -31,7 +31,8 @@
     <None Remove="IServices\" />
     <None Remove="Database\" />
   </ItemGroup>
+
   <ItemGroup>
-    <Folder Include="Utils\" />
+    <Folder Include="Images\" />
   </ItemGroup>
 </Project>
