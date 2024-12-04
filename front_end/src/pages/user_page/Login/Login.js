@@ -84,7 +84,7 @@ function Login() {
                                             />
                                         </Form.Item>
                                         <div className="">
-                                            <p className="font-semibold  md:text-lg lg:text-lg xl:text-lg 2xl:text-lg sm:text-base text-base w-full">
+                                            <p className="font-semibold dark:text-gray-200 text-gray-600  md:text-lg lg:text-lg xl:text-lg 2xl:text-lg sm:text-base text-base w-full">
                                                 Một liên kết để tạo mật khẩu sẽ được gửi đến địa chỉ email
                                                 của bạn.
                                             </p>
