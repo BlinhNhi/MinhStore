@@ -2,10 +2,22 @@ import { Checkbox, Form, Input } from "antd";
 import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { IoFlash } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import { registerAction } from "../../../redux_store/actions/AuthAction";
 
 function Login() {
     const [openLogin, setOpenLogin] = useState("flex");
     const [openRegister, setOpenRegister] = useState(false);
+    const dispatch = useDispatch();
+    const onRegisterSuccess = (values) => {
+        console.log(values?.email);
+        const action = registerAction(values?.email);
+        dispatch(action)
+    };
+    const onRegisterFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
     return (
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200">
             <div className="container ">
@@ -40,7 +52,16 @@ function Login() {
                                     Địa chỉ email <span className="text-red-600">*</span>
                                 </h4>
                                 <div>
-                                    <Form>
+                                    <Form
+                                        // name="basic"
+                                        initialValues={{
+                                            remember: false,
+                                        }}
+                                        onFinish={onRegisterSuccess}
+                                        onFinishFailed={onRegisterFailed}
+                                        autoComplete="off"
+                                    >
+
                                         <Form.Item
                                             label=""
                                             name="email"
@@ -62,29 +83,28 @@ function Login() {
                                                 placeholder="Email"
                                             />
                                         </Form.Item>
-                                    </Form>
-                                </div>
-                                <div className="">
-                                    <p className="font-semibold  md:text-lg lg:text-lg xl:text-lg 2xl:text-lg sm:text-base text-base w-full">
-                                        Một liên kết để tạo mật khẩu sẽ được gửi đến địa chỉ email
-                                        của bạn.
-                                    </p>
-                                </div>
-                                <div>
-                                    <button
-                                        className="
+                                        <div className="">
+                                            <p className="font-semibold  md:text-lg lg:text-lg xl:text-lg 2xl:text-lg sm:text-base text-base w-full">
+                                                Một liên kết để tạo mật khẩu sẽ được gửi đến địa chỉ email
+                                                của bạn.
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <button
+                                                type="submit"
+                                                className="
                                     font-bold bg-gray-900 hover:bg-gray-700 md:p-2 lg:p-2 xl:p-3 2xl:p-3 sm:p-1 p-1  
                                     mt-2 rounded-md text-white text-lg md:text-xl lg:text-xl xl:text-xl 2xl:text-xl
                                      dark:bg-gray-100 dark:hover:bg-gray-200 dark:text-gray-800
                                      w-full md:w-full lg:w-full xl:w-2/3 2xl:w-2/3 sm:w-full
                                     "
-                                        onClick={() => {
-                                            window.confirm('Bạn Muốn Đăng Ký')
-                                        }}
-                                    >
-                                        Đăng Ký
-                                    </button>
+                                            >
+                                                Đăng Ký
+                                            </button>
+                                        </div>
+                                    </Form>
                                 </div>
+
                             </div>
 
                             {/* Đăng Nhập */}
@@ -181,7 +201,7 @@ function Login() {
                             <h2 className="px-4 font-bold text-gray-600 text-lg">OR</h2>
                             <div className="border-2 border-gray-400 w-full"></div>
                         </div>
-
+                        {/* Chuyển đổi nút đăng ký và đăng nhập */}
                         <div
                             className="
                         w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/2 2xl:w-1/2
@@ -227,7 +247,6 @@ function Login() {
                       w-full md:w-full lg:w-2/3 xl:w-2/3 2xl:w-2/3 sm:w-full 
                        text-lg  sm:text-lg  md:text-lg  lg:text-lg  xl:text-xl 2xl:text-xl
                        dark:bg-gray-100 dark:hover:bg-gray-300 dark:text-gray-800
-
                       "
                                     >
                                         Đăng Nhập

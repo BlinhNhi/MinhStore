@@ -138,7 +138,6 @@ namespace back_end.Controllers
                     Mail mail = new Mail()
                     {
                         ToEmail = Email,
-                        //Body = "Your new password:" + password.ToString(),
                         Body = MailText,
                         Subject = "Tài khoản của bạn ở Minh Còi Sneaker đã được tạo!",
 
