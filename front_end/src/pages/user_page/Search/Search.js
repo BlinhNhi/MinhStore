@@ -34,34 +34,23 @@ function Search(props) {
     const [valueSelectPrice, setValueSelectPrice] = useState("");
     const [valueFilterColor, setValueFilterColor] = useState("");
     const [valueFilterSize, setValueFilterSize] = useState("");
-
-
-
     // console.log('test search name product form search : ', searchNameProduct);
     // console.log('test search category product form search : ', searchTypeCategory);
-
-
     const handleValueFromSortPrice = (valueSortPrice) => {
         setValueSortPrice(valueSortPrice);
     };
-
     const handleValueFromSelectPrice = (valueSelectPrice) => {
         setValueSelectPrice(valueSelectPrice);
         // console.log('test select price : ', valueSelectPrice);
     };
-
     const handleValueFromFilterColor = (valueFilterColor) => {
         setValueFilterColor(valueFilterColor)
-        console.log('test filter color : ', valueFilterColor);
+        // console.log('test filter color : ', valueFilterColor);
     }
-
     const handleValueFromFilterSize = (valueFilterSize) => {
         setValueFilterSize(valueFilterSize)
-        console.log('test filter color : ', valueFilterSize);
+        // console.log('test filter color : ', valueFilterSize);
     }
-
-
-
 
     useEffect(() => {
         if (searchNameProduct !== "" && searchNameProduct !== null) {
@@ -78,20 +67,18 @@ function Search(props) {
         }
         else if (searchTypeCategory !== "" && searchTypeCategory !== null) {
             setInput.searchCategory = searchParams.get('searchCategory')
-            console.log('test input category', setInput);
+            // console.log('test input category', setInput);
             dispatch(getProductsOfCategoryAction(setInput));
         }
 
     }, [dispatch]);
-
-
     const showFilter = () => {
         setIsFilterOpen(true);
     };
-
     const handleFilterCancel = () => {
         setIsFilterOpen(false);
     };
+
     return (
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200">
             <div className="container">

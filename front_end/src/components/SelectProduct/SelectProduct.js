@@ -20,8 +20,8 @@ const setInput = {
 function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPrice, onSendDataSelectPrice, valueFilterColor, valueFilterSize }) {
     const dispatch = useDispatch();
     const dataNameProduct = searchNameProduct;
-    console.log("filter color of select product : ", valueFilterColor);
-    console.log("filter size of select product : ", valueFilterSize);
+    // console.log("filter color of select product : ", valueFilterColor);
+    // console.log("filter size of select product : ", valueFilterSize);
 
     const categoryProduct = searchTypeCategory;
     const [searchParams] = useSearchParams();
@@ -80,20 +80,20 @@ function SelectProduct({ searchNameProduct, searchTypeCategory, onSendDataSortPr
         sendDataPriceToSearch(value)
         setInput.sort = value;
         if (searchTypeCategory != null) {
-            console.log('fun cate run');
+            // console.log('fun cate run');
             setInput.searchCategory = categoryProduct;
             setInput.searchColor = valueFilterColor || ""
             setInput.searchSize = valueFilterSize || ""
             handleSetPage()
-            console.log('test setInput', setInput);
+            // console.log('test setInput', setInput);
             dispatch(getProductListOptionsAction(setInput));
         }
         else if (searchNameProduct != null) {
-            console.log('fun name run');
+            // console.log('fun name run');
             setInput.searchName = dataNameProduct;
             setInput.searchColor = valueFilterColor || ""
             setInput.searchSize = valueFilterSize || ""
-            console.log("Name : ", setInput.searchName);
+            // console.log("Name : ", setInput.searchName);
             handleSetPage()
             // console.log('test setInput', setInput);
             // console.log('test page from select name: ', pageParams);

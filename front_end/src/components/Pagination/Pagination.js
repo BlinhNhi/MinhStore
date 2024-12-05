@@ -21,8 +21,8 @@ const setInput = {
 function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, valueSortPrice, valueSelectPrice, valueFilterColor, valueFilterSize }) {
     // console.log(valueSortPrice);
     // console.log(valueSelectPrice);
-    console.log('value of color from pagination : ', valueFilterColor);
-    console.log('value of size from pagination : ', valueFilterSize);
+    // console.log('value of color from pagination : ', valueFilterColor);
+    // console.log('value of size from pagination : ', valueFilterSize);
     const dispatch = useDispatch();
     let { arrProducts, quantityProducts } = useSelector(state => state.ProductReducer)
     const [arrPage, setArrPage] = useState([]);
@@ -39,7 +39,7 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
         // console.log('test select price : ', valueSelectPrice);
         const [from, to] = valueSelectPrice.split('-').map(Number);
         if (searchNameProduct != null) {
-            console.log('ham name chạy');
+            // console.log('ham name chạy');
             setInput.page = +page;
             setInput.searchName = searchNameProduct
             if (valueSelectPrice !== null && valueSelectPrice !== "") {
@@ -50,11 +50,11 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
             // setInput.searchCategory = "";
             setInput.searchColor = valueFilterColor || "";
             setInput.searchSize = valueFilterSize || "";
-            console.log('value setInput of Pagination', setInput);
+            // console.log('value setInput of Pagination', setInput);
             dispatch(getProductListOptionsAction(setInput));
         }
         else if (searchTypeCategory != null) {
-            console.log('ham category chạy');
+            // console.log('ham category chạy');
             setInput.page = +page;
             setInput.searchCategory = searchTypeCategory
             if (valueSelectPrice !== null && valueSelectPrice !== "") {
@@ -65,7 +65,7 @@ function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, 
             // setInput.searchName = ""
             setInput.searchColor = valueFilterColor || "";
             setInput.searchSize = valueFilterSize || "";
-            console.log('value setInput of Pagination', setInput);
+            // console.log('value setInput of Pagination', setInput);
             dispatch(getProductListOptionsAction(setInput));
         }
         // else if (valueSortPrice !== "" || valueSortPrice != null) {

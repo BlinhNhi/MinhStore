@@ -18,10 +18,10 @@ const setInput = {
 };
 
 function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory, valueSortPrice, valueSelectPrice, onSendDataFilterColor, onSendDataFilterSize }) {
-    console.log('value sort of filter : ', valueSortPrice);
-    console.log('value select of filter : ', valueSelectPrice);
-    console.log('value select of filter : ', searchTypeCategory);
-    console.log('value select of filter : ', searchNameProduct);
+    // console.log('value sort of filter : ', valueSortPrice);
+    // console.log('value select of filter : ', valueSelectPrice);
+    // console.log('value select of filter : ', searchTypeCategory);
+    // console.log('value select of filter : ', searchNameProduct);
 
 
     let { arrColor } = useSelector(state => state.ColorReducer);
@@ -60,13 +60,13 @@ function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory, va
 
     const sendDataFilterColor = (value) => {
         const dataColorFilter = value;
-        console.log('data color filter : ', dataColorFilter);
+        // console.log('data color filter : ', dataColorFilter);
         onSendDataFilterColor(dataColorFilter)
     }
 
     const sendDataFilterSize = (value) => {
         const dataSizeFilter = value;
-        console.log('data color filter : ', dataSizeFilter);
+        // console.log('data color filter : ', dataSizeFilter);
         onSendDataFilterSize(dataSizeFilter)
     }
 
@@ -91,14 +91,14 @@ function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory, va
             setInput.sort = valueSortPrice || "";
             setInput.fromPrice = from || "";
             setInput.toPrice = to || "";
-            console.log('test page from select category: ', page);
+            // console.log('test page from select category: ', page);
             setInput.searchColor = setInput.searchColor.replace(event.target.value + ",", "");
         }
         sendDataFilterColor(setInput.searchColor)
         handleSetPage()
         // console.log("color filter : ", event.target.value + ",");
         // console.log('color has filter : ', setInput.searchColor);
-        console.log('Value  of color filter  : ', setInput);
+        // console.log('Value  of color filter  : ', setInput);
         dispatch(getProductListOptionsAction(setInput));
     };
 
@@ -119,14 +119,14 @@ function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory, va
             setInput.sort = valueSortPrice || "";
             setInput.fromPrice = from || "";
             setInput.toPrice = to || "";
-            console.log('test page from select category: ', page);
+            // console.log('test page from select category: ', page);
             setInput.searchSize = setInput.searchSize.replace(event.target.value + ",", "");
         }
         sendDataFilterSize(setInput.searchSize)
         handleSetPage()
         // console.log("color size : ", event.target.value + ",");
         // console.log('color has size : ', setInput.searchSize);
-        console.log('Value of size filter : ', setInput);
+        // console.log('Value of size filter : ', setInput);
         dispatch(getProductListOptionsAction(setInput));
     };
 
