@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { FaAngleDown } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 
 import { ImSearch } from "react-icons/im";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
@@ -7,14 +9,11 @@ import { TbUserCircle } from "react-icons/tb";
 
 import Logo from '../../assets/logo.png'
 import DarkMode from '../../components/DarkMode/DarkMode';
-import { FaAngleDown } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { getProductListOptionsAction, getProductsOfSearchNameAction } from "../../redux_store/actions/ProductAcction";
-import { history } from "../../App";
+import { getProductsOfSearchNameAction } from "../../redux_store/actions/ProductAcction";
+import { getCurrentUserAction } from "../../redux_store/actions/AuthAction";
 import { Menu } from "../../utils/data/dataMenuNavbar";
 import LowerNavbar from "../../components/LowerNavbar/LowerNavbar";
-import { notification } from "antd";
-import { useNavigate } from "react-router-dom";
+import { TOKEN } from "../../utils/variable";
 
 
 
@@ -28,9 +27,21 @@ const setInput = {
 
 function Header() {
     const dispatch = useDispatch();
+
     const [isOpenMenu, setIsOpenMenu] = useState('hidden ');
     const [valueSearch, setValueSearch] = useState(null);
-    const navigate = useNavigate();
+    let { userLogin } = useSelector(state => state.UserReducer);
+    const accessToken = useMemo(() => {
+        return localStorage.getItem(TOKEN) || "";
+    }, []);
+    useEffect(() => {
+        if (accessToken && accessToken != null) {
+            dispatch(getCurrentUserAction(accessToken))
+        }
+    }, [accessToken, dispatch]);
+
+    console.log(userLogin);
+
     const handelOnChangeSearch = (e) => {
         setValueSearch(e.target.value);
     }
@@ -38,7 +49,6 @@ function Header() {
         e.preventDefault();
         setInput.searchName = valueSearch;
         console.log(valueSearch);
-        //  && valueSearch?.startsWith(' ') === false && valueSearch !== ""
         if (valueSearch !== null) {
             dispatch(getProductsOfSearchNameAction(setInput));
             const queryString = new URLSearchParams(setInput).toString();
@@ -156,7 +166,14 @@ function Header() {
                                     Thông Tin Tài Khoản
                                 </li>
                                 <li className="text-gray-600 hover:text-primary   py-2">
-                                    Đăng Xuất
+                                    <button
+                                        onClick={() => {
+                                            localStorage.removeItem(TOKEN)
+                                            window.location.reload()
+                                        }}
+                                    >
+                                        Đăng Xuất
+                                    </button>
                                 </li>
                             </ul>
                         </div>

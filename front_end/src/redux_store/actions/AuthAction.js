@@ -1,9 +1,9 @@
-import { history } from "../../App";
 import { displayLoadingAction, hideLoadingAction } from "./LoadingAction";
 // import { userService } from "../../services/UserService";
 import { notification } from "antd";
 import { TOKEN } from "../../../src/utils/variable";
-import { authService, AuthService } from "../../service/AuthService";
+import { authService } from "../../service/AuthService";
+import { GET_CURRENT_USER_ACTION } from "../constants";
 
 export const loginAction = (loginInfo) => {
     return async (dispatch) => {
@@ -14,29 +14,29 @@ export const loginAction = (loginInfo) => {
                 localStorage.setItem(TOKEN, result.data.data.accessToken);
                 notification.success({
                     closeIcon: true,
-                    message: "Success",
+                    message: "Thành Công",
                     description: (
                         <>
-                            Login successfully.<br />
-                            Welcome to PHTV Bus.
+                            Đăng Nhập Thành Công.<br />
+                            Chào Mừng Đến Với MinhCoi Store.
                         </>
                     ),
                 });
-                history.push("/");
+                window.location.href = '/';
             } else {
                 await dispatch(hideLoadingAction);
-                history.replace("login");
+                window.location.href = '/login';
             }
             await dispatch(hideLoadingAction);
         } catch (error) {
             dispatch(hideLoadingAction);
             notification.error({
                 closeIcon: true,
-                message: "Error",
+                message: "Thất Bại",
                 description: (
                     <>
-                        Login fail.<br />
-                        Please try again.
+                        Đăng Nhập Thất Bại.<br />
+                        Vui Lòng Thử Lại.
                     </>
                 ),
             });
@@ -125,22 +125,22 @@ export const registerAction = (inforUser) => {
 // };
 
 
-// export const getCurrentUserAction = (token) => {
-//   return async (dispatch) => {
-//     try {
-//       const result = await userService.getCurrentUser(token);
-//       if (result.status === 200) {
-//         dispatch({
-//           type: GET_CURRENT_USER_ACTION,
-//           userLogin: result.data,
-//         });
-//       }else{
-//         localStorage.removeItem(TOKEN)
-//       }
-//     } catch (error) {
-//       localStorage.removeItem(TOKEN)
-//       console.log(error);
-//     }
-//   };
-// };
+export const getCurrentUserAction = (token) => {
+    return async (dispatch) => {
+        try {
+            const result = await authService.getCurrentUser(token);
+            if (result.status === 200) {
+                dispatch({
+                    type: GET_CURRENT_USER_ACTION,
+                    userLogin: result.data,
+                });
+            } else {
+                localStorage.removeItem(TOKEN)
+            }
+        } catch (error) {
+            localStorage.removeItem(TOKEN)
+            // console.log(error);
+        }
+    };
+};
 

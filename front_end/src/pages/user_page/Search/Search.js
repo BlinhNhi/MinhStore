@@ -5,7 +5,7 @@ import SelectProduct from "../../../components/SelectProduct/SelectProduct";
 import ListProduct from "../../../components/ListProduct/ListProduct";
 import { useEffect, useState } from "react";
 import FilterProduct from "../../../components/FilterProduct/FilterProduct";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProductListOptionsAction, getProductsOfCategoryAction } from "../../../redux_store/actions/ProductAcction";
 import Pagination from "../../../components/Pagination/Pagination";
 
@@ -21,10 +21,12 @@ const setInput = {
     dayStart: "",
     page: 1
 };
-console.log('test setinput : ', setInput);
+// console.log('test setinput : ', setInput);
 function Search(props) {
     const dispatch = useDispatch()
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+    let { userLogin } = useSelector(state => state.UserReducer);
+    console.log(userLogin);
     let searchParams = new URLSearchParams(props.location.search);
     let searchNameProduct = searchParams.get('searchName');
     let searchTypeCategory = searchParams.get('searchCategory');

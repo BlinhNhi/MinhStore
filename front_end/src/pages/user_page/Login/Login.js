@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { IoFlash } from "react-icons/io5";
 import { useDispatch } from "react-redux";
-import { registerAction } from "../../../redux_store/actions/AuthAction";
+import { registerAction, loginAction } from "../../../redux_store/actions/AuthAction";
 
 function Login() {
     const [openLogin, setOpenLogin] = useState("flex");
@@ -14,7 +14,12 @@ function Login() {
         const action = registerAction(values?.email);
         dispatch(action)
     };
-    const onRegisterFailed = (errorInfo) => {
+    const onLoginSuccess = (values) => {
+        console.log(values?.email);
+        const action = loginAction(values);
+        dispatch(action)
+    };
+    const onFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
@@ -53,12 +58,11 @@ function Login() {
                                 </h4>
                                 <div>
                                     <Form
-                                        // name="basic"
                                         initialValues={{
                                             remember: false,
                                         }}
                                         onFinish={onRegisterSuccess}
-                                        onFinishFailed={onRegisterFailed}
+                                        onFinishFailed={onFailed}
                                         autoComplete="off"
                                     >
 
@@ -116,7 +120,14 @@ function Login() {
                                     <h4 className="text-lg  sm:text-base md:text-base lg:text-base xl:text-lg 2xl:text-lg font-medium mb-3">
                                         Địa chỉ email <span className="text-red-600">*</span>
                                     </h4>
-                                    <Form>
+                                    <Form
+                                        initialValues={{
+                                            remember: false,
+                                        }}
+                                        onFinish={onLoginSuccess}
+                                        onFinishFailed={onFailed}
+                                        autoComplete="off"
+                                    >
                                         <Form.Item
                                             label=""
                                             name="email"
@@ -138,9 +149,6 @@ function Login() {
                                                 placeholder="Email"
                                             />
                                         </Form.Item>
-                                    </Form>
-
-                                    <Form>
                                         <h4 className="text-lg sm:text-base md:text-base lg:text-base xl:text-lg 2xl:text-lg font-medium mb-3 dark:text-gray-100">
                                             Mật Khẩu <span className="text-red-600">*</span>
                                         </h4>
@@ -164,34 +172,34 @@ function Login() {
                                                 placeholder="Mật Khẩu"
                                             />
                                         </Form.Item>
-                                    </Form>
-                                </div>
-                                <div>
-                                    <button
-                                        className="
-                                   font-bold bg-gray-900 hover:bg-gray-700 md:p-2 lg:p-2 xl:p-3 2xl:p-3 sm:p-1 p-1  
+                                        <div>
+                                            <button
+                                                type="submit"
+                                                className="
+                                    font-bold bg-gray-900 hover:bg-gray-700 md:p-2 lg:p-2 xl:p-3 2xl:p-3 sm:p-1 p-1  
                                     mt-2 rounded-md text-white text-lg md:text-xl lg:text-xl xl:text-xl 2xl:text-xl
                                      dark:bg-gray-100 dark:hover:bg-gray-200 dark:text-gray-800
                                      w-full md:w-full lg:w-full xl:w-2/3 2xl:w-2/3 sm:w-full
-                                     "
-                                        onClick={() => { window.confirm('Bạn Muốn Đăng Ký?') }}
-                                    >
-                                        Đăng Nhập
-                                    </button>
-                                </div>
-                                <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-start md:items-center lg:items-center xl:items-center justify-between w-full md:w-full lg:w-full xl:w-2/3 2xl:w-2/3 sm:w-full mt-2 gap-2">
-                                    <div className="flex 2xl:flex-row items-center gap-2">
-                                        <Checkbox>
-                                            <h1 className="text-base font-medium md:text-base lg:text-base xl:text-lg 2xl:text-lg sm:text-base dark:text-gray-100">
-                                                Ghi Nhớ Mật Khẩu
-                                            </h1>
-                                        </Checkbox>
-                                    </div>
-                                    <div>
-                                        <h1 className="text-base font-medium hover:underline hover:text-gray-500 md:text-base lg:text-base xl:text-lg 2xl:text-lg sm:text-base">
-                                            Quên Mật Khẩu?
-                                        </h1>
-                                    </div>
+                                    "
+                                            >
+                                                Đăng Nhập
+                                            </button>
+                                        </div>
+                                        <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-start md:items-center lg:items-center xl:items-center justify-between w-full md:w-full lg:w-full xl:w-2/3 2xl:w-2/3 sm:w-full mt-2 gap-2">
+                                            <div className="flex 2xl:flex-row items-center gap-2">
+                                                <Checkbox>
+                                                    <h1 className="text-base font-medium md:text-base lg:text-base xl:text-lg 2xl:text-lg sm:text-base dark:text-gray-100">
+                                                        Ghi Nhớ Mật Khẩu
+                                                    </h1>
+                                                </Checkbox>
+                                            </div>
+                                            <div>
+                                                <h1 className="text-base font-medium hover:underline hover:text-gray-500 md:text-base lg:text-base xl:text-lg 2xl:text-lg sm:text-base">
+                                                    Quên Mật Khẩu?
+                                                </h1>
+                                            </div>
+                                        </div>
+                                    </Form>
                                 </div>
                             </div>
                         </div>

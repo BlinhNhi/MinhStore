@@ -29,9 +29,10 @@ function LowerNavbar() {
                     <div className="mt-2 absolute z-[30] hidden group-hover:block group-focus:block w-[200px] right-0 rounded-md bg-white p-2 text-black shadow-md">
                         <ul>
                             {arrCategories?.map((data, i) => (
-                                data?.name === "Adidas" || data?.name === "Nike" ? <div></div> : <li key={data.id}>
-                                    <a key={i} href={`/search?searchCategory=${data.name}&page=1`} className="inline-block w-full text-base rounded-md p-2 hover:bg-primary/20 hover:no-underline">{data?.name}</a>
-                                </li>
+                                data?.name === "Adidas" || data?.name === "Nike" ? <div key={data?.id}></div> :
+                                    <li key={data.id}>
+                                        <a key={i} href={`/search?searchCategory=${data.name}&page=1`} className="inline-block w-full text-base rounded-md p-2 hover:bg-primary/20 hover:no-underline">{data?.name}</a>
+                                    </li>
                             ))}
 
                         </ul>
