@@ -4,12 +4,12 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import React from "react";
 
-import { HomeTemplate } from "./templates/HomeTemplate";
 import Home from "./pages/user_page/Home/Home";
 import Search from "./pages/user_page/Search/Search";
 import ProductDetail from "./pages/user_page/ProductDetail/ProductDetail";
 import Login from "./pages/user_page/Login/Login";
-import AdminTemplate from "./templates/AdminTemplate";
+import SideBarUser from "./pages/user_page/SideBarUser/SideBarUser"
+
 import DashBoard from "./pages/admin_page/DashBoard/DashBoard";
 
 // Color Manager
@@ -28,6 +28,10 @@ import UpdateSize from "./pages/admin_page/SizeMng/UpdateSize";
 import ProductManager from "./pages/admin_page/ProductManager/ProductManager";
 import CreateProduct from "./pages/admin_page/ProductManager/CreateProduct";
 import UpdateProduct from "./pages/admin_page/ProductManager/UpdateProduct";
+
+import AdminTemplate from "./templates/AdminTemplate";
+import { HomeTemplate } from "./templates/HomeTemplate";
+
 
 export const history = createBrowserHistory();
 
@@ -48,6 +52,8 @@ function App() {
       <Route path="/search" element={<HomeTemplate Component={Search} />} />
       <Route path="/product-detail/:id" element={<HomeTemplate Component={ProductDetail} />} />
       <Route path="/login" element={<HomeTemplate Component={Login} />} />
+      <Route path="/profile" element={<HomeTemplate Component={SideBarUser} />} />
+
 
       {/* Admin Routes */}
       <Route path="/admin/dashboard" element={<AdminTemplate Component={DashBoard} />} />

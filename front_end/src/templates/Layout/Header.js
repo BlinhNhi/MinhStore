@@ -6,6 +6,7 @@ import { ImSearch } from "react-icons/im";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { IoClose, IoMenu } from "react-icons/io5";
 import { TbUserCircle } from "react-icons/tb";
+import { IoMdLogIn } from "react-icons/io";
 
 import Logo from '../../assets/logo.png'
 import DarkMode from '../../components/DarkMode/DarkMode';
@@ -158,24 +159,36 @@ function Header() {
                             <DarkMode></DarkMode>
                         </div>
                         {/* Information User */}
-                        <div className="hidden sm:block md:block xl:block lg:block 2xl:block relative group cursor-pointer">
-                            <FaUser className="text-3xl rounded-2xl p-1 border-2  hover:border-white  border-primary text-gray-400 hover:text-gray-100 bg-gray-50 hover:bg-primary z-50 " />
-                            <div className="w-[200px] bg-transparent absolute p-4 right-0 "></div>
-                            <ul className="absolute hidden group-hover:block  bg-white  shadow border border-gray-200 z-40 right-0 rounded-md mt-4 px-4 pb-4 text-left w-[200px]">
-                                <li className="text-gray-600  hover:text-primary py-2">
-                                    Thông Tin Tài Khoản
-                                </li>
-                                <li className="text-gray-600 hover:text-primary   py-2">
-                                    <button
-                                        onClick={() => {
-                                            localStorage.removeItem(TOKEN)
-                                            window.location.reload()
-                                        }}
-                                    >
-                                        Đăng Xuất
-                                    </button>
-                                </li>
-                            </ul>
+                        <div>
+                            {
+                                userLogin !== null ? <div className="hidden sm:block md:block xl:block lg:block 2xl:block relative group cursor-pointer">
+                                    <FaUser className="text-3xl rounded-2xl p-1 border-2  hover:border-white  border-primary text-gray-400 hover:text-gray-100 bg-gray-50 hover:bg-primary z-50 " />
+                                    <div className="w-[200px] bg-transparent absolute p-4 right-0 "></div>
+                                    <ul className="absolute hidden group-hover:block  bg-white  shadow border border-gray-200 z-40 right-0 rounded-md mt-4 px-4 pb-4 text-left w-[200px]">
+                                        <li className="text-gray-600  hover:text-primary py-2">
+                                            <a href="/profile">Thông Tin Tài Khoản</a>
+                                        </li>
+                                        <li className="text-gray-600 hover:text-primary   py-2">
+                                            <button
+                                                onClick={() => {
+                                                    localStorage.removeItem(TOKEN)
+                                                    window.location.reload()
+                                                }}
+                                            >
+                                                Đăng Xuất
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                    : <div className="hidden sm:block md:block xl:block lg:block 2xl:block relative group cursor-pointer">
+                                        <div className="flex items-center justify-center gap-1 hover:text-gray-500 text-gray-700 dark:text-gray-100 dark:hover:text-gray-200">
+                                            <IoMdLogIn className="text-lg font-semibold" />
+                                            <a className="text-base font-semibold cursor-pointer " href="/login">
+                                                Đăng Nhập
+                                            </a>
+                                        </div>
+                                    </div>
+                            }
                         </div>
                         {/* Menu of screen < 640px */}
                         <div
