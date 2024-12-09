@@ -139,8 +139,10 @@ function Header() {
                                     onChange={handelOnChangeSearch}
                                     type='text'
                                     placeholder='Tìm Kiếm'
-                                    className='lg:w-[200px]  xl:w-[200px] md:w-[200px]  2xl:w-[200px]  lg:group-hover:w-[240px] xl:group-hover:w-[240px] md:group-hover:w-[240px] 2xl:group-hover:w-[240px]  sm:w-[150px] sm:group-hover:w-[200px] transition-all duration-300 
-                         rounded-full border border-priamry px-2 py-1 focus:border-primary focus:outline-none focus:border-1 dark:bg-gray-800 dark:border-gray-500'
+                                    className='lg:w-[200px]  xl:w-[200px] md:w-[200px]  2xl:w-[200px]  lg:group-hover:w-[240px] xl:group-hover:w-[240px]
+                                     md:group-hover:w-[240px] 2xl:group-hover:w-[240px]  sm:w-[150px] sm:group-hover:w-[200px] 
+                                    rounded-full border border-priamry px-2 py-1 focus:border-primary focus:outline-none focus:border-1
+                                     dark:bg-gray-800 dark:border-gray-500 transition-all duration-300 '
                                 ></input>
                             </form>
                             <ImSearch className='text-gray-500 group-hover:text-primary absolute top-1/2 -translate-y-1/2 right-3' />
@@ -166,7 +168,7 @@ function Header() {
                                     <div className="w-[200px] bg-transparent absolute p-4 right-0 "></div>
                                     <ul className="absolute hidden group-hover:block  bg-white  shadow border border-gray-200 z-40 right-0 rounded-md mt-4 px-4 pb-4 text-left w-[200px]">
                                         <li className="text-gray-600  hover:text-primary py-2">
-                                            <a href="/profile">Thông Tin Tài Khoản</a>
+                                            <a href="/system-account/my-account/">Thông Tin Tài Khoản</a>
                                         </li>
                                         <li className="text-gray-600 hover:text-primary   py-2">
                                             <button
@@ -217,7 +219,6 @@ function Header() {
                             className='w-full outline-none  dark:text-gray-100 dark:bg-gray-800 '
                         ></input>
                         <ImSearch className=' cursor-pointer w-10 text-2xl p-1 text-gray-500 hover:text-yellow-500 ' />
-                        {/*   absolute top-1/2 -translate-y-1/2 w-4 */}
                     </div>
                 </form>
             </div>

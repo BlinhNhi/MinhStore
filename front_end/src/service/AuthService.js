@@ -13,7 +13,6 @@ export class AuthService extends baseService {
         return this.post(`/api/auth/register?Email=${registerInfo}`);
     }
     getCurrentUser = (token) => {
-        console.log(token);
         if (token !== null) {
             return this.post(`/api/Auth/getinfo?token=${token}`);
         }
