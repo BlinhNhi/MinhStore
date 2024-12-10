@@ -76,6 +76,7 @@ namespace back_end.Services
                 {
                     ExistingUser.Password = BCrypt.Net.BCrypt.HashPassword(User.Password);
                 }
+                ExistingUser.Phone = User.Phone;
 
                 int Result = await db.SaveChangesAsync();
                 if (Result > 0)

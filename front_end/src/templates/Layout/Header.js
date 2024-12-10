@@ -41,8 +41,6 @@ function Header() {
         }
     }, [accessToken, dispatch]);
 
-    console.log(userLogin);
-
     const handelOnChangeSearch = (e) => {
         setValueSearch(e.target.value);
     }

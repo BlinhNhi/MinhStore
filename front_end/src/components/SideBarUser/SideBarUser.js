@@ -5,8 +5,12 @@ function SideBarUser() {
     return (
         <div className="">
             <div>
-                <h1 className="font-bold text-xl border-b-2 border-gray-300 px-4 py-1">Tài Khoản</h1>
-                <div className="flex flex-col items-start justify-center gap-4 mt-3">
+                <h1 className="font-bold text-xl border-b-2 border-gray-300 px-4 py-1
+                text-center  lg:text-left xl:text-left 2xl:text-left
+                ">Tài Khoản</h1>
+                <div className="flex flex-col items-center justify-center gap-4 mt-3
+                lg:items-start xl:items-start 2xl:items-start
+                ">
                     {
                         menuSideBar.map(menu => {
                             return (

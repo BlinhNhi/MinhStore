@@ -4,6 +4,8 @@ export const GET_CURRENT_USER_ACTION = "GET_CURRENT_USER_ACTION";
 
 
 export const GET_USER_LIST = "GET_USER_LIST";
+export const GET_USER_DETAIL = "GET_USER_DETAIL"
+
 // Color
 export const GET_COLOR_LIST = "GET_COLOR_LIST";
 export const GET_COLOR_DETAIL = "GET_COLOR_DETAIL"

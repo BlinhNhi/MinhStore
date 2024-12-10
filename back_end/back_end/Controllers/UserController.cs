@@ -121,7 +121,7 @@ namespace back_end.Controllers
         }
 
         [HttpPut("{Id}")]
-        public async Task<ActionResult> PutDriver(Guid Id, [FromForm] User User)
+        public async Task<ActionResult> PutUser(Guid Id, [FromForm] User User)
         {
             try
             {

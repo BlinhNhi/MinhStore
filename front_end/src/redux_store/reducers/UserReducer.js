@@ -1,9 +1,10 @@
-import { GET_CURRENT_USER_ACTION, GET_USER_LIST } from "../constants";
+import { GET_CURRENT_USER_ACTION, GET_USER_DETAIL, GET_USER_LIST } from "../constants";
 
 
 const initialState = {
   userLogin: null,
-  arrUser: []
+  arrUser: [],
+  userDetail: {},
 };
 
 export const UserReducer = (state = initialState, action) => {
@@ -14,6 +15,9 @@ export const UserReducer = (state = initialState, action) => {
     case GET_CURRENT_USER_ACTION:
       state.userLogin = action.userLogin;
       return { ...state };
+    case GET_USER_DETAIL:
+      state.userDetail = action.userDetail;
+      return { ...state }
     default:
       return state;
   }
