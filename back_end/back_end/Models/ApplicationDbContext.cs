@@ -59,13 +59,6 @@ namespace back_end.Models
                 p.HasKey(p => p.Id);
                 p.HasData(SeedData.categoryData.CategorySeedData());
             });
-            modelBuilder.Entity<Product>(p =>
-            {
-                p.HasKey(p => p.Id);
-                p.HasOne(o => o.Category).WithMany(o => o.Products).HasForeignKey(h => h.CategoryId);
-               /* p.HasData(SeedData.productData.ProductSeedData());*/
-
-            });
             modelBuilder.Entity<Color>(c =>
             {
                 c.HasKey(c => c.Id);
@@ -87,10 +80,19 @@ namespace back_end.Models
             modelBuilder.Entity<ProductColor>(b =>
             {
                 b.HasKey(b => new { b.ColorId, b.ProductId });
+                b.HasData(SeedData.ProductColorData.ProductColorsSeedData());
             });
             modelBuilder.Entity<ProductSize>(b =>
             {
                 b.HasKey(b => new { b.SizeId, b.ProductId });
+                b.HasData(SeedData.ProductSizeData.ProductSizeSeedData());
+
+            });
+            modelBuilder.Entity<Product>(p =>
+            {
+                p.HasKey(p => p.Id);
+                p.HasOne(o => o.Category).WithMany(o => o.Products).HasForeignKey(h => h.CategoryId);
+                p.HasData(SeedData.productData.ProductSeedData());
             });
             modelBuilder.Entity<Order>(o =>
             {

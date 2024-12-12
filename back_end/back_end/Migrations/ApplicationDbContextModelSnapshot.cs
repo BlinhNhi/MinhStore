@@ -253,6 +253,22 @@ namespace back_end.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"),
+                            CategoryId = 1,
+                            ColorId = "5,8,9,10",
+                            CreatedDate = new DateTime(2024, 11, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImagesProduct = "[\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731860256/gdw7lxyps83b8lb4e0dz.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731860258/r8zcqx920jtawfm9xdap.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731860259/jgjf7f9q5frtfogz2pap.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731860260/vw8c53g4pm8z5kfv6huc.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731860262/siexn3ygexvctydme2s6.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731860263/up71kjl9srrx5nhxp9g8.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731860265/y5wghhvrlc51qtpfgovm.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731860266/plkiqeg9qxzek1map7ei.jpg\"]",
+                            NameProduct = "Adidas Ultra Boost",
+                            NumberOfProductInStock = 13,
+                            NumberOfProductSold = 1,
+                            PriceProduct = 7000000.0,
+                            SizeId = "3,4,5,6,7,8",
+                            StockQuantity = 14
+                        });
                 });
 
             modelBuilder.Entity("back_end.Models.ProductColor", b =>
@@ -271,6 +287,32 @@ namespace back_end.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductColors");
+
+                    b.HasData(
+                        new
+                        {
+                            ColorId = 5,
+                            ProductId = new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"),
+                            Id = 1
+                        },
+                        new
+                        {
+                            ColorId = 8,
+                            ProductId = new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"),
+                            Id = 2
+                        },
+                        new
+                        {
+                            ColorId = 9,
+                            ProductId = new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"),
+                            Id = 3
+                        },
+                        new
+                        {
+                            ColorId = 10,
+                            ProductId = new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"),
+                            Id = 4
+                        });
                 });
 
             modelBuilder.Entity("back_end.Models.ProductSize", b =>
@@ -289,6 +331,44 @@ namespace back_end.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductSizes");
+
+                    b.HasData(
+                        new
+                        {
+                            SizeId = 3,
+                            ProductId = new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"),
+                            Id = 1
+                        },
+                        new
+                        {
+                            SizeId = 4,
+                            ProductId = new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"),
+                            Id = 2
+                        },
+                        new
+                        {
+                            SizeId = 5,
+                            ProductId = new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"),
+                            Id = 3
+                        },
+                        new
+                        {
+                            SizeId = 6,
+                            ProductId = new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"),
+                            Id = 4
+                        },
+                        new
+                        {
+                            SizeId = 7,
+                            ProductId = new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"),
+                            Id = 5
+                        },
+                        new
+                        {
+                            SizeId = 8,
+                            ProductId = new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"),
+                            Id = 6
+                        });
                 });
 
             modelBuilder.Entity("back_end.Models.Size", b =>
@@ -403,30 +483,30 @@ namespace back_end.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("77c7a0d1-ad2a-4ac6-9c2f-de5e3cabf9c3"),
+                            Id = new Guid("94ba623f-adf6-4b41-9c66-1d56b6d17540"),
                             Email = "admin@minhstore.com",
-                            Password = "$2a$11$hZuClfgGn7tr4roqiSKIVu/3uttIVLesVOb/VlHW7J8uYBTQwCK4O",
+                            Password = "$2a$11$meqohdjVv8pzF9/h0zK1KOkvI05tLkzfFVdv4e.4.Fd.khT1UK3Cu",
                             Role = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("db1fe48d-a519-4984-8125-cca4196c0be9"),
+                            Id = new Guid("d6570847-bc26-4f82-9d88-c339b42282ae"),
                             Email = "user123@gmail.com",
-                            Password = "$2a$11$mNgAghZpp6NN4zPUn.GJJOpe3Fd7KyupH1D5MUY7B.ofGH/sDke7G",
+                            Password = "$2a$11$iLdT4H/iXpTJTuFdT5u63.56mwQrSLPvp7f5P6Ske7R8yVn78.6Wm",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("87eba36e-5ebd-4f6e-8f5f-af4d7a3334e7"),
+                            Id = new Guid("d9a50c44-a437-4898-9273-91a30c71fb7b"),
                             Email = "user456@gmail.com",
-                            Password = "$2a$11$jmjuPw/55GdmNQNaJq2ppOR0mTzJ9IYVKIS0.tGCOIAKaTRYmQAb.",
+                            Password = "$2a$11$gFHTAeuwxr8P9oJqZTMVVe1UuLZ7P3bQSFLZ0Cjvfj.8tHo.ZzgAC",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("b5e4b6f9-aecb-4e7b-80e1-854feea6e30f"),
+                            Id = new Guid("0679ce54-3dc9-477e-9bb4-8414d58a7185"),
                             Email = "user789@gmail.com",
-                            Password = "$2a$11$7row6sE6MbkevGNOhvWCLeLQnj6gTT1CTzDNvVZqJH7EnoaldCBp.",
+                            Password = "$2a$11$WRXMQNMoPcYCKRTOuuXzsu9s.fhqrZmqXysOg6AfyNCAezy.caHlm",
                             Role = "User"
                         });
                 });

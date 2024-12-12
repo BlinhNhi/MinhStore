@@ -289,10 +289,39 @@ namespace back_end.Migrations
                 columns: new[] { "Id", "Email", "Name", "Password", "Phone", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("77c7a0d1-ad2a-4ac6-9c2f-de5e3cabf9c3"), "admin@minhstore.com", null, "$2a$11$hZuClfgGn7tr4roqiSKIVu/3uttIVLesVOb/VlHW7J8uYBTQwCK4O", null, "Admin" },
-                    { new Guid("87eba36e-5ebd-4f6e-8f5f-af4d7a3334e7"), "user456@gmail.com", null, "$2a$11$jmjuPw/55GdmNQNaJq2ppOR0mTzJ9IYVKIS0.tGCOIAKaTRYmQAb.", null, "User" },
-                    { new Guid("b5e4b6f9-aecb-4e7b-80e1-854feea6e30f"), "user789@gmail.com", null, "$2a$11$7row6sE6MbkevGNOhvWCLeLQnj6gTT1CTzDNvVZqJH7EnoaldCBp.", null, "User" },
-                    { new Guid("db1fe48d-a519-4984-8125-cca4196c0be9"), "user123@gmail.com", null, "$2a$11$mNgAghZpp6NN4zPUn.GJJOpe3Fd7KyupH1D5MUY7B.ofGH/sDke7G", null, "User" }
+                    { new Guid("0679ce54-3dc9-477e-9bb4-8414d58a7185"), "user789@gmail.com", null, "$2a$11$WRXMQNMoPcYCKRTOuuXzsu9s.fhqrZmqXysOg6AfyNCAezy.caHlm", null, "User" },
+                    { new Guid("94ba623f-adf6-4b41-9c66-1d56b6d17540"), "admin@minhstore.com", null, "$2a$11$meqohdjVv8pzF9/h0zK1KOkvI05tLkzfFVdv4e.4.Fd.khT1UK3Cu", null, "Admin" },
+                    { new Guid("d6570847-bc26-4f82-9d88-c339b42282ae"), "user123@gmail.com", null, "$2a$11$iLdT4H/iXpTJTuFdT5u63.56mwQrSLPvp7f5P6Ske7R8yVn78.6Wm", null, "User" },
+                    { new Guid("d9a50c44-a437-4898-9273-91a30c71fb7b"), "user456@gmail.com", null, "$2a$11$gFHTAeuwxr8P9oJqZTMVVe1UuLZ7P3bQSFLZ0Cjvfj.8tHo.ZzgAC", null, "User" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "CategoryId", "ColorId", "CreatedDate", "ImagesProduct", "NameProduct", "NumberOfProductInStock", "NumberOfProductSold", "PriceProduct", "SizeId", "StockQuantity" },
+                values: new object[] { new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"), 1, "5,8,9,10", new DateTime(2024, 11, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), "[\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731860256/gdw7lxyps83b8lb4e0dz.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731860258/r8zcqx920jtawfm9xdap.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731860259/jgjf7f9q5frtfogz2pap.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731860260/vw8c53g4pm8z5kfv6huc.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731860262/siexn3ygexvctydme2s6.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731860263/up71kjl9srrx5nhxp9g8.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731860265/y5wghhvrlc51qtpfgovm.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731860266/plkiqeg9qxzek1map7ei.jpg\"]", "Adidas Ultra Boost", 13, 1, 7000000.0, "3,4,5,6,7,8", 14 });
+
+            migrationBuilder.InsertData(
+                table: "ProductColors",
+                columns: new[] { "ColorId", "ProductId", "Id" },
+                values: new object[,]
+                {
+                    { 5, new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"), 1 },
+                    { 8, new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"), 2 },
+                    { 9, new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"), 3 },
+                    { 10, new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"), 4 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProductSizes",
+                columns: new[] { "ProductId", "SizeId", "Id" },
+                values: new object[,]
+                {
+                    { new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"), 3, 1 },
+                    { new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"), 4, 2 },
+                    { new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"), 5, 3 },
+                    { new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"), 6, 4 },
+                    { new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"), 7, 5 },
+                    { new Guid("01087e47-19aa-4ae9-8670-ee69d9223a02"), 8, 6 }
                 });
 
             migrationBuilder.CreateIndex(

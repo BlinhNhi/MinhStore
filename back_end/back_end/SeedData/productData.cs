@@ -21,9 +21,11 @@ namespace back_end.SeedData
                     Id = 1,
                     Name = "Adidas"
                 },*/
+                ColorId = "5,8,9,10",
+                SizeId="3,4,5,6,7,8",
                 CategoryId = 1,
                 CreatedDate = new DateTime(2024, 11, 17),
-                Colors = new List<Color>
+               /* Colors = new List<Color>
                 {
                    new Color { Id = 5, Name = "Đen" },
                    new Color { Id = 8, Name = "Trắng" },
@@ -39,35 +41,12 @@ namespace back_end.SeedData
                     new Size { Id = 6, NumberOfSize = "41" },
                     new Size { Id = 7, NumberOfSize = "42" },
                     new Size { Id = 8, NumberOfSize = "43" }
-                }},
-            /*new Product {
-                Id = new Guid("07401f68-4576-4079-adc4-dd650f677fd3"),
-                PriceProduct = 1400000,
-                NameProduct = "Nike Air",
-                StockQuantity = 12,
-                NumberOfProductSold = 0,
-                NumberOfProductInStock = 12,
-                ImagesProduct = "[\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731433880/ugcuzwogxefgvn3cmaxv.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731433882/qea967cokcdtzqjkivux.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731433884/czcq9j9k1fhr810qa5ij.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731433885/ti9mfqkp8rtboqjxhmmp.jpg\"]",
-             *//*   Category=  new Category
-                {
-                    Id = 2,
-                    Name = "Nike"
-                },*//*
-                CategoryId = 2,
-                CreatedDate = new DateTime(2024, 11, 13),
-                Colors = new List<Color>
-                {
-                   new Color { Id = 12, Name = "Hồng Kem" },
-                }
-                ,
-                Sizes = new List<Size>
-                {
-                    new Size { Id = 4, NumberOfSize = "39" },
-                    new Size { Id = 5, NumberOfSize = "40" },
-                    new Size { Id = 6, NumberOfSize = "41" },
-                    new Size { Id = 7, NumberOfSize = "42" },
-                }},*/
+                }*/
+            },
+
+
             };
+
 
         }
     }
