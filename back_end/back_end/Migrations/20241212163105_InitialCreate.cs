@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace back_end.Migrations
 {
     /// <inheritdoc />
-    public partial class initalcreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -196,11 +196,19 @@ namespace back_end.Migrations
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     ProductId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     OrderId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    QuantityOrder = table.Column<int>(type: "int", nullable: false)
+                    QuantityOrder = table.Column<int>(type: "int", nullable: false),
+                    SizeId = table.Column<int>(type: "int", nullable: false),
+                    ColorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrderDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderDetails_Colors_ColorId",
+                        column: x => x.ColorId,
+                        principalTable: "Colors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OrderDetails_Orders_OrderId",
                         column: x => x.OrderId,
@@ -213,19 +221,85 @@ namespace back_end.Migrations
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderDetails_Sizes_SizeId",
+                        column: x => x.SizeId,
+                        principalTable: "Sizes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Adidas" },
+                    { 2, "Nike" },
+                    { 3, "Puma" },
+                    { 4, "Louis Vuitton" },
+                    { 5, "Jordan" },
+                    { 6, "Convert" },
+                    { 7, "Canvas" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Colors",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Xanh Navy" },
+                    { 2, "Trắng Kem" },
+                    { 3, "Xanh Rêu" },
+                    { 4, "Cam" },
+                    { 5, "Đen" },
+                    { 6, "Hồng" },
+                    { 7, "Nâu" },
+                    { 8, "Xanh Dương" },
+                    { 9, "Kem" },
+                    { 10, "Hồng Kem" },
+                    { 11, "Xanh Lá Cây" },
+                    { 12, "Xanh Dương" },
+                    { 13, "Xám" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Sizes",
+                columns: new[] { "Id", "NumberOfSize" },
+                values: new object[,]
+                {
+                    { 1, "36" },
+                    { 2, "37" },
+                    { 3, "38" },
+                    { 4, "39" },
+                    { 5, "40" },
+                    { 6, "41" },
+                    { 7, "42" },
+                    { 8, "43" },
+                    { 9, "44" },
+                    { 10, "45" },
+                    { 11, "46" },
+                    { 12, "47" },
+                    { 13, "48" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "Name", "Password", "Phone", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("217a76bd-a9ec-4e55-a16d-3296f93658a3"), "user456@gmail.com", null, "$2a$11$i0kaLiTwshn/3ugBVZkxj.c.LfshMMu2RoDoxycOo9r9PUgRxoNF2", null, "User" },
-                    { new Guid("8cb346ba-97b6-490a-ba3e-a458462f63cb"), "user789@gmail.com", null, "$2a$11$9OPZn2nvTLFCJDxkWTB2IOTOmn0LK/dnLQhzOllYSx3kYWeF6sU.e", null, "User" },
-                    { new Guid("9cab0d75-ce0c-43d2-af17-48b8b3c3a11f"), "user123@gmail.com", null, "$2a$11$SxHoacyOvQcxiYNCUCfibOzYxNkVrBH2DbA40ZnWA.gcXfbZzhoqW", null, "User" },
-                    { new Guid("ca2a6f23-cef9-4feb-9d7b-f97957007961"), "admin@minhstore.com", null, "$2a$11$v6P3zoNYZnf02BW.ATijgujF8zRFntfwCUB3eJdAEXy17Ri8ywc.u", null, "Admin" }
+                    { new Guid("77c7a0d1-ad2a-4ac6-9c2f-de5e3cabf9c3"), "admin@minhstore.com", null, "$2a$11$hZuClfgGn7tr4roqiSKIVu/3uttIVLesVOb/VlHW7J8uYBTQwCK4O", null, "Admin" },
+                    { new Guid("87eba36e-5ebd-4f6e-8f5f-af4d7a3334e7"), "user456@gmail.com", null, "$2a$11$jmjuPw/55GdmNQNaJq2ppOR0mTzJ9IYVKIS0.tGCOIAKaTRYmQAb.", null, "User" },
+                    { new Guid("b5e4b6f9-aecb-4e7b-80e1-854feea6e30f"), "user789@gmail.com", null, "$2a$11$7row6sE6MbkevGNOhvWCLeLQnj6gTT1CTzDNvVZqJH7EnoaldCBp.", null, "User" },
+                    { new Guid("db1fe48d-a519-4984-8125-cca4196c0be9"), "user123@gmail.com", null, "$2a$11$mNgAghZpp6NN4zPUn.GJJOpe3Fd7KyupH1D5MUY7B.ofGH/sDke7G", null, "User" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_ColorId",
+                table: "OrderDetails",
+                column: "ColorId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_OrderId",
@@ -236,6 +310,12 @@ namespace back_end.Migrations
                 name: "IX_OrderDetails_ProductId",
                 table: "OrderDetails",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_SizeId",
+                table: "OrderDetails",
+                column: "SizeId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",

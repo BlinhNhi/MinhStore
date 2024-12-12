@@ -16,9 +16,6 @@ function ProfileUser() {
     const dispatch = useDispatch();
     const [checked, setChecked] = useState(false);
     const id = userLogin?.id;
-    console.log(userLogin);
-    console.log(userLogin?.phone);
-
 
     const formik = useFormik({
         enableReinitialize: true,
@@ -45,7 +42,7 @@ function ProfileUser() {
         <div>
             <h3 className="font-semibold text-lg text-gray-600 dark:text-gray-300">Xin Chào {userLogin?.email}</h3>
             <p className="text-base text-gray-600 italic font-bold dark:text-gray-300 mb-2">Bạn có thể cập nhật thông tin của bạn tại đây!</p>
-            <div className="bg-gray-300 dark:bg-gray-100 px-4 py-10 rounded-md">
+            <div className="bg-gray-50 dark:bg-gray-100 px-4 py-10 rounded-md">
                 <Form
                     labelCol={{
                         span: 4,
@@ -56,32 +53,22 @@ function ProfileUser() {
                     layout="horizontal"
                     onSubmitCapture={formik.handleSubmit}
                 >
-                    <Form.Item
-                        label="Email"
-                    >
-                        <Input
-                            disabled
-                            className="text-dark"
-                            name="email"
-                            onChange={formik.handleChange}
-                            value={formik.values.email}
-                            placeholder="Email"
-                        />
-                    </Form.Item>
-
+                    <div className="mb-4">
+                        <h3 className="font-bold italic text-base text-gray-500">Email: {formik.values.email}</h3>
+                    </div>
                     <Form.Item
                         label="Tên"
-                    // style={{ minWidth: '100%' }}
+
                     >
                         <Input name="name" onChange={formik.handleChange} value={formik.values.name || ""} />
                     </Form.Item>
 
-                    <Form.Item label="Change password?">
+                    <Form.Item label="Đổi Mật Khẩu?">
                         <Checkbox checked={checked} onChange={onChangeCheck}></Checkbox>
                     </Form.Item>
                     {checked ? (
                         <Form.Item
-                            label="Password"
+                            label="Mật Khẩu"
                             rules={[
                                 {
                                     required: true,

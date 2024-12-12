@@ -181,7 +181,7 @@ function Header() {
                                     </ul>
                                 </div>
                                     : <div className="hidden sm:block md:block xl:block lg:block 2xl:block relative group cursor-pointer">
-                                        <div className="flex items-center justify-center gap-1 hover:text-gray-500 text-gray-700 dark:text-gray-100 dark:hover:text-gray-200">
+                                        <div className="flex items-center justify-center gap-1 hover:text-gray-400 text-gray-700 dark:text-gray-100 dark:hover:text-primary">
                                             <IoMdLogIn className="text-lg font-semibold" />
                                             <a className="text-base font-semibold cursor-pointer " href="/login">
                                                 Đăng Nhập

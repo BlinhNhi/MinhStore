@@ -68,8 +68,6 @@ namespace back_end.Services
             var ExistingUser = await db.Users.SingleOrDefaultAsync(b => b.Id == Id);
             if (ExistingUser != null)
             {
-
-
                 ExistingUser.Email = User.Email;
                 ExistingUser.Name = User.Name;
                 if (User.Password != null && User.Password != "null")

@@ -11,8 +11,8 @@ using back_end.Models;
 namespace back_end.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241112163804_inital-create")]
-    partial class initalcreate
+    [Migration("20241212163105_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,43 @@ namespace back_end.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Adidas"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Nike"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Puma"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Louis Vuitton"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Jordan"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Convert"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Canvas"
+                        });
                 });
 
             modelBuilder.Entity("back_end.Models.Color", b =>
@@ -50,6 +87,73 @@ namespace back_end.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Colors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Xanh Navy"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Trắng Kem"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Xanh Rêu"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Cam"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Đen"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Hồng"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Nâu"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Xanh Dương"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Kem"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Hồng Kem"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Xanh Lá Cây"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Xanh Dương"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Xám"
+                        });
                 });
 
             modelBuilder.Entity("back_end.Models.Order", b =>
@@ -80,6 +184,9 @@ namespace back_end.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<int>("ColorId")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("OrderId")
                         .HasColumnType("char(36)");
 
@@ -89,11 +196,20 @@ namespace back_end.Migrations
                     b.Property<int>("QuantityOrder")
                         .HasColumnType("int");
 
+                    b.Property<int>("SizeId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ColorId")
+                        .IsUnique();
 
                     b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("SizeId")
+                        .IsUnique();
 
                     b.ToTable("OrderDetails");
                 });
@@ -191,6 +307,73 @@ namespace back_end.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sizes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            NumberOfSize = "36"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            NumberOfSize = "37"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            NumberOfSize = "38"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            NumberOfSize = "39"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            NumberOfSize = "40"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            NumberOfSize = "41"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            NumberOfSize = "42"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            NumberOfSize = "43"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            NumberOfSize = "44"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            NumberOfSize = "45"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            NumberOfSize = "46"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            NumberOfSize = "47"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            NumberOfSize = "48"
+                        });
                 });
 
             modelBuilder.Entity("back_end.Models.User", b =>
@@ -223,30 +406,30 @@ namespace back_end.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ca2a6f23-cef9-4feb-9d7b-f97957007961"),
+                            Id = new Guid("77c7a0d1-ad2a-4ac6-9c2f-de5e3cabf9c3"),
                             Email = "admin@minhstore.com",
-                            Password = "$2a$11$v6P3zoNYZnf02BW.ATijgujF8zRFntfwCUB3eJdAEXy17Ri8ywc.u",
+                            Password = "$2a$11$hZuClfgGn7tr4roqiSKIVu/3uttIVLesVOb/VlHW7J8uYBTQwCK4O",
                             Role = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("9cab0d75-ce0c-43d2-af17-48b8b3c3a11f"),
+                            Id = new Guid("db1fe48d-a519-4984-8125-cca4196c0be9"),
                             Email = "user123@gmail.com",
-                            Password = "$2a$11$SxHoacyOvQcxiYNCUCfibOzYxNkVrBH2DbA40ZnWA.gcXfbZzhoqW",
+                            Password = "$2a$11$mNgAghZpp6NN4zPUn.GJJOpe3Fd7KyupH1D5MUY7B.ofGH/sDke7G",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("217a76bd-a9ec-4e55-a16d-3296f93658a3"),
+                            Id = new Guid("87eba36e-5ebd-4f6e-8f5f-af4d7a3334e7"),
                             Email = "user456@gmail.com",
-                            Password = "$2a$11$i0kaLiTwshn/3ugBVZkxj.c.LfshMMu2RoDoxycOo9r9PUgRxoNF2",
+                            Password = "$2a$11$jmjuPw/55GdmNQNaJq2ppOR0mTzJ9IYVKIS0.tGCOIAKaTRYmQAb.",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("8cb346ba-97b6-490a-ba3e-a458462f63cb"),
+                            Id = new Guid("b5e4b6f9-aecb-4e7b-80e1-854feea6e30f"),
                             Email = "user789@gmail.com",
-                            Password = "$2a$11$9OPZn2nvTLFCJDxkWTB2IOTOmn0LK/dnLQhzOllYSx3kYWeF6sU.e",
+                            Password = "$2a$11$7row6sE6MbkevGNOhvWCLeLQnj6gTT1CTzDNvVZqJH7EnoaldCBp.",
                             Role = "User"
                         });
                 });
@@ -264,6 +447,12 @@ namespace back_end.Migrations
 
             modelBuilder.Entity("back_end.Models.OrderDetail", b =>
                 {
+                    b.HasOne("back_end.Models.Color", "Color")
+                        .WithOne()
+                        .HasForeignKey("back_end.Models.OrderDetail", "ColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("back_end.Models.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
@@ -276,9 +465,19 @@ namespace back_end.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("back_end.Models.Size", "Size")
+                        .WithOne()
+                        .HasForeignKey("back_end.Models.OrderDetail", "SizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Color");
+
                     b.Navigation("Order");
 
                     b.Navigation("Product");
+
+                    b.Navigation("Size");
                 });
 
             modelBuilder.Entity("back_end.Models.Product", b =>
