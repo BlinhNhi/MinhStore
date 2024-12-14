@@ -9,6 +9,7 @@ export const loginAction = (loginInfo) => {
     return async (dispatch) => {
         try {
             dispatch(displayLoadingAction);
+            await new Promise(resolve => setTimeout(resolve, 2000));
             const result = await authService.login(loginInfo);
             if (result.status === 200) {
                 localStorage.setItem(TOKEN, result.data.data.accessToken);
@@ -45,8 +46,11 @@ export const loginAction = (loginInfo) => {
 };
 
 export const registerAction = (inforUser) => {
+
     console.log(inforUser);
     return async (dispatch) => {
+        dispatch(displayLoadingAction);
+        await new Promise(resolve => setTimeout(resolve, 2000));
         try {
             const result = await authService.register(inforUser);
             if (result.data.status === 200) {
@@ -59,7 +63,8 @@ export const registerAction = (inforUser) => {
                         </>
                     ),
                 });
-                // window.location.href = '/login';
+                await dispatch(hideLoadingAction);
+                window.location.href = '/login';
             } else {
                 notification.error({
                     closeIcon: true,
