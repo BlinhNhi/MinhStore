@@ -1,14 +1,11 @@
 import React, { Fragment } from 'react'
-import LoadingLogo from './LoadingLogo';
+import LoadingLogo from './LoadingLogo'
+import { useSelector } from 'react-redux'
 
-import { useDispatch, useSelector } from 'react-redux'
-// import { LoadingReducer } from './../../redux/reducers/LoadingReducer';
 
 export default function Loading(props) {
-
     const { isLoading } = useSelector(state => state.LoadingReducer);
-    const dispatch = useDispatch();
-    return (<Fragment className='dark:bg-gray-900'>
+    return (<Fragment >
         {isLoading ? <div style={{
             position: 'fixed',
             top: '0',
@@ -16,7 +13,6 @@ export default function Loading(props) {
             width: '100%',
             height: '100%',
             backgroundColor: '#fff',
-            // backgroundColor: 'rgba(0,0,0,0.5)',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',

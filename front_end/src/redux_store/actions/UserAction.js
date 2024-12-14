@@ -1,8 +1,6 @@
 import { notification } from 'antd';
-import { history } from '../../App';
 import { userService } from '../../service/UserService';
 import { GET_USER_DETAIL, GET_USER_LIST } from '../constants';
-import { useNavigate } from 'react-router-dom';
 
 
 
@@ -99,6 +97,7 @@ export const updateUserAction = (id, formData) => {
             <>Cập Nhật Người Dùng Thành Công</>
           ),
         });
+        window.location.href = '/system-account/my-account/';
       }
     } catch (error) {
       notification.error({

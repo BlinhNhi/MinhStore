@@ -50,7 +50,7 @@ export const registerAction = (inforUser) => {
     console.log(inforUser);
     return async (dispatch) => {
         dispatch(displayLoadingAction);
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         try {
             const result = await authService.register(inforUser);
             if (result.data.status === 200) {
@@ -75,6 +75,7 @@ export const registerAction = (inforUser) => {
                         </>
                     ),
                 });
+                await dispatch(hideLoadingAction);
             }
         } catch (error) {
             console.log(error);
@@ -87,6 +88,7 @@ export const registerAction = (inforUser) => {
                     </>
                 ),
             });
+            await dispatch(hideLoadingAction);
         }
     };
 };

@@ -6,38 +6,63 @@ import { updateUserAction } from "../../../redux_store/actions/UserAction";
 import { TOKEN } from "../../../utils/variable";
 
 function ProfileUser() {
-    let accessToken = {}
+    let accessToken = {};
     if (localStorage.getItem(TOKEN)) {
-        accessToken = localStorage.getItem(TOKEN)
+        accessToken = localStorage.getItem(TOKEN);
     } else {
         window.location.href = '/';
     }
-    let { userLogin } = useSelector(state => state.UserReducer);
+
+    let { userLogin } = useSelector((state) => state.UserReducer);
     const dispatch = useDispatch();
     const [checked, setChecked] = useState(false);
     const id = userLogin?.id;
 
+    const validate = (values) => {
+        const errors = {};
+        if (checked && (!values?.password || values?.password?.length < 10)) {
+            errors.password = "Mật khẩu phải lớn hơn 10 ký tự!";
+        }
+        if (values?.phone?.startsWith(' ') === true || values?.phone?.length < 10) {
+            errors.phone = "Điện thoại không được để trống và lớn hơn 10 ký tự!";
+        }
+        if (values?.name?.startsWith(' ') === true) {
+            errors.name = "Name cannot be blank!";
+        }
+        return errors;
+    };
+
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            name: userLogin?.name,
+            name: userLogin?.name || '',
             email: userLogin?.email,
             password: null,
-            phone: userLogin?.phone,
+            phone: userLogin?.phone || '',
             role: "User",
         },
+        validate,
         onSubmit: async (values) => {
-            let formData = new FormData();
-            for (let key in values) {
-                formData.append(key, values[key]);
+            if (!Object.keys(formik.errors).length) {
+                let formData = new FormData();
+                for (let key in values) {
+                    formData.append(key, values[key]);
+                }
+                console.table("formData", [...formData]);
+                userLogin && dispatch(updateUserAction(id, formData));
+            } else {
+                console.log("Validation failed:", formik.errors);
             }
-            console.table("formData", [...formData]);
-            userLogin && dispatch(updateUserAction(id, formData));
         },
-    })
+    });
+
     const onChangeCheck = (e) => {
         setChecked(e.target.checked);
     };
+
+    // Kiểm tra sự thay đổi giữa giá trị hiện tại và giá trị ban đầu
+    const hasChanges = JSON.stringify(formik.values) !== JSON.stringify(formik.initialValues);
+
     return (
         <div>
             <h3 className="font-semibold text-lg text-gray-600 dark:text-gray-300">Xin Chào {userLogin?.email}</h3>
@@ -58,50 +83,57 @@ function ProfileUser() {
                     </div>
                     <Form.Item
                         label="Tên"
-
+                        help={formik.touched.name && formik.errors.name}
+                        validateStatus={formik.touched.name && formik.errors.name ? "error" : ""}
                     >
-                        <Input name="name" onChange={formik.handleChange} value={formik.values.name || ""} />
+                        <Input
+                            name="name"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.name || ""}
+                        />
                     </Form.Item>
 
                     <Form.Item label="Đổi Mật Khẩu?">
                         <Checkbox checked={checked} onChange={onChangeCheck}></Checkbox>
                     </Form.Item>
-                    {checked ? (
+                    {checked && (
                         <Form.Item
                             label="Mật Khẩu"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Password  cannot be blank!",
-                                },
-                            ]}
+                            help={formik.touched.password && formik.errors.password}
+                            validateStatus={formik.touched.password && formik.errors.password ? "error" : ""}
                         >
                             <Input.Password
                                 name="password"
                                 onChange={formik.handleChange}
-                                value={formik.values.password}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.password || ""}
                                 placeholder="Password"
                             />
                         </Form.Item>
-                    ) : (
-                        ""
                     )}
 
                     <Form.Item
                         label="Điện Thoại"
-                        style={{ minWidth: '100%', padding: '2px' }}
+                        help={formik.touched.phone && formik.errors.phone}
+                        validateStatus={formik.touched.phone && formik.errors.phone ? "error" : ""}
                     >
-                        <Input name="phone" onChange={formik.handleChange} value={formik.values.phone || ""} />
+                        <Input
+                            name="phone"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.phone || ""}
+                        />
                     </Form.Item>
 
                     <Form.Item label="Action">
                         <Button
                             htmlType="submit"
-                            className="btn-primary bg-primary"
+                            className={`btn-primary bg-primary ${!hasChanges ? "disabled" : ""}`}
                             type="primary"
+                            disabled={!hasChanges} // Vô hiệu hóa nút nếu không có thay đổi
                         >
-                            {" "}
-                            Cập Nhật Tài Khoản{" "}
+                            Cập Nhật Tài Khoản
                         </Button>
                     </Form.Item>
                 </Form>
