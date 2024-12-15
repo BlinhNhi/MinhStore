@@ -4,7 +4,10 @@ import { FaHeart } from "react-icons/fa";
 import { IoFlash } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { registerAction, loginAction } from "../../../redux_store/actions/AuthAction";
+import GoogleLogin from "react-google-login";
+import axios from "axios";
 
+const clientId = "336363086999-7o2jcdenl44ugtajbvvo4ta6m00ffljv.apps.googleusercontent.com";
 function Login() {
     const [openLogin, setOpenLogin] = useState("flex");
     const [openRegister, setOpenRegister] = useState(false);
@@ -21,6 +24,25 @@ function Login() {
     };
     const onFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
+    };
+
+    const onSuccess = async (response) => {
+        try {
+            const res = await axios.post("https://localhost:7234/auth/signin-google", {
+                idToken: response.tokenId,
+            });
+            const { token } = res.data;
+            localStorage.setItem("authToken", token);
+            alert("Login successful!");
+        } catch (error) {
+            console.error(error);
+            alert("Login failed!");
+        }
+    };
+
+    const onFailure = (response) => {
+        console.error(response);
+        alert("Google Login failed!");
     };
 
     return (
@@ -197,6 +219,16 @@ function Login() {
                                                 <h1 className="text-base font-medium hover:underline hover:text-gray-500 md:text-base lg:text-base xl:text-lg 2xl:text-lg sm:text-base">
                                                     Quên Mật Khẩu?
                                                 </h1>
+                                            </div>
+                                            <div>
+                                                <h1>Google Login</h1>
+                                                <GoogleLogin
+                                                    clientId={clientId}
+                                                    buttonText="Login with Google"
+                                                    onSuccess={onSuccess}
+                                                    onFailure={onFailure}
+                                                    cookiePolicy={"single_host_origin"}
+                                                />
                                             </div>
                                         </div>
                                     </Form>

@@ -48,10 +48,9 @@ function ProfileUser() {
                 for (let key in values) {
                     formData.append(key, values[key]);
                 }
-                console.table("formData", [...formData]);
                 userLogin && dispatch(updateUserAction(id, formData));
             } else {
-                console.log("Validation failed:", formik.errors);
+                // console.log("Validation failed:", formik.errors);
             }
         },
     });
