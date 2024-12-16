@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IdentityModel.Tokens.Jwt;
 using back_end.IRepository;
 using back_end.Models;
 using back_end.ReponseData;
+using Google.Apis.Auth;
 using Microsoft.AspNetCore.Mvc;
 
 namespace back_end.Controllers
@@ -12,6 +14,7 @@ namespace back_end.Controllers
 	{
 
         private readonly IUserRepo repo;
+        private readonly IConfiguration _config;
 
         public UserController(IUserRepo repo)
         {
@@ -141,6 +144,36 @@ namespace back_end.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
+        [HttpPost("google")]
+        public async Task<IActionResult> GoogleLogin([FromBody] GoogleAuthRequest request)
+        {
+            var payload = await GoogleJsonWebSignature.ValidateAsync(request.IdToken);
+            if (payload == null)
+            {
+                return Unauthorized();
+            }
+
+            // Check if user exists in database by Email (no GoogleId field)
+            var user = await repo.GetUserByGoogleIdAsync(payload.Email);
+            if (user == null)
+            {
+                user = new User
+                {
+                    Email = payload.Email,
+                    Name = payload.Name,
+                };
+                await repo.AddUserAsync(user);
+            }
+
+            // Generate JWT Token
+            var token = repo.GetTokenUserByGoogleIdAsync(user.Id.ToString(), user.Email, _config["Jwt:SecretKey"]);
+            return Ok(new { token });
+        }
+    }
+    public class GoogleAuthRequest
+    {
+        public string IdToken { get; set; }
     }
 }
 
