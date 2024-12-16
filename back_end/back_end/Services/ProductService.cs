@@ -23,9 +23,9 @@ namespace back_end.Services
         public async Task<IEnumerable<Product>> GetAllProduct()
         {
             return await db.Products
-                .Include(p => p.Category) // Kết nối với Category
-                .Include(p => p.Colors) // Kết nối với Colors
-                .Include(p => p.Sizes) // Kết nối với Sizes
+                .Include(p => p.Category) 
+                .Include(p => p.Colors)
+                .Include(p => p.Sizes) 
                 .Select(p => new Product()
                 {
                     Id = p.Id,
@@ -36,11 +36,9 @@ namespace back_end.Services
                     NumberOfProductInStock = p.NumberOfProductInStock,
                     ImagesProduct = p.ImagesProduct,
                     CreatedDate = p.CreatedDate,
-                   /* ColorId = p.ColorId,*/
-                    Colors = p.Colors, // Lấy Colors liên kết
-                  /*  SizeId = p.SizeId,*/
-                    Sizes = p.Sizes, // Lấy Sizes liên kết
-                    Category = new Category() // Gán Category
+                    Colors = p.Colors, 
+                    Sizes = p.Sizes,
+                    Category = new Category() 
                     {
                         Id = p.Category.Id,
                         Name = p.Category.Name,
@@ -58,7 +56,6 @@ namespace back_end.Services
                 product.Category = category;
                 await db.Products.AddAsync(product);
                 await db.SaveChangesAsync();
-
                 if (product.ColorId != null)
                 {
                     List<string> list = product.ColorId.Split(",").ToList();

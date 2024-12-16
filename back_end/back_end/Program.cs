@@ -36,6 +36,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
 })
+    ;
+
 
 builder.Services.AddScoped<IProductRepo, ProductService>();
 builder.Services.AddScoped<ICategoryRepo, CategoryService>();
@@ -43,7 +45,7 @@ builder.Services.AddScoped<IColorRepo, ColorService>();
 builder.Services.AddScoped<ISizeRepo, SizeService>();
 builder.Services.AddScoped<IUserRepo, UserService>();
 builder.Services.AddScoped<ISendMail, SendMailService>();
-/*builder.Services.AddScoped<IOrderRepo, OrderService>();*/
+builder.Services.AddScoped<IOrderRepo, OrderService>();
 
 builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));
 //fix lỗi json bị vòng lặp 
