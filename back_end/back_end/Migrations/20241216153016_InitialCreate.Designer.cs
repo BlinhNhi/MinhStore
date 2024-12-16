@@ -11,7 +11,7 @@ using back_end.Models;
 namespace back_end.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241213162759_InitialCreate")]
+    [Migration("20241216153016_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -21,6 +21,21 @@ namespace back_end.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("OrderProduct", b =>
+                {
+                    b.Property<Guid>("OrdersId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ProductsId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("OrdersId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("OrderProduct");
+                });
 
             modelBuilder.Entity("back_end.Models.Category", b =>
                 {
@@ -162,33 +177,11 @@ namespace back_end.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("TotalAmount")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("back_end.Models.OrderDetail", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
                     b.Property<int>("ColorId")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("char(36)");
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("char(36)");
@@ -199,19 +192,39 @@ namespace back_end.Migrations
                     b.Property<int>("SizeId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TotalAmount")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ColorId")
                         .IsUnique();
 
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
                     b.HasIndex("SizeId")
                         .IsUnique();
 
-                    b.ToTable("OrderDetails");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("back_end.Models.OrderProduct", b =>
+                {
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("ProductId", "OrderId");
+
+                    b.ToTable("OrderProducts");
                 });
 
             modelBuilder.Entity("back_end.Models.Product", b =>
@@ -1552,6 +1565,9 @@ namespace back_end.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("GoogleId")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
@@ -1572,78 +1588,74 @@ namespace back_end.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4360a9ac-930a-4693-b170-1eabf4c401f0"),
+                            Id = new Guid("9f42452b-2a0f-422f-a050-230fd3eeee1e"),
                             Email = "admin@minhstore.com",
-                            Password = "$2a$11$Ulmogw08n0/i/pyIYIRVEOrhuL1JAZTUH4XCqrH.Kx8HfoQkwKHBu",
+                            Password = "$2a$11$qN0B4CBfw6bb2O2WuCHZa.1TCDf/ox0NWTgLLlUXO6ou/R1NueIPO",
                             Role = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("a1ebcfdd-647a-4c46-a440-c645f2a7eb95"),
+                            Id = new Guid("071e87cc-a1b6-42c5-adaa-d38e9ea92d45"),
                             Email = "user123@gmail.com",
-                            Password = "$2a$11$0hnzuDejGeoQGW5tWDeuRemu7klaDfuP2BwIWDia/.oREjfWPc1EC",
+                            Password = "$2a$11$t57uZ4BTqkoyZyz23PKmeeMzMo92gN6pdF7eIC2U4JJl66f.ZgAsO",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("adf69c24-f60a-4694-9e2e-5b22f516f58d"),
+                            Id = new Guid("ac2f5a4f-a7c0-4eb5-9874-3e74aee47207"),
                             Email = "user456@gmail.com",
-                            Password = "$2a$11$oUUhZtemM/.Sxwz.fweTDujO/m9z/DsXm0ltj8MaC0s4B5GBuWasC",
+                            Password = "$2a$11$PHw6QZ7q7ZVN0y.gHGB8fOM0q3KSWQD130FT/3aPck3pICyjbTUXy",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("26bf0b59-ba19-4795-8d3c-db3d8016fc9f"),
+                            Id = new Guid("f5d0d64b-b8a9-4bc5-ae80-8315a501058f"),
                             Email = "user789@gmail.com",
-                            Password = "$2a$11$Jliuy93xyRoxiDhE/cUnTeKhes54s3z8NeaP7FA9pu1oMP6aYdmQW",
+                            Password = "$2a$11$gkx1p/5W.jZSZQow5JlwgeIfDfvPYNQtYokO7URIfVXH.0ZhttUaW",
                             Role = "User"
                         });
                 });
 
+            modelBuilder.Entity("OrderProduct", b =>
+                {
+                    b.HasOne("back_end.Models.Order", null)
+                        .WithMany()
+                        .HasForeignKey("OrdersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("back_end.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("back_end.Models.Order", b =>
                 {
+                    b.HasOne("back_end.Models.Color", "Color")
+                        .WithOne()
+                        .HasForeignKey("back_end.Models.Order", "ColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("back_end.Models.Size", "Size")
+                        .WithOne()
+                        .HasForeignKey("back_end.Models.Order", "SizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("back_end.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("back_end.Models.OrderDetail", b =>
-                {
-                    b.HasOne("back_end.Models.Color", "Color")
-                        .WithOne()
-                        .HasForeignKey("back_end.Models.OrderDetail", "ColorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("back_end.Models.Order", "Order")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("back_end.Models.Product", "Product")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("back_end.Models.Size", "Size")
-                        .WithOne()
-                        .HasForeignKey("back_end.Models.OrderDetail", "SizeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Color");
 
-                    b.Navigation("Order");
-
-                    b.Navigation("Product");
-
                     b.Navigation("Size");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("back_end.Models.Product", b =>
@@ -1690,16 +1702,6 @@ namespace back_end.Migrations
             modelBuilder.Entity("back_end.Models.Category", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("back_end.Models.Order", b =>
-                {
-                    b.Navigation("OrderDetails");
-                });
-
-            modelBuilder.Entity("back_end.Models.Product", b =>
-                {
-                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("back_end.Models.User", b =>

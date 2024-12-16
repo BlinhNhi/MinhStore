@@ -48,6 +48,20 @@ namespace back_end.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "OrderProducts",
+                columns: table => new
+                {
+                    ProductId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    OrderId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderProducts", x => new { x.ProductId, x.OrderId });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Sizes",
                 columns: table => new
                 {
@@ -67,6 +81,8 @@ namespace back_end.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    GoogleId = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Name = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Email = table.Column<string>(type: "longtext", nullable: false)
@@ -122,12 +138,28 @@ namespace back_end.Migrations
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     UserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ProductId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    QuantityOrder = table.Column<int>(type: "int", nullable: false),
                     TotalAmount = table.Column<int>(type: "int", nullable: false),
+                    SizeId = table.Column<int>(type: "int", nullable: false),
+                    ColorId = table.Column<int>(type: "int", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Colors_ColorId",
+                        column: x => x.ColorId,
+                        principalTable: "Colors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_Sizes_SizeId",
+                        column: x => x.SizeId,
+                        principalTable: "Sizes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Orders_Users_UserId",
                         column: x => x.UserId,
@@ -190,41 +222,25 @@ namespace back_end.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "OrderDetails",
+                name: "OrderProduct",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    ProductId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    OrderId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    QuantityOrder = table.Column<int>(type: "int", nullable: false),
-                    SizeId = table.Column<int>(type: "int", nullable: false),
-                    ColorId = table.Column<int>(type: "int", nullable: false)
+                    OrdersId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ProductsId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderDetails", x => x.Id);
+                    table.PrimaryKey("PK_OrderProduct", x => new { x.OrdersId, x.ProductsId });
                     table.ForeignKey(
-                        name: "FK_OrderDetails_Colors_ColorId",
-                        column: x => x.ColorId,
-                        principalTable: "Colors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OrderDetails_Orders_OrderId",
-                        column: x => x.OrderId,
+                        name: "FK_OrderProduct_Orders_OrdersId",
+                        column: x => x.OrdersId,
                         principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderDetails_Products_ProductId",
-                        column: x => x.ProductId,
+                        name: "FK_OrderProduct_Products_ProductsId",
+                        column: x => x.ProductsId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OrderDetails_Sizes_SizeId",
-                        column: x => x.SizeId,
-                        principalTable: "Sizes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -286,13 +302,13 @@ namespace back_end.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Email", "Name", "Password", "Phone", "Role" },
+                columns: new[] { "Id", "Email", "GoogleId", "Name", "Password", "Phone", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("26bf0b59-ba19-4795-8d3c-db3d8016fc9f"), "user789@gmail.com", null, "$2a$11$Jliuy93xyRoxiDhE/cUnTeKhes54s3z8NeaP7FA9pu1oMP6aYdmQW", null, "User" },
-                    { new Guid("4360a9ac-930a-4693-b170-1eabf4c401f0"), "admin@minhstore.com", null, "$2a$11$Ulmogw08n0/i/pyIYIRVEOrhuL1JAZTUH4XCqrH.Kx8HfoQkwKHBu", null, "Admin" },
-                    { new Guid("a1ebcfdd-647a-4c46-a440-c645f2a7eb95"), "user123@gmail.com", null, "$2a$11$0hnzuDejGeoQGW5tWDeuRemu7klaDfuP2BwIWDia/.oREjfWPc1EC", null, "User" },
-                    { new Guid("adf69c24-f60a-4694-9e2e-5b22f516f58d"), "user456@gmail.com", null, "$2a$11$oUUhZtemM/.Sxwz.fweTDujO/m9z/DsXm0ltj8MaC0s4B5GBuWasC", null, "User" }
+                    { new Guid("071e87cc-a1b6-42c5-adaa-d38e9ea92d45"), "user123@gmail.com", null, null, "$2a$11$t57uZ4BTqkoyZyz23PKmeeMzMo92gN6pdF7eIC2U4JJl66f.ZgAsO", null, "User" },
+                    { new Guid("9f42452b-2a0f-422f-a050-230fd3eeee1e"), "admin@minhstore.com", null, null, "$2a$11$qN0B4CBfw6bb2O2WuCHZa.1TCDf/ox0NWTgLLlUXO6ou/R1NueIPO", null, "Admin" },
+                    { new Guid("ac2f5a4f-a7c0-4eb5-9874-3e74aee47207"), "user456@gmail.com", null, null, "$2a$11$PHw6QZ7q7ZVN0y.gHGB8fOM0q3KSWQD130FT/3aPck3pICyjbTUXy", null, "User" },
+                    { new Guid("f5d0d64b-b8a9-4bc5-ae80-8315a501058f"), "user789@gmail.com", null, null, "$2a$11$gkx1p/5W.jZSZQow5JlwgeIfDfvPYNQtYokO7URIfVXH.0ZhttUaW", null, "User" }
                 });
 
             migrationBuilder.InsertData(
@@ -485,24 +501,19 @@ namespace back_end.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderDetails_ColorId",
-                table: "OrderDetails",
+                name: "IX_OrderProduct_ProductsId",
+                table: "OrderProduct",
+                column: "ProductsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_ColorId",
+                table: "Orders",
                 column: "ColorId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderDetails_OrderId",
-                table: "OrderDetails",
-                column: "OrderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderDetails_ProductId",
-                table: "OrderDetails",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderDetails_SizeId",
-                table: "OrderDetails",
+                name: "IX_Orders_SizeId",
+                table: "Orders",
                 column: "SizeId",
                 unique: true);
 
@@ -531,7 +542,10 @@ namespace back_end.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OrderDetails");
+                name: "OrderProduct");
+
+            migrationBuilder.DropTable(
+                name: "OrderProducts");
 
             migrationBuilder.DropTable(
                 name: "ProductColors");
@@ -543,10 +557,10 @@ namespace back_end.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Colors");
+                name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Colors");
 
             migrationBuilder.DropTable(
                 name: "Sizes");

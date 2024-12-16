@@ -14,11 +14,11 @@
         public string? SizeId { get; set; }
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
-        public DateTime ? CreatedDate { get; set; }
         public ICollection<Color>? Colors { get; set; }
         public ICollection<Size>? Sizes { get; set; }
-        public ICollection<Order>? Order { get; set; }
+        public ICollection<Order>? Orders { get; set; }
 
+        public DateTime ? CreatedDate { get; set; }
 
         /*   public DateTime CreatedAt
            { get; set; }

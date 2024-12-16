@@ -10,10 +10,11 @@
         public int SizeId { get; set; }
         public int ColorId { get; set; }
         public User ?User { get; set; }
-        public Product? Product { get; set; }
         public Size? Size { get; set; }
         public Color? Color { get; set; }
         public DateTime OrderDate { get; set; }
+        public ICollection<Product>? Products { get; set; }
+
         public Order()
         {
             Id = Guid.NewGuid();

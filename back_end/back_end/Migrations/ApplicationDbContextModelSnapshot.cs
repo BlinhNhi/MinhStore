@@ -19,6 +19,21 @@ namespace back_end.Migrations
                 .HasAnnotation("ProductVersion", "7.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("OrderProduct", b =>
+                {
+                    b.Property<Guid>("OrdersId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ProductsId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("OrdersId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("OrderProduct");
+                });
+
             modelBuilder.Entity("back_end.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -159,33 +174,11 @@ namespace back_end.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("TotalAmount")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("back_end.Models.OrderDetail", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
                     b.Property<int>("ColorId")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("char(36)");
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("char(36)");
@@ -196,19 +189,39 @@ namespace back_end.Migrations
                     b.Property<int>("SizeId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TotalAmount")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ColorId")
                         .IsUnique();
 
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
                     b.HasIndex("SizeId")
                         .IsUnique();
 
-                    b.ToTable("OrderDetails");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("back_end.Models.OrderProduct", b =>
+                {
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("ProductId", "OrderId");
+
+                    b.ToTable("OrderProducts");
                 });
 
             modelBuilder.Entity("back_end.Models.Product", b =>
@@ -324,6 +337,202 @@ namespace back_end.Migrations
                             PriceProduct = 500000.0,
                             SizeId = "2,3,5,6,7",
                             StockQuantity = 5
+                        },
+                        new
+                        {
+                            Id = new Guid("55b9e08d-d622-47ea-b341-bad40def946d"),
+                            CategoryId = 3,
+                            ColorId = "4,5",
+                            CreatedDate = new DateTime(2024, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImagesProduct = "[\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731432710/wnfwakudnx1gkxrawfmb.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731432711/zh56cwiejbrvoufhlbp0.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731432713/nhngkgrsxjeydde3e2dg.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731432715/xsbpiwnbq8wvu3bv9fz5.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731432717/i9x1vhosn0iahsjxvxf5.jpg\"]",
+                            NameProduct = "Puma Palermo",
+                            NumberOfProductInStock = 22,
+                            NumberOfProductSold = 0,
+                            PriceProduct = 800000.0,
+                            SizeId = "1,2,3,4,5",
+                            StockQuantity = 22
+                        },
+                        new
+                        {
+                            Id = new Guid("6c8e2d97-0c60-4812-acd8-868a1affbd73"),
+                            CategoryId = 5,
+                            ColorId = "3,5,9",
+                            CreatedDate = new DateTime(2024, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImagesProduct = "[\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731430487/baxfbq5wxh73ba8ksfaz.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731430488/p8uyela927w1rrag5daz.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731430490/bweeimljvsq9nahitxdj.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731430492/yup6bo5wwq7upacek42g.jpg\"]",
+                            NameProduct = "Air Jodan 1 Low",
+                            NumberOfProductInStock = 10,
+                            NumberOfProductSold = 0,
+                            PriceProduct = 2000000.0,
+                            SizeId = "1,2,3,5,6,7,10,11",
+                            StockQuantity = 10
+                        },
+                        new
+                        {
+                            Id = new Guid("71b39c26-230a-4331-a448-c6144cf99e7f"),
+                            CategoryId = 7,
+                            ColorId = "5,8",
+                            CreatedDate = new DateTime(2024, 11, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImagesProduct = "[\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731944435/wjw8p7zrnentqxyxpg7i.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731944437/grp1bkdb355a7mjaewpo.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731944439/ktzhplublfk8ffwu7qlm.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731944441/wurk5wzjg6txhhi6c2cu.jpg\"]",
+                            NameProduct = "Canvas Dior",
+                            NumberOfProductInStock = 12,
+                            NumberOfProductSold = 0,
+                            PriceProduct = 650000.0,
+                            SizeId = "1,2,3,4,5",
+                            StockQuantity = 12
+                        },
+                        new
+                        {
+                            Id = new Guid("7cd6924c-8938-4530-857a-3055efb9311a"),
+                            CategoryId = 2,
+                            ColorId = "8",
+                            CreatedDate = new DateTime(2024, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImagesProduct = "[\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731434187/bvmbamq8i5jnyzlex4ok.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731434188/gvs9u9nphocrymduzsch.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731434190/i2g85hhfhhmqjnujinjh.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731434191/vhwwqb6hbnjih1cvwhmk.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731434193/vpvobcuxnroxjdvnoozw.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731434195/lytavcwpf1ndsvbhz5fg.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731434197/asfqgrn7bvcuhbyxwksx.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731434240/bw6u7pr8qprgpygn1clw.jpg\"]",
+                            NameProduct = "Nike Ambush",
+                            NumberOfProductInStock = 10,
+                            NumberOfProductSold = 0,
+                            PriceProduct = 550000.0,
+                            SizeId = "3,4,5",
+                            StockQuantity = 10
+                        },
+                        new
+                        {
+                            Id = new Guid("89dafb16-28e7-4fa9-b66d-ca8b944db261"),
+                            CategoryId = 1,
+                            ColorId = "5,8,9",
+                            CreatedDate = new DateTime(2024, 11, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImagesProduct = "[\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943617/qp9lbv7hikc1b8etjmfd.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943619/rmpc1cpv0obz10qya9e5.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943620/nugy6nrxnyd53cisoqu9.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943622/kuu0ouojbl2s86xrej4z.jpg\"]",
+                            NameProduct = "Das Forum",
+                            NumberOfProductInStock = 1,
+                            NumberOfProductSold = 10,
+                            PriceProduct = 500000.0,
+                            SizeId = "1,2,3,4,5",
+                            StockQuantity = 11
+                        },
+                        new
+                        {
+                            Id = new Guid("8cb945b1-c6ab-4237-8501-0e05f4e6aa83"),
+                            CategoryId = 1,
+                            ColorId = "1,8",
+                            CreatedDate = new DateTime(2024, 11, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImagesProduct = "[\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943316/mg7okl4p0ho3flf0aij6.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943318/bevh62cqkbfvfefy3yiw.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943319/klg1sjqmwexksgdjm2rc.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943320/liqkku5o3jet5r6r9i10.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943322/hpynvffgljkon1y94def.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943324/p8gpocvxi2pedr5wqf8t.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943326/zihadouejlkzy6zq933t.jpg\"]",
+                            NameProduct = "Adidas Alpha",
+                            NumberOfProductInStock = 11,
+                            NumberOfProductSold = 1,
+                            PriceProduct = 650000.0,
+                            SizeId = "1,2,3,4,5,6,7,8,9,10",
+                            StockQuantity = 12
+                        },
+                        new
+                        {
+                            Id = new Guid("b03034a9-9058-4a83-b146-92ba1a217c83"),
+                            CategoryId = 2,
+                            ColorId = "8",
+                            CreatedDate = new DateTime(2024, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImagesProduct = "[\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731433416/njmytm96ofmcy3m5diz1.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731433418/jcdo0d7nt2cgcwut2p1v.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731433419/v1efwnk2o4rdiebsmfbl.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731433421/xgsybb6tqnyh3pkdisgr.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731433424/mwf1uazdpmrqdkgleyqc.jpg\"]",
+                            NameProduct = "Nike Air",
+                            NumberOfProductInStock = 1,
+                            NumberOfProductSold = 10,
+                            PriceProduct = 450000.0,
+                            SizeId = "4,5,6,7",
+                            StockQuantity = 11
+                        },
+                        new
+                        {
+                            Id = new Guid("b5ac0163-7d9d-43b4-a980-44e42e4999ed"),
+                            CategoryId = 4,
+                            ColorId = "2,8",
+                            CreatedDate = new DateTime(2024, 11, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImagesProduct = "[\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731432512/tdvin5qdfzkxuvfrssf0.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731432512/bdrxvn72husd3aitwo3l.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731432515/ped6cv3hdhhz9dhvlcph.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731432518/mslkogbmji0tf1tb8fmh.jpg\"]",
+                            NameProduct = "Louis Vuitton",
+                            NumberOfProductInStock = 12,
+                            NumberOfProductSold = 0,
+                            PriceProduct = 600000.0,
+                            SizeId = "1,2,3,4,5",
+                            StockQuantity = 12
+                        },
+                        new
+                        {
+                            Id = new Guid("bb1da4ee-31df-4fb6-916a-1548acfdc111"),
+                            CategoryId = 1,
+                            ColorId = "8",
+                            CreatedDate = new DateTime(2024, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImagesProduct = "[\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731431053/eiymsdxcr6xmzsctyxsl.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731431054/nbkwevvk843qi1is2d1l.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731431057/oxhxqy6xjeijaeznmwfb.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731431060/bdziz0fqjqpp5v0wuehv.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731431061/dfnbpiiaht0czzvhkwgs.jpg\"]",
+                            NameProduct = "Adidas Samba",
+                            NumberOfProductInStock = 3,
+                            NumberOfProductSold = 0,
+                            PriceProduct = 3000000.0,
+                            SizeId = "1,2,3,4,5,6,7,8",
+                            StockQuantity = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("ccfde94d-62dc-4ec7-8538-c800e00c280d"),
+                            CategoryId = 7,
+                            ColorId = "5,8",
+                            CreatedDate = new DateTime(2024, 11, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImagesProduct = "[\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731944435/wjw8p7zrnentqxyxpg7i.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731944437/grp1bkdb355a7mjaewpo.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731944439/ktzhplublfk8ffwu7qlm.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731944441/wurk5wzjg6txhhi6c2cu.jpg\"]",
+                            NameProduct = "Canvas Dior",
+                            NumberOfProductInStock = 12,
+                            NumberOfProductSold = 0,
+                            PriceProduct = 650000.0,
+                            SizeId = "1,2,3,4,5",
+                            StockQuantity = 12
+                        },
+                        new
+                        {
+                            Id = new Guid("d3c4f6cf-a03c-4c1f-bc4b-52f2d1aaf228"),
+                            CategoryId = 1,
+                            ColorId = "1,3,8",
+                            CreatedDate = new DateTime(2024, 11, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImagesProduct = "[\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731858657/zllbwaptnt7fuiinusdf.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731858660/kw4egljw50a3yszyfapq.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731858665/al7iyu25mil7hba14lzh.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731858672/upwl5awzbyxqv86dwltc.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731858681/qldlsqaimfegakativxn.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731858697/o8vi7c0g2eaagmabfjfr.jpg\"]",
+                            NameProduct = "Adidas Samba",
+                            NumberOfProductInStock = 12,
+                            NumberOfProductSold = 0,
+                            PriceProduct = 10000000.0,
+                            SizeId = "4,5,6,7,8",
+                            StockQuantity = 12
+                        },
+                        new
+                        {
+                            Id = new Guid("ecc825cb-9cce-4597-9369-a9e543700d26"),
+                            CategoryId = 1,
+                            ColorId = "5,8",
+                            CreatedDate = new DateTime(2024, 11, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImagesProduct = "[\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943980/favoyvs9rulabglyk0iu.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943981/tcdiqa1jxy5js6fbyph7.jpg\"]",
+                            NameProduct = "Adidas SupperStar",
+                            NumberOfProductInStock = 1,
+                            NumberOfProductSold = 9,
+                            PriceProduct = 2000000.0,
+                            SizeId = "1,2,3,4,5",
+                            StockQuantity = 10
+                        },
+                        new
+                        {
+                            Id = new Guid("e0f75a82-e1f0-40de-bd43-57ce0c1d52b7"),
+                            CategoryId = 1,
+                            ColorId = "7,8",
+                            CreatedDate = new DateTime(2024, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImagesProduct = "[\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731433697/b5vuk9pvjvipb5ibdbyn.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731433698/xliqlbzhzfjggfbszlr4.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731433700/cdpbqpd5pgq5yhux5ygb.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731433703/zwpiuvpwewdzppnzl5zc.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731433706/mlintliclffz7aju8ppv.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731433707/bdpgu7gnwbt5awn3e8wm.jpg\"]",
+                            NameProduct = "Adidas Samba",
+                            NumberOfProductInStock = 3,
+                            NumberOfProductSold = 0,
+                            PriceProduct = 4000000.0,
+                            SizeId = "1,2,3,4,5,6,7",
+                            StockQuantity = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("c76f49c6-01dc-437d-a9a6-7c90c4e03b48"),
+                            CategoryId = 2,
+                            ColorId = "5,6,8,9,11",
+                            CreatedDate = new DateTime(2024, 11, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImagesProduct = "[\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943872/np2qxwmdrayheja2wmpu.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943873/qtgu1pj3608iqlbouwe2.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943875/bneqbpyl1zh8ybq4jvwe.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943876/nwwcqwy50u2j7nzz1muq.jpg\",\"https://res.cloudinary.com/dsxrhkdnh/image/upload/v1731943878/o2yslhhho8jfxfjivu2x.jpg\"]",
+                            NameProduct = "Nike Dunk Disrupt",
+                            NumberOfProductInStock = 1,
+                            NumberOfProductSold = 11,
+                            PriceProduct = 545000.0,
+                            SizeId = "1,2,3,4,5,6",
+                            StockQuantity = 12
                         });
                 });
 
@@ -416,6 +625,192 @@ namespace back_end.Migrations
                             ColorId = 8,
                             ProductId = new Guid("52623100-c0e1-460a-9bca-5dfe2592f9cf"),
                             Id = 12
+                        },
+                        new
+                        {
+                            ColorId = 4,
+                            ProductId = new Guid("55b9e08d-d622-47ea-b341-bad40def946d"),
+                            Id = 13
+                        },
+                        new
+                        {
+                            ColorId = 5,
+                            ProductId = new Guid("55b9e08d-d622-47ea-b341-bad40def946d"),
+                            Id = 14
+                        },
+                        new
+                        {
+                            ColorId = 3,
+                            ProductId = new Guid("6c8e2d97-0c60-4812-acd8-868a1affbd73"),
+                            Id = 15
+                        },
+                        new
+                        {
+                            ColorId = 5,
+                            ProductId = new Guid("6c8e2d97-0c60-4812-acd8-868a1affbd73"),
+                            Id = 16
+                        },
+                        new
+                        {
+                            ColorId = 9,
+                            ProductId = new Guid("6c8e2d97-0c60-4812-acd8-868a1affbd73"),
+                            Id = 17
+                        },
+                        new
+                        {
+                            ColorId = 5,
+                            ProductId = new Guid("71b39c26-230a-4331-a448-c6144cf99e7f"),
+                            Id = 18
+                        },
+                        new
+                        {
+                            ColorId = 8,
+                            ProductId = new Guid("71b39c26-230a-4331-a448-c6144cf99e7f"),
+                            Id = 19
+                        },
+                        new
+                        {
+                            ColorId = 8,
+                            ProductId = new Guid("7cd6924c-8938-4530-857a-3055efb9311a"),
+                            Id = 20
+                        },
+                        new
+                        {
+                            ColorId = 8,
+                            ProductId = new Guid("89dafb16-28e7-4fa9-b66d-ca8b944db261"),
+                            Id = 21
+                        },
+                        new
+                        {
+                            ColorId = 5,
+                            ProductId = new Guid("89dafb16-28e7-4fa9-b66d-ca8b944db261"),
+                            Id = 22
+                        },
+                        new
+                        {
+                            ColorId = 9,
+                            ProductId = new Guid("89dafb16-28e7-4fa9-b66d-ca8b944db261"),
+                            Id = 23
+                        },
+                        new
+                        {
+                            ColorId = 1,
+                            ProductId = new Guid("8cb945b1-c6ab-4237-8501-0e05f4e6aa83"),
+                            Id = 24
+                        },
+                        new
+                        {
+                            ColorId = 8,
+                            ProductId = new Guid("8cb945b1-c6ab-4237-8501-0e05f4e6aa83"),
+                            Id = 25
+                        },
+                        new
+                        {
+                            ColorId = 8,
+                            ProductId = new Guid("b03034a9-9058-4a83-b146-92ba1a217c83"),
+                            Id = 26
+                        },
+                        new
+                        {
+                            ColorId = 2,
+                            ProductId = new Guid("b5ac0163-7d9d-43b4-a980-44e42e4999ed"),
+                            Id = 27
+                        },
+                        new
+                        {
+                            ColorId = 8,
+                            ProductId = new Guid("b5ac0163-7d9d-43b4-a980-44e42e4999ed"),
+                            Id = 28
+                        },
+                        new
+                        {
+                            ColorId = 8,
+                            ProductId = new Guid("bb1da4ee-31df-4fb6-916a-1548acfdc111"),
+                            Id = 29
+                        },
+                        new
+                        {
+                            ColorId = 5,
+                            ProductId = new Guid("ccfde94d-62dc-4ec7-8538-c800e00c280d"),
+                            Id = 30
+                        },
+                        new
+                        {
+                            ColorId = 8,
+                            ProductId = new Guid("ccfde94d-62dc-4ec7-8538-c800e00c280d"),
+                            Id = 31
+                        },
+                        new
+                        {
+                            ColorId = 8,
+                            ProductId = new Guid("d3c4f6cf-a03c-4c1f-bc4b-52f2d1aaf228"),
+                            Id = 32
+                        },
+                        new
+                        {
+                            ColorId = 1,
+                            ProductId = new Guid("d3c4f6cf-a03c-4c1f-bc4b-52f2d1aaf228"),
+                            Id = 33
+                        },
+                        new
+                        {
+                            ColorId = 3,
+                            ProductId = new Guid("d3c4f6cf-a03c-4c1f-bc4b-52f2d1aaf228"),
+                            Id = 34
+                        },
+                        new
+                        {
+                            ColorId = 5,
+                            ProductId = new Guid("ecc825cb-9cce-4597-9369-a9e543700d26"),
+                            Id = 35
+                        },
+                        new
+                        {
+                            ColorId = 8,
+                            ProductId = new Guid("ecc825cb-9cce-4597-9369-a9e543700d26"),
+                            Id = 36
+                        },
+                        new
+                        {
+                            ColorId = 7,
+                            ProductId = new Guid("e0f75a82-e1f0-40de-bd43-57ce0c1d52b7"),
+                            Id = 37
+                        },
+                        new
+                        {
+                            ColorId = 8,
+                            ProductId = new Guid("e0f75a82-e1f0-40de-bd43-57ce0c1d52b7"),
+                            Id = 38
+                        },
+                        new
+                        {
+                            ColorId = 5,
+                            ProductId = new Guid("c76f49c6-01dc-437d-a9a6-7c90c4e03b48"),
+                            Id = 39
+                        },
+                        new
+                        {
+                            ColorId = 6,
+                            ProductId = new Guid("c76f49c6-01dc-437d-a9a6-7c90c4e03b48"),
+                            Id = 40
+                        },
+                        new
+                        {
+                            ColorId = 8,
+                            ProductId = new Guid("c76f49c6-01dc-437d-a9a6-7c90c4e03b48"),
+                            Id = 41
+                        },
+                        new
+                        {
+                            ColorId = 9,
+                            ProductId = new Guid("c76f49c6-01dc-437d-a9a6-7c90c4e03b48"),
+                            Id = 42
+                        },
+                        new
+                        {
+                            ColorId = 11,
+                            ProductId = new Guid("c76f49c6-01dc-437d-a9a6-7c90c4e03b48"),
+                            Id = 43
                         });
                 });
 
@@ -580,6 +975,498 @@ namespace back_end.Migrations
                             SizeId = 7,
                             ProductId = new Guid("52623100-c0e1-460a-9bca-5dfe2592f9cf"),
                             Id = 24
+                        },
+                        new
+                        {
+                            SizeId = 1,
+                            ProductId = new Guid("55b9e08d-d622-47ea-b341-bad40def946d"),
+                            Id = 25
+                        },
+                        new
+                        {
+                            SizeId = 2,
+                            ProductId = new Guid("55b9e08d-d622-47ea-b341-bad40def946d"),
+                            Id = 26
+                        },
+                        new
+                        {
+                            SizeId = 3,
+                            ProductId = new Guid("55b9e08d-d622-47ea-b341-bad40def946d"),
+                            Id = 27
+                        },
+                        new
+                        {
+                            SizeId = 4,
+                            ProductId = new Guid("55b9e08d-d622-47ea-b341-bad40def946d"),
+                            Id = 28
+                        },
+                        new
+                        {
+                            SizeId = 5,
+                            ProductId = new Guid("55b9e08d-d622-47ea-b341-bad40def946d"),
+                            Id = 29
+                        },
+                        new
+                        {
+                            SizeId = 1,
+                            ProductId = new Guid("6c8e2d97-0c60-4812-acd8-868a1affbd73"),
+                            Id = 30
+                        },
+                        new
+                        {
+                            SizeId = 2,
+                            ProductId = new Guid("6c8e2d97-0c60-4812-acd8-868a1affbd73"),
+                            Id = 31
+                        },
+                        new
+                        {
+                            SizeId = 3,
+                            ProductId = new Guid("6c8e2d97-0c60-4812-acd8-868a1affbd73"),
+                            Id = 32
+                        },
+                        new
+                        {
+                            SizeId = 4,
+                            ProductId = new Guid("6c8e2d97-0c60-4812-acd8-868a1affbd73"),
+                            Id = 33
+                        },
+                        new
+                        {
+                            SizeId = 5,
+                            ProductId = new Guid("6c8e2d97-0c60-4812-acd8-868a1affbd73"),
+                            Id = 34
+                        },
+                        new
+                        {
+                            SizeId = 6,
+                            ProductId = new Guid("6c8e2d97-0c60-4812-acd8-868a1affbd73"),
+                            Id = 35
+                        },
+                        new
+                        {
+                            SizeId = 7,
+                            ProductId = new Guid("6c8e2d97-0c60-4812-acd8-868a1affbd73"),
+                            Id = 36
+                        },
+                        new
+                        {
+                            SizeId = 10,
+                            ProductId = new Guid("6c8e2d97-0c60-4812-acd8-868a1affbd73"),
+                            Id = 37
+                        },
+                        new
+                        {
+                            SizeId = 11,
+                            ProductId = new Guid("6c8e2d97-0c60-4812-acd8-868a1affbd73"),
+                            Id = 38
+                        },
+                        new
+                        {
+                            SizeId = 1,
+                            ProductId = new Guid("71b39c26-230a-4331-a448-c6144cf99e7f"),
+                            Id = 39
+                        },
+                        new
+                        {
+                            SizeId = 2,
+                            ProductId = new Guid("71b39c26-230a-4331-a448-c6144cf99e7f"),
+                            Id = 40
+                        },
+                        new
+                        {
+                            SizeId = 3,
+                            ProductId = new Guid("71b39c26-230a-4331-a448-c6144cf99e7f"),
+                            Id = 41
+                        },
+                        new
+                        {
+                            SizeId = 4,
+                            ProductId = new Guid("71b39c26-230a-4331-a448-c6144cf99e7f"),
+                            Id = 42
+                        },
+                        new
+                        {
+                            SizeId = 5,
+                            ProductId = new Guid("71b39c26-230a-4331-a448-c6144cf99e7f"),
+                            Id = 43
+                        },
+                        new
+                        {
+                            SizeId = 3,
+                            ProductId = new Guid("7cd6924c-8938-4530-857a-3055efb9311a"),
+                            Id = 44
+                        },
+                        new
+                        {
+                            SizeId = 4,
+                            ProductId = new Guid("7cd6924c-8938-4530-857a-3055efb9311a"),
+                            Id = 45
+                        },
+                        new
+                        {
+                            SizeId = 5,
+                            ProductId = new Guid("7cd6924c-8938-4530-857a-3055efb9311a"),
+                            Id = 46
+                        },
+                        new
+                        {
+                            SizeId = 1,
+                            ProductId = new Guid("89dafb16-28e7-4fa9-b66d-ca8b944db261"),
+                            Id = 47
+                        },
+                        new
+                        {
+                            SizeId = 2,
+                            ProductId = new Guid("89dafb16-28e7-4fa9-b66d-ca8b944db261"),
+                            Id = 48
+                        },
+                        new
+                        {
+                            SizeId = 3,
+                            ProductId = new Guid("89dafb16-28e7-4fa9-b66d-ca8b944db261"),
+                            Id = 49
+                        },
+                        new
+                        {
+                            SizeId = 4,
+                            ProductId = new Guid("89dafb16-28e7-4fa9-b66d-ca8b944db261"),
+                            Id = 50
+                        },
+                        new
+                        {
+                            SizeId = 5,
+                            ProductId = new Guid("89dafb16-28e7-4fa9-b66d-ca8b944db261"),
+                            Id = 51
+                        },
+                        new
+                        {
+                            SizeId = 1,
+                            ProductId = new Guid("8cb945b1-c6ab-4237-8501-0e05f4e6aa83"),
+                            Id = 52
+                        },
+                        new
+                        {
+                            SizeId = 2,
+                            ProductId = new Guid("8cb945b1-c6ab-4237-8501-0e05f4e6aa83"),
+                            Id = 53
+                        },
+                        new
+                        {
+                            SizeId = 3,
+                            ProductId = new Guid("8cb945b1-c6ab-4237-8501-0e05f4e6aa83"),
+                            Id = 54
+                        },
+                        new
+                        {
+                            SizeId = 4,
+                            ProductId = new Guid("8cb945b1-c6ab-4237-8501-0e05f4e6aa83"),
+                            Id = 55
+                        },
+                        new
+                        {
+                            SizeId = 5,
+                            ProductId = new Guid("8cb945b1-c6ab-4237-8501-0e05f4e6aa83"),
+                            Id = 56
+                        },
+                        new
+                        {
+                            SizeId = 6,
+                            ProductId = new Guid("8cb945b1-c6ab-4237-8501-0e05f4e6aa83"),
+                            Id = 57
+                        },
+                        new
+                        {
+                            SizeId = 7,
+                            ProductId = new Guid("8cb945b1-c6ab-4237-8501-0e05f4e6aa83"),
+                            Id = 58
+                        },
+                        new
+                        {
+                            SizeId = 8,
+                            ProductId = new Guid("8cb945b1-c6ab-4237-8501-0e05f4e6aa83"),
+                            Id = 59
+                        },
+                        new
+                        {
+                            SizeId = 9,
+                            ProductId = new Guid("8cb945b1-c6ab-4237-8501-0e05f4e6aa83"),
+                            Id = 60
+                        },
+                        new
+                        {
+                            SizeId = 10,
+                            ProductId = new Guid("8cb945b1-c6ab-4237-8501-0e05f4e6aa83"),
+                            Id = 61
+                        },
+                        new
+                        {
+                            SizeId = 4,
+                            ProductId = new Guid("b03034a9-9058-4a83-b146-92ba1a217c83"),
+                            Id = 62
+                        },
+                        new
+                        {
+                            SizeId = 5,
+                            ProductId = new Guid("b03034a9-9058-4a83-b146-92ba1a217c83"),
+                            Id = 63
+                        },
+                        new
+                        {
+                            SizeId = 6,
+                            ProductId = new Guid("b03034a9-9058-4a83-b146-92ba1a217c83"),
+                            Id = 64
+                        },
+                        new
+                        {
+                            SizeId = 7,
+                            ProductId = new Guid("b03034a9-9058-4a83-b146-92ba1a217c83"),
+                            Id = 65
+                        },
+                        new
+                        {
+                            SizeId = 1,
+                            ProductId = new Guid("b5ac0163-7d9d-43b4-a980-44e42e4999ed"),
+                            Id = 66
+                        },
+                        new
+                        {
+                            SizeId = 2,
+                            ProductId = new Guid("b5ac0163-7d9d-43b4-a980-44e42e4999ed"),
+                            Id = 67
+                        },
+                        new
+                        {
+                            SizeId = 3,
+                            ProductId = new Guid("b5ac0163-7d9d-43b4-a980-44e42e4999ed"),
+                            Id = 68
+                        },
+                        new
+                        {
+                            SizeId = 4,
+                            ProductId = new Guid("b5ac0163-7d9d-43b4-a980-44e42e4999ed"),
+                            Id = 69
+                        },
+                        new
+                        {
+                            SizeId = 5,
+                            ProductId = new Guid("b5ac0163-7d9d-43b4-a980-44e42e4999ed"),
+                            Id = 70
+                        },
+                        new
+                        {
+                            SizeId = 1,
+                            ProductId = new Guid("bb1da4ee-31df-4fb6-916a-1548acfdc111"),
+                            Id = 71
+                        },
+                        new
+                        {
+                            SizeId = 2,
+                            ProductId = new Guid("bb1da4ee-31df-4fb6-916a-1548acfdc111"),
+                            Id = 72
+                        },
+                        new
+                        {
+                            SizeId = 3,
+                            ProductId = new Guid("bb1da4ee-31df-4fb6-916a-1548acfdc111"),
+                            Id = 73
+                        },
+                        new
+                        {
+                            SizeId = 4,
+                            ProductId = new Guid("bb1da4ee-31df-4fb6-916a-1548acfdc111"),
+                            Id = 74
+                        },
+                        new
+                        {
+                            SizeId = 5,
+                            ProductId = new Guid("bb1da4ee-31df-4fb6-916a-1548acfdc111"),
+                            Id = 75
+                        },
+                        new
+                        {
+                            SizeId = 6,
+                            ProductId = new Guid("bb1da4ee-31df-4fb6-916a-1548acfdc111"),
+                            Id = 76
+                        },
+                        new
+                        {
+                            SizeId = 7,
+                            ProductId = new Guid("bb1da4ee-31df-4fb6-916a-1548acfdc111"),
+                            Id = 77
+                        },
+                        new
+                        {
+                            SizeId = 8,
+                            ProductId = new Guid("bb1da4ee-31df-4fb6-916a-1548acfdc111"),
+                            Id = 78
+                        },
+                        new
+                        {
+                            SizeId = 1,
+                            ProductId = new Guid("ccfde94d-62dc-4ec7-8538-c800e00c280d"),
+                            Id = 79
+                        },
+                        new
+                        {
+                            SizeId = 2,
+                            ProductId = new Guid("ccfde94d-62dc-4ec7-8538-c800e00c280d"),
+                            Id = 80
+                        },
+                        new
+                        {
+                            SizeId = 3,
+                            ProductId = new Guid("ccfde94d-62dc-4ec7-8538-c800e00c280d"),
+                            Id = 81
+                        },
+                        new
+                        {
+                            SizeId = 4,
+                            ProductId = new Guid("ccfde94d-62dc-4ec7-8538-c800e00c280d"),
+                            Id = 82
+                        },
+                        new
+                        {
+                            SizeId = 5,
+                            ProductId = new Guid("ccfde94d-62dc-4ec7-8538-c800e00c280d"),
+                            Id = 83
+                        },
+                        new
+                        {
+                            SizeId = 4,
+                            ProductId = new Guid("d3c4f6cf-a03c-4c1f-bc4b-52f2d1aaf228"),
+                            Id = 84
+                        },
+                        new
+                        {
+                            SizeId = 5,
+                            ProductId = new Guid("d3c4f6cf-a03c-4c1f-bc4b-52f2d1aaf228"),
+                            Id = 85
+                        },
+                        new
+                        {
+                            SizeId = 6,
+                            ProductId = new Guid("d3c4f6cf-a03c-4c1f-bc4b-52f2d1aaf228"),
+                            Id = 86
+                        },
+                        new
+                        {
+                            SizeId = 7,
+                            ProductId = new Guid("d3c4f6cf-a03c-4c1f-bc4b-52f2d1aaf228"),
+                            Id = 87
+                        },
+                        new
+                        {
+                            SizeId = 8,
+                            ProductId = new Guid("d3c4f6cf-a03c-4c1f-bc4b-52f2d1aaf228"),
+                            Id = 88
+                        },
+                        new
+                        {
+                            SizeId = 1,
+                            ProductId = new Guid("ecc825cb-9cce-4597-9369-a9e543700d26"),
+                            Id = 89
+                        },
+                        new
+                        {
+                            SizeId = 2,
+                            ProductId = new Guid("ecc825cb-9cce-4597-9369-a9e543700d26"),
+                            Id = 90
+                        },
+                        new
+                        {
+                            SizeId = 3,
+                            ProductId = new Guid("ecc825cb-9cce-4597-9369-a9e543700d26"),
+                            Id = 91
+                        },
+                        new
+                        {
+                            SizeId = 4,
+                            ProductId = new Guid("ecc825cb-9cce-4597-9369-a9e543700d26"),
+                            Id = 92
+                        },
+                        new
+                        {
+                            SizeId = 5,
+                            ProductId = new Guid("ecc825cb-9cce-4597-9369-a9e543700d26"),
+                            Id = 93
+                        },
+                        new
+                        {
+                            SizeId = 1,
+                            ProductId = new Guid("e0f75a82-e1f0-40de-bd43-57ce0c1d52b7"),
+                            Id = 94
+                        },
+                        new
+                        {
+                            SizeId = 2,
+                            ProductId = new Guid("e0f75a82-e1f0-40de-bd43-57ce0c1d52b7"),
+                            Id = 95
+                        },
+                        new
+                        {
+                            SizeId = 3,
+                            ProductId = new Guid("e0f75a82-e1f0-40de-bd43-57ce0c1d52b7"),
+                            Id = 96
+                        },
+                        new
+                        {
+                            SizeId = 4,
+                            ProductId = new Guid("e0f75a82-e1f0-40de-bd43-57ce0c1d52b7"),
+                            Id = 97
+                        },
+                        new
+                        {
+                            SizeId = 5,
+                            ProductId = new Guid("e0f75a82-e1f0-40de-bd43-57ce0c1d52b7"),
+                            Id = 98
+                        },
+                        new
+                        {
+                            SizeId = 6,
+                            ProductId = new Guid("e0f75a82-e1f0-40de-bd43-57ce0c1d52b7"),
+                            Id = 99
+                        },
+                        new
+                        {
+                            SizeId = 7,
+                            ProductId = new Guid("e0f75a82-e1f0-40de-bd43-57ce0c1d52b7"),
+                            Id = 100
+                        },
+                        new
+                        {
+                            SizeId = 1,
+                            ProductId = new Guid("c76f49c6-01dc-437d-a9a6-7c90c4e03b48"),
+                            Id = 101
+                        },
+                        new
+                        {
+                            SizeId = 2,
+                            ProductId = new Guid("c76f49c6-01dc-437d-a9a6-7c90c4e03b48"),
+                            Id = 102
+                        },
+                        new
+                        {
+                            SizeId = 3,
+                            ProductId = new Guid("c76f49c6-01dc-437d-a9a6-7c90c4e03b48"),
+                            Id = 103
+                        },
+                        new
+                        {
+                            SizeId = 4,
+                            ProductId = new Guid("c76f49c6-01dc-437d-a9a6-7c90c4e03b48"),
+                            Id = 104
+                        },
+                        new
+                        {
+                            SizeId = 5,
+                            ProductId = new Guid("c76f49c6-01dc-437d-a9a6-7c90c4e03b48"),
+                            Id = 105
+                        },
+                        new
+                        {
+                            SizeId = 6,
+                            ProductId = new Guid("c76f49c6-01dc-437d-a9a6-7c90c4e03b48"),
+                            Id = 106
                         });
                 });
 
@@ -675,6 +1562,9 @@ namespace back_end.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("GoogleId")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
@@ -695,78 +1585,74 @@ namespace back_end.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0afd73e7-ff97-4496-a3e4-982bed3d13dd"),
+                            Id = new Guid("9f42452b-2a0f-422f-a050-230fd3eeee1e"),
                             Email = "admin@minhstore.com",
-                            Password = "$2a$11$9jeUlXPVD7r1nCM2OY8kTeTb0gaaqU9JNxvDlLdnAfCsTqshtVjJq",
+                            Password = "$2a$11$qN0B4CBfw6bb2O2WuCHZa.1TCDf/ox0NWTgLLlUXO6ou/R1NueIPO",
                             Role = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("ff4ea765-a65d-40ab-9a80-e34a9f88641b"),
+                            Id = new Guid("071e87cc-a1b6-42c5-adaa-d38e9ea92d45"),
                             Email = "user123@gmail.com",
-                            Password = "$2a$11$FCaTTf3BWwO71.0jEje/Z.J3CWJO/1iYcT9eNWj/qcmEOhR7.SlJO",
+                            Password = "$2a$11$t57uZ4BTqkoyZyz23PKmeeMzMo92gN6pdF7eIC2U4JJl66f.ZgAsO",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("78f30dbe-4dcf-42c9-a218-3d938ca79c8e"),
+                            Id = new Guid("ac2f5a4f-a7c0-4eb5-9874-3e74aee47207"),
                             Email = "user456@gmail.com",
-                            Password = "$2a$11$O88Jm0AY8nWbPaggG4s4yO4k3p1ksK5KCdk/5KVTShM70NVPeY1Wq",
+                            Password = "$2a$11$PHw6QZ7q7ZVN0y.gHGB8fOM0q3KSWQD130FT/3aPck3pICyjbTUXy",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("c8b55424-7f37-4d0e-8ee6-7ff3ccfabac1"),
+                            Id = new Guid("f5d0d64b-b8a9-4bc5-ae80-8315a501058f"),
                             Email = "user789@gmail.com",
-                            Password = "$2a$11$c6SU5E8zS/3ZHPBlTX6OK.hXUJMjd4zDyUf2WhnFY1Z1fnJ8e57Py",
+                            Password = "$2a$11$gkx1p/5W.jZSZQow5JlwgeIfDfvPYNQtYokO7URIfVXH.0ZhttUaW",
                             Role = "User"
                         });
                 });
 
+            modelBuilder.Entity("OrderProduct", b =>
+                {
+                    b.HasOne("back_end.Models.Order", null)
+                        .WithMany()
+                        .HasForeignKey("OrdersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("back_end.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("back_end.Models.Order", b =>
                 {
+                    b.HasOne("back_end.Models.Color", "Color")
+                        .WithOne()
+                        .HasForeignKey("back_end.Models.Order", "ColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("back_end.Models.Size", "Size")
+                        .WithOne()
+                        .HasForeignKey("back_end.Models.Order", "SizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("back_end.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("back_end.Models.OrderDetail", b =>
-                {
-                    b.HasOne("back_end.Models.Color", "Color")
-                        .WithOne()
-                        .HasForeignKey("back_end.Models.OrderDetail", "ColorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("back_end.Models.Order", "Order")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("back_end.Models.Product", "Product")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("back_end.Models.Size", "Size")
-                        .WithOne()
-                        .HasForeignKey("back_end.Models.OrderDetail", "SizeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Color");
 
-                    b.Navigation("Order");
-
-                    b.Navigation("Product");
-
                     b.Navigation("Size");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("back_end.Models.Product", b =>
@@ -813,16 +1699,6 @@ namespace back_end.Migrations
             modelBuilder.Entity("back_end.Models.Category", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("back_end.Models.Order", b =>
-                {
-                    b.Navigation("OrderDetails");
-                });
-
-            modelBuilder.Entity("back_end.Models.Product", b =>
-                {
-                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("back_end.Models.User", b =>
