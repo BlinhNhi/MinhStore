@@ -21,7 +21,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("MySqlConn"), new MySqlServerVersion(new Version(7, 0, 0))));
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(option =>
 {
     option.RequireHttpsMetadata = false;
     option.SaveToken = true;
@@ -34,7 +35,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         IssuerSigningKey = new SymmetricSecurityKey
             (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
-});
+})
 
 builder.Services.AddScoped<IProductRepo, ProductService>();
 builder.Services.AddScoped<ICategoryRepo, CategoryService>();
@@ -42,6 +43,7 @@ builder.Services.AddScoped<IColorRepo, ColorService>();
 builder.Services.AddScoped<ISizeRepo, SizeService>();
 builder.Services.AddScoped<IUserRepo, UserService>();
 builder.Services.AddScoped<ISendMail, SendMailService>();
+/*builder.Services.AddScoped<IOrderRepo, OrderService>();*/
 
 builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));
 //fix lỗi json bị vòng lặp 

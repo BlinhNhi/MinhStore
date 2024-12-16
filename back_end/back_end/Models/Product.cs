@@ -17,7 +17,7 @@
         public DateTime ? CreatedDate { get; set; }
         public ICollection<Color>? Colors { get; set; }
         public ICollection<Size>? Sizes { get; set; }
-        public ICollection<OrderDetail>? OrderDetails { get; set; }
+        public ICollection<Order>? Order { get; set; }
 
 
         /*   public DateTime CreatedAt

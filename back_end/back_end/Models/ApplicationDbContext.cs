@@ -16,7 +16,6 @@ namespace back_end.Models
         public DbSet<ProductColor> ProductColors { get; set; }
         public DbSet<ProductSize> ProductSizes { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderDetail> OrderDetails { get; set; }
      
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -97,15 +96,17 @@ namespace back_end.Models
             modelBuilder.Entity<Order>(o =>
             {
                 o.HasKey(n => n.Id);
-                o.HasOne(o => o.User).WithMany(o=>o.Orders).HasForeignKey(u => u.UserId);
+                o.HasOne(o => o.Product).WithMany(od => od.Order).HasForeignKey(h => h.ProductId);
+                o.HasOne(o => o.User).WithMany(o => o.Orders).HasForeignKey(u => u.UserId);
+                o.HasOne(o => o.Color).WithOne().HasForeignKey<Order>(od => od.ColorId);
+                o.HasOne(o => o.Size).WithOne().HasForeignKey<Order>(od => od.SizeId);
+                
             });
             modelBuilder.Entity<OrderDetail>(od =>
             {
                 od.HasKey(n => n.Id);
-                od.HasOne(o => o.Color).WithOne().HasForeignKey<OrderDetail>(od => od.ColorId);
-                od.HasOne(o => o.Size).WithOne().HasForeignKey<OrderDetail>(od => od.SizeId);
+               
                 od.HasOne(o => o.Order).WithMany(od => od.OrderDetails).HasForeignKey(or => or.OrderId);
-                od.HasOne(o => o.Product).WithMany(od => od.OrderDetails).HasForeignKey(h => h.ProductId);
             });
 
             /*  modelBuilder.Entity<Product>()
