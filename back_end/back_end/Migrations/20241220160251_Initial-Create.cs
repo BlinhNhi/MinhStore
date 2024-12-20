@@ -48,20 +48,6 @@ namespace back_end.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "OrderProducts",
-                columns: table => new
-                {
-                    ProductId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    OrderId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrderProducts", x => new { x.ProductId, x.OrderId });
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Sizes",
                 columns: table => new
                 {
@@ -138,7 +124,8 @@ namespace back_end.Migrations
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     UserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    ProductId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ProductId = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     QuantityOrder = table.Column<int>(type: "int", nullable: false),
                     TotalAmount = table.Column<int>(type: "int", nullable: false),
                     SizeId = table.Column<int>(type: "int", nullable: false),
@@ -246,6 +233,32 @@ namespace back_end.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "OrderProducts",
+                columns: table => new
+                {
+                    ProductId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    OrderId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderProducts", x => new { x.ProductId, x.OrderId });
+                    table.ForeignKey(
+                        name: "FK_OrderProducts_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderProducts_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "Name" },
@@ -305,10 +318,10 @@ namespace back_end.Migrations
                 columns: new[] { "Id", "Email", "GoogleId", "Name", "Password", "Phone", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("071e87cc-a1b6-42c5-adaa-d38e9ea92d45"), "user123@gmail.com", null, null, "$2a$11$t57uZ4BTqkoyZyz23PKmeeMzMo92gN6pdF7eIC2U4JJl66f.ZgAsO", null, "User" },
-                    { new Guid("9f42452b-2a0f-422f-a050-230fd3eeee1e"), "admin@minhstore.com", null, null, "$2a$11$qN0B4CBfw6bb2O2WuCHZa.1TCDf/ox0NWTgLLlUXO6ou/R1NueIPO", null, "Admin" },
-                    { new Guid("ac2f5a4f-a7c0-4eb5-9874-3e74aee47207"), "user456@gmail.com", null, null, "$2a$11$PHw6QZ7q7ZVN0y.gHGB8fOM0q3KSWQD130FT/3aPck3pICyjbTUXy", null, "User" },
-                    { new Guid("f5d0d64b-b8a9-4bc5-ae80-8315a501058f"), "user789@gmail.com", null, null, "$2a$11$gkx1p/5W.jZSZQow5JlwgeIfDfvPYNQtYokO7URIfVXH.0ZhttUaW", null, "User" }
+                    { new Guid("33a3cb78-8e7f-4ce7-a8a0-8d720d349b98"), "user123@gmail.com", null, null, "$2a$11$HeaCN4TgmrQ8ZT1vVwdGBOOSk1geTJ1oQLmOyMJOQ1H0thfjMKLb.", null, "User" },
+                    { new Guid("4039130e-df2c-4469-8859-dbe404d812da"), "admin@minhstore.com", null, null, "$2a$11$sxrrRdgWABqfA/eUFSxdFey8l17YKVL77AXnZbAIi2rBF7dTxMG4y", null, "Admin" },
+                    { new Guid("71249f21-f605-4248-b78a-224e8175a5f4"), "user789@gmail.com", null, null, "$2a$11$nWtPlcDDvGbkMpsjRfaYVuWm33Tf0HWx2WdUqDIFpr.lUinKoRkg.", null, "User" },
+                    { new Guid("d646a9cf-a6ff-4cb6-88aa-14aff0224e90"), "user456@gmail.com", null, null, "$2a$11$86FjdfxtOXI6OL.JdknC6efBf02gAEaluFkab/qe8sxjEOPD2AWbu", null, "User" }
                 });
 
             migrationBuilder.InsertData(
@@ -504,6 +517,11 @@ namespace back_end.Migrations
                 name: "IX_OrderProduct_ProductsId",
                 table: "OrderProduct",
                 column: "ProductsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderProducts_OrderId",
+                table: "OrderProducts",
+                column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_ColorId",

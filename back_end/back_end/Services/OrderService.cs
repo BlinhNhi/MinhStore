@@ -14,7 +14,7 @@ namespace back_end.Services
             this.db = db;
             this.env = env;
         }
-
+/*
         public async Task<bool> CreateOrder(Order order)
         {
             try
@@ -28,31 +28,107 @@ namespace back_end.Services
                 if (size == null) return false; // Trả về false nếu Color không tồn tại
                 order.Size = size;
 
-                await db.Orders.AddAsync(order);
-                await db.SaveChangesAsync();
 
                 if (order.ProductId != null)
                 {
-                    /*List<Guid> list = order.ProductId.ToString().Split(",").ToList();*/
+                    *//*List<Guid> list = order.ProductId.ToString().Split(",").ToList();*//*
                     List<Guid> productIds = order.ProductId
                     .ToString() // Chuyển sang string nếu chưa là string
                     .Split(",") // Tách các phần tử dựa trên dấu phẩy
                     .Select(id => Guid.Parse(id)) // Chuyển từng phần tử thành Guid
                     .ToList();
-                    for (int i = 0; i < productIds.Count; i++)
+                *//*    for (int i = 0; i < productIds.Count; i++)
                     {
                         Guid id = productIds[i];
                         OrderProduct product = new OrderProduct { OrderId = order.Id, ProductId = id };
                         db.OrderProducts.Add(product);
                         await db.SaveChangesAsync();
+                    }*//*
+                    foreach (var id in productIds)
+                    {
+                        OrderProduct product = new OrderProduct
+                        {
+                            OrderId = order.Id,
+                            ProductId = id
+                        };
+                        order.ProductOrders = product;
                     }
                 }
-
+                await db.Orders.AddAsync(order);
+                await db.SaveChangesAsync();
                 return true;
             }catch (Exception ex)
             {
                 return false;
 
+            }
+        }*/
+
+        public async Task<bool> CreateOrder(Order order)
+        {
+            try
+            {
+                // Kiểm tra User
+                User user = await db.Users.FirstOrDefaultAsync(u => u.Id == order.UserId);
+                if (user == null)
+                {
+                    Console.WriteLine("User không tồn tại");
+                    return false;
+                }
+                order.User = user;
+
+                // Kiểm tra Color
+                Color color = await db.Colors.FirstOrDefaultAsync(c => c.Id == order.ColorId);
+                if (color == null)
+                {
+                    Console.WriteLine("Color không tồn tại");
+                    return false;
+                }
+                order.Color = color;
+
+                // Kiểm tra Size
+                Size size = await db.Sizes.FirstOrDefaultAsync(s => s.Id == order.SizeId);
+                if (size == null)
+                {
+                    Console.WriteLine("Size không tồn tại");
+                    return false;
+                }
+                order.Size = size;
+
+                // Xử lý ProductId nếu không null
+                if (order.ProductId != null)
+                {
+                    // Chuyển ProductId thành List<Guid>
+                    List<Guid> productIds = order.ProductId
+                        .ToString()
+                        .Split(",") // Tách theo dấu phẩy
+                        .Select(id => Guid.Parse(id.Trim())) // Chuyển thành Guid
+                        .ToList();
+
+                    // Thêm từng sản phẩm vào OrderProducts
+                    foreach (var id in productIds)
+                    {
+                        db.OrderProducts.Add(new OrderProduct
+                        {
+                            OrderId = order.Id,
+                            ProductId = id
+                        });
+                    }
+                }
+
+                // Thêm Order vào database
+                await db.Orders.AddAsync(order);
+
+                // Chỉ gọi SaveChanges một lần
+                await db.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Log lỗi
+                Console.WriteLine($"Lỗi khi tạo đơn hàng: {ex.Message}");
+                return false;
             }
         }
 

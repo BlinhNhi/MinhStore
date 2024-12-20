@@ -80,11 +80,11 @@ function Products() {
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 place-items-center gap-5">
                         {arrGetNewProduct.map((data) => (
                             <div
-                                key={data.id}
+                                key={data?.id}
                                 data-aos="fade-up"
                                 data-aos-delay={300}
                                 className="space-y-3">
-                                <img src={JSON.parse(data?.imagesProduct)[0]?.length > 0 ? JSON.parse(data?.imagesProduct)[0] : NoImage} alt={data?.nameProduct} className="h-[220px] w-[150px] object-cover rounded-md"></img>
+                                <img src={JSON.parse(data?.imagesProduct)[0]?.length > 1 ? JSON.parse(data?.imagesProduct)[0] : NoImage} alt={data?.nameProduct} className="h-[220px] w-[150px] object-cover rounded-md"></img>
                                 <div className="flex flex-col gap-1">
                                     <h3 className="font-semibold">{data?.title}</h3>
                                     <p className="text-sm text-gray-600">{handleFormatPrice(data?.priceProduct)} vnd</p>
