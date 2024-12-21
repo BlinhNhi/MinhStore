@@ -3,7 +3,6 @@ using System.IdentityModel.Tokens.Jwt;
 using back_end.IRepository;
 using back_end.Models;
 using back_end.ReponseData;
-using Google.Apis.Auth;
 using Microsoft.AspNetCore.Mvc;
 
 namespace back_end.Controllers
@@ -145,7 +144,7 @@ namespace back_end.Controllers
             }
         }
         
-        [HttpPost("google")]
+     /*   [HttpPost("google")]
         public async Task<IActionResult> GoogleLogin([FromBody] GoogleAuthRequest request)
         {
             var payload = await GoogleJsonWebSignature.ValidateAsync(request.IdToken);
@@ -169,11 +168,11 @@ namespace back_end.Controllers
             // Generate JWT Token
             var token = repo.GetTokenUserByGoogleIdAsync(user.Id.ToString(), user.Email, _config["Jwt:SecretKey"]);
             return Ok(new { token });
-        }
+        }*/
     }
-    public class GoogleAuthRequest
+   /* public class GoogleAuthRequest
     {
         public string IdToken { get; set; }
-    }
+    }*/
 }
 

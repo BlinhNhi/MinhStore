@@ -89,7 +89,7 @@ namespace back_end.Services
         }
 
 
-        public string GetTokenUserByGoogleIdAsync(string userId, string email, string secretKey)
+    /*    public string GetTokenUserByGoogleIdAsync(string userId, string email, string secretKey)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secretKey);
@@ -106,9 +106,9 @@ namespace back_end.Services
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
-        }
+        }*/
 
-        public async Task AddUserAsync(User user)
+      /*  public async Task AddUserAsync(User user)
         {
             await db.Users.AddAsync(user);
             await db.SaveChangesAsync();
@@ -117,7 +117,7 @@ namespace back_end.Services
         public async Task<User?> GetUserByGoogleIdAsync(string googleId)
         {
             return await db.Users.FirstOrDefaultAsync(u => u.GoogleId == googleId);
-        }
+        }*/
     }
     
 }

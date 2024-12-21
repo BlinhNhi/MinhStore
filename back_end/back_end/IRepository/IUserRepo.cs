@@ -10,9 +10,9 @@ namespace back_end.IRepository
         Task<bool> CreateUser(User User);
         Task<bool> PutUser(Guid Id, User User);
         Task<User> DeleteUser(Guid Id);
-        Task<User> GetUserByGoogleIdAsync(string googleId);
-        Task AddUserAsync(User user);
-        string GetTokenUserByGoogleIdAsync(string userId, string email, string secretKey);
+       /* Task<User> GetUserByGoogleIdAsync(string googleId);*/
+        /*Task AddUserAsync(User user);*/
+        /*string GetTokenUserByGoogleIdAsync(string userId, string email, string secretKey);*/
 
     }
 }
