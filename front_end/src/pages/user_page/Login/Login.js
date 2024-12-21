@@ -216,11 +216,11 @@ function Login() {
                                                 </Checkbox>
                                             </div>
                                             <div>
-                                                <h1 className="text-base font-medium hover:underline hover:text-gray-500 md:text-base lg:text-base xl:text-lg 2xl:text-lg sm:text-base">
+                                                <h1 className="text-base font-medium hover:underline hover:text-gray-500 md:text-base lg:text-base xl:text-lg 2xl:text-lg sm:text-base dark:text-gray-100">
                                                     Quên Mật Khẩu?
                                                 </h1>
                                             </div>
-                                            <div>
+                                            {/* <div>
                                                 <h1>Google Login</h1>
                                                 <GoogleLogin
                                                     clientId={clientId}
@@ -229,7 +229,7 @@ function Login() {
                                                     onFailure={onFailure}
                                                     cookiePolicy={"single_host_origin"}
                                                 />
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </Form>
                                 </div>
