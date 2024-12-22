@@ -37,6 +37,46 @@ namespace back_end.Controllers
             }
         }
 
+        [HttpGet("{Id}")]
+        public async Task<ActionResult> GetOrderById(Guid Id)
+        {
+            try
+            {
+                var list = await repo.GetOrderById(Id);
+                if (list.Count() > 0)
+                {
+                    var response = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "Get Order By Id successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult> GetOrderByUserId(Guid userId)
+        {
+            try
+            {
+                var list = await repo.GetOrderByUserId(userId);
+                if (list.Count() > 0)
+                {
+                    var response = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "Get Order By User Id successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
         [HttpPost]
         public async Task<ActionResult> CreateOrder([FromForm] Order order)
         {

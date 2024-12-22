@@ -51,11 +51,7 @@ function CartShoppingUser() {
             dataIndex: 'price',
             key: 'price',
         },
-        {
-            title: 'Số Lượng',
-            dataIndex: 'quantity',
-            key: 'quantity',
-        },
+
         {
             title: 'Màu Sắc',
             dataIndex: 'color',
@@ -72,18 +68,12 @@ function CartShoppingUser() {
             key: 'size',
         },
         {
-            title: 'Quản Lý',
+            title: 'Số Lượng',
             width: '15%',
             render: (text, cat) => {
                 return <>
                     <Button key={1} href={`/admin/categories-mng/edit/${cat.id}`} type="link" onClick={() => {
-
-                    }}></Button>
-                    <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
-                        if (window.confirm('Bạn Muốn Xoá Danh Mục : ' + cat.name + '?')) {
-
-                        }
-                    }}></Button>
+                    }}>1</Button>
                 </>
 
             }
