@@ -10,7 +10,6 @@ import { handleFormatPrice } from "../../utils/format/formatPrice";
 function ListNewsProducts(listProducts) {
     const data = listProducts
     let listEightProduct = data.listProducts;
-    console.log(listEightProduct);
 
     function SampleArrow(props) {
         const { className, style, onClick } = props;

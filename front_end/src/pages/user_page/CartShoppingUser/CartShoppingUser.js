@@ -87,7 +87,7 @@ function CartShoppingUser() {
                     <Table dataSource={testData} columns={columnsDataTest} rowKey={'id'} scroll={{ x: 1000 }} />
                 </div>
                 <div className="">
-                    <div className="py-8 px-4 rounded-md border-4 border-gray-300 flex flex-col gap-2">
+                    <div className="py-8 px-4 rounded-md border-4 border-gray-300 flex flex-col gap-4">
                         <h1 className="text-gray-600 font-bold text-xl dark:text-gray-300 border-b-2 border-gray-200 pb-2">Cộng Giỏ Hàng</h1>
                         <div className="flex gap-10 items-center border-b-2 border-gray-200 pb-2"><h3 className="text-base font-bold text-gray-600 dark:text-gray-300">Tạm Tính</h3><h4 className="text-base font-medium text-gray-500 dark:text-gray-200">1,870,000₫</h4></div>
                         <div className="flex gap-10 items-center mb-2"><h3 className="text-base font-bold text-gray-600 dark:text-gray-300">Tổng </h3><h4 className="text-lg font-bold text-gray-500 dark:text-gray-200">1,870,000₫</h4></div>

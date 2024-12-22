@@ -24,18 +24,17 @@ function CancelArrowSlider(props) {
 
 function ProductDetail(props) {
     let { id } = useParams();
-    console.log(id);
+    let { userLogin } = useSelector((state) => state.UserReducer);
     const dispatch = useDispatch();
     const { productDetailForUser } = useSelector((state) => state.ProductReducer);
     const { arrEightProducts } = useSelector((state) => state.ProductReducer);
-    const [numberProduct, setNumberProduct] = useState(1);
-
-    console.log(arrEightProducts);
+    const idUser = userLogin?.id;
 
     useEffect(() => {
         dispatch(getDetailProductForUserAction(id));
         dispatch(getEightProductsAction())
     }, [dispatch]);
+
     let imagesProduct =
         productDetailForUser?.imagesProduct &&
         JSON.parse(productDetailForUser.imagesProduct);
@@ -60,6 +59,35 @@ function ProductDetail(props) {
         nextArrow: <CancelArrowSlider />,
         prevArrow: <CancelArrowSlider />,
     };
+
+    const [numberProduct, setNumberProduct] = useState(1);
+    const [savedIdSize, setSavedIdSize] = useState(0);
+    const [savedIdColor, setSavedIdColor] = useState(0);
+    const [savedPrice, setSavePrice] = useState();
+
+    const handleIncrease = () => {
+        const newNumberProduct = numberProduct + 1;
+        setNumberProduct(newNumberProduct);
+        setSavePrice(newNumberProduct * (productDetailForUser?.priceProduct || 0));
+    };
+
+    const handleDecrease = () => {
+        if (numberProduct > 1) {
+            const newNumberProduct = numberProduct - 1;
+            setNumberProduct(newNumberProduct);
+            setSavePrice(newNumberProduct * (productDetailForUser?.priceProduct || 0));
+        }
+    };
+
+    console.log('size : ', savedIdSize);
+    console.log('color : ', savedIdColor);
+    console.log('id of shoes : ', id);
+    console.log('quantity product : ', numberProduct);
+    console.log('price product : ', productDetailForUser?.priceProduct && savedPrice);
+    console.log('id user : ', idUser);
+
+
+
 
     return (
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200 ">
@@ -120,13 +148,22 @@ sm:mt-0 md:mt-0 lg:mt-0 xl:mt-0 2xl:mt-0
                                 >
                                     Chọn Màu Giày:{" "}
                                 </h3>
-                                {/* star */}
                                 <div className="flex items-center gap-4 mt-3">
                                     {productDetailForUser?.colors?.map((data, key) => {
                                         return (
                                             <button
+                                                onClick={() => {
+                                                    setSavedIdColor(data?.id);
+                                                    setSavePrice(productDetailForUser?.priceProduct)
+                                                    // setSelectedColor(data?.id)
+                                                }}
+                                                className={`border-2 p-2 rounded-md 
+                                                ${savedIdColor === data?.id
+                                                        ? "bg-slate-300 text-white border-slate-400"
+                                                        : "hover:bg-slate-300 hover:text-white dark:bg-white dark:text-gray-600 dark:hover:bg-primary dark:hover:text-white dark:hover:border-primary"
+                                                    }`}
                                                 key={key}
-                                                className="border-2 hover:bg-slate-300 hover:text-white dark:bg-white rounded-md dark:text-gray-600 dark:hover:bg-primary dark:hover:text-white dark:hover:border-primary p-2"
+                                            // className="border-2 hover:bg-slate-300 hover:text-white dark:bg-white rounded-md dark:text-gray-600 dark:hover:bg-primary dark:hover:text-white dark:hover:border-primary p-2"
                                             >
                                                 {data?.name}
                                             </button>
@@ -150,7 +187,15 @@ sm:mt-0 md:mt-0 lg:mt-0 xl:mt-0 2xl:mt-0
                                         return (
                                             <button
                                                 key={key}
-                                                className="border-2 hover:bg-slate-300 hover:text-white dark:bg-white rounded-md dark:text-gray-600 dark:hover:bg-primary dark:hover:text-white dark:hover:border-primary p-2"
+                                                onClick={() => {
+                                                    setSavedIdSize(data?.id);
+
+                                                }}
+                                                className={`border-2 p-2 rounded-md 
+                                                    ${savedIdSize === data?.id
+                                                        ? "bg-slate-300 text-white border-slate-400"
+                                                        : "hover:bg-slate-300 hover:text-white dark:bg-white dark:text-gray-600 dark:hover:bg-primary dark:hover:text-white dark:hover:border-primary"
+                                                    }`}
                                             >
                                                 {data?.numberOfSize}
                                             </button>
@@ -158,6 +203,7 @@ sm:mt-0 md:mt-0 lg:mt-0 xl:mt-0 2xl:mt-0
                                     })}
                                 </div>
                             </div>
+
                             <div
                                 className="
 flex-col
@@ -171,6 +217,8 @@ flex items-start mt-3 gap-4 mb-5
                                     <button
                                         onClick={() => {
                                             setNumberProduct(numberProduct + 1);
+                                            // setSavePrice((numberProduct + 1) * productDetailForUser?.priceProduct);
+                                            handleIncrease();
                                         }}
                                         className="text-base font-bold
      sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl
@@ -190,6 +238,8 @@ flex items-start mt-3 gap-4 mb-5
                                     <button
                                         onClick={() => {
                                             setNumberProduct(numberProduct - 1);
+                                            // setSavePrice((numberProduct - 1) * productDetailForUser?.priceProduct);
+                                            handleDecrease();
                                         }}
                                         disabled={numberProduct <= 1}
                                         className={`text-base font-bold hover:bg-gray-400 dark:hover:bg-gray-400
