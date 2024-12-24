@@ -192,6 +192,10 @@ namespace back_end.Services
                        Id = po.Product.Id,
                        NameProduct = po.Product.NameProduct,
                        PriceProduct = po.Product.PriceProduct,
+                       StockQuantity = po.Product.StockQuantity,
+                       NumberOfProductInStock = po.Product.NumberOfProductInStock,
+                       NumberOfProductSold = po.Product.NumberOfProductSold,
+                       ImagesProduct = po.Product.ImagesProduct,    
                      }).ToList(),
                     UserId = o.UserId,
                     /* User = new User

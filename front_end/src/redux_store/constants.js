@@ -15,6 +15,9 @@ export const GET_CATEGORY_DETAIL = "GET_ CATEGORY_DETAIL"
 //Size
 export const GET_SIZE_LIST = "GET_SIZE_LIST";
 export const GET_SIZE_DETAIL = "GET_ SIZE_DETAIL"
+// Order
+export const GET_ORDER_LIST = "GET_ORDER_LIST";
+export const GET_ORDER_DETAIL = "GET_ORDER_DETAIL"
 //Product
 export const GET_PRODUCT_LIST = "GET_PRODUCT_LIST";
 export const GET_EIGHT_PRODUCTS = "GET_EIGHT_PRODUCTS";

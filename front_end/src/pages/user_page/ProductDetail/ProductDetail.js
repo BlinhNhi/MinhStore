@@ -16,6 +16,7 @@ import { getDetailProductForUserAction, getEightProductsAction } from "../../../
 import { handleFormatPrice } from "../../../utils/format/formatPrice";
 import { getCodeProduct } from "../../../utils/format/getCodeProduct";
 import { useParams } from "react-router-dom";
+import { addOrderAction } from "../../../redux_store/actions/OrderAction";
 
 function CancelArrowSlider(props) {
     const { style } = props;
@@ -77,6 +78,33 @@ function ProductDetail(props) {
             setNumberProduct(newNumberProduct);
             setSavePrice(newNumberProduct * (productDetailForUser?.priceProduct || 0));
         }
+    };
+
+    const handleBuyNow = () => {
+        if (!idUser || !savedIdSize || !savedIdColor || !numberProduct || !productDetailForUser?.priceProduct) {
+            alert("Vui lòng chọn đầy đủ thông tin trước khi đặt hàng!");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("UserId", idUser);
+        formData.append("ProductId", id);
+        formData.append("QuantityOrder", numberProduct);
+        formData.append("TotalAmount", savedPrice || productDetailForUser?.priceProduct);
+        formData.append("SizeId", savedIdSize);
+        formData.append("ColorId", savedIdColor);
+
+
+        // Dispatch hoặc gọi trực tiếp action API
+        dispatch(addOrderAction(formData))
+            .then((response) => {
+                console.log("Order created successfully:", response);
+                alert("Đặt hàng thành công!");
+            })
+            .catch((error) => {
+                console.error("Error creating order:", error);
+                alert("Đặt hàng thất bại. Vui lòng thử lại.");
+            });
     };
 
     console.log('size : ', savedIdSize);
@@ -265,6 +293,7 @@ flex items-start mt-3 gap-4 mb-5
     "
                             >
                                 <button
+                                    onClick={handleBuyNow}
                                     className="
         text-center cursor-pointer bg-orange-400 text-white py-1 px-2 rounded-full text-base
        flex items-center
