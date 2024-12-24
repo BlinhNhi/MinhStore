@@ -17,6 +17,7 @@ import { handleFormatPrice } from "../../../utils/format/formatPrice";
 import { getCodeProduct } from "../../../utils/format/getCodeProduct";
 import { useParams } from "react-router-dom";
 import { addOrderAction } from "../../../redux_store/actions/OrderAction";
+import { notification } from "antd";
 
 function CancelArrowSlider(props) {
     const { style } = props;
@@ -82,37 +83,32 @@ function ProductDetail(props) {
 
     const handleBuyNow = () => {
         if (!idUser || !savedIdSize || !savedIdColor || !numberProduct || !productDetailForUser?.priceProduct) {
-            alert("Vui lòng chọn đầy đủ thông tin trước khi đặt hàng!");
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append("UserId", idUser);
-        formData.append("ProductId", id);
-        formData.append("QuantityOrder", numberProduct);
-        formData.append("TotalAmount", savedPrice || productDetailForUser?.priceProduct);
-        formData.append("SizeId", savedIdSize);
-        formData.append("ColorId", savedIdColor);
-
-
-        // Dispatch hoặc gọi trực tiếp action API
-        dispatch(addOrderAction(formData))
-            .then((response) => {
-                console.log("Order created successfully:", response);
-                alert("Đặt hàng thành công!");
-            })
-            .catch((error) => {
-                console.error("Error creating order:", error);
-                alert("Đặt hàng thất bại. Vui lòng thử lại.");
+            notification.error({
+                closeIcon: true,
+                message: 'Error',
+                description: (
+                    <>Chọn các tùy chọn cho sản phẩm trước khi cho sản phẩm vào giỏ hàng của bạn. !.</>
+                ),
             });
+        }
+        else {
+            const formData = new FormData();
+            formData.append("UserId", idUser);
+            formData.append("ProductId", id);
+            formData.append("QuantityOrder", numberProduct);
+            formData.append("TotalAmount", savedPrice || productDetailForUser?.priceProduct);
+            formData.append("SizeId", savedIdSize);
+            formData.append("ColorId", savedIdColor);
+            dispatch(addOrderAction(formData));
+        }
     };
 
-    console.log('size : ', savedIdSize);
-    console.log('color : ', savedIdColor);
-    console.log('id of shoes : ', id);
-    console.log('quantity product : ', numberProduct);
-    console.log('price product : ', productDetailForUser?.priceProduct && savedPrice);
-    console.log('id user : ', idUser);
+    // console.log('size : ', savedIdSize);
+    // console.log('color : ', savedIdColor);
+    // console.log('id of shoes : ', id);
+    // console.log('quantity product : ', numberProduct);
+    // console.log('price product : ', productDetailForUser?.priceProduct && savedPrice);
+    // console.log('id user : ', idUser);
 
 
 

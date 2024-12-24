@@ -14,7 +14,6 @@ function ManagerAccount() {
         window.location.href = '/';
     }
     let { userLogin } = useSelector(state => state.UserReducer);
-    console.log(userLogin);
     return (
         <div>
             <h3 className="font-semibold  text-xl font-sans text-gray-500 dark:text-gray-200 ">Xin chào: {userLogin?.email}</h3>

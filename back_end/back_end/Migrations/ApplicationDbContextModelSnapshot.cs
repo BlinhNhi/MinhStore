@@ -198,11 +198,9 @@ namespace back_end.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ColorId")
-                        .IsUnique();
+                    b.HasIndex("ColorId");
 
-                    b.HasIndex("SizeId")
-                        .IsUnique();
+                    b.HasIndex("SizeId");
 
                     b.HasIndex("UserId");
 
@@ -1588,30 +1586,30 @@ namespace back_end.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4039130e-df2c-4469-8859-dbe404d812da"),
+                            Id = new Guid("03c45a62-138b-4ae2-9c7a-3196af0e7f7f"),
                             Email = "admin@minhstore.com",
-                            Password = "$2a$11$sxrrRdgWABqfA/eUFSxdFey8l17YKVL77AXnZbAIi2rBF7dTxMG4y",
+                            Password = "$2a$11$ZPfmooQIPUBuYiFC69C26.JNNwv0nO3Lm86/jD0hbF.tPa/kr94CG",
                             Role = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("33a3cb78-8e7f-4ce7-a8a0-8d720d349b98"),
+                            Id = new Guid("cb5cce1c-892d-4261-9c60-a46c3139f09a"),
                             Email = "user123@gmail.com",
-                            Password = "$2a$11$HeaCN4TgmrQ8ZT1vVwdGBOOSk1geTJ1oQLmOyMJOQ1H0thfjMKLb.",
+                            Password = "$2a$11$27sTgbNw14Y9kPPMdjXHOeIasnkPxXEzBP7Q1DMF.Q9et/yPdf3kK",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("d646a9cf-a6ff-4cb6-88aa-14aff0224e90"),
+                            Id = new Guid("75a9ff39-f6c4-4cd7-8f4a-345077faaaba"),
                             Email = "user456@gmail.com",
-                            Password = "$2a$11$86FjdfxtOXI6OL.JdknC6efBf02gAEaluFkab/qe8sxjEOPD2AWbu",
+                            Password = "$2a$11$q323eGbwysxMVUAJdt1ZVe7yBysaRjX1ACVNwMF5ODlA29AfTEdgO",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("71249f21-f605-4248-b78a-224e8175a5f4"),
+                            Id = new Guid("e6507233-e927-44a7-979a-28ed2882edc3"),
                             Email = "user789@gmail.com",
-                            Password = "$2a$11$nWtPlcDDvGbkMpsjRfaYVuWm33Tf0HWx2WdUqDIFpr.lUinKoRkg.",
+                            Password = "$2a$11$orTA9mYH2bpUD56wHuvnMO8SFPJWaoG32I.tI8VeVqRzzwyPaeS8u",
                             Role = "User"
                         });
                 });
@@ -1634,14 +1632,14 @@ namespace back_end.Migrations
             modelBuilder.Entity("back_end.Models.Order", b =>
                 {
                     b.HasOne("back_end.Models.Color", "Color")
-                        .WithOne()
-                        .HasForeignKey("back_end.Models.Order", "ColorId")
+                        .WithMany("Orders")
+                        .HasForeignKey("ColorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("back_end.Models.Size", "Size")
-                        .WithOne()
-                        .HasForeignKey("back_end.Models.Order", "SizeId")
+                        .WithMany("Orders")
+                        .HasForeignKey("SizeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1723,9 +1721,19 @@ namespace back_end.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("back_end.Models.Color", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
             modelBuilder.Entity("back_end.Models.Order", b =>
                 {
                     b.Navigation("ProductOrders");
+                });
+
+            modelBuilder.Entity("back_end.Models.Size", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("back_end.Models.User", b =>

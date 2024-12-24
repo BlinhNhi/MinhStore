@@ -1,6 +1,6 @@
 import { notification } from 'antd';
 import { orderService } from '../../service/OrderService';
-import { GET_ORDER_DETAIL, GET_ORDER_LIST } from '../constants';
+import { GET_ORDER_DETAIL, GET_ORDER_DETAIL_BY_USER_ID, GET_ORDER_LIST } from '../constants';
 
 
 
@@ -76,6 +76,23 @@ export const getOrderDetailAction = (id) => {
                 dispatch({
                     type: GET_ORDER_DETAIL,
                     orderDetail: result.data.data[0],
+                })
+
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
+
+export const getOrderDetailByUserIdAction = (userId) => {
+
+    return async (dispatch) => {
+        try {
+            const result = await orderService.getOrderByUserId(userId)
+            if (result.data.status === 200) {
+                dispatch({
+                    type: GET_ORDER_DETAIL_BY_USER_ID,
                 })
 
             }

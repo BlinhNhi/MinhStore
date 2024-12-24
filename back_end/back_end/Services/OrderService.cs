@@ -132,9 +132,23 @@ namespace back_end.Services
             }
         }
 
-        public Task<Order> DeleteOrder(Guid Id)
+        public async Task<Order> DeleteOrder(Guid Id)
         {
-            throw new NotImplementedException();
+            var ExistingOrder = await db.Orders.SingleOrDefaultAsync(o => o.Id == Id);
+            if (ExistingOrder != null)
+            {
+                db.Orders.Remove(ExistingOrder);
+                int result = await db.SaveChangesAsync();
+                if (result == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return ExistingOrder;
+                }
+            }
+            return null;
         }
 
         public  async Task<IEnumerable<Order>> GetAllOrder()

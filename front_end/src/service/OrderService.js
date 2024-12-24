@@ -11,6 +11,9 @@ export class OrderService extends baseService {
     getOrderById = (Id) => {
         return this.get(`/api/Order/${Id}`);
     }
+    getOrderByUserId = (userId) => {
+        return this.get(`/api/Order/user/${userId}`);
+    }
     addOrder = (formData) => {
         return this.post(`/api/Order`, formData);
     };

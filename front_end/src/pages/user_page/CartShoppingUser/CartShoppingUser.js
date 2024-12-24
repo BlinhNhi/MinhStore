@@ -1,8 +1,11 @@
 import { Button, Table } from "antd";
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from "react-redux";
 
 import { TOKEN } from "../../../utils/variable";
 import NoImage from '../../../assets/no-image.jpeg'
+import { useEffect } from "react";
+import { getOrderDetailAction, getOrderDetailByUserIdAction } from "../../../redux_store/actions/OrderAction";
 
 
 function CartShoppingUser() {
@@ -12,6 +15,20 @@ function CartShoppingUser() {
     } else {
         window.location.href = '/';
     }
+    let { userLogin } = useSelector(state => state.UserReducer);
+    const idUser = userLogin?.id;
+    const dispatch = useDispatch();
+    console.log(userLogin);
+    console.log(idUser);
+
+    useEffect(() => {
+        if (idUser) {
+            dispatch(getOrderDetailByUserIdAction(idUser));
+        }
+    }, [idUser, dispatch]);
+    let { orderDetailByUserId } = useSelector((state) => state.OrderReducer);
+    console.log('test order detail : ', orderDetailByUserId);
+
 
     const testData = [
         {

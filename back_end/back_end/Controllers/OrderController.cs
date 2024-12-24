@@ -97,6 +97,26 @@ namespace back_end.Controllers
 
         }
 
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult> DeleteOrder(Guid Id)
+        {
+            try
+            {
+                var list = await repo.DeleteOrder(Id);
+                if (list != null)
+                {
+                    var response = new ResponseData<Order>(StatusCodes.Status200OK, "Delete Order successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
 
     }
 }

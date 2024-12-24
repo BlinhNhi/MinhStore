@@ -98,8 +98,8 @@ namespace back_end.Models
             {
                 o.HasKey(n => n.Id);
                 o.HasOne(o => o.User).WithMany(o => o.Orders).HasForeignKey(u => u.UserId);
-                o.HasOne(o => o.Color).WithOne().HasForeignKey<Order>(od => od.ColorId);
-                o.HasOne(o => o.Size).WithOne().HasForeignKey<Order>(od => od.SizeId);
+                o.HasOne(o => o.Color).WithMany(o => o.Orders).HasForeignKey(u => u.ColorId);
+                o.HasOne(o => o.Size).WithMany(o => o.Orders).HasForeignKey(u => u.SizeId);
                 
             });
             modelBuilder.Entity<OrderProduct>(op =>

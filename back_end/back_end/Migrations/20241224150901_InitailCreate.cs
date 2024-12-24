@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace back_end.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitailCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -318,10 +318,10 @@ namespace back_end.Migrations
                 columns: new[] { "Id", "Email", "GoogleId", "Name", "Password", "Phone", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("33a3cb78-8e7f-4ce7-a8a0-8d720d349b98"), "user123@gmail.com", null, null, "$2a$11$HeaCN4TgmrQ8ZT1vVwdGBOOSk1geTJ1oQLmOyMJOQ1H0thfjMKLb.", null, "User" },
-                    { new Guid("4039130e-df2c-4469-8859-dbe404d812da"), "admin@minhstore.com", null, null, "$2a$11$sxrrRdgWABqfA/eUFSxdFey8l17YKVL77AXnZbAIi2rBF7dTxMG4y", null, "Admin" },
-                    { new Guid("71249f21-f605-4248-b78a-224e8175a5f4"), "user789@gmail.com", null, null, "$2a$11$nWtPlcDDvGbkMpsjRfaYVuWm33Tf0HWx2WdUqDIFpr.lUinKoRkg.", null, "User" },
-                    { new Guid("d646a9cf-a6ff-4cb6-88aa-14aff0224e90"), "user456@gmail.com", null, null, "$2a$11$86FjdfxtOXI6OL.JdknC6efBf02gAEaluFkab/qe8sxjEOPD2AWbu", null, "User" }
+                    { new Guid("03c45a62-138b-4ae2-9c7a-3196af0e7f7f"), "admin@minhstore.com", null, null, "$2a$11$ZPfmooQIPUBuYiFC69C26.JNNwv0nO3Lm86/jD0hbF.tPa/kr94CG", null, "Admin" },
+                    { new Guid("75a9ff39-f6c4-4cd7-8f4a-345077faaaba"), "user456@gmail.com", null, null, "$2a$11$q323eGbwysxMVUAJdt1ZVe7yBysaRjX1ACVNwMF5ODlA29AfTEdgO", null, "User" },
+                    { new Guid("cb5cce1c-892d-4261-9c60-a46c3139f09a"), "user123@gmail.com", null, null, "$2a$11$27sTgbNw14Y9kPPMdjXHOeIasnkPxXEzBP7Q1DMF.Q9et/yPdf3kK", null, "User" },
+                    { new Guid("e6507233-e927-44a7-979a-28ed2882edc3"), "user789@gmail.com", null, null, "$2a$11$orTA9mYH2bpUD56wHuvnMO8SFPJWaoG32I.tI8VeVqRzzwyPaeS8u", null, "User" }
                 });
 
             migrationBuilder.InsertData(
@@ -526,14 +526,12 @@ namespace back_end.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_ColorId",
                 table: "Orders",
-                column: "ColorId",
-                unique: true);
+                column: "ColorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_SizeId",
                 table: "Orders",
-                column: "SizeId",
-                unique: true);
+                column: "SizeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",

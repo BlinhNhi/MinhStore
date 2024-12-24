@@ -17,7 +17,7 @@ const CreateCategory = () => {
         if (values.name === "" || values?.name?.startsWith(' ') === true) {
             notification.error({
                 closeIcon: true,
-                message: 'Error',
+                message: 'Lỗi',
                 description: (
                     <>Vui lòng điền đầy đủ thông tin và Không để trống đầu câu !.</>
                 ),
@@ -43,6 +43,7 @@ const CreateCategory = () => {
             dispatch(addCategoryAction(formData));
         }
     }
+
     const formik = useFormik({
         initialValues: {
             name: '',

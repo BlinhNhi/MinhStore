@@ -1,8 +1,10 @@
-import { GET_ORDER_DETAIL, GET_ORDER_LIST } from "../constants";
+import { GET_ORDER_DETAIL, GET_ORDER_DETAIL_BY_USER_ID, GET_ORDER_LIST } from "../constants";
 
 const initialState = {
     arrOrder: [],
     orderDetail: {},
+    orderDetailByUserId: [],
+
 }
 
 export const OrderReducer = (state = initialState, action) => {
@@ -13,6 +15,9 @@ export const OrderReducer = (state = initialState, action) => {
             return { ...state }
         case GET_ORDER_DETAIL:
             state.orderDetail = action.orderDetail;
+            return { ...state }
+        case GET_ORDER_DETAIL_BY_USER_ID:
+            state.orderDetailByUserId = action.orderDetailByUserId;
             return { ...state }
 
         default:
