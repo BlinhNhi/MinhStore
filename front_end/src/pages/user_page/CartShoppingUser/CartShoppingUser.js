@@ -30,26 +30,7 @@ function CartShoppingUser() {
     console.log('test order detail : ', orderDetailByUserId);
 
 
-    const testData = [
-        {
-            key: '1',
-            name: 'Adidas Alphabounce Beyond Black',
-            price: '1,095,000₫',
-            quantity: 1,
-            provisional: '1,095,000₫',
-            color: 'Đen',
-            size: '43'
-        },
-        {
-            key: '2',
-            name: 'Nike Air Force 1 White Low',
-            price: '775,000₫',
-            quantity: 1,
-            provisional: '775,000₫',
-            color: 'Đỏ',
-            size: '36'
-        },
-    ];
+    const dataUserOrder = orderDetailByUserId;
     const columnsDataTest = [
         {
             title: 'Sản Phẩm',
@@ -68,21 +49,25 @@ function CartShoppingUser() {
             dataIndex: 'price',
             key: 'price',
         },
-
         {
-            title: 'Màu Sắc',
-            dataIndex: 'color',
-            key: 'color',
+            title: 'Số Lượng',
+            dataIndex: 'quantityOrder',
+            key: 'quantityOrder',
         },
         {
             title: 'Tạm Tính',
-            dataIndex: 'provisional',
-            key: 'provisional',
+            dataIndex: 'totalAmount',
+            key: 'totalAmount',
         },
         {
             title: 'Size',
             dataIndex: 'size',
             key: 'size',
+        },
+        {
+            title: 'Màu Sắc',
+            dataIndex: 'color',
+            key: 'color',
         },
         {
             title: 'Số Lượng',
@@ -101,7 +86,7 @@ function CartShoppingUser() {
             <h2 className="text-gray-500 dark:text-gray-100 text-xl font-bold mb-2">Quản Lý Giỏ Hàng</h2>
             <div className="2xl:grid xl:grid flex flex-col grid-cols-3 gap-4">
                 <div className="col-span-2">
-                    <Table dataSource={testData} columns={columnsDataTest} rowKey={'id'} scroll={{ x: 1000 }} />
+                    <Table dataSource={dataUserOrder} columns={columnsDataTest} rowKey={'id'} scroll={{ x: 1000 }} />
                 </div>
                 <div className="">
                     <div className="py-8 px-4 rounded-md border-4 border-gray-300 flex flex-col gap-4">
