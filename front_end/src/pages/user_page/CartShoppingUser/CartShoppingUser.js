@@ -130,73 +130,90 @@ function CartShoppingUser() {
     ];
     return (
         <div className="">
-            <div className="2xl:grid xl:grid flex flex-col grid-cols-3 gap-4">
+            <div className="2xl:grid xl:grid flex flex-col grid-cols-3 gap-6">
                 <div className="col-span-2">
                     {/* <Table dataSource={dataUserOrder} columns={columnsDataTest} rowKey={'id'} scroll={{ x: 1000 }} /> */}
                     <h2 className="text-gray-500 dark:text-gray-100 text-xl font-bold mb-4">Quản Lý Giỏ Hàng</h2>
-                    <div className="flex items-center justify-between">
-                        <div className="">
-                            <img
-                                src={NoImage}
-                                alt="product-image"
-                                className="w-[150px] h-[150px] object-cover border-2 rounded-lg"
-                            />
-                        </div>
-                        <div className="flex flex-col gap-1">
-                            <h1 className="font-bold text-lg text-gray-500 dark:text-gray-200 hover:text-primary dark:hover:text-primary cursor-pointer ">Adidas SupperStar</h1>
-                            <h3 className="text-base font-semibold rounded-md text-gray-500 dark:text-gray-200">Size Giày: 40</h3>
-                            <h3 className="text-base font-semibold rounded-md text-gray-500 dark:text-gray-200">Màu Sắc : Vàng</h3>
-                            <h3 className="text-base font-semibold rounded-md text-gray-500 dark:text-gray-200 mb-2">Giá: 2,500,000đ</h3>
-                            <div className="flex gap-2 items-center w-[232px] border-2 border-gray-300 bg-gray-50 dark:border-gray-300">
-                                <button
-                                    onClick={() => {
-                                        setNumberProduct(numberProduct + 1);
-                                        handleIncrease();
-                                    }}
-                                    className="text-base font-bold
+                    {dataUserOrder?.map((up, i) => {
+                        console.log(up);
+                        return <div className="flex items-center justify-between mt-4 border-t-2 border-gray-400" key={i}>
+                            <div className="">
+                                <img
+                                    src={NoImage}
+                                    alt="product-image"
+                                    className="w-[150px] h-[150px] object-cover border-2 rounded-lg"
+                                />
+                            </div>
+                            <div className="flex flex-col gap-1 mt-2">
+                                <>
+                                    {up?.products?.map((it, i) => {
+                                        console.log(it);
+                                        return <h1 className="font-bold text-lg text-gray-500 dark:text-gray-200 hover:text-primary dark:hover:text-primary cursor-pointer ">{it?.nameProduct}</h1>
+
+
+                                    })}
+                                </>
+                                <h3 className="text-base font-semibold rounded-md text-gray-500 dark:text-gray-200">Size Giày: {up?.size?.numberOfSize}</h3>
+                                <h3 className="text-base font-semibold rounded-md text-gray-500 dark:text-gray-200">Màu Sắc : {up?.color?.name}</h3>
+                                <>
+                                    {up?.products?.map((it, i) => {
+                                        console.log();
+                                        return <h3 className="text-base font-semibold rounded-md text-gray-500 dark:text-gray-200 mb-2">Giá: {it?.priceProduct}</h3>
+
+                                    })}
+                                </>
+
+                                <div className="flex gap-2 items-center w-[232px] border-2 border-gray-300 bg-gray-50 dark:border-gray-300">
+                                    <button
+                                        onClick={() => {
+                                            setNumberProduct(numberProduct + 1);
+                                            handleIncrease();
+                                        }}
+                                        className="text-base font-bold
      sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl
      px-3 py-1 dark:bg-gray-100 dark:text-gray-600 border-gray-200 border-r-2 hover:bg-gray-400 dark:hover:bg-gray-400"
-                                >
-                                    +
-                                </button>
+                                    >
+                                        +
+                                    </button>
 
-                                <p
-                                    className="text-base font-medium
+                                    <p
+                                        className="text-base font-medium
      sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl
      py-1 px-14 bg-gray-50 dark:text-gray-600"
-                                >
-                                    {numberProduct}
-                                </p>
+                                    >
+                                        {up?.quantityOrder}
+                                    </p>
 
-                                <button
-                                    onClick={() => {
-                                        setNumberProduct(numberProduct - 1);
-                                        handleDecrease();
-                                    }}
-                                    disabled={numberProduct <= 1}
-                                    className={`text-base font-bold hover:bg-gray-400 dark:hover:bg-gray-400
+                                    <button
+                                        onClick={() => {
+                                            setNumberProduct(numberProduct - 1);
+                                            handleDecrease();
+                                        }}
+                                        disabled={numberProduct <= 1}
+                                        className={`text-base font-bold hover:bg-gray-400 dark:hover:bg-gray-400
             sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl
             px-4 py-1 dark:bg-gray-100 dark:text-gray-600 border-gray-200 border-l-2
             ${numberProduct <= 1
-                                            ? "text-base font-bold hover:bg-gray-400 dark:hover:bg-gray-400 sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl cursor-not-allowed px-[18px] opacity-50 py-1 dark:bg-gray-100 dark:text-gray-600 border-gray-200 border-l-2"
-                                            : ""
-                                        }`}
-                                >
-                                    -
-                                </button>
+                                                ? "text-base font-bold hover:bg-gray-400 dark:hover:bg-gray-400 sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl cursor-not-allowed px-[18px] opacity-50 py-1 dark:bg-gray-100 dark:text-gray-600 border-gray-200 border-l-2"
+                                                : ""
+                                            }`}
+                                    >
+                                        -
+                                    </button>
+                                </div>
+                                <h3 className="text-lg font-bold text-gray-500 mt-2 dark:text-gray-200">Tạm Tính: {up?.totalAmount}</h3>
                             </div>
-                            <h3 className="text-lg font-bold text-gray-500 mt-2 dark:text-gray-200">Thành tiền: 5,000,000đ</h3>
+                            <button
+                                onClick={() => {
+                                    console.log('hello bạn nhỏ');
+                                }}
+                                className=" hover:text-primary font-bold dark:hover:text-primary text-gray-500 dark:text-gray-200 text-4xl">
+                                <IoMdCloseCircleOutline className="" />
+                            </button>
                         </div>
-                        <button
-                            onClick={() => {
-                                console.log('hello bạn nhỏ');
-                            }}
-                            className=" hover:text-primary font-bold dark:hover:text-primary text-gray-500 dark:text-gray-200 text-4xl">
-                            <IoMdCloseCircleOutline className="" />
-                        </button>
-                    </div>
+                    })}
                 </div>
-                <div className="">
+                <div className="mt-10">
                     <div className="py-8 px-4 rounded-md border-4 border-gray-300 flex flex-col gap-4">
                         <h1 className="text-gray-600 font-bold text-xl dark:text-gray-300 border-b-2 border-gray-200 pb-2">Cộng Giỏ Hàng</h1>
 
