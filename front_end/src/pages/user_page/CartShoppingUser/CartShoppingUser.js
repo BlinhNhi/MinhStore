@@ -1,12 +1,11 @@
-import { Button, Table } from "antd";
-import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 
 import { TOKEN } from "../../../utils/variable";
 import NoImage from '../../../assets/no-image.jpeg'
 import { useEffect, useState } from "react";
-import { getOrderDetailAction, getOrderDetailByUserIdAction } from "../../../redux_store/actions/OrderAction";
+import { deleteOrderAction, getOrderDetailByUserIdAction } from "../../../redux_store/actions/OrderAction";
+import ModalDeleteCart from "../../../components/ModalDeleteCart/ModalDeleteCart";
 
 
 function CartShoppingUser() {
@@ -23,6 +22,7 @@ function CartShoppingUser() {
     const [savedIdSize, setSavedIdSize] = useState(0);
     const [savedIdColor, setSavedIdColor] = useState(0);
     const [savedPrice, setSavePrice] = useState();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleIncrease = () => {
         const newNumberProduct = numberProduct + 1;
@@ -37,8 +37,7 @@ function CartShoppingUser() {
             // setSavePrice(newNumberProduct * (productDetailForUser?.priceProduct || 0));
         }
     };
-    console.log(userLogin);
-    console.log(idUser);
+
 
     useEffect(() => {
         if (idUser) {
@@ -47,107 +46,41 @@ function CartShoppingUser() {
     }, [idUser, dispatch]);
     let { orderDetailByUserId } = useSelector((state) => state.OrderReducer);
     console.log('test order detail : ', orderDetailByUserId);
-
-
     const dataUserOrder = orderDetailByUserId;
-    const columnsDataTest = [
-        {
-            title: 'Sản Phẩm',
-            render: (text, cat) => {
-                const productName = text?.products?.[0]?.nameProduct;
-                return (
-                    <>
-                        {productName || "Không có tên sản phẩm"}
-                    </>
-                );
-            }
-        },
-        {
-            title: 'Hình Ảnh',
-            width: '10%',
-            render: (text) => {
-                // Chuyển chuỗi JSON thành mảng
-                const images = text?.products?.[0]?.imagesProduct ? JSON.parse(text.products[0].imagesProduct) : [];
-                const imageUrl = images?.[0] || NoImage; // Lấy URL đầu tiên hoặc sử dụng ảnh mặc định
-                return (
-                    <div className="flex flex-col items-center">
-                        <img
-                            src={imageUrl}
-                            alt="product-image"
-                            className="w-[50px] h-[50px] object-cover border-2 rounded-lg"
-                        />
-                    </div>
-                );
-            }
-        },
-        {
-            title: 'Giá',
-            render: (text, cat) => {
-                const productPrice = text?.products?.[0]?.priceProduct;
-                return (
-                    <>
-                        {productPrice || "Không có giá sản phẩm"} vnd
-                    </>
-                );
-            }
-        },
-        {
-            title: 'Số Lượng',
-            width: '15%',
-            render: (text, cat) => {
-                return <>
-                    <Button key={1} href={`/admin/categories-mng/edit/${cat.id}`} type="link" onClick={() => {
-                    }}>{text?.quantityOrder}</Button>
-                </>
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
 
-            }
-        },
-        {
-            title: 'Tạm Tính',
-            dataIndex: 'totalAmount',
-            key: 'totalAmount',
-        },
-        {
-            title: 'Size',
-            render: (text, cat) => {
-                return (
-                    <>
-                        {text?.size?.numberOfSize || 'Không có size'}
-                    </>
-                );
-            }
-        },
-        {
-            title: 'Màu Sắc',
-            render: (text) => {
-                return (
-                    <>
-                        {text?.color?.name || 'Không có màu'}
-                    </>
-                );
-            }
-        },
-    ];
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+
     return (
         <div className="">
             <div className="2xl:grid xl:grid flex flex-col grid-cols-3 gap-6">
                 <div className="col-span-2">
-                    {/* <Table dataSource={dataUserOrder} columns={columnsDataTest} rowKey={'id'} scroll={{ x: 1000 }} /> */}
                     <h2 className="text-gray-500 dark:text-gray-100 text-xl font-bold mb-4">Quản Lý Giỏ Hàng</h2>
                     {dataUserOrder?.map((up, i) => {
                         console.log(up);
-                        return <div className="flex items-center justify-between mt-4 border-t-2 border-gray-400" key={i}>
-                            <div className="">
-                                <img
-                                    src={NoImage}
-                                    alt="product-image"
-                                    className="w-[150px] h-[150px] object-cover border-2 rounded-lg"
-                                />
+                        return <div className="flex items-center justify-between mt-4 border-t-2 border-gray-400" key={up?.id}>
+                            <div className="" >
+                                {up?.products?.map((it, i) => {
+                                    const images = it?.imagesProduct ? JSON.parse(it?.imagesProduct) : [];
+                                    const imageUrl = images?.[0] || NoImage;
+                                    return <img
+                                        src={imageUrl}
+                                        alt="product-image"
+                                        className="w-[150px] h-[150px] object-cover border-2 rounded-lg"
+                                    />
+
+
+                                })}
+
                             </div>
-                            <div className="flex flex-col gap-1 mt-2">
+                            <div key={up?.id} className="flex flex-col gap-1 mt-2">
                                 <>
                                     {up?.products?.map((it, i) => {
-                                        console.log(it);
                                         return <h1 className="font-bold text-lg text-gray-500 dark:text-gray-200 hover:text-primary dark:hover:text-primary cursor-pointer ">{it?.nameProduct}</h1>
 
 
@@ -158,7 +91,7 @@ function CartShoppingUser() {
                                 <>
                                     {up?.products?.map((it, i) => {
                                         console.log();
-                                        return <h3 className="text-base font-semibold rounded-md text-gray-500 dark:text-gray-200 mb-2">Giá: {it?.priceProduct}</h3>
+                                        return <h3 className="text-base font-semibold rounded-md text-gray-500 dark:text-gray-200 mb-2">Giá: {it?.priceProduct}đ</h3>
 
                                     })}
                                 </>
@@ -201,15 +134,28 @@ function CartShoppingUser() {
                                         -
                                     </button>
                                 </div>
-                                <h3 className="text-lg font-bold text-gray-500 mt-2 dark:text-gray-200">Tạm Tính: {up?.totalAmount}</h3>
+
+                                <h3 className="text-lg font-bold text-gray-500 mt-2 dark:text-gray-200">Tạm Tính: {up?.totalAmount}đ</h3>
                             </div>
                             <button
-                                onClick={() => {
-                                    console.log('hello bạn nhỏ');
-                                }}
+                                onClick={handleOpenModal}
                                 className=" hover:text-primary font-bold dark:hover:text-primary text-gray-500 dark:text-gray-200 text-4xl">
-                                <IoMdCloseCircleOutline className="" />
+                                <IoMdCloseCircleOutline />
                             </button>
+                            {up?.products?.map((it, i) => {
+                                console.log();
+                                return <ModalDeleteCart
+                                    isOpen={isModalOpen}
+                                    onClose={handleCloseModal}
+                                    onConfirm={() => {
+                                        dispatch(deleteOrderAction(up?.id));
+                                        setIsModalOpen(false);
+                                    }}
+                                    orderName={it?.nameProduct}
+                                />
+
+                            })}
+
                         </div>
                     })}
                 </div>

@@ -236,12 +236,10 @@ md:items-center lg:items-center xl:items-center 2xl:items-center
 flex items-start mt-3 gap-4 mb-5
 "
                             >
-                                {/* Button Number of Product */}
                                 <div className="flex gap-2 items-center border-4 border-gray-300 bg-gray-50 dark:border-gray-300">
                                     <button
                                         onClick={() => {
                                             setNumberProduct(numberProduct + 1);
-                                            // setSavePrice((numberProduct + 1) * productDetailForUser?.priceProduct);
                                             handleIncrease();
                                         }}
                                         className="text-base font-bold
@@ -262,7 +260,6 @@ flex items-start mt-3 gap-4 mb-5
                                     <button
                                         onClick={() => {
                                             setNumberProduct(numberProduct - 1);
-                                            // setSavePrice((numberProduct - 1) * productDetailForUser?.priceProduct);
                                             handleDecrease();
                                         }}
                                         disabled={numberProduct <= 1}

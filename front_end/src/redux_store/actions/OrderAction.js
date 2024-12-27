@@ -60,7 +60,8 @@ export const deleteOrderAction = (id) => {
                     )
                 });
             }
-            dispatch(getListOrderAction())
+            await new Promise(resolve => setTimeout(resolve, 800));
+            window.location.href = '/system-account/cart-shopping';
         }
         catch (e) {
             console.log(e)
