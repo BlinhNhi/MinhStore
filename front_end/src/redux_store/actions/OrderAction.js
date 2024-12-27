@@ -29,14 +29,14 @@ export const addOrderAction = (formData) => {
         try {
             const result = await orderService.addOrder(formData);
             console.log(result);
-            notification.success({
-                closeIcon: true,
-                message: 'Thành Công',
-                description: (
-                    <>Thêm Đơn Hàng  Thành Công</>
-                ),
-            });
-            window.location.href = '/system-account/cart-shopping';
+            // notification.success({
+            //     closeIcon: true,
+            //     message: 'Thành Công',
+            //     description: (
+            //         <>Thêm Đơn Hàng  Thành Công</>
+            //     ),
+            // });
+
         } catch (error) {
             notification.error({
                 closeIcon: true,

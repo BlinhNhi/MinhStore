@@ -38,7 +38,6 @@ function CartShoppingUser() {
         }
     };
 
-
     useEffect(() => {
         if (idUser) {
             dispatch(getOrderDetailByUserIdAction(idUser));

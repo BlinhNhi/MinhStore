@@ -212,21 +212,26 @@ namespace back_end.Services
                        ImagesProduct = po.Product.ImagesProduct,    
                      }).ToList(),
                     UserId = o.UserId,
-                    /* User = new User
-                     {
-                         Email = o.User.Email,
-                         Name = o.User.Name,
-                         Phone = o.User.Phone,
-                     },*/
                     OrderDate = o.OrderDate,
         
         })
         .ToListAsync();
         }
 
-        public Task<bool> PutOrder(Guid Id, Order order)
+        public async Task<bool> PutOrder(Guid Id, Order order)
         {
-            throw new NotImplementedException();
+            var ExistingOrder = await db.Orders.SingleOrDefaultAsync(or => or.Id == Id);
+            if(ExistingOrder != null)
+            {
+                ExistingOrder.QuantityOrder = order.QuantityOrder;
+                ExistingOrder.TotalAmount = order.TotalAmount;
+                await db.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

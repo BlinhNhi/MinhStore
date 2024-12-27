@@ -4,7 +4,7 @@
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        public string ProductId { get; set; }
+        public string ?ProductId { get; set; }
         public int QuantityOrder { get; set; }
         public int TotalAmount { get; set; }
         public int SizeId { get; set; }

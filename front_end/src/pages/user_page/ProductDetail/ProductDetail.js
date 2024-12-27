@@ -18,6 +18,7 @@ import { getCodeProduct } from "../../../utils/format/getCodeProduct";
 import { useParams } from "react-router-dom";
 import { addOrderAction } from "../../../redux_store/actions/OrderAction";
 import { notification } from "antd";
+import ModalAddProductIntoCart from "../../../components/ModalAddProductIntoCart/ModalAddProductIntoCart";
 
 function CancelArrowSlider(props) {
     const { style } = props;
@@ -66,6 +67,7 @@ function ProductDetail(props) {
     const [savedIdSize, setSavedIdSize] = useState(0);
     const [savedIdColor, setSavedIdColor] = useState(0);
     const [savedPrice, setSavePrice] = useState();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleIncrease = () => {
         const newNumberProduct = numberProduct + 1;
@@ -79,6 +81,13 @@ function ProductDetail(props) {
             setNumberProduct(newNumberProduct);
             setSavePrice(newNumberProduct * (productDetailForUser?.priceProduct || 0));
         }
+    };
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
     };
 
     const handleBuyNow = () => {
@@ -100,6 +109,7 @@ function ProductDetail(props) {
             formData.append("SizeId", savedIdSize);
             formData.append("ColorId", savedIdColor);
             dispatch(addOrderAction(formData));
+            handleOpenModal();
         }
     };
 
@@ -172,7 +182,7 @@ sm:mt-0 md:mt-0 lg:mt-0 xl:mt-0 2xl:mt-0
                                 >
                                     Chọn Màu Giày:{" "}
                                 </h3>
-                                <div className="flex items-center gap-4 mt-3">
+                                <div className="flex items-center gap-4 mt-3 flex-wrap">
                                     {productDetailForUser?.colors?.map((data, key) => {
                                         return (
                                             <button
@@ -205,8 +215,7 @@ sm:mt-0 md:mt-0 lg:mt-0 xl:mt-0 2xl:mt-0
                                 >
                                     Chọn Size Giày:{" "}
                                 </h3>
-                                {/* star */}
-                                <div className="flex items-center gap-4 mt-3">
+                                <div className="flex items-center gap-4 mt-3 flex-wrap ">
                                     {productDetailForUser?.sizes?.map((data, key) => {
                                         return (
                                             <button
@@ -308,6 +317,11 @@ flex items-start mt-3 gap-4 mb-5
                             </div>
                         </div>
                     </div>
+                    <ModalAddProductIntoCart
+                        isOpen={isModalOpen}
+                        onClose={handleCloseModal}
+                        nameProduct={productDetailForUser?.nameProduct}
+                    />
                 </div>
                 {/* Body */}
 

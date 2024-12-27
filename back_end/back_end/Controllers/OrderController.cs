@@ -117,6 +117,26 @@ namespace back_end.Controllers
 
         }
 
+        [HttpPut("{Id}")]
+        public async Task<ActionResult> PutOrder(Guid Id, [FromForm] Order order)
+        {
+            try
+            {
+                bool list = await repo.PutOrder(Id, order);
+                if (list)
+                {
+                    var response = new ResponseData<Order>(StatusCodes.Status200OK, "Edit Order Successfully", order, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
 
     }
 }
