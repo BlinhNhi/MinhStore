@@ -4,7 +4,7 @@ import { IoMdCloseCircleOutline } from "react-icons/io";
 import { TOKEN } from "../../../utils/variable";
 import NoImage from '../../../assets/no-image.jpeg'
 import { useEffect, useState } from "react";
-import { deleteOrderAction, getOrderDetailByUserIdAction } from "../../../redux_store/actions/OrderAction";
+import { deleteOrderAction, getOrderDetailByUserIdAction, updateOrderAction } from "../../../redux_store/actions/OrderAction";
 import ModalDeleteCart from "../../../components/ModalDeleteCart/ModalDeleteCart";
 
 
@@ -18,25 +18,8 @@ function CartShoppingUser() {
     let { userLogin } = useSelector(state => state.UserReducer);
     const idUser = userLogin?.id;
     const dispatch = useDispatch();
-    const [numberProduct, setNumberProduct] = useState(1);
-    const [savedIdSize, setSavedIdSize] = useState(0);
-    const [savedIdColor, setSavedIdColor] = useState(0);
-    const [savedPrice, setSavePrice] = useState();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleIncrease = () => {
-        const newNumberProduct = numberProduct + 1;
-        setNumberProduct(newNumberProduct);
-        // setSavePrice(newNumberProduct * (productDetailForUser?.priceProduct || 0));
-    };
-
-    const handleDecrease = () => {
-        if (numberProduct > 1) {
-            const newNumberProduct = numberProduct - 1;
-            setNumberProduct(newNumberProduct);
-            // setSavePrice(newNumberProduct * (productDetailForUser?.priceProduct || 0));
-        }
-    };
 
     useEffect(() => {
         if (idUser) {
@@ -44,7 +27,6 @@ function CartShoppingUser() {
         }
     }, [idUser, dispatch]);
     let { orderDetailByUserId } = useSelector((state) => state.OrderReducer);
-    console.log('test order detail : ', orderDetailByUserId);
     const dataUserOrder = orderDetailByUserId;
     const handleOpenModal = () => {
         setIsModalOpen(true);
@@ -54,6 +36,26 @@ function CartShoppingUser() {
         setIsModalOpen(false);
     };
 
+    console.log('test order detail : ', orderDetailByUserId);
+    const [numberProduct, setNumberProduct] = useState(1);
+    console.log(dataUserOrder?.numberProduct);
+
+    const handleIncrease = (quantityOrder, totalAmount, idOfOrder) => {
+        const quantityOrderCurrent = quantityOrder + 1;
+        const totalAmountCurrent = totalAmount + (totalAmount / quantityOrder)
+        const formData = new FormData();
+        formData.append("QuantityOrder", quantityOrderCurrent);
+        formData.append("TotalAmount", totalAmountCurrent);
+        dispatch(updateOrderAction(idOfOrder, formData))
+
+        console.log(idOfOrder);
+        console.log(quantityOrderCurrent);
+        console.log(totalAmount);
+        console.log(totalAmountCurrent);
+
+    };
+
+
 
     return (
         <div className="">
@@ -61,7 +63,9 @@ function CartShoppingUser() {
                 <div className="col-span-2">
                     <h2 className="text-gray-500 dark:text-gray-100 text-xl font-bold mb-4">Quản Lý Giỏ Hàng</h2>
                     {dataUserOrder?.map((up, i) => {
-                        console.log(up);
+                        console.log(up?.quantityOrder);
+
+
                         return <div className="flex items-center justify-between mt-4 border-t-2 border-gray-400" key={up?.id}>
                             <div className="" >
                                 {up?.products?.map((it, i) => {
@@ -97,10 +101,8 @@ function CartShoppingUser() {
 
                                 <div className="flex gap-2 items-center w-[232px] border-2 border-gray-300 bg-gray-50 dark:border-gray-300">
                                     <button
-                                        onClick={() => {
-                                            setNumberProduct(numberProduct + 1);
-                                            handleIncrease();
-                                        }}
+                                        onClick={() => handleIncrease(up?.quantityOrder, up?.totalAmount, up?.id)}
+                                        // onClick={() => handleIncrease(up?.id, up?.quantityOrder)}
                                         className="text-base font-bold
      sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl
      px-3 py-1 dark:bg-gray-100 dark:text-gray-600 border-gray-200 border-r-2 hover:bg-gray-400 dark:hover:bg-gray-400"
@@ -118,14 +120,14 @@ function CartShoppingUser() {
 
                                     <button
                                         onClick={() => {
-                                            setNumberProduct(numberProduct - 1);
-                                            handleDecrease();
+                                            // setNumberProduct(up?.quantityOrder - 1);
+                                            // handleDecrease();
                                         }}
-                                        disabled={numberProduct <= 1}
+                                        disabled={up?.quantityOrder <= 1}
                                         className={`text-base font-bold hover:bg-gray-400 dark:hover:bg-gray-400
             sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl
             px-4 py-1 dark:bg-gray-100 dark:text-gray-600 border-gray-200 border-l-2
-            ${numberProduct <= 1
+            ${up?.quantityOrder <= 1
                                                 ? "text-base font-bold hover:bg-gray-400 dark:hover:bg-gray-400 sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl cursor-not-allowed px-[18px] opacity-50 py-1 dark:bg-gray-100 dark:text-gray-600 border-gray-200 border-l-2"
                                                 : ""
                                             }`}

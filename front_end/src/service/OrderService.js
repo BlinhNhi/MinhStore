@@ -21,7 +21,7 @@ export class OrderService extends baseService {
         return this.delete(`/api/Order/${id}`);
     };
     updateOrder = (id, order) => {
-        return this.put(`/Order/${id}`, order);
+        return this.put(`/api/Order/${id}`, order);
     };
 }
 

@@ -1,5 +1,5 @@
 function ModalDeleteCart({ isOpen, onClose, onConfirm, orderName }) {
-    console.log(isOpen, onClose, onConfirm, orderName);
+
     if (!isOpen) return null;
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">

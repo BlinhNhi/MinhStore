@@ -117,7 +117,10 @@ export const updateOrderAction = (id, formData) => {
                         <>Cập Nhật Đơn Hàng Thành Công</>
                     ),
                 });
-                window.location.href = '/system-account/my-account/';
+                setTimeout(() => {
+                    window.location.reload()
+
+                }, 1000);
             }
         } catch (error) {
             notification.error({
