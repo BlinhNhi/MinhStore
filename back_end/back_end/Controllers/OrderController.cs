@@ -68,7 +68,8 @@ namespace back_end.Controllers
                     var response = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "Get Order By User Id successfully", list, null);
                     return Ok(response);
                 }
-                return BadRequest();
+                var responseNoOrder = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "No Order", list, null);
+                return Ok(responseNoOrder);
             }
             catch (Exception ex)
             {

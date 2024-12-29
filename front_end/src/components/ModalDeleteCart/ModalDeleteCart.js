@@ -1,5 +1,4 @@
-function ModalDeleteCart({ isOpen, onClose, onConfirm, orderName }) {
-
+function ModalDeleteCart({ isOpen, onClose, onConfirm, orderId }) {
     if (!isOpen) return null;
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
@@ -8,7 +7,7 @@ function ModalDeleteCart({ isOpen, onClose, onConfirm, orderName }) {
                     Xác nhận xóa đơn hàng
                 </h2>
                 <p className="text-gray-600">
-                    Bạn có chắc muốn xóa đơn hàng: <strong>{orderName}</strong>?
+                    Bạn có chắc muốn xóa đơn hàng: <strong>{orderId}</strong>?
                 </p>
                 <div className="flex justify-end mt-6 space-x-4">
                     <button

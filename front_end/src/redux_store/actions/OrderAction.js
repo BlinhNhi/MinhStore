@@ -29,14 +29,6 @@ export const addOrderAction = (formData) => {
         try {
             const result = await orderService.addOrder(formData);
             console.log(result);
-            // notification.success({
-            //     closeIcon: true,
-            //     message: 'Thành Công',
-            //     description: (
-            //         <>Thêm Đơn Hàng  Thành Công</>
-            //     ),
-            // });
-
         } catch (error) {
             notification.error({
                 closeIcon: true,
@@ -92,7 +84,6 @@ export const getOrderDetailByUserIdAction = (userId) => {
         try {
             const result = await orderService.getOrderByUserId(userId)
             if (result.data.status === 200) {
-                console.log(result?.data?.data);
                 dispatch({
                     orderDetailByUserId: result?.data?.data,
                     type: GET_ORDER_DETAIL_BY_USER_ID,

@@ -134,7 +134,8 @@ export default function CategoryMng() {
                         if (window.confirm('Bạn Muốn Xoá Danh Mục : ' + cat.name + '?')) {
                             dispatch(deleteCategoryAction(cat.id))
                         }
-                    }}></Button>
+                    }
+                    }></Button>
                 </>
 
             }

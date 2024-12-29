@@ -189,33 +189,33 @@ namespace back_end.Services
 
         public async Task<IEnumerable<Order>> GetOrderByUserId(Guid userId)
         {
-            return await db.Orders
+            var orders = await db.Orders
                 .Where(o => o.UserId == userId)
                 .Include(o => o.Color)
                 .Include(o => o.Size)
                 .Include(o => o.Products)
                 .Select(o => new Order
+                {
+                    Id = o.Id,
+                    QuantityOrder = o.QuantityOrder,
+                    TotalAmount = o.TotalAmount,
+                    Size = o.Size,
+                    Color = o.Color,
+                    Products = o.ProductOrders.Select(po => new Product
                     {
-                       Id = o.Id,
-                       QuantityOrder = o.QuantityOrder,
-                       TotalAmount = o.TotalAmount,
-                       Size = o.Size,
-                       Color = o.Color,
-                Products = o.ProductOrders.Select(po => new Product
-                    {
-                       Id = po.Product.Id,
-                       NameProduct = po.Product.NameProduct,
-                       PriceProduct = po.Product.PriceProduct,
-                       StockQuantity = po.Product.StockQuantity,
-                       NumberOfProductInStock = po.Product.NumberOfProductInStock,
-                       NumberOfProductSold = po.Product.NumberOfProductSold,
-                       ImagesProduct = po.Product.ImagesProduct,    
-                     }).ToList(),
+                        Id = po.Product.Id,
+                        NameProduct = po.Product.NameProduct,
+                        PriceProduct = po.Product.PriceProduct,
+                        StockQuantity = po.Product.StockQuantity,
+                        NumberOfProductInStock = po.Product.NumberOfProductInStock,
+                        NumberOfProductSold = po.Product.NumberOfProductSold,
+                        ImagesProduct = po.Product.ImagesProduct,
+                    }).ToList(),
                     UserId = o.UserId,
                     OrderDate = o.OrderDate,
-        
-        })
-        .ToListAsync();
+                 })
+                    .ToListAsync();
+                  return orders ?? new List<Order>();
         }
 
         public async Task<bool> PutOrder(Guid Id, Order order)

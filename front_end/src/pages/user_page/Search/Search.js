@@ -1,13 +1,13 @@
 import { Modal } from "antd";
 import { MdFilterList } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 import SelectProduct from "../../../components/SelectProduct/SelectProduct";
 import ListProduct from "../../../components/ListProduct/ListProduct";
-import { useEffect, useState } from "react";
 import FilterProduct from "../../../components/FilterProduct/FilterProduct";
-import { useDispatch, useSelector } from "react-redux";
-import { getProductListOptionsAction, getProductsOfCategoryAction } from "../../../redux_store/actions/ProductAcction";
 import Pagination from "../../../components/Pagination/Pagination";
+import { getProductListOptionsAction, getProductsOfCategoryAction } from "../../../redux_store/actions/ProductAcction";
 
 
 const setInput = {
