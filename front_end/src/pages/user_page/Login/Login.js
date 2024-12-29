@@ -26,24 +26,24 @@ function Login() {
         console.log('Failed:', errorInfo);
     };
 
-    const onSuccess = async (response) => {
-        try {
-            const res = await axios.post("https://localhost:7234/auth/signin-google", {
-                idToken: response.tokenId,
-            });
-            const { token } = res.data;
-            localStorage.setItem("authToken", token);
-            alert("Login successful!");
-        } catch (error) {
-            console.error(error);
-            alert("Login failed!");
-        }
-    };
+    // const onSuccess = async (response) => {
+    //     try {
+    //         const res = await axios.post("https://localhost:7234/auth/signin-google", {
+    //             idToken: response.tokenId,
+    //         });
+    //         const { token } = res.data;
+    //         localStorage.setItem("authToken", token);
+    //         alert("Login successful!");
+    //     } catch (error) {
+    //         console.error(error);
+    //         alert("Login failed!");
+    //     }
+    // };
 
-    const onFailure = (response) => {
-        console.error(response);
-        alert("Google Login failed!");
-    };
+    // const onFailure = (response) => {
+    //     console.error(response);
+    //     alert("Google Login failed!");
+    // };
 
     return (
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200">
@@ -67,7 +67,7 @@ function Login() {
                             className="
                         flex flex-col gap-[12px] border-r-0 pr-4 border-gray-400 
                         sm:border-r-0 md:border-r-0 lg:border-r-4 xl:border-r-4 2xl:border-r-4
-                        w-full  sm:w-full md:w-full lg:w-1/2 xl:w-1/2 2xl:w-1/2
+                        w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/2 2xl:w-1/2
                         "
                         >
                             <div

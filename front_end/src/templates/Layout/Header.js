@@ -16,11 +16,6 @@ import { Menu } from "../../utils/data/dataMenuNavbar";
 import LowerNavbar from "../../components/LowerNavbar/LowerNavbar";
 import { TOKEN } from "../../utils/variable";
 
-
-
-
-
-
 const setInput = {
     page: 1,
     searchName: "",
@@ -36,9 +31,11 @@ function Header() {
         return localStorage.getItem(TOKEN) || "";
     }, []);
     useEffect(() => {
-        if (accessToken && accessToken != null) {
-            dispatch(getCurrentUserAction(accessToken))
-        }
+        setTimeout(() => {
+            if (accessToken && accessToken != null) {
+                dispatch(getCurrentUserAction(accessToken))
+            }
+        }, 1000)
     }, [accessToken, dispatch]);
 
     const handelOnChangeSearch = (e) => {

@@ -2,7 +2,7 @@ import { createBrowserHistory } from "history";
 import { Routes, Route } from "react-router-dom"; // Dùng Route thay vì Router
 import AOS from "aos";
 import "aos/dist/aos.css";
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 // General
 import Home from "./pages/user_page/Home/Home";
 import Search from "./pages/user_page/Search/Search";
@@ -39,6 +39,10 @@ import AdminTemplate from "./templates/AdminTemplate";
 import { HomeTemplate } from "./templates/HomeTemplate";
 import ManagerAccount from "./pages/user_page/ManagerAccount/ManagerAccount";
 import Loading from "./components/Loading/Loading";
+import { useDispatch, useSelector } from "react-redux";
+import { TOKEN } from "./utils/variable";
+import { getCurrentUserAction } from "./redux_store/actions/AuthAction";
+import PaymentProduct from "./pages/user_page/PaymentProduct/PaymentProduct";
 
 
 export const history = createBrowserHistory();
@@ -54,6 +58,22 @@ function App() {
     AOS.refresh();
   }, []);
 
+  const dispatch = useDispatch();
+  let { userLogin } = useSelector(state => state.UserReducer);
+  const accessToken = useMemo(() => {
+    return localStorage.getItem(TOKEN) || "";
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (accessToken && accessToken != null) {
+        dispatch(getCurrentUserAction(accessToken))
+      }
+    }, 1000)
+
+  }, [accessToken, dispatch]);
+
+
   return (
     <>
       <Loading></Loading>
@@ -63,12 +83,16 @@ function App() {
         <Route path="/search" element={<HomeTemplate Component={Search} />} />
         <Route path="/product-detail/:id" element={<HomeTemplate Component={ProductDetail} />} />
         <Route path="/login" element={<HomeTemplate Component={Login} />} />
+
         {/* User */}
         <Route path="/system-account/*" element={<HomeTemplate Component={SystemUser} />}>
           <Route path="my-account" element={<ManagerAccount />} />
           <Route path="profile" element={<ProfileUser />} />
           <Route path="cart-shopping" element={<CartShoppingUser />} />
         </Route>
+        {/* Payment */}
+        <Route path="check-out" element={<HomeTemplate Component={PaymentProduct} />} />
+
 
         {/* Admin Routes */}
         <Route path="/admin/dashboard" element={<AdminTemplate Component={DashBoard} />} />

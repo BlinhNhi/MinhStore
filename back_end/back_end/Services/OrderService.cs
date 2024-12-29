@@ -94,18 +94,13 @@ namespace back_end.Services
                     return false;
                 }
                 order.Size = size;
-
-                // Xử lý ProductId nếu không null
                 if (order.ProductId != null)
                 {
-                    // Chuyển ProductId thành List<Guid>
                     List<Guid> productIds = order.ProductId
                         .ToString()
-                        .Split(",") // Tách theo dấu phẩy
-                        .Select(id => Guid.Parse(id.Trim())) // Chuyển thành Guid
+                        .Split(",")
+                        .Select(id => Guid.Parse(id.Trim()))
                         .ToList();
-
-                    // Thêm từng sản phẩm vào OrderProducts
                     foreach (var id in productIds)
                     {
                         db.OrderProducts.Add(new OrderProduct
@@ -115,11 +110,7 @@ namespace back_end.Services
                         });
                     }
                 }
-
-                // Thêm Order vào database
                 await db.Orders.AddAsync(order);
-
-                // Chỉ gọi SaveChanges một lần
                 await db.SaveChangesAsync();
 
                 return true;
