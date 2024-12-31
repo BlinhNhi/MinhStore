@@ -4,10 +4,10 @@ import { FaHeart } from "react-icons/fa";
 import { IoFlash } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { registerAction, loginAction } from "../../../redux_store/actions/AuthAction";
-import GoogleLogin from "react-google-login";
-import axios from "axios";
+// import GoogleLogin from "react-google-login";
+// import axios from "axios";
 
-const clientId = "336363086999-7o2jcdenl44ugtajbvvo4ta6m00ffljv.apps.googleusercontent.com";
+// const clientId = "336363086999-7o2jcdenl44ugtajbvvo4ta6m00ffljv.apps.googleusercontent.com";
 function Login() {
     const [openLogin, setOpenLogin] = useState("flex");
     const [openRegister, setOpenRegister] = useState(false);
