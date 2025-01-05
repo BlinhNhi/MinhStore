@@ -3,9 +3,40 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { Form, Input } from "antd";
 
 import NoImage from '../../../assets/no-image.jpeg';
+import { TOKEN } from "../../../utils/variable";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getOrderDetailByUserIdAction } from "../../../redux_store/actions/OrderAction";
+import { handleFormatPrice } from "../../../utils/format/formatPrice";
 
 
 function PaymentProduct() {
+    let accessToken = {};
+    const dispatch = useDispatch();
+    if (localStorage.getItem(TOKEN)) {
+        accessToken = localStorage.getItem(TOKEN);
+    } else {
+        window.location.href = '/';
+    }
+    let { userLogin } = useSelector(state => state.UserReducer);
+    console.log(userLogin);
+    const idUser = userLogin?.id;
+    useEffect(() => {
+        if (idUser) {
+            dispatch(getOrderDetailByUserIdAction(idUser))
+        }
+    }, [idUser, dispatch]);
+    let { orderDetailByUserId } = useSelector(state => state.OrderReducer);
+
+    const totalAmountSum = orderDetailByUserId?.reduce((sum, item) => {
+        return sum + (item?.totalAmount || 0);
+    }, 0);
+
+    const idProduct = orderDetailByUserId?.map(order => order.products?.map(product => product.id))
+        .flat();
+
+    console.log(idProduct);
+
     const handleChangeContent = (e, editor) => {
         const data = editor.getData();
         console.log(data);
@@ -118,61 +149,62 @@ function PaymentProduct() {
                                         }}
                                     ></CKEditor>
                                 </Form.Item>
-
-                                {/* <div className="">
-                                    <p className="font-semibold dark:text-gray-200 text-gray-600  md:text-lg lg:text-lg xl:text-lg 2xl:text-lg sm:text-base text-base w-full">
-                                        Một liên kết để tạo mật khẩu sẽ được gửi đến địa chỉ email
-                                        của bạn.
-                                    </p>
-                                </div>
-                                <div>
-                                    <button
-                                        type="submit"
-                                        className="
-                                    font-bold bg-gray-900 hover:bg-gray-700 md:p-2 lg:p-2 xl:p-3 2xl:p-3 sm:p-1 p-1  
-                                    mt-2 rounded-md text-white text-lg md:text-xl lg:text-xl xl:text-xl 2xl:text-xl
-                                     dark:bg-gray-100 dark:hover:bg-gray-200 dark:text-gray-800
-                                     w-full md:w-full lg:w-full xl:w-2/3 2xl:w-2/3 sm:w-full
-                                    "
-                                    >
-                                        Đăng Ký
-                                    </button>
-                                </div> */}
                             </Form>
                         </div>
                     </div>
                     <div className="">
                         <div>
-                            <h2 className="font-bold text-xl text-gray-700 dark:text-gray-200 uppercase">Đơn Hàng Của Bạn</h2>
-                            <div className="mt-6">
-                                <div className="border-b-2 border-gray-300 pb-4">
-                                    <div className="flex justify-around  ">
+                            <h2 className="font-bold text-xl text-gray-700 dark:text-gray-200 uppercase text-center ">Đơn Hàng Của Bạn</h2>
+                            {
+                                orderDetailByUserId?.map((item, i) => {
+                                    return <div className="mt-6" key={i}>
                                         <div>
-                                            <img src={NoImage} className="w-[65px] h-[65px] object-cover border-2 rounded-lg" alt="prodcut-image"></img>
-                                        </div>
-                                        <div className="flex flex-col justify-around">
-                                            <h3 className="text-base font-medium text-gray-600 dark:text-gray-200  leading-[0px]">Dép Crocs Duet Sport Unisex White</h3>
-                                            <h4 className="text-sm  text-gray-600 dark:text-gray-200  leading-[0px]">Size Giày: 39</h4>
-                                            <h4 className="text-sm  text-gray-600 dark:text-gray-200  leading-[0px]">Màu Sắc: Xanh</h4>
-                                        </div>
-                                        <div className="flex justify-center items-center">
-                                            <h3 className="text-lg  text-gray-600 dark:text-gray-200">3,200,000đ</h3>
+                                            <div className="border-b-2 border-gray-300 pb-4">
+                                                <div className="flex justify-around">
+                                                    <div>
+                                                        {item?.products?.map((pro, i) => {
+                                                            const images = pro?.imagesProduct ? JSON.parse(pro?.imagesProduct) : [];
+                                                            const imageUrl = images?.[0] || NoImage;
+                                                            return (
+                                                                <img
+                                                                    src={imageUrl}
+                                                                    alt="product-image"
+                                                                    className="w-[125px] h-[125px] object-cover border-2 rounded-lg"
+                                                                    key={i}
+                                                                />
+                                                            )
+                                                        })}
+                                                    </div>
+                                                    <div className="flex flex-col justify-around ">
+                                                        {item?.products?.map((pro, i) => {
+                                                            return <>
+                                                                <h3 key={i} className="text-lg font-medium text-gray-600 dark:text-gray-200  leading-[0px]">{pro?.nameProduct}</h3>
+                                                            </>
+                                                        })}
+                                                        <h4 className="text-base  text-gray-600 dark:text-gray-200  leading-[0px]">Size Giày: {item?.size?.numberOfSize}</h4>
+                                                        <h4 className="text-base  text-gray-600 dark:text-gray-200  leading-[0px]">Màu Sắc: {item?.color?.name}</h4>
+                                                    </div>
+
+                                                    <div className="flex justify-center items-center">
+                                                        {item?.products?.map((pro, i) => {
+                                                            return <h3 key={i} className="text-lg  text-gray-600 dark:text-gray-200">{handleFormatPrice(pro?.priceProduct)}đ</h3>
+                                                        })}
+                                                        <p className="text-gray-600 dark:text-gray-200 ml-2">x {item?.quantityOrder}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className=" py-4 pl-8">
+                                                <div className="flex justify-between">
+                                                    <h3 className="text-base font-medium text-gray-600 dark:text-gray-200">Tạm tính: </h3>
+                                                    <h2 className="text-lg  text-gray-600 dark:text-gray-200">{handleFormatPrice(item?.totalAmount)}đ</h2>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="border-b-2 border-gray-300 py-4 pl-8">
-                                    <div className="flex justify-between">
-                                        <h3 className="text-base font-medium text-gray-600 dark:text-gray-200">Tạm tính</h3>
-                                        <h2 className="text-lg  text-gray-600 dark:text-gray-200">6,100,000đ</h2>
-                                    </div>
-                                </div>
-                                <div className=" py-4 pl-8">
-                                    <div className="flex justify-between">
-                                        <h3 className="text-base font-medium text-gray-600 dark:text-gray-200">Thanh toán: </h3>
-                                        <h2 className="text-lg  text-gray-600 dark:text-gray-200">6,100,000đ</h2>
-                                    </div>
-                                </div>
-                            </div>
+                                })
+                            }
+                            <h1 className="font-bold text-gray-800 dark:text-primary text-lg 
+                            text-right border-double py-4 border-gray-400 border-t-4 mt-4">Tổng: {handleFormatPrice(totalAmountSum)}đ </h1>
                         </div>
                     </div>
                 </div>

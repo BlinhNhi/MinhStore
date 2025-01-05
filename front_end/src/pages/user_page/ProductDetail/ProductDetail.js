@@ -90,7 +90,7 @@ function ProductDetail(props) {
         setIsModalOpen(false);
     };
 
-    const handleBuyNow = () => {
+    const handleOrderNow = () => {
         if (!idUser || !savedIdSize || !savedIdColor || !numberProduct || !productDetailForUser?.priceProduct) {
             notification.error({
                 closeIcon: true,
@@ -110,6 +110,29 @@ function ProductDetail(props) {
             formData.append("ColorId", savedIdColor);
             dispatch(addOrderAction(formData));
             handleOpenModal();
+        }
+    };
+
+    const handleBuyNow = () => {
+        if (!idUser || !savedIdSize || !savedIdColor || !numberProduct || !productDetailForUser?.priceProduct) {
+            notification.error({
+                closeIcon: true,
+                message: 'Error',
+                description: (
+                    <>Chọn các tùy chọn cho sản phẩm trước khi cho sản phẩm vào giỏ hàng của bạn. !.</>
+                ),
+            });
+        }
+        else {
+            const formData = new FormData();
+            formData.append("UserId", idUser);
+            formData.append("ProductId", id);
+            formData.append("QuantityOrder", numberProduct);
+            formData.append("TotalAmount", savedPrice || productDetailForUser?.priceProduct);
+            formData.append("SizeId", savedIdSize);
+            formData.append("ColorId", savedIdColor);
+            dispatch(addOrderAction(formData));
+            window.location.href = '/system-account/cart-shopping';
         }
     };
 
@@ -295,7 +318,9 @@ flex items-start mt-3 gap-4 mb-5
     "
                             >
                                 <button
-                                    onClick={handleBuyNow}
+                                    onClick={() => {
+                                        handleOrderNow();
+                                    }}
                                     className="
         text-center cursor-pointer bg-orange-400 text-white py-1 px-2 rounded-full text-base
        flex items-center
@@ -305,13 +330,13 @@ flex items-start mt-3 gap-4 mb-5
                                     <FaOpencart className="mr-2" /> Thêm Vào Giỏ Hàng{" "}
                                 </button>
                                 <button
+                                    onClick={handleBuyNow}
                                     className="
             text-center cursor-pointer bg-orange-400 text-white py-1 rounded-full text-base flex items-center
              md:text-base lg:text-xl xl:text-xl 2xl:text-xl  hover:bg-primary/90 hover:text-gray-100
             px-[50px]  md:px-4 lg:px-4 xl:px-4 2xl:px-4
     "
                                 >
-                                    {" "}
                                     Mua Ngay <FaHandPointRight className="ml-2" />
                                 </button>
                             </div>

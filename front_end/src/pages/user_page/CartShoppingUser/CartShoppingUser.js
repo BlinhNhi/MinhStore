@@ -9,6 +9,7 @@ import ModalDeleteCart from "../../../components/ModalDeleteCart/ModalDeleteCart
 import { getCodeProduct } from "../../../utils/format/getCodeProduct";
 import { TOKEN } from "../../../utils/variable";
 import { NavLink } from "react-router-dom";
+import { handleFormatPrice } from "../../../utils/format/formatPrice";
 
 function CartShoppingUser() {
     let accessToken = {};
@@ -117,7 +118,7 @@ function CartShoppingUser() {
                                         key={i}
                                         className="text-base font-semibold rounded-md text-gray-500 dark:text-gray-200 mb-2"
                                     >
-                                        Giá: {it?.priceProduct}đ
+                                        Giá: {handleFormatPrice(it?.priceProduct)}đ
                                     </h3>
                                 ))}
                                 <div className="flex gap-2 items-center w-[232px] border-2 border-gray-300 bg-gray-50 dark:border-gray-300">
@@ -140,7 +141,7 @@ function CartShoppingUser() {
                                     </button>
                                 </div>
                                 <h3 className="text-lg font-bold text-gray-500 mt-2 dark:text-gray-200">
-                                    Tạm Tính: {up?.totalAmount}đ
+                                    Tạm Tính: {handleFormatPrice(up?.totalAmount)}đ
                                 </h3>
                             </div>
                             <div>
@@ -174,13 +175,13 @@ function CartShoppingUser() {
                         {orderDetailByUserId.map((item, i) => (
                             <div className="flex gap-10 items-center border-b-2 border-gray-200 pb-2" key={i}>
                                 <h3 className="text-base font-bold text-gray-600 dark:text-gray-300">Tạm Tính</h3>
-                                <h4 className="text-base font-medium text-gray-500 dark:text-gray-200">{item?.totalAmount}đ</h4>
+                                <h4 className="text-base font-medium text-gray-500 dark:text-gray-200">{handleFormatPrice(item?.totalAmount)}đ</h4>
                             </div>
                         ))}
                         <div className="flex gap-10 items-center mb-2">
                             <h3 className="text-base font-bold text-gray-600 dark:text-gray-300">Tổng</h3>
                             <h4 className="text-lg font-bold text-gray-500 dark:text-gray-200">
-                                {orderDetailByUserId.reduce((total, item) => total + item?.totalAmount, 0)}đ
+                                {handleFormatPrice(orderDetailByUserId.reduce((total, item) => total + item?.totalAmount, 0))}đ
                             </h4>
                         </div>
                         <a href="/check-out">
