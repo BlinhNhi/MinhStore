@@ -85,7 +85,7 @@ export const getOrderDetailByUserIdAction = (userId) => {
             const result = await orderService.getOrderByUserId(userId)
             if (result.data.status === 200) {
                 dispatch({
-                    orderDetailByUserId: result?.data?.data,
+                    orderDetailByUserId: result?.data,
                     type: GET_ORDER_DETAIL_BY_USER_ID,
                 })
 

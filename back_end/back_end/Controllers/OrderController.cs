@@ -3,6 +3,7 @@ using back_end.Models;
 using back_end.ReponseData;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace back_end.Controllers
 {
@@ -57,27 +58,75 @@ namespace back_end.Controllers
 
         }
 
-        [HttpGet("user/{userId}")]
-        public async Task<ActionResult> GetOrderByUserId(Guid userId)
+        /*  [HttpGet("user/{userId}")]
+          public async Task<ActionResult> GetOrderByUserId(Guid userId)
+          {
+              try
+              {
+                  var list = await repo.GetOrderByUserId(userId);
+                  if (list.Count() > 0)
+                  {
+                      var response = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "Get Order By User Id successfully", list, null);
+                      return Ok(response);
+                  }
+                  var responseNoOrder = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "No Order", list, null);
+                  return Ok(responseNoOrder);
+              }
+              catch (Exception ex)
+              {
+                  return BadRequest(ex.Message);
+              }
+
+          }
+  */
+      /*  [HttpGet("user/{userId}")]
+        public async (List<Order> Orders, bool countProducts) GetOrderByUserId(Guid userId)
         {
             try
             {
-                var list = await repo.GetOrderByUserId(userId);
-                if (list.Count() > 0)
+                var (orders, isDeleted) = await repo.GetOrderByUserId(userId);
+                if (orders.Count > 0)
                 {
-                    var response = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "Get Order By User Id successfully", list, null);
+                    var response = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "Get Order By User Id successfully", orders, null);
                     return Ok(response);
                 }
-                var responseNoOrder = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "No Order", list, null);
+                var responseNoOrder = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "No Order", orders, null);
                 return Ok(responseNoOrder);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
+        }*/
 
+
+        [HttpGet("user/{userId}")]
+        public IActionResult GetOrderByUserId(Guid userId)
+        {
+            try
+            {
+                var (orders, isDeleted) =  repo.GetOrderByUserId(userId);
+                if (orders.Count > 0)
+                {
+                    var result = new
+                    {
+                        Status = StatusCodes.Status200OK,
+                        Message = "Get Order By User Id successfully",
+                        Data = orders,
+                        isDelete = isDeleted
+                    };
+                    return Ok(result);
+                    /*var response = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "Get Order By User Id successfully", orders, null);
+                    return Ok(response);*/
+                }
+                var responseNoOrder = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "No Order", orders, null);
+                return Ok(responseNoOrder);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-
         [HttpPost]
         public async Task<ActionResult> CreateOrder([FromForm] Order order)
         {

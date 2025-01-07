@@ -1,6 +1,7 @@
 ﻿using back_end.IRepository;
 using back_end.Models;
 using Microsoft.EntityFrameworkCore;
+using MySqlX.XDevAPI.Common;
 using System.Collections.Generic;
 
 namespace back_end.Services
@@ -94,6 +95,7 @@ namespace back_end.Services
                     return false;
                 }
                 order.Size = size;
+                order.IsDeleted = false;
                 if (order.ProductId != null)
                 {
                     List<Guid> productIds = order.ProductId
@@ -178,36 +180,70 @@ namespace back_end.Services
             return await db.Orders.Where(o => o.Id == Id).ToListAsync();
         }
 
-        public async Task<IEnumerable<Order>> GetOrderByUserId(Guid userId)
+        public (List<Order> Orders, bool isDeleted) GetOrderByUserId(Guid userId)
         {
-            var orders = await db.Orders
-                .Where(o => o.UserId == userId)
-                .Include(o => o.Color)
-                .Include(o => o.Size)
-                .Include(o => o.Products)
-                .Select(o => new Order
-                {
-                    Id = o.Id,
-                    QuantityOrder = o.QuantityOrder,
-                    TotalAmount = o.TotalAmount,
-                    Size = o.Size,
-                    Color = o.Color,
-                    Products = o.ProductOrders.Select(po => new Product
-                    {
-                        Id = po.Product.Id,
-                        NameProduct = po.Product.NameProduct,
-                        PriceProduct = po.Product.PriceProduct,
-                        StockQuantity = po.Product.StockQuantity,
-                        NumberOfProductInStock = po.Product.NumberOfProductInStock,
-                        NumberOfProductSold = po.Product.NumberOfProductSold,
-                        ImagesProduct = po.Product.ImagesProduct,
-                    }).ToList(),
-                    UserId = o.UserId,
-                    OrderDate = o.OrderDate,
-                 })
-                    .ToListAsync();
-                  return orders ?? new List<Order>();
+            var orders = db.Orders
+                        .Where(o => o.UserId == userId)
+                        .Include(o => o.Color)
+                        .Include(o => o.Size)
+                        .Include(o => o.Products)
+                        .Select(o => new Order
+                        {
+                            Id = o.Id,
+                            QuantityOrder = o.QuantityOrder,
+                            TotalAmount = o.TotalAmount,
+                            Size = o.Size,
+                            Color = o.Color,
+                            Products = o.ProductOrders.Select(po => new Product
+                            {
+                                Id = po.Product.Id,
+                                NameProduct = po.Product.NameProduct,
+                                PriceProduct = po.Product.PriceProduct,
+                                StockQuantity = po.Product.StockQuantity,
+                                NumberOfProductInStock = po.Product.NumberOfProductInStock,
+                                NumberOfProductSold = po.Product.NumberOfProductSold,
+                                ImagesProduct = po.Product.ImagesProduct,
+                            }).ToList(),
+                            UserId = o.UserId,
+                            OrderDate = o.OrderDate,
+                        })
+                        .ToList();
+            var isDeleted = false;
+            return (orders, isDeleted);
         }
+
+
+        /*      public async Task<IEnumerable<Order>> GetOrderByUserId(Guid userId)
+              {
+                  var orders = await db.Orders
+                      .Where(o => o.UserId == userId)
+                      .Include(o => o.Color)
+                      .Include(o => o.Size)
+                      .Include(o => o.Products)
+                      .Select(o => new Order
+                      {
+                          Id = o.Id,
+                          QuantityOrder = o.QuantityOrder,
+                          TotalAmount = o.TotalAmount,
+                          Size = o.Size,
+                          Color = o.Color,
+                          Products = o.ProductOrders.Select(po => new Product
+                          {
+                              Id = po.Product.Id,
+                              NameProduct = po.Product.NameProduct,
+                              PriceProduct = po.Product.PriceProduct,
+                              StockQuantity = po.Product.StockQuantity,
+                              NumberOfProductInStock = po.Product.NumberOfProductInStock,
+                              NumberOfProductSold = po.Product.NumberOfProductSold,
+                              ImagesProduct = po.Product.ImagesProduct,
+                          }).ToList(),
+                          UserId = o.UserId,
+                          OrderDate = o.OrderDate,
+                       })
+                          .ToListAsync();
+                  var isDelete = false;
+                  return (orders ?? new List<Order>()isDelete) ;
+              }*/
 
         public async Task<bool> PutOrder(Guid Id, Order order)
         {

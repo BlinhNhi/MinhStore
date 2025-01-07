@@ -36,7 +36,7 @@ function CartShoppingUser() {
     }, [idUser, dispatch]);
 
     let { orderDetailByUserId } = useSelector(state => state.OrderReducer);
-    const dataUserOrder = orderDetailByUserId || [];
+    const dataUserOrder = orderDetailByUserId?.data || [];
 
     const handleOpenModal = () => {
         setIsModalOpen(true);
@@ -70,10 +70,11 @@ function CartShoppingUser() {
             <RiLoader2Line className="text-primary animate-spin text-4xl" /> <p className="text-lg italic">loading....</p>
         </div>;
     }
-    if (dataUserOrder.length === 0) {
+    if (orderDetailByUserId?.isDelete === true || dataUserOrder.length === 0) {
         return <div>Không có sản phẩm trong giỏ hàng.</div>;
     }
 
+    console.log(orderDetailByUserId?.isDelete);
     return (
         <div className="">
             <div className="2xl:grid xl:grid flex flex-col grid-cols-3 gap-6">
@@ -172,7 +173,7 @@ function CartShoppingUser() {
                         <h1 className="text-gray-600 font-bold text-xl dark:text-gray-300 border-b-2 border-gray-200 pb-2">
                             Cộng Giỏ Hàng
                         </h1>
-                        {orderDetailByUserId.map((item, i) => (
+                        {orderDetailByUserId?.data.map((item, i) => (
                             <div className="flex gap-10 items-center border-b-2 border-gray-200 pb-2" key={i}>
                                 <h3 className="text-base font-bold text-gray-600 dark:text-gray-300">Tạm Tính</h3>
                                 <h4 className="text-base font-medium text-gray-500 dark:text-gray-200">{handleFormatPrice(item?.totalAmount)}đ</h4>
@@ -181,7 +182,7 @@ function CartShoppingUser() {
                         <div className="flex gap-10 items-center mb-2">
                             <h3 className="text-base font-bold text-gray-600 dark:text-gray-300">Tổng</h3>
                             <h4 className="text-lg font-bold text-gray-500 dark:text-gray-200">
-                                {handleFormatPrice(orderDetailByUserId.reduce((total, item) => total + item?.totalAmount, 0))}đ
+                                {handleFormatPrice(orderDetailByUserId?.data?.reduce((total, item) => total + item?.totalAmount, 0))}đ
                             </h4>
                         </div>
                         <a href="/check-out">

@@ -195,7 +195,6 @@ namespace back_end.Services
                 })
                 .FirstOrDefaultAsync();
 
-            // Trả về một mảng chứa `product`, nếu `product` là `null` thì trả về mảng rỗng.
             return product != null ? new[] { product } : Enumerable.Empty<Product>();
         }
 

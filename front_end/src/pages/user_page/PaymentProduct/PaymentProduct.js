@@ -28,11 +28,11 @@ function PaymentProduct() {
     }, [idUser, dispatch]);
     let { orderDetailByUserId } = useSelector(state => state.OrderReducer);
 
-    const totalAmountSum = orderDetailByUserId?.reduce((sum, item) => {
+    const totalAmountSum = orderDetailByUserId?.data?.reduce((sum, item) => {
         return sum + (item?.totalAmount || 0);
     }, 0);
 
-    const idProduct = orderDetailByUserId?.map(order => order.products?.map(product => product.id))
+    const idProduct = orderDetailByUserId?.data?.map(order => order.products?.map(product => product.id))
         .flat();
 
     console.log(idProduct);
@@ -156,7 +156,7 @@ function PaymentProduct() {
                         <div>
                             <h2 className="font-bold text-xl text-gray-700 dark:text-gray-200 uppercase text-center ">Đơn Hàng Của Bạn</h2>
                             {
-                                orderDetailByUserId?.map((item, i) => {
+                                orderDetailByUserId?.data?.map((item, i) => {
                                     return <div className="mt-6" key={i}>
                                         <div>
                                             <div className="border-b-2 border-gray-300 pb-4">

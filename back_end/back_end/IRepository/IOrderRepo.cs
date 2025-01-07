@@ -5,7 +5,8 @@ namespace back_end.IRepository
     public interface IOrderRepo
     {
         Task<IEnumerable<Order>> GetAllOrder();
-        Task<IEnumerable<Order>> GetOrderByUserId(Guid userId);
+        /*Task<IEnumerable<Order>> GetOrderByUserId(Guid userId);*/
+        (List<Order> Orders, bool isDeleted) GetOrderByUserId(Guid userId);
         Task<IEnumerable<Order>> GetOrderById(Guid Id);
 
         Task<bool> CreateOrder(Order order);
