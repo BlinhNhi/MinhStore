@@ -79,25 +79,7 @@ namespace back_end.Controllers
 
           }
   */
-      /*  [HttpGet("user/{userId}")]
-        public async (List<Order> Orders, bool countProducts) GetOrderByUserId(Guid userId)
-        {
-            try
-            {
-                var (orders, isDeleted) = await repo.GetOrderByUserId(userId);
-                if (orders.Count > 0)
-                {
-                    var response = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "Get Order By User Id successfully", orders, null);
-                    return Ok(response);
-                }
-                var responseNoOrder = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "No Order", orders, null);
-                return Ok(responseNoOrder);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }*/
+
 
 
         [HttpGet("user/{userId}")]
@@ -116,8 +98,6 @@ namespace back_end.Controllers
                         isDelete = isDeleted
                     };
                     return Ok(result);
-                    /*var response = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "Get Order By User Id successfully", orders, null);
-                    return Ok(response);*/
                 }
                 var responseNoOrder = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "No Order", orders, null);
                 return Ok(responseNoOrder);
