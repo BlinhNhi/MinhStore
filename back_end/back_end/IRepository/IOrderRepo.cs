@@ -11,6 +11,7 @@ namespace back_end.IRepository
 
         Task<bool> CreateOrder(Order order);
         Task<bool> PutOrder(Guid Id, Order order);
+        (List<Order> Orders, bool isDeleted) UpdateOrderUserId(Guid userId);
         Task<Order> DeleteOrder(Guid Id);
 
        

@@ -260,5 +260,47 @@ namespace back_end.Services
                 return false;
             }
         }
+
+        public (List<Order> Orders, bool isDeleted) UpdateOrderUserId(Guid userId)
+        {
+            var orders = db.Orders
+               .Where(o => o.UserId == userId)
+               .Include(o => o.Color)
+               .Include(o => o.Size)
+               .Include(o => o.Products)
+               .Select(o => new Order
+               {
+                   Id = o.Id,
+                   QuantityOrder = o.QuantityOrder,
+                   TotalAmount = o.TotalAmount,
+                   Size = o.Size,
+                   Color = o.Color,
+                   Products = o.ProductOrders.Select(po => new Product
+                   {
+                       Id = po.Product.Id,
+                       NameProduct = po.Product.NameProduct,
+                       PriceProduct = po.Product.PriceProduct,
+                       StockQuantity = po.Product.StockQuantity,
+                       NumberOfProductInStock = po.Product.NumberOfProductInStock,
+                       NumberOfProductSold = po.Product.NumberOfProductSold,
+                       ImagesProduct = po.Product.ImagesProduct,
+                   }).ToList(),
+                   UserId = o.UserId,
+                   OrderDate = o.OrderDate,
+               })
+               .ToList();
+
+            // Nếu không có đơn hàng nào, trả về trạng thái mặc định
+            if (!orders.Any())
+            {
+                return (new List<Order>(), false);
+            }
+
+            // Cập nhật isDelete là true
+            var isDeleted = true;
+
+            // Trả về dữ liệu gồm danh sách đơn hàng và trạng thái isDelete
+            return (orders, isDeleted);
+        }
     }
 }
