@@ -24,6 +24,10 @@
 # Đối với các thư mục chứa database
 **/App_Data
 
+# Bỏ qua các tệp nhị phân
+back_end/back_end/obj/
+back_end/back_end/bin/
+
 # Đối với các file chứa thông tin nhạy cảm
 *.db
 *.config (nếu chứa thông tin nhạy cảm)
@@ -31,3 +35,4 @@ appsettings.Development.json (nếu chứa thông tin nhạy cảm)
 .vs
 *.suo
 **/.vs/**
+
