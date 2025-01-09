@@ -7,7 +7,7 @@
         public string ?ProductId { get; set; }
         public int QuantityOrder { get; set; }
         public int TotalAmount { get; set; }
-       
+        public bool IsDeleted { get; set; }
         public int SizeId { get; set; }
         public int ColorId { get; set; }
         public User ?User { get; set; }

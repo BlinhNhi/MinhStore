@@ -105,8 +105,6 @@ namespace back_end.Models
             modelBuilder.Entity<OrderProduct>(op =>
             {
                 op.HasKey(op => new { op.ProductId, op.OrderId });
-               /* op.HasData(SeedData.ProductSizeData.ProductSizeSeedData());*/
-
             });
             /*  modelBuilder.Entity<Product>()
                   .Property(p

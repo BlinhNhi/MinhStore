@@ -70,18 +70,20 @@ function CartShoppingUser() {
             <RiLoader2Line className="text-primary animate-spin text-4xl" /> <p className="text-lg italic">loading....</p>
         </div>;
     }
-    if (orderDetailByUserId?.isDelete === true || dataUserOrder.length === 0) {
+    if (dataUserOrder.length === 0) {
         return <div>Không có sản phẩm trong giỏ hàng.</div>;
     }
 
-    console.log(orderDetailByUserId?.isDelete);
+    console.log(dataUserOrder);
+    console.log(dataUserOrder?.products);
+
     return (
         <div className="">
             <div className="2xl:grid xl:grid flex flex-col grid-cols-3 gap-6">
                 <div className="col-span-2">
                     <h2 className="text-gray-500 dark:text-gray-100 text-xl font-bold mb-4">Quản Lý Giỏ Hàng</h2>
                     {dataUserOrder.map((up, i) => (
-                        <div className="flex items-center justify-between mt-4 border-t-2 border-gray-400" key={up?.id}>
+                        up?.isDeleted === false && <div className="flex items-center justify-between mt-4 border-t-2 border-gray-400" key={up?.id}>
                             <div>
                                 {up?.products?.map((it, i) => {
                                     const images = it?.imagesProduct ? JSON.parse(it?.imagesProduct) : [];
@@ -174,7 +176,7 @@ function CartShoppingUser() {
                             Cộng Giỏ Hàng
                         </h1>
                         {orderDetailByUserId?.data.map((item, i) => (
-                            <div className="flex gap-10 items-center border-b-2 border-gray-200 pb-2" key={i}>
+                            item?.isDeleted === false && <div className="flex gap-10 items-center border-b-2 border-gray-200 pb-2" key={i}>
                                 <h3 className="text-base font-bold text-gray-600 dark:text-gray-300">Tạm Tính</h3>
                                 <h4 className="text-base font-medium text-gray-500 dark:text-gray-200">{handleFormatPrice(item?.totalAmount)}đ</h4>
                             </div>
@@ -182,7 +184,12 @@ function CartShoppingUser() {
                         <div className="flex gap-10 items-center mb-2">
                             <h3 className="text-base font-bold text-gray-600 dark:text-gray-300">Tổng</h3>
                             <h4 className="text-lg font-bold text-gray-500 dark:text-gray-200">
-                                {handleFormatPrice(orderDetailByUserId?.data?.reduce((total, item) => total + item?.totalAmount, 0))}đ
+                                {/* {handleFormatPrice(orderDetailByUserId?.data?.reduce((total, item) => total + item?.totalAmount, 0))}đ */}
+                                {handleFormatPrice(
+                                    orderDetailByUserId?.data
+                                        ?.filter((item) => item?.isDeleted === false)
+                                        ?.reduce((total, item) => total + (item?.totalAmount || 0), 0)
+                                )}đ
                             </h4>
                         </div>
                         <a href="/check-out">

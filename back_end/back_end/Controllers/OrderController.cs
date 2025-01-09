@@ -1,6 +1,7 @@
 ﻿using back_end.IRepository;
 using back_end.Models;
 using back_end.ReponseData;
+using back_end.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -58,55 +59,55 @@ namespace back_end.Controllers
 
         }
 
-        /*  [HttpGet("user/{userId}")]
-          public async Task<ActionResult> GetOrderByUserId(Guid userId)
-          {
-              try
-              {
-                  var list = await repo.GetOrderByUserId(userId);
-                  if (list.Count() > 0)
-                  {
-                      var response = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "Get Order By User Id successfully", list, null);
-                      return Ok(response);
-                  }
-                  var responseNoOrder = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "No Order", list, null);
-                  return Ok(responseNoOrder);
-              }
-              catch (Exception ex)
-              {
-                  return BadRequest(ex.Message);
-              }
-
-          }
-  */
-
-
-
         [HttpGet("user/{userId}")]
-        public IActionResult GetOrderByUserId(Guid userId)
+        public async Task<ActionResult> GetOrderByUserId(Guid userId)
         {
             try
             {
-                var (orders, isDeleted) =  repo.GetOrderByUserId(userId);
-                if (orders.Count > 0)
+                var list = await repo.GetOrderByUserId(userId);
+                if (list.Count() > 0)
                 {
-                    var result = new
-                    {
-                        Status = StatusCodes.Status200OK,
-                        Message = "Get Order By User Id successfully",
-                        Data = orders,
-                        isDelete = isDeleted
-                    };
-                    return Ok(result);
+                    var response = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "Get Order By User Id successfully", list, null);
+                    return Ok(response);
                 }
-                var responseNoOrder = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "No Order", orders, null);
+                var responseNoOrder = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "No Order", list, null);
                 return Ok(responseNoOrder);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
+
         }
+
+
+
+
+        /*        [HttpGet("user/{userId}")]
+                public IActionResult GetOrderByUserId(Guid userId)
+                {
+                    try
+                    {
+                        var (orders, isDeleted) =  repo.GetOrderByUserId(userId);
+                        if (orders.Count > 0)
+                        {
+                            var result = new
+                            {
+                                Status = StatusCodes.Status200OK,
+                                Message = "Get Order By User Id successfully",
+                                Data = orders,
+                                isDelete = isDeleted
+                            };
+                            return Ok(result);
+                        }
+                        var responseNoOrder = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "No Order", orders, null);
+                        return Ok(responseNoOrder);
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                }*/
         [HttpPost]
         public async Task<ActionResult> CreateOrder([FromForm] Order order)
         {
@@ -159,6 +160,38 @@ namespace back_end.Controllers
                     return Ok(response);
                 }
                 return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpPut("update-isDelete/{userId}")]
+        public async Task<ActionResult> PutOrderByUserId(Guid userId)
+        {
+            try
+            {/*
+                bool list = await repo.UpdateOrderUserId(userId);
+                if (list)
+                {
+                    var response = new ResponseData<Order>(StatusCodes.Status200OK, "Edit Order Successfully", order, null);
+                    return Ok(response);
+                }
+                return BadRequest();*/
+                var isSuccess = await repo.UpdateOrderUserId(userId);
+                if (!isSuccess)
+                {
+                    return NotFound(new { message = "No orders found for the given userId." });
+                }
+
+                return Ok(new
+                {
+                    status = 200,
+                    message = "Updated isDelete successfully.",
+                    data = new { isDelete = true }
+                });
             }
             catch (Exception ex)
             {

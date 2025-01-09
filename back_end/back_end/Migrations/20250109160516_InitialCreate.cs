@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace back_end.Migrations
 {
     /// <inheritdoc />
-    public partial class InitailCreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -124,10 +124,11 @@ namespace back_end.Migrations
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     UserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    ProductId = table.Column<string>(type: "longtext", nullable: false)
+                    ProductId = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     QuantityOrder = table.Column<int>(type: "int", nullable: false),
                     TotalAmount = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     SizeId = table.Column<int>(type: "int", nullable: false),
                     ColorId = table.Column<int>(type: "int", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
@@ -318,10 +319,10 @@ namespace back_end.Migrations
                 columns: new[] { "Id", "Email", "GoogleId", "Name", "Password", "Phone", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("03c45a62-138b-4ae2-9c7a-3196af0e7f7f"), "admin@minhstore.com", null, null, "$2a$11$ZPfmooQIPUBuYiFC69C26.JNNwv0nO3Lm86/jD0hbF.tPa/kr94CG", null, "Admin" },
-                    { new Guid("75a9ff39-f6c4-4cd7-8f4a-345077faaaba"), "user456@gmail.com", null, null, "$2a$11$q323eGbwysxMVUAJdt1ZVe7yBysaRjX1ACVNwMF5ODlA29AfTEdgO", null, "User" },
-                    { new Guid("cb5cce1c-892d-4261-9c60-a46c3139f09a"), "user123@gmail.com", null, null, "$2a$11$27sTgbNw14Y9kPPMdjXHOeIasnkPxXEzBP7Q1DMF.Q9et/yPdf3kK", null, "User" },
-                    { new Guid("e6507233-e927-44a7-979a-28ed2882edc3"), "user789@gmail.com", null, null, "$2a$11$orTA9mYH2bpUD56wHuvnMO8SFPJWaoG32I.tI8VeVqRzzwyPaeS8u", null, "User" }
+                    { new Guid("55b33dea-de32-450f-b460-ac2a95391dd2"), "user789@gmail.com", null, null, "$2a$11$F7hvjHtjjPVfpjXLsXhrRuLZRQOnShWCntp2XFulKn18QoeX1PO/O", null, "User" },
+                    { new Guid("5d83a7bd-e367-4c28-a3f8-a66bdccd4031"), "admin@minhstore.com", null, null, "$2a$11$dETphQVeoJfMxoeR5fBW/ukn37M894YaG10/dl9oSsYcFGIUSYRCG", null, "Admin" },
+                    { new Guid("884790c5-eca8-4eb8-8ff4-956c6a466839"), "user123@gmail.com", null, null, "$2a$11$i/PJLhmxk.072z/hgpjKBOgIHKbCOFRGQe2pNN2eIbpdmRFphte.2", null, "User" },
+                    { new Guid("a4ade3d9-b47c-4fc9-8760-91771fd6282c"), "user456@gmail.com", null, null, "$2a$11$hiWEHICPeypCy5WMX9O0Su.npaOiWUPD.B6mvcKMbjEgfbc3qXwMe", null, "User" }
                 });
 
             migrationBuilder.InsertData(
