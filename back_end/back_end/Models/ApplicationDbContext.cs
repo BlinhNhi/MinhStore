@@ -17,6 +17,7 @@ namespace back_end.Models
         public DbSet<ProductSize> ProductSizes { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderProduct> OrderProducts { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -100,11 +101,17 @@ namespace back_end.Models
                 o.HasOne(o => o.User).WithMany(o => o.Orders).HasForeignKey(u => u.UserId);
                 o.HasOne(o => o.Color).WithMany(o => o.Orders).HasForeignKey(u => u.ColorId);
                 o.HasOne(o => o.Size).WithMany(o => o.Orders).HasForeignKey(u => u.SizeId);
-                
+                o.HasOne(o => o.Payment).WithMany(o => o.Orders).HasForeignKey(u => u.PaymentId);
+
             });
             modelBuilder.Entity<OrderProduct>(op =>
             {
                 op.HasKey(op => new { op.ProductId, op.OrderId });
+            });
+            modelBuilder.Entity<Payment>(pay =>
+            {
+                pay.HasKey(n => n.Id);
+                pay.HasMany(p => p.Orders).WithOne(o => o.Payment).HasForeignKey(o => o.PaymentId);
             });
             /*  modelBuilder.Entity<Product>()
                   .Property(p
