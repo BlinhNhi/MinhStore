@@ -70,7 +70,10 @@ function CartShoppingUser() {
             <RiLoader2Line className="text-primary animate-spin text-4xl" /> <p className="text-lg italic">loading....</p>
         </div>;
     }
-    if (dataUserOrder.length === 0) {
+    // if (dataUserOrder.length === 0 || dataUserOrder?.filter((item) => item?.isDeleted === true)) {
+    //     return <div>Không có sản phẩm trong giỏ hàng.</div>;
+    // }
+    if (dataUserOrder.length === 0 || dataUserOrder.every((item) => item?.isDeleted === true)) {
         return <div>Không có sản phẩm trong giỏ hàng.</div>;
     }
 
@@ -83,7 +86,8 @@ function CartShoppingUser() {
                 <div className="col-span-2">
                     <h2 className="text-gray-500 dark:text-gray-100 text-xl font-bold mb-4">Quản Lý Giỏ Hàng</h2>
                     {dataUserOrder.map((up, i) => (
-                        up?.isDeleted === false && <div className="flex items-center justify-between mt-4 border-t-2 border-gray-400" key={up?.id}>
+                        up?.isDeleted === false &&
+                        <div className="flex items-center justify-between mt-4 border-t-2 border-gray-400" key={up?.id}>
                             <div>
                                 {up?.products?.map((it, i) => {
                                     const images = it?.imagesProduct ? JSON.parse(it?.imagesProduct) : [];
@@ -169,6 +173,7 @@ function CartShoppingUser() {
                             </div>
                         </div>
                     ))}
+
                 </div>
                 <div className="mt-10">
                     <div className="py-8 px-4 rounded-md border-4 border-gray-300 flex flex-col gap-4">

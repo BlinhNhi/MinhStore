@@ -28,14 +28,14 @@ function PaymentProduct() {
     }, [idUser, dispatch]);
     let { orderDetailByUserId } = useSelector(state => state.OrderReducer);
 
-    const totalAmountSum = orderDetailByUserId?.data?.reduce((sum, item) => {
+    const totalAmountSum = orderDetailByUserId?.data?.filter((item) => item?.isDeleted === false)?.reduce((sum, item) => {
         return sum + (item?.totalAmount || 0);
     }, 0);
 
-    const idProduct = orderDetailByUserId?.data?.map(order => order.products?.map(product => product.id))
-        .flat();
+    // const idProduct = orderDetailByUserId?.data?.map(order => order.products?.map(product => product.id))
+    //     .flat();
 
-    console.log(idProduct);
+    // console.log(idProduct);
 
     const handleChangeContent = (e, editor) => {
         const data = editor.getData();
@@ -152,12 +152,13 @@ function PaymentProduct() {
                             </Form>
                         </div>
                     </div>
+
                     <div className="">
                         <div>
                             <h2 className="font-bold text-xl text-gray-700 dark:text-gray-200 uppercase text-center ">Đơn Hàng Của Bạn</h2>
                             {
                                 orderDetailByUserId?.data?.map((item, i) => {
-                                    return <div className="mt-6" key={i}>
+                                    return item?.isDeleted === false && <div className="mt-6" key={i}>
                                         <div>
                                             <div className="border-b-2 border-gray-300 pb-4">
                                                 <div className="flex justify-around">
