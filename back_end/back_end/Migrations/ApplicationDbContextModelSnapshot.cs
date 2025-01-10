@@ -1588,30 +1588,30 @@ namespace back_end.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("03672b56-7b7f-47c6-ae01-6fee747ccb25"),
+                            Id = new Guid("9087973e-8152-40dd-8726-4f36e14d6eaf"),
                             Email = "admin@minhstore.com",
-                            Password = "$2a$11$JaShrvUc94ZiE9l7QYSep.1AqLXpzFkqKRFweDyXu2/NzaPcAoZ9W",
+                            Password = "$2a$11$yytX6IEFBE8dK3WWlWIgG.HY5OZAw/A4QM3/VEDn5yVgd62XIPe6G",
                             Role = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("0718f8dd-d623-4207-8dc9-53ed3b18e088"),
+                            Id = new Guid("949cd416-96a8-4037-af50-97403a81b484"),
                             Email = "user123@gmail.com",
-                            Password = "$2a$11$PVKX55LXlIR16kXgULsmn.KsFXufIpMsWJqKbyVQM3Wf14TfrP0Ou",
+                            Password = "$2a$11$DuYdIJgsa7P1zMmA4g9.VOcQn7kQyNT5y6Ak6k7BOgbtsleMFs7W6",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("3d0f9d76-19b7-4c2d-9a98-97c7ad74d19b"),
+                            Id = new Guid("51a3442c-00eb-409a-ab62-c5831dcc8baa"),
                             Email = "user456@gmail.com",
-                            Password = "$2a$11$lqTIgYkCZrB82.Zemlvs2.eY1D8C9dM0NobfYAswj93X402s6dA/e",
+                            Password = "$2a$11$uchAFUuDaBHlinXalw9bl.KZ5.dbDx9dnuovUvksZmma73nb/jE0y",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("e65f8b41-156a-45cb-91c8-9b02739e114b"),
+                            Id = new Guid("e506c118-5888-47cc-9efe-1da43a17090c"),
                             Email = "user789@gmail.com",
-                            Password = "$2a$11$wg2AEX0tuwlTBs6MktYZWOvV30Zrp1vDCyQQ/ibTJEc2zXMRncUdC",
+                            Password = "$2a$11$jgHVxeuvIaZJ9Rczxh8RHuQiTysrH1XdoHwyfAz1R2TQ1SykIce7m",
                             Role = "User"
                         });
                 });
