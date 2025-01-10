@@ -25,8 +25,8 @@
 **/App_Data
 
 # Bỏ qua các tệp nhị phân
-back_end/back_end/obj/
-back_end/back_end/bin/
+back_end.dll 
+back_end.pdb
 
 # Đối với các file chứa thông tin nhạy cảm
 *.db
