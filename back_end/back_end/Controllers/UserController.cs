@@ -62,7 +62,7 @@ namespace back_end.Controllers
         }
 
         [HttpGet("{Id}")]
-        public async Task<ActionResult> GetById(Guid Id)
+        public async Task<ActionResult> GetUserById(Guid Id)
         {
             try
             {
@@ -70,6 +70,27 @@ namespace back_end.Controllers
                 if (list != null)
                 {
                     var response = new ResponseData<IEnumerable<User>>(StatusCodes.Status200OK, "Get successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpGet("userOrder/{UserId}")]
+        public async Task<ActionResult> GetOrderUserByUserId(Guid UserId)
+        {
+            try
+            {
+                var list = await repo.GetOrderOfUserByUserId(UserId);
+                if (list != null)
+                {
+                    var response = new ResponseData<IEnumerable<User>>(StatusCodes.Status200OK, "Get Order Of User successfully", list, null);
                     return Ok(response);
                 }
                 return BadRequest();

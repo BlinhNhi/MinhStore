@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace back_end.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Innitial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -150,6 +150,31 @@ namespace back_end.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Orders_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    NameUser = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PhoneUser = table.Column<int>(type: "int", nullable: false),
+                    NoteUser = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TotalAmountOfOrder = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Payments_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -319,10 +344,10 @@ namespace back_end.Migrations
                 columns: new[] { "Id", "Email", "GoogleId", "Name", "Password", "Phone", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("51a3442c-00eb-409a-ab62-c5831dcc8baa"), "user456@gmail.com", null, null, "$2a$11$uchAFUuDaBHlinXalw9bl.KZ5.dbDx9dnuovUvksZmma73nb/jE0y", null, "User" },
-                    { new Guid("9087973e-8152-40dd-8726-4f36e14d6eaf"), "admin@minhstore.com", null, null, "$2a$11$yytX6IEFBE8dK3WWlWIgG.HY5OZAw/A4QM3/VEDn5yVgd62XIPe6G", null, "Admin" },
-                    { new Guid("949cd416-96a8-4037-af50-97403a81b484"), "user123@gmail.com", null, null, "$2a$11$DuYdIJgsa7P1zMmA4g9.VOcQn7kQyNT5y6Ak6k7BOgbtsleMFs7W6", null, "User" },
-                    { new Guid("e506c118-5888-47cc-9efe-1da43a17090c"), "user789@gmail.com", null, null, "$2a$11$jgHVxeuvIaZJ9Rczxh8RHuQiTysrH1XdoHwyfAz1R2TQ1SykIce7m", null, "User" }
+                    { new Guid("5125dbd3-4820-413c-ba2b-961dd0de19b4"), "user456@gmail.com", null, null, "$2a$11$p7dAT4HIbOwWGwwb5Hi7BescdgTecLzh4fdqr7ebl.3lRJRHMst2S", null, "User" },
+                    { new Guid("c490575b-8900-4e11-b96e-2a246543c7a3"), "user123@gmail.com", null, null, "$2a$11$GW6bzXvLEvbIT0t7bC36YOzAnr0dNiTWNfFjBDhsDCXYvv498.BfC", null, "User" },
+                    { new Guid("cf728c61-4d72-4659-a59f-d224ad765ca9"), "admin@minhstore.com", null, null, "$2a$11$cHvUrfrBmxBtEPrMbiIkCOhaimWFi32G5wTUyNSfSyhJQEOZDPqKW", null, "Admin" },
+                    { new Guid("fcd73fec-47ab-4b86-b97e-98f329a32be5"), "user789@gmail.com", null, null, "$2a$11$KQ7BT/SEqxvZn/hEbnTxu.byfH2UzKL.uTUkArLR1BQYAo.BbXwSq", null, "User" }
                 });
 
             migrationBuilder.InsertData(
@@ -540,6 +565,11 @@ namespace back_end.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Payments_UserId",
+                table: "Payments",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductColors_ProductId",
                 table: "ProductColors",
                 column: "ProductId");
@@ -563,6 +593,9 @@ namespace back_end.Migrations
 
             migrationBuilder.DropTable(
                 name: "OrderProducts");
+
+            migrationBuilder.DropTable(
+                name: "Payments");
 
             migrationBuilder.DropTable(
                 name: "ProductColors");

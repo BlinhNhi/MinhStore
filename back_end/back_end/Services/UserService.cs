@@ -88,36 +88,16 @@ namespace back_end.Services
             return await db.Users.Where(b => b.Role == "User").ToListAsync();
         }
 
-
-    /*    public string GetTokenUserByGoogleIdAsync(string userId, string email, string secretKey)
+        public async Task<IEnumerable<User>> GetOrderOfUserByUserId(Guid UserId)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(secretKey);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-                new Claim(ClaimTypes.NameIdentifier, userId),
-                new Claim(ClaimTypes.Email, email)
-            }),
-                Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
-        }*/
-
-      /*  public async Task AddUserAsync(User user)
-        {
-            await db.Users.AddAsync(user);
-            await db.SaveChangesAsync();
+        
+            return await db.Users.Where(u => u.Id == UserId).Include(u => u.Orders)
+                .ThenInclude(o => o.ProductOrders)
+                .ThenInclude(po => po.Product).Include(u => u.Orders)
+                .ThenInclude(o => o.Color).Include(u => u.Orders)
+                .ThenInclude(o => o.Size)
+                .ToListAsync();
         }
-
-        public async Task<User?> GetUserByGoogleIdAsync(string googleId)
-        {
-            return await db.Users.FirstOrDefaultAsync(u => u.GoogleId == googleId);
-        }*/
     }
     
 }

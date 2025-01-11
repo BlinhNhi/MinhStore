@@ -227,6 +227,36 @@ namespace back_end.Migrations
                     b.ToTable("OrderProducts");
                 });
 
+            modelBuilder.Entity("back_end.Models.Payment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("NameUser")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("NoteUser")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("PhoneUser")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalAmountOfOrder")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Payments");
+                });
+
             modelBuilder.Entity("back_end.Models.Product", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1588,30 +1618,30 @@ namespace back_end.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9087973e-8152-40dd-8726-4f36e14d6eaf"),
+                            Id = new Guid("cf728c61-4d72-4659-a59f-d224ad765ca9"),
                             Email = "admin@minhstore.com",
-                            Password = "$2a$11$yytX6IEFBE8dK3WWlWIgG.HY5OZAw/A4QM3/VEDn5yVgd62XIPe6G",
+                            Password = "$2a$11$cHvUrfrBmxBtEPrMbiIkCOhaimWFi32G5wTUyNSfSyhJQEOZDPqKW",
                             Role = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("949cd416-96a8-4037-af50-97403a81b484"),
+                            Id = new Guid("c490575b-8900-4e11-b96e-2a246543c7a3"),
                             Email = "user123@gmail.com",
-                            Password = "$2a$11$DuYdIJgsa7P1zMmA4g9.VOcQn7kQyNT5y6Ak6k7BOgbtsleMFs7W6",
+                            Password = "$2a$11$GW6bzXvLEvbIT0t7bC36YOzAnr0dNiTWNfFjBDhsDCXYvv498.BfC",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("51a3442c-00eb-409a-ab62-c5831dcc8baa"),
+                            Id = new Guid("5125dbd3-4820-413c-ba2b-961dd0de19b4"),
                             Email = "user456@gmail.com",
-                            Password = "$2a$11$uchAFUuDaBHlinXalw9bl.KZ5.dbDx9dnuovUvksZmma73nb/jE0y",
+                            Password = "$2a$11$p7dAT4HIbOwWGwwb5Hi7BescdgTecLzh4fdqr7ebl.3lRJRHMst2S",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("e506c118-5888-47cc-9efe-1da43a17090c"),
+                            Id = new Guid("fcd73fec-47ab-4b86-b97e-98f329a32be5"),
                             Email = "user789@gmail.com",
-                            Password = "$2a$11$jgHVxeuvIaZJ9Rczxh8RHuQiTysrH1XdoHwyfAz1R2TQ1SykIce7m",
+                            Password = "$2a$11$KQ7BT/SEqxvZn/hEbnTxu.byfH2UzKL.uTUkArLR1BQYAo.BbXwSq",
                             Role = "User"
                         });
                 });
@@ -1675,6 +1705,17 @@ namespace back_end.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("back_end.Models.Payment", b =>
+                {
+                    b.HasOne("back_end.Models.User", "User")
+                        .WithMany("Payments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("back_end.Models.Product", b =>
@@ -1741,6 +1782,8 @@ namespace back_end.Migrations
             modelBuilder.Entity("back_end.Models.User", b =>
                 {
                     b.Navigation("Orders");
+
+                    b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618
         }

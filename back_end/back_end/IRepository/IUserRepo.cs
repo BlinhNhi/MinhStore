@@ -7,6 +7,8 @@ namespace back_end.IRepository
         Task<IEnumerable<User>> GetAll();
         Task<IEnumerable<User>> GetAllUser();
         Task<IEnumerable<User>> GetUserById(Guid Id);
+        Task<IEnumerable<User>> GetOrderOfUserByUserId(Guid UserId);
+
         Task<bool> CreateUser(User User);
         Task<bool> PutUser(Guid Id, User User);
         Task<User> DeleteUser(Guid Id);

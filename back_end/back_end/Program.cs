@@ -44,6 +44,8 @@ builder.Services.AddScoped<ISizeRepo, SizeService>();
 builder.Services.AddScoped<IUserRepo, UserService>();
 builder.Services.AddScoped<ISendMail, SendMailService>();
 builder.Services.AddScoped<IOrderRepo, OrderService>();
+builder.Services.AddScoped<IPaymentRepo, PaymentService>();
+
 
 builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));
 //fix lỗi json bị vòng lặp 

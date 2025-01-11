@@ -23,7 +23,10 @@ namespace back_end.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>().HasData(new User[]
+            modelBuilder.Entity<User>(u =>
+            {
+                u.HasKey(u => u.Id);
+                u.HasData(new User[]
          {
                 new User
                 {
@@ -54,7 +57,7 @@ namespace back_end.Models
                     Role="User"
                 },
 
-         });
+         });});
             modelBuilder.Entity<Category>(p =>
             {
                 p.HasKey(p => p.Id);
@@ -101,8 +104,6 @@ namespace back_end.Models
                 o.HasOne(o => o.User).WithMany(o => o.Orders).HasForeignKey(u => u.UserId);
                 o.HasOne(o => o.Color).WithMany(o => o.Orders).HasForeignKey(u => u.ColorId);
                 o.HasOne(o => o.Size).WithMany(o => o.Orders).HasForeignKey(u => u.SizeId);
-                o.HasOne(o => o.Payment).WithMany(o => o.Orders).HasForeignKey(u => u.PaymentId);
-
             });
             modelBuilder.Entity<OrderProduct>(op =>
             {
@@ -111,7 +112,8 @@ namespace back_end.Models
             modelBuilder.Entity<Payment>(pay =>
             {
                 pay.HasKey(n => n.Id);
-                pay.HasMany(p => p.Orders).WithOne(o => o.Payment).HasForeignKey(o => o.PaymentId);
+                pay.HasOne(o => o.User).WithMany(o => o.Payments).HasForeignKey(u => u.UserId);
+                /*pay.HasMany(p => p.Orders).WithOne(o => o.Payment).HasForeignKey(o => o.PaymentId);*/
             });
             /*  modelBuilder.Entity<Product>()
                   .Property(p
