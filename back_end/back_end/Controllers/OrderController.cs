@@ -172,14 +172,7 @@ namespace back_end.Controllers
         public async Task<ActionResult> PutOrderByUserId(Guid userId)
         {
             try
-            {/*
-                bool list = await repo.UpdateOrderUserId(userId);
-                if (list)
-                {
-                    var response = new ResponseData<Order>(StatusCodes.Status200OK, "Edit Order Successfully", order, null);
-                    return Ok(response);
-                }
-                return BadRequest();*/
+            {
                 var isSuccess = await repo.UpdateOrderUserId(userId);
                 if (!isSuccess)
                 {

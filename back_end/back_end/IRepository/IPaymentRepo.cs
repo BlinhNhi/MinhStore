@@ -4,8 +4,10 @@ namespace back_end.IRepository
 {
     public interface IPaymentRepo
     {
-       /* Task<bool> CreatePayment(Payment payment);
-        Task<IEnumerable<Order>> GetOrdersByUserId(Guid userId);*/
+        Task<bool> CreatePayment(Payment payemt);
+        Task<IEnumerable<Payment>> GetPaymentsByUserId(Guid userId);
+        Task<Payment> DeletePayment(Guid Id);
+
 
     }
 }
