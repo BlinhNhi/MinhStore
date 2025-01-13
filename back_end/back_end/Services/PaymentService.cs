@@ -28,9 +28,23 @@ namespace back_end.Services
             return true;
         }
 
-        public Task<Payment> DeletePayment(Guid Id)
+        public async Task<Payment> DeletePayment(Guid Id)
         {
-            throw new NotImplementedException();
+            var delPayment = await db.Payments.SingleOrDefaultAsync(x => x.Id == Id);
+            if (delPayment != null)
+            {
+                db.Payments.Remove(delPayment);
+                int result = await db.SaveChangesAsync();
+                if (result == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return delPayment;
+                }
+            }
+            return null;
         }
 
         public async Task<IEnumerable<Payment>> GetPaymentsByUserId(Guid userId)

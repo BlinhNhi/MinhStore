@@ -59,5 +59,25 @@ namespace back_end.Controllers
             }
 
         }
+
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult> DeletePayment(Guid Id)
+        {
+            try
+            {
+                var list = await repo.DeletePayment(Id);
+                if (list != null)
+                {
+                    var response = new ResponseData<Payment>(StatusCodes.Status200OK, "Delete Payment Successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
     }
 }
