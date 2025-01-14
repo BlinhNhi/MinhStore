@@ -47,6 +47,7 @@ function PaymentProduct() {
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200">
             <div className="container pt-10">
                 <div className="grid grid-cols-2 gap-2">
+                    {/* start */}
                     <div className="border-r-2 border-gray-300 pr-4">
                         <h2 className="font-bold text-xl text-gray-700 dark:text-gray-200 uppercase">Thanh Toán Và Giao Hàng</h2>
                         <div className="mt-6">
@@ -207,7 +208,14 @@ function PaymentProduct() {
                             <h1 className="font-bold text-gray-800 dark:text-primary text-lg 
                             text-right border-double py-4 border-gray-400 border-t-4 mt-4">Tổng: {handleFormatPrice(totalAmountSum)}đ </h1>
                         </div>
+                        <div className="flex justify-end mt-4">
+                            <button className="p-2 px-20 text-gray-200 font-semibold rounded-lg bg-gray-400 
+                            hover:bg-gray-500 hover:text-gray-100 dark:bg-gray-100 dark:text-gray-500 dark:hover:bg-primary dark:hover:text-gray-100">Thanh Toán</button>
+                        </div>
                     </div>
+                </div>
+                <div className="py-10 text-center">
+                    <h2 className="text-lg italic font-bold dark:text-primary text-gray-500">Đơn hàng sẽ được thanh toán sau khi nhận hàng.</h2>
                 </div>
             </div>
         </div>
