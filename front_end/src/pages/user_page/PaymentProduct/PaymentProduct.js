@@ -12,7 +12,10 @@ import { RiLoader2Line } from "react-icons/ri";
 import { useFormik } from "formik";
 
 
+
 function PaymentProduct() {
+
+
     let accessToken = {};
     const dispatch = useDispatch();
     if (localStorage.getItem(TOKEN)) {
@@ -36,6 +39,7 @@ function PaymentProduct() {
     const totalAmountSum = orderDetailByUserId?.data?.filter((item) => item?.isDeleted === false)?.reduce((sum, item) => {
         return sum + (item?.totalAmount || 0);
     }, 0);
+
 
     const formik = useFormik({
         initialValues: {
@@ -62,10 +66,36 @@ function PaymentProduct() {
             }
         },
     });
+
     const handleChangeContent = (e, editor) => {
         const data = editor.getData();
         formik.setFieldValue("noteUser", data);
     };
+    // fix error ResizeObserver loop
+    useEffect(() => {
+        function hideError(e) {
+            if (e.message === 'ResizeObserver loop completed with undelivered notifications.') {
+                const resizeObserverErrDiv = document.getElementById(
+                    'webpack-dev-server-client-overlay-div'
+                );
+                const resizeObserverErr = document.getElementById(
+                    'webpack-dev-server-client-overlay'
+                );
+                if (resizeObserverErr) {
+                    resizeObserverErr.setAttribute('style', 'display: none');
+                }
+                if (resizeObserverErrDiv) {
+                    resizeObserverErrDiv.setAttribute('style', 'display: none');
+                }
+            }
+        }
+
+        window.addEventListener('error', hideError)
+        return () => {
+            window.addEventListener('error', hideError)
+        }
+    }, [])
+
     if (loading) {
         return <div className="flex justify-center items-center gap-2 dark:bg-gray-900 p-8">
             <RiLoader2Line className="text-primary animate-spin text-4xl" /> <p className="text-lg italic dark:text-gray-200">Loading....</p>
@@ -80,12 +110,10 @@ function PaymentProduct() {
                 <div className="container pt-10">
                     {/* start */}
 
-                    <div className="grid grid-cols-2 gap-2">
-                        <div className="border-r-2 border-gray-300 pr-4">
+                    <div className="grid  lg:grid-cols-2 gap-2">
+                        <div className="lg:border-r-2 lg:border-gray-300 lg:pr-4">
                             <h2 className="font-bold text-xl text-gray-700 dark:text-gray-200 uppercase">Thanh Toán Và Giao Hàng</h2>
                             <div className="mt-6">
-
-
                                 <Form.Item
                                     label=""
                                     name="nameUser"
@@ -105,7 +133,7 @@ function PaymentProduct() {
                                     <Input
                                         name="nameUser"
                                         onChange={formik.handleChange}
-                                        className="block text-sm py-2 xl:py-2 2xl:py-2 px-4 rounded-xl w-full xl:w-2/3 2xl:w-2/3 border-2 hover:border-gray-300 outline-none focus:outline-none"
+                                        className="block text-sm py-2 xl:py-2 2xl:py-2 px-4 rounded-xl w-5/6 lg:w-full xl:w-full 2xl:w-full border-2 hover:border-gray-300 outline-none focus:outline-none"
                                         placeholder="Họ Và Tên"
                                     />
                                 </Form.Item>
@@ -128,7 +156,7 @@ function PaymentProduct() {
                                     <Input
                                         name="phoneUser"
                                         onChange={formik.handleChange}
-                                        className="block text-sm py-2 xl:py-2 2xl:py-2 px-4 rounded-xl w-full xl:w-2/3 2xl:w-2/3 border-2 hover:border-gray-300 outline-none focus:outline-none"
+                                        className="block text-sm py-2 xl:py-2 2xl:py-2 px-4 rounded-xl w-5/6 lg:w-full xl:w-full 2xl:w-full border-2 hover:border-gray-300 outline-none focus:outline-none"
                                         placeholder="Điện Thoại"
                                     />
                                 </Form.Item>
@@ -148,17 +176,24 @@ function PaymentProduct() {
                                     <Input
                                         name="addressUser"
                                         onChange={formik.handleChange}
-                                        className="block text-sm py-2 xl:py-2 2xl:py-2 px-4 rounded-xl w-full xl:w-2/3 2xl:w-2/3 border-2 hover:border-gray-300 outline-none focus:outline-none"
+                                        className="block text-sm py-2 xl:py-2 2xl:py-2 px-4 rounded-xl w-5/6 lg:w-full xl:w-full 2xl:w-full border-2 hover:border-gray-300 outline-none focus:outline-none"
                                         placeholder="Địa Chỉ"
                                     />
                                 </Form.Item>
 
-                                <Form.Item >
-                                    <h2 className="font-bold text-xl text-gray-700 dark:text-gray-200 uppercase ">Thông Tin Bổ Sung</h2>
-                                    <p className="font-medium text-base text-gray-700 dark:text-gray-200 mb-2">Ghi chú đơn hàng (tuỳ chọn)</p>
+                                <Form.Item
+                                    className="w-5/6 md:w-full lg:w-full xl:w-full 2xl:w-full"
+                                >
+                                    <h2 className="font-bold text-xl text-gray-700 dark:text-gray-200 uppercase">
+                                        Thông Tin Bổ Sung
+                                    </h2>
+                                    <p className="font-medium text-base text-gray-700 dark:text-gray-200 mb-2">
+                                        Ghi chú đơn hàng (tuỳ chọn)
+                                    </p>
+
                                     <CKEditor
-                                        className="rounded-lg overflow-hidden"
                                         config={{
+
                                             placeholder: "Ghi chú về đơn hàng, ví dụ: thời gian hay chỉ dẫn địa điểm giao hàng chi tiết hơn", // Đặt placeholder ở đây
                                         }}
                                         name="noteUser"

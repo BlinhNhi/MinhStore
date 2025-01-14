@@ -8,6 +8,18 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 
+// const resizeObserverErrorHandler = () => {
+//   // Suppress ResizeObserver errors
+// };
+
+// window.addEventListener("error", (event) => {
+//   if (event.message === "ResizeObserver loop completed with undelivered notifications.") {
+//     event.stopImmediatePropagation();
+//   }
+// });
+
+// window.addEventListener("unhandledrejection", resizeObserverErrorHandler);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
