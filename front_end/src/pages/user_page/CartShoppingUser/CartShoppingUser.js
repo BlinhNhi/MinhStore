@@ -66,8 +66,8 @@ function CartShoppingUser() {
     };
 
     if (loading) {
-        return <div className="flex justify-center items-center gap-2">
-            <RiLoader2Line className="text-primary animate-spin text-4xl" /> <p className="text-lg italic">loading....</p>
+        return <div className="flex justify-center items-center gap-2  dark:bg-gray-900">
+            <RiLoader2Line className="text-primary animate-spin text-4xl " /> <p className="text-lg italic dark:text-gray-200">Loading Cart....</p>
         </div>;
     }
     // if (dataUserOrder.length === 0 || dataUserOrder?.filter((item) => item?.isDeleted === true)) {

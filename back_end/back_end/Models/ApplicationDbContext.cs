@@ -113,7 +113,6 @@ namespace back_end.Models
             {
                 pay.HasKey(n => n.Id);
                 pay.HasOne(o => o.User).WithMany(o => o.Payments).HasForeignKey(u => u.UserId);
-                /*pay.HasMany(p => p.Orders).WithOne(o => o.Payment).HasForeignKey(o => o.PaymentId);*/
             });
             /*  modelBuilder.Entity<Product>()
                   .Property(p
