@@ -8,7 +8,7 @@
         public string AddressUser { get; set; }
         public string ?NoteUser { get; set; }
         public int TotalAmountOfOrder { get; set; }
-        public int StatusOrder { get; set; }
+        /*public int StatusOrder { get; set; }*/
         public Guid UserId { get; set; }
         public User? User { get; set; }
 

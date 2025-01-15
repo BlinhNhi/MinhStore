@@ -25,4 +25,4 @@ export class PaymentService extends baseService {
     };
 }
 
-export const categoryPayment = new PaymentService();
+export const paymentService = new PaymentService();

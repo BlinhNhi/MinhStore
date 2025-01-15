@@ -8,7 +8,6 @@ import { deleteOrderAction, getOrderDetailByUserIdAction, updateOrderAction } fr
 import ModalDeleteCart from "../../../components/ModalDeleteCart/ModalDeleteCart";
 import { getCodeProduct } from "../../../utils/format/getCodeProduct";
 import { TOKEN } from "../../../utils/variable";
-import { NavLink } from "react-router-dom";
 import { handleFormatPrice } from "../../../utils/format/formatPrice";
 
 function CartShoppingUser() {
@@ -70,9 +69,7 @@ function CartShoppingUser() {
             <RiLoader2Line className="text-primary animate-spin text-4xl " /> <p className="text-lg italic dark:text-gray-200">Loading Cart....</p>
         </div>;
     }
-    // if (dataUserOrder.length === 0 || dataUserOrder?.filter((item) => item?.isDeleted === true)) {
-    //     return <div>Không có sản phẩm trong giỏ hàng.</div>;
-    // }
+
     if (dataUserOrder.length === 0 || dataUserOrder.every((item) => item?.isDeleted === true)) {
         return <div>Không có sản phẩm trong giỏ hàng.</div>;
     }

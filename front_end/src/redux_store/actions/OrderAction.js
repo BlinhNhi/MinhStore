@@ -33,7 +33,7 @@ export const addOrderAction = (formData) => {
             notification.error({
                 closeIcon: true,
                 message: "Thất Bại",
-                description: <>Thêm Đơn Hàng Thất Bại.</>,
+                description: <>Thêm Giỏ Hàng Thất Bại.</>,
             });
         }
     };
@@ -48,7 +48,7 @@ export const deleteOrderAction = (id) => {
                     closeIcon: true,
                     message: "Thành Công",
                     description: (
-                        <>Xoá Đơn Hàng Thành Công</>
+                        <>Xoá Giỏ Hàng Thành Công</>
                     )
                 });
             }
@@ -105,7 +105,7 @@ export const updateOrderAction = (id, formData) => {
                     closeIcon: true,
                     message: 'Thành Công',
                     description: (
-                        <>Cập Nhật Đơn Hàng Thành Công</>
+                        <>Cập Nhật Giỏ Hàng Thành Công</>
                     ),
                 });
                 setTimeout(() => {
@@ -117,8 +117,24 @@ export const updateOrderAction = (id, formData) => {
             notification.error({
                 closeIcon: true,
                 message: "Thất Bại",
-                description: <>Cập Nhật Đơn Hàng Thất Bại.</>,
+                description: <>Cập Nhật Giỏ Hàng Thất Bại.</>,
             });
+        }
+    }
+}
+
+export const updateIsDeletedOfOrderAction = (userId) => {
+    return async () => {
+        try {
+            const result = await orderService.updateIsDeletedOfOrder(userId)
+            if (result.data.status === 200) {
+                setTimeout(() => {
+                    window.location.reload()
+
+                }, 1000);
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 }

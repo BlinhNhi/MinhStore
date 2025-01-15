@@ -6,10 +6,11 @@ import NoImage from '../../../assets/no-image.jpeg';
 import { TOKEN } from "../../../utils/variable";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getOrderDetailByUserIdAction } from "../../../redux_store/actions/OrderAction";
+import { getOrderDetailByUserIdAction, updateIsDeletedOfOrderAction } from "../../../redux_store/actions/OrderAction";
 import { handleFormatPrice } from "../../../utils/format/formatPrice";
 import { RiLoader2Line } from "react-icons/ri";
 import { useFormik } from "formik";
+import { addPaymentAction } from "../../../redux_store/actions/PaymentAction";
 
 
 
@@ -26,8 +27,6 @@ function PaymentProduct() {
     let { userLogin } = useSelector(state => state.UserReducer);
     const [loading, setLoading] = useState(true);
     const idUser = userLogin?.id;
-    // console.log(userLogin);
-
     useEffect(() => {
         if (idUser) {
             setLoading(true);
@@ -36,10 +35,12 @@ function PaymentProduct() {
         }
     }, [idUser, dispatch]);
     let { orderDetailByUserId } = useSelector(state => state.OrderReducer);
+    if (orderDetailByUserId?.data?.length === 0 || orderDetailByUserId?.data?.every((item) => item?.isDeleted === true)) {
+        window.location.href = '/';
+    }
     const totalAmountSum = orderDetailByUserId?.data?.filter((item) => item?.isDeleted === false)?.reduce((sum, item) => {
         return sum + (item?.totalAmount || 0);
     }, 0);
-
 
     const formik = useFormik({
         initialValues: {
@@ -62,7 +63,8 @@ function PaymentProduct() {
                 formData.append("totalAmountOfOrder", totalAmountSum);
                 formData.append("userId", idUser);
                 console.table("formData", [...formData]);
-                // dispatch(addNewsAction(formData));
+                dispatch(addPaymentAction(formData));
+                dispatch(updateIsDeletedOfOrderAction(idUser))
             }
         },
     });
@@ -221,20 +223,20 @@ function PaymentProduct() {
                                 <h2 className="font-bold text-xl text-gray-700 dark:text-gray-200 uppercase text-center ">Đơn Hàng Của Bạn</h2>
                                 {
                                     orderDetailByUserId?.data?.map((item, i) => {
-                                        return item?.isDeleted === false && <div className="mt-6" key={i}>
+                                        return item?.isDeleted === false && <div className="mt-6" key={item?.id}>
                                             <div>
                                                 <div className="border-b-2 border-gray-300 pb-4">
                                                     <div className="flex justify-around">
                                                         <div>
                                                             {item?.products?.map((pro, i) => {
                                                                 const images = pro?.imagesProduct ? JSON.parse(pro?.imagesProduct) : [];
-                                                                const imageUrl = images?.[0] || NoImage;
-                                                                return (
+                                                                const imageUrl = images?.[0] || NoImage; return (
                                                                     <img
+
                                                                         src={imageUrl}
                                                                         alt="product-image"
                                                                         className="w-[125px] h-[125px] object-cover border-2 rounded-lg"
-                                                                        key={i}
+                                                                        key={pro?.id}
                                                                     />
                                                                 )
                                                             })}
@@ -242,7 +244,7 @@ function PaymentProduct() {
                                                         <div className="flex flex-col justify-around ">
                                                             {item?.products?.map((pro, i) => {
                                                                 return <>
-                                                                    <h3 key={i} className="text-lg font-medium text-gray-600 dark:text-gray-200  leading-[0px]">{pro?.nameProduct}</h3>
+                                                                    <h3 key={pro?.id} className="text-lg font-medium text-gray-600 dark:text-gray-200  leading-[0px]">{pro?.nameProduct}</h3>
                                                                 </>
                                                             })}
                                                             <h4 className="text-base  text-gray-600 dark:text-gray-200  leading-[0px]">Size Giày: {item?.size?.numberOfSize}</h4>

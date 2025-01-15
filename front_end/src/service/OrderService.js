@@ -23,6 +23,9 @@ export class OrderService extends baseService {
     updateOrder = (id, order) => {
         return this.put(`/api/Order/${id}`, order);
     };
+    updateIsDeletedOfOrder = (userId) => {
+        return this.put(`/api/Order/update-isDelete/${userId}`);
+    };
 }
 
 export const orderService = new OrderService();
