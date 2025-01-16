@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { RiLoader2Line } from "react-icons/ri";
 
 import NoImage from '../../../assets/no-image.jpeg';
-import { deleteOrderAction, getOrderDetailByUserIdAction, updateOrderAction } from "../../../redux_store/actions/OrderAction";
+import { deleteCartAction, getCartDetailByUserIdAction, updateCartAction } from "../../../redux_store/actions/OrderAction";
 import ModalDeleteCart from "../../../components/ModalDeleteCart/ModalDeleteCart";
 import { getCodeProduct } from "../../../utils/format/getCodeProduct";
 import { TOKEN } from "../../../utils/variable";
@@ -29,7 +29,7 @@ function CartShoppingUser() {
     useEffect(() => {
         if (idUser) {
             setLoading(true);
-            dispatch(getOrderDetailByUserIdAction(idUser))
+            dispatch(getCartDetailByUserIdAction(idUser))
                 .finally(() => setLoading(false));
         }
     }, [idUser, dispatch]);
@@ -50,7 +50,7 @@ function CartShoppingUser() {
         const formData = new FormData();
         formData.append("QuantityOrder", quantityOrderCurrent);
         formData.append("TotalAmount", totalAmountCurrent);
-        dispatch(updateOrderAction(idOfOrder, formData));
+        dispatch(updateCartAction(idOfOrder, formData));
     };
 
     const handleDecrease = (quantityOrder, totalAmount, idOfOrder) => {
@@ -60,7 +60,7 @@ function CartShoppingUser() {
             const formData = new FormData();
             formData.append("QuantityOrder", quantityOrderCurrent);
             formData.append("TotalAmount", totalAmountCurrent);
-            dispatch(updateOrderAction(idOfOrder, formData));
+            dispatch(updateCartAction(idOfOrder, formData));
         }
     };
 
@@ -84,7 +84,8 @@ function CartShoppingUser() {
                     <h2 className="text-gray-500 dark:text-gray-100 text-xl font-bold mb-4">Quản Lý Giỏ Hàng</h2>
                     {dataUserOrder.map((up, i) => (
                         up?.isDeleted === false &&
-                        <div className="flex items-center justify-between mt-4 border-t-2 border-gray-400" key={up?.id}>
+                        <div className="flex sm:flex-row flex-col  items-center justify-between mt-4 border-t-2
+                        border-gray-400 sm:pt-0 pt-6" key={up?.id}>
                             <div>
                                 {up?.products?.map((it, i) => {
                                     const images = it?.imagesProduct ? JSON.parse(it?.imagesProduct) : [];
@@ -93,7 +94,7 @@ function CartShoppingUser() {
                                         <img
                                             src={imageUrl}
                                             alt="product-image"
-                                            className="w-[150px] h-[150px] object-cover border-2 rounded-lg"
+                                            className="sm:w-[150px] sm:h-[150px] w-[300px] h-[300px] object-cover border-2 rounded-lg"
                                             key={i}
                                         />
                                     );
@@ -143,12 +144,36 @@ function CartShoppingUser() {
                                     >
                                         -
                                     </button>
+
                                 </div>
                                 <h3 className="text-lg font-bold text-gray-500 mt-2 dark:text-gray-200">
                                     Tạm Tính: {handleFormatPrice(up?.totalAmount)}đ
                                 </h3>
+                                <div className="sm:hidden block">
+                                    <button
+                                        onClick={() => {
+                                            handleOpenModal();
+                                            setCurrentOrderId(up?.id);
+                                        }}
+                                        className="flex items-center justify-center gap-2 
+                                        p-2 mt-2 rounded-md font-bold dark:hover:bg-primary text-gray-400 hover:text-gray-500
+                                         dark:text-gray-200 text-2xl dark:border-gray-200 dark:hover:border-primary 
+                                         border-2 border-gray-300 hover:border-gray-400 bg-gray-300 hover:bg-gray-400 hove"
+                                    >
+                                        <IoMdCloseCircleOutline /><p className="text-base font-medium">Xoá sản phẩm</p>
+                                    </button>
+                                    <ModalDeleteCart
+                                        isOpen={isModalOpen}
+                                        onClose={handleCloseModal}
+                                        onConfirm={() => {
+                                            dispatch(deleteCartAction(currentOrderId));
+                                            setIsModalOpen(false);
+                                        }}
+                                        orderId={getCodeProduct(currentOrderId)}
+                                    />
+                                </div>
                             </div>
-                            <div>
+                            <div className="sm:block hidden">
                                 <button
                                     onClick={() => {
                                         handleOpenModal();
@@ -162,7 +187,7 @@ function CartShoppingUser() {
                                     isOpen={isModalOpen}
                                     onClose={handleCloseModal}
                                     onConfirm={() => {
-                                        dispatch(deleteOrderAction(currentOrderId));
+                                        dispatch(deleteCartAction(currentOrderId));
                                         setIsModalOpen(false);
                                     }}
                                     orderId={getCodeProduct(currentOrderId)}

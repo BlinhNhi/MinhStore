@@ -6,7 +6,7 @@ import NoImage from '../../../assets/no-image.jpeg';
 import { TOKEN } from "../../../utils/variable";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getOrderDetailByUserIdAction, updateIsDeletedOfOrderAction } from "../../../redux_store/actions/OrderAction";
+import { getCartDetailByUserIdAction, updateIsDeletedOfCartAction } from "../../../redux_store/actions/OrderAction";
 import { handleFormatPrice } from "../../../utils/format/formatPrice";
 import { RiLoader2Line } from "react-icons/ri";
 import { useFormik } from "formik";
@@ -30,7 +30,7 @@ function PaymentProduct() {
     useEffect(() => {
         if (idUser) {
             setLoading(true);
-            dispatch(getOrderDetailByUserIdAction(idUser))
+            dispatch(getCartDetailByUserIdAction(idUser))
                 .finally(() => setLoading(false));
         }
     }, [idUser, dispatch]);
@@ -64,7 +64,7 @@ function PaymentProduct() {
                 formData.append("userId", idUser);
                 console.table("formData", [...formData]);
                 dispatch(addPaymentAction(formData));
-                dispatch(updateIsDeletedOfOrderAction(idUser))
+                dispatch(updateIsDeletedOfCartAction(idUser))
             }
         },
     });

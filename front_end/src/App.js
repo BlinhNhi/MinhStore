@@ -43,6 +43,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TOKEN } from "./utils/variable";
 import { getCurrentUserAction } from "./redux_store/actions/AuthAction";
 import PaymentProduct from "./pages/user_page/PaymentProduct/PaymentProduct";
+import ManagerOrder from "./pages/user_page/ManagerOrder/ManagerOrder";
 
 
 export const history = createBrowserHistory();
@@ -89,6 +90,8 @@ function App() {
           <Route path="my-account" element={<ManagerAccount />} />
           <Route path="profile" element={<ProfileUser />} />
           <Route path="cart-shopping" element={<CartShoppingUser />} />
+          <Route path="view-order" element={<ManagerOrder />} />
+
         </Route>
         {/* Payment */}
         <Route path="check-out" element={<HomeTemplate Component={PaymentProduct} />} />

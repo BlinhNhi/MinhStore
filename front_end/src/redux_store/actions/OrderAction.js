@@ -4,7 +4,7 @@ import { GET_ORDER_DETAIL, GET_ORDER_DETAIL_BY_USER_ID, GET_ORDER_LIST } from '.
 
 
 
-export const getListOrderAction = () => {
+export const getListCartAction = () => {
     return async (dispatch) => {
         try {
             const result = await orderService.getListOrder();
@@ -23,7 +23,7 @@ export const getListOrderAction = () => {
 
 
 
-export const addOrderAction = (formData) => {
+export const addCartAction = (formData) => {
     return async (dispatch) => {
 
         try {
@@ -39,7 +39,7 @@ export const addOrderAction = (formData) => {
     };
 };
 
-export const deleteOrderAction = (id) => {
+export const deleteCartAction = (id) => {
     return async (dispatch) => {
         try {
             const result = await orderService.deleteOrder(id)
@@ -60,7 +60,7 @@ export const deleteOrderAction = (id) => {
         }
     };
 }
-export const getOrderDetailAction = (id) => {
+export const getCartDetailAction = (id) => {
 
     return async (dispatch) => {
         try {
@@ -78,7 +78,7 @@ export const getOrderDetailAction = (id) => {
     }
 }
 
-export const getOrderDetailByUserIdAction = (userId) => {
+export const getCartDetailByUserIdAction = (userId) => {
 
     return async (dispatch) => {
         try {
@@ -96,7 +96,7 @@ export const getOrderDetailByUserIdAction = (userId) => {
     }
 }
 
-export const updateOrderAction = (id, formData) => {
+export const updateCartAction = (id, formData) => {
     return async () => {
         try {
             const result = await orderService.updateOrder(id, formData)
@@ -123,7 +123,7 @@ export const updateOrderAction = (id, formData) => {
     }
 }
 
-export const updateIsDeletedOfOrderAction = (userId) => {
+export const updateIsDeletedOfCartAction = (userId) => {
     return async () => {
         try {
             const result = await orderService.updateIsDeletedOfOrder(userId)

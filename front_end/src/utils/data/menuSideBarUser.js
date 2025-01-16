@@ -16,5 +16,11 @@ export const menuSideBar = [
         name: 'Quản Lý Giỏ Hàng',
         path: '/system-account/cart-shopping',
 
+    },
+    {
+        id: 3,
+        name: 'Quản Lý Đơn Hàng',
+        path: '/system-account/view-order',
+
     }
 ]

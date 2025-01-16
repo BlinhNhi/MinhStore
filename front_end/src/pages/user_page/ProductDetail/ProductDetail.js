@@ -16,7 +16,7 @@ import { getDetailProductForUserAction, getEightProductsAction } from "../../../
 import { handleFormatPrice } from "../../../utils/format/formatPrice";
 import { getCodeProduct } from "../../../utils/format/getCodeProduct";
 import { useParams } from "react-router-dom";
-import { addOrderAction } from "../../../redux_store/actions/OrderAction";
+import { addCartAction } from "../../../redux_store/actions/OrderAction";
 import { notification } from "antd";
 import ModalAddProductIntoCart from "../../../components/ModalAddProductIntoCart/ModalAddProductIntoCart";
 
@@ -108,7 +108,7 @@ function ProductDetail(props) {
             formData.append("TotalAmount", savedPrice || productDetailForUser?.priceProduct);
             formData.append("SizeId", savedIdSize);
             formData.append("ColorId", savedIdColor);
-            dispatch(addOrderAction(formData));
+            dispatch(addCartAction(formData));
             handleOpenModal();
         }
     };
@@ -131,7 +131,7 @@ function ProductDetail(props) {
             formData.append("TotalAmount", savedPrice || productDetailForUser?.priceProduct);
             formData.append("SizeId", savedIdSize);
             formData.append("ColorId", savedIdColor);
-            dispatch(addOrderAction(formData));
+            dispatch(addCartAction(formData));
             window.location.href = '/system-account/cart-shopping';
         }
     };

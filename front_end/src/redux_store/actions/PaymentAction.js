@@ -69,7 +69,7 @@ export const deletePaymentAction = (id) => {
         }
     };
 }
-export const getOrderDetailAction = (id) => {
+export const getCartDetailAction = (id) => {
 
     return async (dispatch) => {
         try {
@@ -87,7 +87,7 @@ export const getOrderDetailAction = (id) => {
     }
 }
 
-export const getOrderDetailByUserIdAction = (userId) => {
+export const getCartDetailByUserIdAction = (userId) => {
 
     return async (dispatch) => {
         try {
@@ -106,7 +106,7 @@ export const getOrderDetailByUserIdAction = (userId) => {
     }
 }
 
-// export const updateOrderAction = (id, formData) => {
+// export const updateCartAction = (id, formData) => {
 //     return async () => {
 //         try {
 //             const result = await orderService.updateOrder(id, formData)
