@@ -16,7 +16,7 @@ function ManagerOrder() {
                             <td className="px-6 py-6">01/2025</td>
                             <td className="px-6 py-6">Đang xử lý</td>
                             <td className="px-6 py-6">2,370,000₫ cho 2 mục</td>
-                            <td><button class="bg-black text-white px-4 py-2 rounded">Xem</button></td>
+                            <td><button class="bg-black dark:bg-gray-200 dark:text-gray-600 text-white px-4 py-2 rounded">Xem</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -25,7 +25,7 @@ function ManagerOrder() {
 
 
             <div class="sm:hidden w-full">
-                <div class="border p-4 mb-4">
+                <div class="border-2 border-gray-400 rounded-md p-4 mb-4">
                     <div class="flex justify-between mb-2">
                         <span class="font-medium">Ngày</span>
                         <span>01/2025</span>
@@ -39,7 +39,7 @@ function ManagerOrder() {
                         <span>2,370,000₫ cho 2 mục</span>
                     </div>
                     <div class="flex justify-end">
-                        <button class="bg-black text-white px-4 py-2 rounded">Xem</button>
+                        <button class="bg-black dark:bg-gray-200 dark:text-gray-600 text-white px-4 py-2 rounded">Xem</button>
                     </div>
                 </div>
             </div>
