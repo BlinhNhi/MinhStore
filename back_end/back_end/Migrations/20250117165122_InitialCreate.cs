@@ -77,7 +77,7 @@ namespace back_end.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Phone = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Role = table.Column<string>(type: "longtext", nullable: false)
+                    Role = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -167,9 +167,10 @@ namespace back_end.Migrations
                     PhoneUser = table.Column<int>(type: "int", nullable: false),
                     AddressUser = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    NoteUser = table.Column<string>(type: "longtext", nullable: false)
+                    NoteUser = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TotalAmountOfOrder = table.Column<int>(type: "int", nullable: false),
+                    StatusOrder = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
@@ -346,10 +347,10 @@ namespace back_end.Migrations
                 columns: new[] { "Id", "Email", "GoogleId", "Name", "Password", "Phone", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("40f90749-eefd-4d83-a63c-4ccb470a71b0"), "user123@gmail.com", null, null, "$2a$11$k2.38L0E/Vp8vxTVXa8EWeicgl8lp5RLyuEhlk.WdrOTnJtwuWpDa", null, "User" },
-                    { new Guid("8427d2ef-03eb-4f16-a321-17e0cf8e65e9"), "admin@minhstore.com", null, null, "$2a$11$SaL6DCKqa.lMQUY4Cy4eHOrZXzsh/e7NPABUssabL.k3BIAMc55DG", null, "Admin" },
-                    { new Guid("c034183a-4d62-41b2-8fe4-44641866c85e"), "user456@gmail.com", null, null, "$2a$11$elts2XttUfP2I1ndpPYb7eTDGdvgBwuosEEUcuG6A26GLbsMES/Tm", null, "User" },
-                    { new Guid("fb8afe2c-9aa9-47e3-92d9-71d791fbbfb7"), "user789@gmail.com", null, null, "$2a$11$fImXC5OneZ1ZzC0BuZ5hUeRN.pwJ.Hc8gnjiaRg9btR.f46CqwrR.", null, "User" }
+                    { new Guid("a73693d3-e7d7-440a-aff0-ba076c7c5003"), "user456@gmail.com", null, null, "$2a$11$J3E.OF18sW2iW1H/PE0Wh.zXQd.AjmKmoQYL9zsfXjUBcW2n30P4S", null, "User" },
+                    { new Guid("ced9caba-6bf9-414b-80f3-4c24c01ed81b"), "user789@gmail.com", null, null, "$2a$11$apWp8Diyzl83WAWGcAV23OlqskM8VhEt4t53LBUSyFn2hvLBp/O1m", null, "User" },
+                    { new Guid("d2bfc543-e1c3-4e29-b78e-fa39be855d97"), "user123@gmail.com", null, null, "$2a$11$/xE9onXzUmsy7KzKzracz.1wAIU0zqKac6015H5ELzEFbWfm6K9Ua", null, "User" },
+                    { new Guid("f42c63cb-64b7-48e9-8177-90c827d30329"), "admin@minhstore.com", null, null, "$2a$11$ys.TMIFFlTvAGPwkGgJ6sOryVjBWuTIED.8MWYJVlsje2EYIp23Vi", null, "Admin" }
                 });
 
             migrationBuilder.InsertData(

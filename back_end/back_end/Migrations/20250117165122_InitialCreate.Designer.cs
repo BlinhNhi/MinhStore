@@ -11,7 +11,7 @@ using back_end.Models;
 namespace back_end.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250112093217_InitialCreate")]
+    [Migration("20250117165122_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -245,10 +245,12 @@ namespace back_end.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("NoteUser")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("PhoneUser")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StatusOrder")
                         .HasColumnType("int");
 
                     b.Property<int>("TotalAmountOfOrder")
@@ -1615,7 +1617,6 @@ namespace back_end.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Role")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
@@ -1625,30 +1626,30 @@ namespace back_end.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8427d2ef-03eb-4f16-a321-17e0cf8e65e9"),
+                            Id = new Guid("f42c63cb-64b7-48e9-8177-90c827d30329"),
                             Email = "admin@minhstore.com",
-                            Password = "$2a$11$SaL6DCKqa.lMQUY4Cy4eHOrZXzsh/e7NPABUssabL.k3BIAMc55DG",
+                            Password = "$2a$11$ys.TMIFFlTvAGPwkGgJ6sOryVjBWuTIED.8MWYJVlsje2EYIp23Vi",
                             Role = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("40f90749-eefd-4d83-a63c-4ccb470a71b0"),
+                            Id = new Guid("d2bfc543-e1c3-4e29-b78e-fa39be855d97"),
                             Email = "user123@gmail.com",
-                            Password = "$2a$11$k2.38L0E/Vp8vxTVXa8EWeicgl8lp5RLyuEhlk.WdrOTnJtwuWpDa",
+                            Password = "$2a$11$/xE9onXzUmsy7KzKzracz.1wAIU0zqKac6015H5ELzEFbWfm6K9Ua",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("c034183a-4d62-41b2-8fe4-44641866c85e"),
+                            Id = new Guid("a73693d3-e7d7-440a-aff0-ba076c7c5003"),
                             Email = "user456@gmail.com",
-                            Password = "$2a$11$elts2XttUfP2I1ndpPYb7eTDGdvgBwuosEEUcuG6A26GLbsMES/Tm",
+                            Password = "$2a$11$J3E.OF18sW2iW1H/PE0Wh.zXQd.AjmKmoQYL9zsfXjUBcW2n30P4S",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("fb8afe2c-9aa9-47e3-92d9-71d791fbbfb7"),
+                            Id = new Guid("ced9caba-6bf9-414b-80f3-4c24c01ed81b"),
                             Email = "user789@gmail.com",
-                            Password = "$2a$11$fImXC5OneZ1ZzC0BuZ5hUeRN.pwJ.Hc8gnjiaRg9btR.f46CqwrR.",
+                            Password = "$2a$11$apWp8Diyzl83WAWGcAV23OlqskM8VhEt4t53LBUSyFn2hvLBp/O1m",
                             Role = "User"
                         });
                 });

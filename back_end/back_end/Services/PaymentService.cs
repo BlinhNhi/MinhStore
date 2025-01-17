@@ -23,6 +23,7 @@ namespace back_end.Services
                 return false;
             }
             payemt.User = user;
+            payemt.StatusOrder = 0;
             await db.Payments.AddAsync(payemt);
             await db.SaveChangesAsync();
             return true;
