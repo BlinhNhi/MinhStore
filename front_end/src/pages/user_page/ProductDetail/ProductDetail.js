@@ -66,20 +66,25 @@ function ProductDetail(props) {
     const [numberProduct, setNumberProduct] = useState(1);
     const [savedIdSize, setSavedIdSize] = useState(0);
     const [savedIdColor, setSavedIdColor] = useState(0);
-    const [savedPrice, setSavePrice] = useState();
+    const [savedPrice, setSavePrice] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleIncrease = () => {
         const newNumberProduct = numberProduct + 1;
+        console.log(productDetailForUser?.priceProduct);
+        const newPriceProduct = newNumberProduct * (productDetailForUser?.priceProduct);
         setNumberProduct(newNumberProduct);
-        setSavePrice(newNumberProduct * (productDetailForUser?.priceProduct || 0));
+        setSavePrice(newPriceProduct);
+        console.log(newPriceProduct);
+        console.log(newNumberProduct);
     };
 
     const handleDecrease = () => {
         if (numberProduct > 1) {
             const newNumberProduct = numberProduct - 1;
+            const newPriceProduct = newNumberProduct * (productDetailForUser?.priceProduct);
             setNumberProduct(newNumberProduct);
-            setSavePrice(newNumberProduct * (productDetailForUser?.priceProduct || 0));
+            setSavePrice(newPriceProduct);
         }
     };
     const handleOpenModal = () => {
@@ -106,6 +111,8 @@ function ProductDetail(props) {
             formData.append("ProductId", id);
             formData.append("QuantityOrder", numberProduct);
             formData.append("TotalAmount", savedPrice || productDetailForUser?.priceProduct);
+            console.log("TotalAmount savedPrice: ", savedPrice);
+            console.log("Total Amount: ", productDetailForUser?.priceProduct);
             formData.append("SizeId", savedIdSize);
             formData.append("ColorId", savedIdColor);
             dispatch(addCartAction(formData));
@@ -211,8 +218,7 @@ sm:mt-0 md:mt-0 lg:mt-0 xl:mt-0 2xl:mt-0
                                             <button
                                                 onClick={() => {
                                                     setSavedIdColor(data?.id);
-                                                    setSavePrice(productDetailForUser?.priceProduct)
-                                                    // setSelectedColor(data?.id)
+                                                    // savePrice(productDetailForUser?.priceProduct)
                                                 }}
                                                 className={`border-2 p-2 rounded-md 
                                                 ${savedIdColor === data?.id
