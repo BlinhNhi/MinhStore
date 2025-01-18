@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 function ManagerOrder() {
     return (
         <div className="mt-10">
@@ -16,13 +18,14 @@ function ManagerOrder() {
                             <td className="px-6 py-6">01/2025</td>
                             <td className="px-6 py-6">Đang xử lý</td>
                             <td className="px-6 py-6">2,370,000₫ cho 2 mục</td>
-                            <td><button class="bg-black dark:bg-gray-200 dark:text-gray-600 text-white px-4 py-2 rounded">Xem</button></td>
+                            <td><NavLink
+                                to="/orderDetail"
+                                class=" bg-gray-400 hover:bg-primary/90 dark:bg-white dark:hover:bg-primary  dark:text-gray-600 text-white px-4 py-2 rounded">Xem</NavLink></td>
                         </tr>
                     </tbody>
                 </table>
 
             </div>
-
 
             <div class="sm:hidden w-full">
                 <div class="border-2 border-gray-400 rounded-md p-4 mb-4">
@@ -39,7 +42,10 @@ function ManagerOrder() {
                         <span>2,370,000₫ cho 2 mục</span>
                     </div>
                     <div class="flex justify-end">
-                        <button class="bg-black dark:bg-gray-200 dark:text-gray-600 text-white px-4 py-2 rounded">Xem</button>
+                        <button
+
+                            class="bg-black dark:bg-gray-200 dark:text-gray-600 text-white px-4 py-2 rounded"
+                        >Xem</button>
                     </div>
                 </div>
             </div>
