@@ -15,8 +15,6 @@ import { addPaymentAction } from "../../../redux_store/actions/PaymentAction";
 
 
 function PaymentProduct() {
-
-
     let accessToken = {};
     const dispatch = useDispatch();
     if (localStorage.getItem(TOKEN)) {
@@ -25,8 +23,8 @@ function PaymentProduct() {
         window.location.href = '/';
     }
     let { userLogin } = useSelector(state => state.UserReducer);
-    const [loading, setLoading] = useState(true);
     const idUser = userLogin?.id;
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         if (idUser) {
             setLoading(true);

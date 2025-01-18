@@ -36,7 +36,7 @@ export const addPaymentAction = (formData) => {
                     <>Thanh Toán Thành Công</>
                 ),
             });
-            // window.location.href = '/admin/categories-mng';
+            window.location.href = '/system-account/view-order';
         } catch (error) {
             console.log(error);
             notification.error({
@@ -69,7 +69,7 @@ export const deletePaymentAction = (id) => {
         }
     };
 }
-export const getCartDetailAction = (id) => {
+export const getPaymentDetailAction = (id) => {
 
     return async (dispatch) => {
         try {
@@ -87,7 +87,7 @@ export const getCartDetailAction = (id) => {
     }
 }
 
-export const getCartDetailByUserIdAction = (userId) => {
+export const getPaymentDetailByUserIdAction = (userId) => {
 
     return async (dispatch) => {
         try {

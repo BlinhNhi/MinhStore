@@ -1,6 +1,22 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-
+import { TOKEN } from "../../../utils/variable";
+import { getPaymentDetailByUserIdAction } from "../../../redux_store/actions/PaymentAction";
 function ManagerOrder() {
+    let accessToken = {};
+    const dispatch = useDispatch();
+    if (localStorage.getItem(TOKEN)) {
+        accessToken = localStorage.getItem(TOKEN);
+    } else {
+        window.location.href = '/';
+    }
+    let { userLogin } = useSelector(state => state.UserReducer);
+    const idUser = userLogin?.id;
+    useEffect(() => {
+        dispatch(getPaymentDetailByUserIdAction(idUser))
+    }, [idUser, dispatch])
+    let { paymentDetailByUserId } = useSelector(state => state.PaymentReducer)
     return (
         <div className="mt-10">
             <div class="hidden sm:block overflow-x-auto w-full ">
