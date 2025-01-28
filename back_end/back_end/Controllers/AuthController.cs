@@ -44,6 +44,9 @@ namespace back_end.Controllers
                 ClockSkew = TimeSpan.Zero
             }, out SecurityToken validatedToken);
             var jwtToken = (JwtSecurityToken)validatedToken;
+
+         /*   var role = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;*/
+            /*string role = (string)jwtToken.Claims.First(x => x.Type == "Role").Value;*/
             string email = (string)jwtToken.Claims.First(x => x.Type == "Email").Value;
             User user = db.Users.Where(u => u.Email == email).FirstOrDefault();
             return Ok(user);
@@ -86,6 +89,7 @@ namespace back_end.Controllers
                 new Claim("Email",user.Email),
                 new Claim("Password", user.Password),
                 new Claim(ClaimTypes.Role,user.Role)
+
             };
             var token = new JwtSecurityToken(configuration["Jwt:Issuer"], configuration["Jwt:Audience"], claims, expires: DateTime.Now.AddHours(30), signingCredentials: credential);
             return new JwtSecurityTokenHandler().WriteToken(token);

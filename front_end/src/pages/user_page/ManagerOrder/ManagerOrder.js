@@ -1,8 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { TOKEN } from "../../../utils/variable";
 import { getPaymentDetailByUserIdAction } from "../../../redux_store/actions/PaymentAction";
+import { RiLoader2Line } from "react-icons/ri";
+import { formatDateTime } from "../../../utils/format/formatDateTime";
+import { handleFormatPrice } from "../../../utils/format/formatPrice";
 function ManagerOrder() {
     let accessToken = {};
     const dispatch = useDispatch();
@@ -12,15 +15,27 @@ function ManagerOrder() {
         window.location.href = '/';
     }
     let { userLogin } = useSelector(state => state.UserReducer);
+    const [loading, setLoading] = useState(true);
+
     const idUser = userLogin?.id;
     useEffect(() => {
-        dispatch(getPaymentDetailByUserIdAction(idUser))
+        if (idUser) {
+            setLoading(true);
+            dispatch(getPaymentDetailByUserIdAction(idUser))
+                .finally(() => setLoading(false));
+        }
     }, [idUser, dispatch])
     let { paymentDetailByUserId } = useSelector(state => state.PaymentReducer)
+    console.log(paymentDetailByUserId);
+    if (loading) {
+        return <div className="flex justify-center items-center gap-2 dark:bg-gray-900 p-8">
+            <RiLoader2Line className="text-primary animate-spin text-4xl" /> <p className="text-lg italic dark:text-gray-200">Loading....</p>
+        </div>;
+    }
     return (
         <div className="mt-10">
-            <div class="hidden sm:block overflow-x-auto w-full ">
-                <table class="table-auto w-full items-center">
+            <div className="hidden sm:block overflow-x-auto w-full ">
+                <table className="table-auto w-full items-center">
                     <thead className="text-center ">
                         <tr>
                             <th className="px-6 py-6 align-middle border-2 border-gray-400  border-solid text-sm  uppercase border-l-0 border-r-0 whitespace-nowrap font-bold">Ngày</th>
@@ -30,37 +45,48 @@ function ManagerOrder() {
                         </tr>
                     </thead>
                     <tbody className="text-center ">
-                        <tr>
-                            <td className="px-6 py-6">01/2025</td>
-                            <td className="px-6 py-6">Đang xử lý</td>
-                            <td className="px-6 py-6">2,370,000₫ cho 2 mục</td>
-                            <td><NavLink
-                                to="/orderDetail"
-                                class=" bg-gray-400 hover:bg-primary/90 dark:bg-white dark:hover:bg-primary  dark:text-gray-600 text-white px-4 py-2 rounded">Xem</NavLink></td>
-                        </tr>
+                        {paymentDetailByUserId?.map((item, i) => {
+                            console.log(item?.user?.order);
+                            return <tr>
+                                {/* {formatDateTime(item?.orderDate)} */}
+                                <td className="px-6 py-6">{formatDateTime(item?.dayOrder)}</td>
+                                <td className="px-6 py-6">{item?.statusOrder === 0 ? 'Đang xử lý' : item?.statusOrder === 1 ? 'Chấp Nhận' : 'Đã nhận hàng'}</td>
+                                <td className="px-6 py-6">{handleFormatPrice(item?.totalAmountOfOrder)}đ cho {item?.user?.orders?.length} mục</td>
+                                <td><NavLink
+                                    to="/orderDetail"
+                                >
+                                    <button
+                                        className="bg-gray-400 hover:bg-primary/90 dark:bg-white dark:hover:bg-primary  dark:text-gray-600 text-white px-4 py-2 rounded">
+                                        Xem
+                                    </button>
+                                </NavLink></td>
+                            </tr>
+                        })}
+
                     </tbody>
                 </table>
 
+
             </div>
 
-            <div class="sm:hidden w-full">
-                <div class="border-2 border-gray-400 rounded-md p-4 mb-4">
-                    <div class="flex justify-between mb-2">
-                        <span class="font-medium">Ngày</span>
+            <div className="sm:hidden w-full">
+                <div className="border-2 border-gray-400 rounded-md p-4 mb-4">
+                    <div className="flex justify-between mb-2">
+                        <span className="font-medium">Ngày</span>
                         <span>01/2025</span>
                     </div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-medium">Trạng thái</span>
+                    <div className="flex justify-between mb-2">
+                        <span className="font-medium">Trạng thái</span>
                         <span>Đang xử lý</span>
                     </div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-medium">Tổng</span>
+                    <div className="flex justify-between mb-2">
+                        <span className="font-medium">Tổng</span>
                         <span>2,370,000₫ cho 2 mục</span>
                     </div>
-                    <div class="flex justify-end">
+                    <div className="flex justify-end">
                         <button
 
-                            class="bg-black dark:bg-gray-200 dark:text-gray-600 text-white px-4 py-2 rounded"
+                            className="bg-black dark:bg-gray-200 dark:text-gray-600 text-white px-4 py-2 rounded"
                         >Xem</button>
                     </div>
                 </div>

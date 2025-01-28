@@ -17,6 +17,8 @@
         public Color? Color { get; set; }
         public ICollection<Product>? Products { get; set; }
         public ICollection<OrderProduct> ?ProductOrders { get; set; }
+        public ICollection<Payment> ?Payments { get; set; }
+
         public DateTime OrderDate { get; set; }
         public Order()
         {

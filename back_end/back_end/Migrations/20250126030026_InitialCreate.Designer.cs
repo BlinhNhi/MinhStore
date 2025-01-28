@@ -11,7 +11,7 @@ using back_end.Models;
 namespace back_end.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250117165122_InitialCreate")]
+    [Migration("20250126030026_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -240,11 +240,18 @@ namespace back_end.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime>("DayOrder")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("NameUser")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("NoteUser")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("OrderId")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("PhoneUser")
@@ -264,6 +271,24 @@ namespace back_end.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Payments");
+                });
+
+            modelBuilder.Entity("back_end.Models.PaymentOrder", b =>
+                {
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("PaymentId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId", "PaymentId");
+
+                    b.HasIndex("PaymentId");
+
+                    b.ToTable("PaymentOrders");
                 });
 
             modelBuilder.Entity("back_end.Models.Product", b =>
@@ -1626,30 +1651,30 @@ namespace back_end.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f42c63cb-64b7-48e9-8177-90c827d30329"),
+                            Id = new Guid("f604c22b-5117-44dc-b85e-ed71690c3962"),
                             Email = "admin@minhstore.com",
-                            Password = "$2a$11$ys.TMIFFlTvAGPwkGgJ6sOryVjBWuTIED.8MWYJVlsje2EYIp23Vi",
+                            Password = "$2a$11$dkhqDU5Ur78IaOgXX3Wi1.JAIfRvhXmI3bg9njjG8TxIZvKMgs47u",
                             Role = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("d2bfc543-e1c3-4e29-b78e-fa39be855d97"),
+                            Id = new Guid("20c66d39-5f2a-4fa1-a145-a31a3218d769"),
                             Email = "user123@gmail.com",
-                            Password = "$2a$11$/xE9onXzUmsy7KzKzracz.1wAIU0zqKac6015H5ELzEFbWfm6K9Ua",
+                            Password = "$2a$11$oWdKRqbaN1ge1G55evzYDOsBgfwn865F5wGtoVjZusk1vdIFtFpt2",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("a73693d3-e7d7-440a-aff0-ba076c7c5003"),
+                            Id = new Guid("63ec1e31-ef4c-4424-9ae8-0bb998c061a0"),
                             Email = "user456@gmail.com",
-                            Password = "$2a$11$J3E.OF18sW2iW1H/PE0Wh.zXQd.AjmKmoQYL9zsfXjUBcW2n30P4S",
+                            Password = "$2a$11$uwAnZn6YogGvbFyGSVbtwerig/eCuqV.RDnkE8HlWGEI9tZYkbQx.",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("ced9caba-6bf9-414b-80f3-4c24c01ed81b"),
+                            Id = new Guid("9f80ba3d-1779-4abf-a744-440ae2c3642e"),
                             Email = "user789@gmail.com",
-                            Password = "$2a$11$apWp8Diyzl83WAWGcAV23OlqskM8VhEt4t53LBUSyFn2hvLBp/O1m",
+                            Password = "$2a$11$pd6fXc/kknFAZ2hNu3s5peAw6Sd9a0A/taRnP3w1ejSNnKvP9Q.p6",
                             Role = "User"
                         });
                 });
@@ -1724,6 +1749,21 @@ namespace back_end.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("back_end.Models.PaymentOrder", b =>
+                {
+                    b.HasOne("back_end.Models.Order", null)
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("back_end.Models.Payment", null)
+                        .WithMany()
+                        .HasForeignKey("PaymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("back_end.Models.Product", b =>

@@ -13,10 +13,10 @@ namespace back_end.Models
 		public string ?Phone { get; set; }
 		public string ?Role { get; set; }
 		public ICollection<Order>? Orders { get; set; }
-        public ICollection<Payment>? Payments { get; set; }
+		public ICollection<Payment>? Payments { get; set; }
 
 
-        public User()
+		public User()
         {
             Id = Guid.NewGuid(); // Tạo UUID tự động khi khởi tạo
         }

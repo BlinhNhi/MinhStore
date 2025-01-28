@@ -1,8 +1,10 @@
 ﻿using back_end.IRepository;
 using back_end.Models;
 using back_end.ReponseData;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace back_end.Controllers
 {
@@ -17,6 +19,7 @@ namespace back_end.Controllers
             this.repo = repo;
         }
 
+        /*[Authorize(Roles = "User")]*/
         [HttpGet]
         public async Task<ActionResult> GetAllCate()
         {
@@ -43,6 +46,8 @@ namespace back_end.Controllers
         {
             try
             {
+                var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+                Console.WriteLine($"User role: {userRole}"); // Log để kiểm tra
                 var list = await repo.GetCategoryById(Id);
                 if (list.Count() > 0)
                 {

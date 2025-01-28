@@ -18,7 +18,7 @@ export const menuSideBar = [
 
     },
     {
-        id: 3,
+        id: 4,
         name: 'Quản Lý Đơn Hàng',
         path: '/system-account/view-order',
 
