@@ -41,7 +41,7 @@ function PaymentProduct() {
     }, 0);
 
     console.log(orderDetailByUserId?.data);
-    const idParseOfOrderToString = orderDetailByUserId?.data?.map(item => `"${item.id}"`).join(",");
+    const idParseOfOrderToString = orderDetailByUserId?.data?.filter(item => !item.isDeleted)?.map(item => `"${item.id}"`).join(",");
     console.log(idParseOfOrderToString);
 
     const formik = useFormik({

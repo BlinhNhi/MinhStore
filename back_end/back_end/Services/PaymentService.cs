@@ -90,7 +90,8 @@ namespace back_end.Services
                     Orders = pay.Orders.Select(or=>new Order
                     {
                         Id=or.Id,
-                        Products = or.ProductOrders.Select(po => new Product
+                        Products = or.Products,
+                       /* Products = or.ProductOrders.Select(po => new Product
                         {
                             Id = po.Product.Id,
                             NameProduct = po.Product.NameProduct,
@@ -99,7 +100,7 @@ namespace back_end.Services
                             NumberOfProductInStock = po.Product.NumberOfProductInStock,
                             NumberOfProductSold = po.Product.NumberOfProductSold,
                             ImagesProduct = po.Product.ImagesProduct,
-                        }).ToList(),
+                        }).ToList(),*/
                     }).ToList(),
                 
                     DayOrder = pay.DayOrder,
