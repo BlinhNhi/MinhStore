@@ -11,8 +11,8 @@ using back_end.Models;
 namespace back_end.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250126030026_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250129162342_InitailCreate")]
+    partial class InitailCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -223,9 +223,14 @@ namespace back_end.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("char(36)");
 
+                    b.Property<Guid?>("PaymentId")
+                        .HasColumnType("char(36)");
+
                     b.HasKey("ProductId", "OrderId");
 
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("PaymentId");
 
                     b.ToTable("OrderProducts");
                 });
@@ -251,7 +256,6 @@ namespace back_end.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("OrderId")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("PhoneUser")
@@ -281,8 +285,8 @@ namespace back_end.Migrations
                     b.Property<Guid>("PaymentId")
                         .HasColumnType("char(36)");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("OrderId", "PaymentId");
 
@@ -1651,30 +1655,30 @@ namespace back_end.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f604c22b-5117-44dc-b85e-ed71690c3962"),
+                            Id = new Guid("e980ea30-d766-4310-a46d-a79a3789d0e2"),
                             Email = "admin@minhstore.com",
-                            Password = "$2a$11$dkhqDU5Ur78IaOgXX3Wi1.JAIfRvhXmI3bg9njjG8TxIZvKMgs47u",
+                            Password = "$2a$11$NoZ84SMHz1vm/.1Ebz/u5O7ZY.bZvmjeWoWYlNdjzwsT51sXECQga",
                             Role = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("20c66d39-5f2a-4fa1-a145-a31a3218d769"),
+                            Id = new Guid("e2dd5c66-1491-4f9d-8ef6-6abff9099248"),
                             Email = "user123@gmail.com",
-                            Password = "$2a$11$oWdKRqbaN1ge1G55evzYDOsBgfwn865F5wGtoVjZusk1vdIFtFpt2",
+                            Password = "$2a$11$.VNdU//x7rtQUuX04py2je5d9gC7ByAd2nWmBZ.TgZR0pH16zZn0y",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("63ec1e31-ef4c-4424-9ae8-0bb998c061a0"),
+                            Id = new Guid("9955eb80-aef8-48cc-9158-21e55efd083c"),
                             Email = "user456@gmail.com",
-                            Password = "$2a$11$uwAnZn6YogGvbFyGSVbtwerig/eCuqV.RDnkE8HlWGEI9tZYkbQx.",
+                            Password = "$2a$11$EC6y1oqogKQjBm2xZnHRVOYyGD4t45Mr.nAF9Z0S9PGELw4hFQfQC",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("9f80ba3d-1779-4abf-a744-440ae2c3642e"),
+                            Id = new Guid("49d5d31c-16cd-4238-96e9-cd7d257fe2fd"),
                             Email = "user789@gmail.com",
-                            Password = "$2a$11$pd6fXc/kknFAZ2hNu3s5peAw6Sd9a0A/taRnP3w1ejSNnKvP9Q.p6",
+                            Password = "$2a$11$CjMNc.dhP4LVysSaCJeaG.x3D18RxMT9u9d8x8214vaihHpxQQQL6",
                             Role = "User"
                         });
                 });
@@ -1729,6 +1733,10 @@ namespace back_end.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("back_end.Models.Payment", null)
+                        .WithMany("ProductOrders")
+                        .HasForeignKey("PaymentId");
+
                     b.HasOne("back_end.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
@@ -1753,17 +1761,21 @@ namespace back_end.Migrations
 
             modelBuilder.Entity("back_end.Models.PaymentOrder", b =>
                 {
-                    b.HasOne("back_end.Models.Order", null)
+                    b.HasOne("back_end.Models.Order", "Order")
                         .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("back_end.Models.Payment", null)
-                        .WithMany()
+                    b.HasOne("back_end.Models.Payment", "Payment")
+                        .WithMany("PaymentOrders")
                         .HasForeignKey("PaymentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Payment");
                 });
 
             modelBuilder.Entity("back_end.Models.Product", b =>
@@ -1819,6 +1831,13 @@ namespace back_end.Migrations
 
             modelBuilder.Entity("back_end.Models.Order", b =>
                 {
+                    b.Navigation("ProductOrders");
+                });
+
+            modelBuilder.Entity("back_end.Models.Payment", b =>
+                {
+                    b.Navigation("PaymentOrders");
+
                     b.Navigation("ProductOrders");
                 });
 

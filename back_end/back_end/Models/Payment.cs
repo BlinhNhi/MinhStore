@@ -12,7 +12,7 @@
         public DateTime DayOrder { get; set; }
         public Guid UserId { get; set; }
         public User? User { get; set; }
-        public string OrderId { get; set; }
+        public string ?OrderId { get; set; }
         public ICollection<Order> ?Orders { get; set; }
         public ICollection<OrderProduct> ?ProductOrders { get; set; }
         public ICollection<PaymentOrder>? PaymentOrders { get; set; }

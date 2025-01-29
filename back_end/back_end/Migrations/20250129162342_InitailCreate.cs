@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace back_end.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitailCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -173,7 +173,7 @@ namespace back_end.Migrations
                     StatusOrder = table.Column<int>(type: "int", nullable: false),
                     DayOrder = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    OrderId = table.Column<string>(type: "longtext", nullable: false)
+                    OrderId = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -271,7 +271,8 @@ namespace back_end.Migrations
                 {
                     ProductId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     OrderId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    PaymentId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -282,6 +283,11 @@ namespace back_end.Migrations
                         principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderProducts_Payments_PaymentId",
+                        column: x => x.PaymentId,
+                        principalTable: "Payments",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_OrderProducts_Products_ProductId",
                         column: x => x.ProductId,
@@ -297,7 +303,7 @@ namespace back_end.Migrations
                 {
                     OrderId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     PaymentId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -376,10 +382,10 @@ namespace back_end.Migrations
                 columns: new[] { "Id", "Email", "GoogleId", "Name", "Password", "Phone", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("20c66d39-5f2a-4fa1-a145-a31a3218d769"), "user123@gmail.com", null, null, "$2a$11$oWdKRqbaN1ge1G55evzYDOsBgfwn865F5wGtoVjZusk1vdIFtFpt2", null, "User" },
-                    { new Guid("63ec1e31-ef4c-4424-9ae8-0bb998c061a0"), "user456@gmail.com", null, null, "$2a$11$uwAnZn6YogGvbFyGSVbtwerig/eCuqV.RDnkE8HlWGEI9tZYkbQx.", null, "User" },
-                    { new Guid("9f80ba3d-1779-4abf-a744-440ae2c3642e"), "user789@gmail.com", null, null, "$2a$11$pd6fXc/kknFAZ2hNu3s5peAw6Sd9a0A/taRnP3w1ejSNnKvP9Q.p6", null, "User" },
-                    { new Guid("f604c22b-5117-44dc-b85e-ed71690c3962"), "admin@minhstore.com", null, null, "$2a$11$dkhqDU5Ur78IaOgXX3Wi1.JAIfRvhXmI3bg9njjG8TxIZvKMgs47u", null, "Admin" }
+                    { new Guid("49d5d31c-16cd-4238-96e9-cd7d257fe2fd"), "user789@gmail.com", null, null, "$2a$11$CjMNc.dhP4LVysSaCJeaG.x3D18RxMT9u9d8x8214vaihHpxQQQL6", null, "User" },
+                    { new Guid("9955eb80-aef8-48cc-9158-21e55efd083c"), "user456@gmail.com", null, null, "$2a$11$EC6y1oqogKQjBm2xZnHRVOYyGD4t45Mr.nAF9Z0S9PGELw4hFQfQC", null, "User" },
+                    { new Guid("e2dd5c66-1491-4f9d-8ef6-6abff9099248"), "user123@gmail.com", null, null, "$2a$11$.VNdU//x7rtQUuX04py2je5d9gC7ByAd2nWmBZ.TgZR0pH16zZn0y", null, "User" },
+                    { new Guid("e980ea30-d766-4310-a46d-a79a3789d0e2"), "admin@minhstore.com", null, null, "$2a$11$NoZ84SMHz1vm/.1Ebz/u5O7ZY.bZvmjeWoWYlNdjzwsT51sXECQga", null, "Admin" }
                 });
 
             migrationBuilder.InsertData(
@@ -580,6 +586,11 @@ namespace back_end.Migrations
                 name: "IX_OrderProducts_OrderId",
                 table: "OrderProducts",
                 column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderProducts_PaymentId",
+                table: "OrderProducts",
+                column: "PaymentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_ColorId",

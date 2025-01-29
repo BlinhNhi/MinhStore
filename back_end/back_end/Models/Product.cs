@@ -28,7 +28,7 @@
 
         public Product()
         {
-            Id = Guid.NewGuid(); // Tạo UUID tự động khi khởi tạo
+            Id = Guid.NewGuid(); 
             CreatedDate = DateTime.Now;
         }
 

@@ -25,11 +25,17 @@ namespace back_end.Services
             payment.User = user;
             if (payment.OrderId != null)
             {
-                List<Guid> orderIds = payment.OrderId
-                    .ToString()
-                    .Split(",") // Tách theo dấu phẩy
-                    .Select(id => Guid.Parse(id.Trim())) // Chuyển thành Guid
-                    .ToList();
+                /* List<Guid> orderIds = payment.OrderId
+                     .ToString()
+                     .Split(",") // Tách theo dấu phẩy
+                     .Select(id => Guid.Parse(id.Trim())) // Chuyển thành Guid
+                     .ToList();*/
+                   List<Guid> orderIds = payment.OrderId
+                        .Split(',') // Tách theo dấu phẩy
+                        .Select(id => id.Trim().Replace("\"", ""))  
+                        .Where(id => Guid.TryParse(id, out _)) 
+                        .Select(Guid.Parse)  
+                        .ToList();
 
                 // Thêm từng sản phẩm vào OrderProducts
                 foreach (var id in orderIds)

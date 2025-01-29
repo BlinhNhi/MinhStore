@@ -40,6 +40,10 @@ function PaymentProduct() {
         return sum + (item?.totalAmount || 0);
     }, 0);
 
+    console.log(orderDetailByUserId?.data);
+    const idParseOfOrderToString = orderDetailByUserId?.data?.map(item => `"${item.id}"`).join(",");
+    console.log(idParseOfOrderToString);
+
     const formik = useFormik({
         initialValues: {
             nameUser: "",
@@ -60,6 +64,7 @@ function PaymentProduct() {
                 }
                 formData.append("totalAmountOfOrder", totalAmountSum);
                 formData.append("userId", idUser);
+                formData.append("orderId", idParseOfOrderToString);
                 console.table("formData", [...formData]);
                 dispatch(addPaymentAction(formData));
                 dispatch(updateIsDeletedOfCartAction(idUser))
