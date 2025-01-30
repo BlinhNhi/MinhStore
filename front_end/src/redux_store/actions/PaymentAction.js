@@ -74,6 +74,8 @@ export const getPaymentDetailAction = (id) => {
     return async (dispatch) => {
         try {
             const result = await paymentService.getPaymentById(id)
+            console.log(result);
+
             if (result.data.status === 200) {
                 dispatch({
                     type: GET_PAYMENT_DETAIL,

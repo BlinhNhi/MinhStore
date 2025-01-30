@@ -60,6 +60,26 @@ namespace back_end.Controllers
 
         }
 
+        [HttpGet("{Id}")]
+        public async Task<ActionResult> getPaymentById(Guid Id)
+        {
+            try
+            {
+                var list = await repo.GetPaymentById(Id);
+                if (list != null)
+                {
+                    var response = new ResponseData<IEnumerable<Payment>>(StatusCodes.Status200OK, "Get Payment By Id successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
         [HttpDelete("{Id}")]
         public async Task<ActionResult> DeletePayment(Guid Id)
         {

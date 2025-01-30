@@ -30,19 +30,19 @@ namespace back_end.Services
                      .Split(",") // Tách theo dấu phẩy
                      .Select(id => Guid.Parse(id.Trim())) // Chuyển thành Guid
                      .ToList();*/
-                   List<Guid> orderIds = payment.OrderId
-                        .Split(',') // Tách theo dấu phẩy
-                        .Select(id => id.Trim().Replace("\"", ""))  
-                        .Where(id => Guid.TryParse(id, out _)) 
-                        .Select(Guid.Parse)  
-                        .ToList();
+                List<Guid> orderIds = payment.OrderId
+                     .Split(',') // Tách theo dấu phẩy
+                     .Select(id => id.Trim().Replace("\"", ""))
+                     .Where(id => Guid.TryParse(id, out _))
+                     .Select(Guid.Parse)
+                     .ToList();
 
                 // Thêm từng sản phẩm vào OrderProducts
                 foreach (var id in orderIds)
                 {
                     db.PaymentOrders.Add(new PaymentOrder
                     {
-                        PaymentId = payment.Id ,
+                        PaymentId = payment.Id,
                         OrderId = id
                     });
                 }
@@ -87,9 +87,9 @@ namespace back_end.Services
                     NoteUser = pay.NoteUser,
                     TotalAmountOfOrder = pay.TotalAmountOfOrder,
                     StatusOrder = pay.StatusOrder,
-                    Orders = pay.Orders.Select(or=>new Order
+                    Orders = pay.Orders.Select(or => new Order
                     {
-                        Id=or.Id,
+                        Id = or.Id,
                         QuantityOrder = or.QuantityOrder,
                         Products = or.ProductOrders.Select(po => new Product
                         {
@@ -102,19 +102,20 @@ namespace back_end.Services
                             ImagesProduct = po.Product.ImagesProduct,
                         }).ToList(),
                     }).ToList(),
-                
+
                     DayOrder = pay.DayOrder,
                 })
                     .ToListAsync();
             return (payment ?? new List<Payment>());
         }
-      /*  public async Task<IEnumerable<Payment>> GetPaymentsByUserId(Guid userId)
+
+        public async Task<IEnumerable<Payment>> GetPaymentById(Guid Id)
         {
+            /* return await db.Payments.Include(pay => pay.Orders).Where(p => p.Id == Id).ToListAsync();*/
             var payment = await db.Payments
-                .Where(pay => pay.UserId == userId)
-                .Include(pay => pay.Orders) // Include Orders
-                    .ThenInclude(o => o.Products) // Include Products bên trong Orders
-                .Select(pay => new
+                .Where(pay => pay.Id == Id)
+                .Include(pay => pay.Orders).ThenInclude(o => o.Products)
+                .Select(pay => new Payment
                 {
                     Id = pay.Id,
                     NameUser = pay.NameUser,
@@ -123,26 +124,31 @@ namespace back_end.Services
                     NoteUser = pay.NoteUser,
                     TotalAmountOfOrder = pay.TotalAmountOfOrder,
                     StatusOrder = pay.StatusOrder,
-                    DayOrder = pay.DayOrder,
-                    Orders = pay.Orders.Select(o => new
+                    
+                    Orders = pay.Orders.Select(or => new Order
                     {
-                        OrderId = o.Id,
-                        Products = o.Products.Select(p => p.NameProduct).ToList() // Lấy danh sách NameProduct
-                    }).ToList()
+                        Id = or.Id,
+                        QuantityOrder = or.QuantityOrder,
+                        Size = or.Size,
+                        Color = or.Color,
+                        Products = or.ProductOrders.Select(po => new Product
+                        {
+                            Id = po.Product.Id,
+                            NameProduct = po.Product.NameProduct,
+                            PriceProduct = po.Product.PriceProduct,
+                            StockQuantity = po.Product.StockQuantity,
+                            NumberOfProductInStock = po.Product.NumberOfProductInStock,
+                            NumberOfProductSold = po.Product.NumberOfProductSold,
+                            ImagesProduct = po.Product.ImagesProduct,
+                           
+                        }).ToList(),
+                    }).ToList(),
+
+                    DayOrder = pay.DayOrder,
                 })
-                .ToListAsync();
+                    .ToListAsync();
+            return (payment ?? new List<Payment>());
 
-            return payment;
-        }*/
-
-
-        /*    public async Task<IEnumerable<Payment>> GetPaymentsByUserId(Guid userId)
-            {
-                *//* var payments = await db.Payments
-                                 .Where(p => p.UserId == userId).Include(p=>p.User.Orders).ThenInclude(o=>o.ProductOrders).ThenInclude(po => po.Product).ToListAsync();
-                 return payments ?? new List<Payment>();*//*
-                t
-
-            }*/
+        }
     }
 }

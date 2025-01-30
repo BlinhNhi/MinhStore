@@ -96,7 +96,7 @@ function App() {
         {/* Payment */}
         <Route path="check-out" element={<HomeTemplate Component={PaymentProduct} />} />
         {/* Payment Detail */}
-        <Route path="orderDetail" element={<HomeTemplate Component={OrderDetail} />} />
+        <Route path="orderDetail/:id" element={<HomeTemplate Component={OrderDetail} />} />
         {/* Admin Routes */}
         <Route path="/admin/dashboard" element={<AdminTemplate Component={DashBoard} />} />
         {/* Color Manager */}

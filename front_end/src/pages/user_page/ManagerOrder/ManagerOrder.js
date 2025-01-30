@@ -7,6 +7,7 @@ import { RiLoader2Line } from "react-icons/ri";
 import { formatDateTime } from "../../../utils/format/formatDateTime";
 import { handleFormatPrice } from "../../../utils/format/formatPrice";
 function ManagerOrder() {
+
     let accessToken = {};
     const dispatch = useDispatch();
     if (localStorage.getItem(TOKEN)) {
@@ -16,8 +17,8 @@ function ManagerOrder() {
     }
     let { userLogin } = useSelector(state => state.UserReducer);
     const [loading, setLoading] = useState(true);
-
     const idUser = userLogin?.id;
+
     useEffect(() => {
         if (idUser) {
             setLoading(true);
@@ -46,18 +47,18 @@ function ManagerOrder() {
                     </thead>
                     <tbody className="text-center ">
                         {paymentDetailByUserId?.map((item, i) => {
-                            console.log(item?.user?.order);
+                            console.log();
                             return <tr>
                                 {/* {formatDateTime(item?.orderDate)} */}
                                 <td className="px-6 py-6">{formatDateTime(item?.dayOrder)}</td>
-                                <td className="px-6 py-6">{item?.statusOrder === 0 ? 'Đang xử lý' : item?.statusOrder === 1 ? 'Chấp Nhận' : 'Đã nhận hàng'}</td>
-                                <td className="px-6 py-6">{handleFormatPrice(item?.totalAmountOfOrder)}đ cho {item?.user?.orders?.length} mục</td>
+                                <td className="px-6 py-6 font-semibold text-base">{item?.statusOrder === 0 ? 'Đang xử lý' : item?.statusOrder === 1 ? 'Chấp Nhận' : 'Đã nhận hàng'}</td>
+                                <td className="px-6 py-6 flex  md:flex-col lg:flex-col xl:flex-row 2xl:flex-row gap-1"><p className="font-semibold text-base">{handleFormatPrice(item?.totalAmountOfOrder)}đ</p> cho <p className="font-bold text-base">{item?.orders.length} sản phẩm</p></td>
                                 <td><NavLink
-                                    to="/orderDetail"
+                                    to={`/orderDetail/${item?.id}`}
                                 >
                                     <button
-                                        className="bg-gray-400 hover:bg-primary/90 dark:bg-white dark:hover:bg-primary  dark:text-gray-600 text-white px-4 py-2 rounded">
-                                        Xem
+                                        className="bg-gray-500 hover:bg-gray-600 dark:bg-gray-200 dark:hover:bg-primary dark:text-gray-500 dark:hover:text-gray-100 text-white px-4 py-2 rounded-md font-medium">
+                                        Xem Thêm...
                                     </button>
                                 </NavLink></td>
                             </tr>
@@ -71,24 +72,29 @@ function ManagerOrder() {
 
             <div className="sm:hidden w-full">
                 <div className="border-2 border-gray-400 rounded-md p-4 mb-4">
-                    <div className="flex justify-between mb-2">
-                        <span className="font-medium">Ngày</span>
-                        <span>01/2025</span>
-                    </div>
-                    <div className="flex justify-between mb-2">
-                        <span className="font-medium">Trạng thái</span>
-                        <span>Đang xử lý</span>
-                    </div>
-                    <div className="flex justify-between mb-2">
-                        <span className="font-medium">Tổng</span>
-                        <span>2,370,000₫ cho 2 mục</span>
-                    </div>
-                    <div className="flex justify-end">
-                        <button
-
-                            className="bg-black dark:bg-gray-200 dark:text-gray-600 text-white px-4 py-2 rounded"
-                        >Xem</button>
-                    </div>
+                    {paymentDetailByUserId?.map((item, i) => {
+                        return (
+                            <div className={`${i !== 0 ? "border-t-2 mt-2" : ""} p-2 flex flex-col gap-2`}>
+                                <div className="flex justify-between mb-2">
+                                    <span className="font-medium">Ngày</span>
+                                    <span>{formatDateTime(item?.dayOrder)}</span>
+                                </div>
+                                <div className="flex justify-between mb-2">
+                                    <span className="font-medium">Trạng thái</span>
+                                    <span>{item?.statusOrder === 0 ? 'Đang xử lý' : item?.statusOrder === 1 ? 'Chấp Nhận' : 'Đã nhận hàng'}</span>
+                                </div>
+                                <div className="flex justify-between mb-2">
+                                    <span className="font-medium">Tổng</span>
+                                    <span>{handleFormatPrice(item?.totalAmountOfOrder)}đ cho {item?.orders.length} sản phẩm</span>
+                                </div>
+                                <div className="flex justify-end">
+                                    <button className="bg-gray-500 hover:bg-gray-600 dark:bg-gray-200 dark:hover:bg-primary dark:text-gray-500 dark:hover:text-gray-100 text-white px-2 py-1 rounded-md font-normal">
+                                        Xem Thêm...
+                                    </button>
+                                </div>
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
         </div>
