@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import NoImage from "../../assets/no-image.jpeg"
 import { getEightProductsAction } from "../../redux_store/actions/ProductAcction";
 import { handleFormatPrice } from "../../utils/format/formatPrice";
+import { NavLink } from "react-router-dom";
 
 function NewProduct() {
 
@@ -44,7 +45,9 @@ function NewProduct() {
                                     {data?.nameProduct}
                                 </h1>
                                 <p className="text-gray-500 group-hover:text-white duration-300 text-base line-clamp-2">{handleFormatPrice(data?.priceProduct)} vnd</p>
-                                <button className="bg-orange-400 hover:scale-105 duration-300 text-gray-100 py-1 px-4 rounded-full mt-4 group-hover:bg-white group-hover:text-orange-400">Đặt Hàng Ngay</button>
+                                <NavLink to={`/product-detail/${data?.id}`}>
+                                    <button className="bg-orange-400 hover:scale-105 duration-300 text-gray-100 py-1 px-4 rounded-full mt-4 group-hover:bg-white group-hover:text-orange-400">Đặt Hàng Ngay</button>
+                                </NavLink>
                             </div>
                         </div>
                     ))}

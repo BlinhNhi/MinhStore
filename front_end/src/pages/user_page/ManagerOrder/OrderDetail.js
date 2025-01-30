@@ -51,22 +51,22 @@ function OrderDetail() {
                         <table className="table-auto w-full mt-2 border-collapse border border-gray-300 ">
                             <thead>
                                 <tr>
-                                    <th className="border border-gray-300 px-4 py-2">Tên sản phẩm</th>
-                                    <th className="border border-gray-300 px-4 py-2">Size</th>
-                                    <th className="border border-gray-300 px-4 py-2">Màu sắc</th>
-                                    <th className="border border-gray-300 px-4 py-2">Số lượng</th>
-                                    <th className="border border-gray-300 px-4 py-2">Tổng</th>
+                                    <th className="border border-gray-300 px-4 py-2 text-sm font-semibold sm:text-lg">Tên sản phẩm</th>
+                                    <th className="border border-gray-300 px-4 py-2 text-sm font-semibold sm:text-lg">Size</th>
+                                    <th className="border border-gray-300 px-4 py-2 text-sm font-semibold sm:text-lg">Màu sắc</th>
+                                    <th className="border border-gray-300 px-4 py-2 text-sm font-semibold sm:text-lg">Số lượng</th>
+                                    <th className="border border-gray-300 px-4 py-2 text-sm font-semibold sm:text-lg">Tổng</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {paymentDetail?.orders?.flatMap(order =>
                                     order?.products?.map((item, index) => (
                                         <tr key={index}>
-                                            <td className="border border-gray-300 px-4 py-2">{item?.nameProduct}</td>
-                                            <td className="border border-gray-300 px-4 py-2">{order?.size?.numberOfSize}</td>
-                                            <td className="border border-gray-300 px-4 py-2">{order?.color?.name}</td>
-                                            <td className="border border-gray-300 px-4 py-2">{order?.quantityOrder}</td>
-                                            <td className="border border-gray-300 px-4 py-2">{handleFormatPrice(item?.priceProduct)} vnd</td>
+                                            <td className="border border-gray-300 px-4 py-2 text-sm sm:text-lg">{item?.nameProduct}</td>
+                                            <td className="border border-gray-300 px-4 py-2 text-sm sm:text-lg">{order?.size?.numberOfSize}</td>
+                                            <td className="border border-gray-300 px-4 py-2 text-sm sm:text-lg">{order?.color?.name}</td>
+                                            <td className="border border-gray-300 px-4 py-2 text-sm sm:text-lg">{order?.quantityOrder}</td>
+                                            <td className="border border-gray-300 px-4 py-2 text-sm sm:text-lg">{handleFormatPrice(item?.priceProduct)} vnd</td>
                                         </tr>
                                     ))
                                 )}

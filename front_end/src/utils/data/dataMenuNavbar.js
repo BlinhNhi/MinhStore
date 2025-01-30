@@ -6,16 +6,11 @@ export const Menu = [
     },
     {
         id: 2,
-        name: "Mới Nhất",
-        link: `/`
-    },
-    {
-        id: 3,
         name: "Adidas",
         link: `/search?searchCategory=${"Adidas"}&page=1`
     },
     {
-        id: 4,
+        id: 3,
         name: "Nike",
         link: `/search?searchCategory=${"Nike"}&page=1`
     },

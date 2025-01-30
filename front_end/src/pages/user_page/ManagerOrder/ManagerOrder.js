@@ -52,7 +52,7 @@ function ManagerOrder() {
                                 {/* {formatDateTime(item?.orderDate)} */}
                                 <td className="px-6 py-6">{formatDateTime(item?.dayOrder)}</td>
                                 <td className="px-6 py-6 font-semibold text-base">{item?.statusOrder === 0 ? 'Đang xử lý' : item?.statusOrder === 1 ? 'Chấp Nhận' : 'Đã nhận hàng'}</td>
-                                <td className="px-6 py-6 flex  md:flex-col lg:flex-col xl:flex-row 2xl:flex-row gap-1"><p className="font-semibold text-base">{handleFormatPrice(item?.totalAmountOfOrder)}đ</p> cho <p className="font-bold text-base">{item?.orders.length} sản phẩm</p></td>
+                                <td className="px-6 py-6 flex  md:flex-col lg:flex-col xl:flex-row 2xl:flex-row gap-1"><p className="font-semibold text-base">{handleFormatPrice(item?.totalAmountOfOrder)}đ</p> cho <p className="font-semibold text-base">{item?.orders.length} sản phẩm</p></td>
                                 <td><NavLink
                                     to={`/orderDetail/${item?.id}`}
                                 >
@@ -88,9 +88,11 @@ function ManagerOrder() {
                                     <span>{handleFormatPrice(item?.totalAmountOfOrder)}đ cho {item?.orders.length} sản phẩm</span>
                                 </div>
                                 <div className="flex justify-end">
-                                    <button className="bg-gray-500 hover:bg-gray-600 dark:bg-gray-200 dark:hover:bg-primary dark:text-gray-500 dark:hover:text-gray-100 text-white px-2 py-1 rounded-md font-normal">
-                                        Xem Thêm...
-                                    </button>
+                                    <NavLink to={`/orderDetail/${item?.id}`}>
+                                        <button className="bg-gray-500 hover:bg-gray-600 dark:bg-gray-200 dark:hover:bg-primary dark:text-gray-500 dark:hover:text-gray-100 text-white px-2 py-1 rounded-md font-normal">
+                                            Xem Thêm...
+                                        </button>
+                                    </NavLink>
                                 </div>
                             </div>
                         )
