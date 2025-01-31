@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getEightCheapProductsAction } from "../../redux_store/actions/ProductAcction";
 import { PiSneakerMoveFill } from "react-icons/pi";
 import { handleFormatPrice } from "../../utils/format/formatPrice";
+import { NavLink } from "react-router-dom";
 
 
 const ProductData = [
@@ -59,7 +60,6 @@ function Products() {
 
     const { arrEightCheapProducts } = useSelector((state) => state.ProductReducer);
     let arrGetNewProduct = arrEightCheapProducts.slice(0, 5);
-
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getEightCheapProductsAction());
@@ -91,17 +91,22 @@ function Products() {
                                     <div className="flex items-center gap-1">
                                         <PiSneakerMoveFill className="text-yellow-600 text-lg dark:text-gray-100" />
                                         <span className="text-base">{data?.category?.name}</span>
-
+                                    </div>
+                                    <div className="">
+                                        <NavLink
+                                            to={`/product-detail/${data?.id}`}
+                                        >
+                                            <button className="text-center mt-1 hover:bg-orange-500 cursor-pointer bg-orange-400 text-white py-2 px-3 rounded-md">
+                                                Xem  Thêm
+                                            </button>
+                                        </NavLink>
                                     </div>
                                 </div>
                             </div>
+
                         ))}
                     </div>
-                    <div className="flex justify-center">
-                        <button className="text-center mt-10 hover:bg-orange-500 cursor-pointer bg-orange-400 text-white py-2 px-3 rounded-md">
-                            Xem  Thêm
-                        </button>
-                    </div>
+
                 </div>
             </div>
         </div>

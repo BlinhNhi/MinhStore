@@ -15,6 +15,8 @@ import { getCurrentUserAction } from "../../redux_store/actions/AuthAction";
 import { Menu } from "../../utils/data/dataMenuNavbar";
 import LowerNavbar from "../../components/LowerNavbar/LowerNavbar";
 import { TOKEN } from "../../utils/variable";
+import { NavLink } from "react-router-dom";
+import ModalManagerCart from "../../components/ModalManagerCart/ModalManagerCart";
 
 const setInput = {
     page: 1,
@@ -26,6 +28,7 @@ function Header() {
 
     const [isOpenMenu, setIsOpenMenu] = useState('hidden ');
     const [valueSearch, setValueSearch] = useState(null);
+    const [isCartOpen, setIsCartOpen] = useState(false);
     let { userLogin } = useSelector(state => state.UserReducer);
     const accessToken = useMemo(() => {
         return localStorage.getItem(TOKEN) || "";
@@ -52,7 +55,7 @@ function Header() {
         }
     }
 
-
+    console.log(userLogin?.id);
     return (
         <div className='shadow-md  dark:bg-gray-900 dark:text-white duration-200 relative z-40'>
             {/* Navbar of Phone */}
@@ -124,7 +127,7 @@ function Header() {
             <div className='bg-primary/40 py-2'>
                 <div className='container flex justify-between items-center'>
                     <div>
-                        <a href='/' className="font-bold text-base sm:text-base md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl items-center  flex gap-2 hover:no-underline hover:text-gray-400 dark:hover:text-orange-200"><img src={Logo} className="w-10 uppercase" alt='Logo'></img>MinhCoi Store</a>
+                        <NavLink to='/' className="font-bold text-base sm:text-base md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl items-center  flex gap-2 hover:no-underline hover:text-gray-400 dark:hover:text-orange-200"><img src={Logo} className="w-10 uppercase" alt='Logo'></img>MinhCoi Store</NavLink>
                     </div>
                     {/* search bar and order btn */}
                     <div className='flex justify-between items-center gap-4 relative'>
@@ -142,14 +145,23 @@ function Header() {
                             </form>
                             <ImSearch className='text-gray-500 group-hover:text-primary absolute top-1/2 -translate-y-1/2 right-3' />
                         </div>
+
                         {/* order btn */}
-                        <button
-                            onClick={() => alert("Ordering not available yet")}
-                            className="bg-gradient-to-r from-primary to-secondary transition-all duration-200 text-white focus:outline-none  py-1 px-4 rounded-full hidden sm:flex md:flex xl:flex lg:flex 2xl:flex items-center gap-3 group"
-                        >
-                            <span className='group-hover:block hidden transition-all duration-200'>Order</span>
-                            <FaShoppingCart className='text-xl text-white drop-shadow-sm cursor-pointer' />
-                        </button>
+                        <div>
+                            <button
+                                onClick={() => setIsCartOpen(true)}
+                                className="bg-gradient-to-r from-primary to-secondary transition-all duration-200 text-white
+                            focus:outline-none  py-1 px-4 rounded-full hidden sm:flex md:flex xl:flex lg:flex 2xl:flex items-center 
+                            gap-3 group"
+                            >
+                                <span className='group-hover:block hidden transition-all duration-200'>Order</span>
+                                <FaShoppingCart className='text-xl text-white drop-shadow-sm cursor-pointer' />
+                            </button>
+                            <ModalManagerCart
+                                idUser={userLogin?.id}
+                                isOpen={isCartOpen}
+                                onClose={() => setIsCartOpen(false)} />
+                        </div>
 
                         {/* Dark Mode Switch */}
                         <div className="hidden  sm:block md:block xl:block lg:block 2xl:block">
@@ -160,10 +172,11 @@ function Header() {
                             {
                                 userLogin !== null ? <div className="hidden sm:block md:block xl:block lg:block 2xl:block relative group cursor-pointer">
                                     <FaUser className="text-3xl rounded-2xl p-1 border-2  hover:border-white  border-primary text-gray-400 hover:text-gray-100 bg-gray-50 hover:bg-primary z-50 " />
-                                    <div className="w-[200px] bg-transparent absolute p-4 right-0 "></div>
-                                    <ul className="absolute hidden group-hover:block  bg-white  shadow border border-gray-200 z-40 right-0 rounded-md mt-4 px-4 pb-4 text-left w-[200px]">
+                                    <div className="w-[200px] bg-transparent z-30 absolute p-4 right-0 "></div>
+                                    <ul className="absolute hidden group-hover:block  bg-white z-30 
+                                    shadow border border-gray-200 z-100 right-0 rounded-md mt-4 px-4 pb-4 text-left w-[200px]">
                                         <li className="text-gray-600  hover:text-primary py-2">
-                                            <a href="/system-account/my-account/">Thông Tin Tài Khoản</a>
+                                            <NavLink to="/system-account/my-account/">Thông Tin Tài Khoản</NavLink>
                                         </li>
                                         <li className="text-gray-600 hover:text-primary   py-2">
                                             <button

@@ -218,7 +218,6 @@ sm:mt-0 md:mt-0 lg:mt-0 xl:mt-0 2xl:mt-0
                                             <button
                                                 onClick={() => {
                                                     setSavedIdColor(data?.id);
-                                                    // savePrice(productDetailForUser?.priceProduct)
                                                 }}
                                                 className={`border-2 p-2 rounded-md 
                                                 ${savedIdColor === data?.id
@@ -226,7 +225,7 @@ sm:mt-0 md:mt-0 lg:mt-0 xl:mt-0 2xl:mt-0
                                                         : "hover:bg-slate-300 hover:text-white dark:bg-white dark:text-gray-600 dark:hover:bg-primary dark:hover:text-white dark:hover:border-primary"
                                                     }`}
                                                 key={key}
-                                            // className="border-2 hover:bg-slate-300 hover:text-white dark:bg-white rounded-md dark:text-gray-600 dark:hover:bg-primary dark:hover:text-white dark:hover:border-primary p-2"
+
                                             >
                                                 {data?.name}
                                             </button>

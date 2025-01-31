@@ -5,6 +5,7 @@ import Slider from 'react-slick'
 import Image1 from '../../assets/hero/nike2.jpg'
 import Image2 from '../../assets/hero/adidas.jpg'
 import Image3 from '../../assets/hero/shopping-vpNvhQDE.png'
+import { NavLink } from 'react-router-dom'
 
 
 const ImageList = [
@@ -24,7 +25,7 @@ const ImageList = [
         id: 3,
         image: Image3,
         title: "Cùng Chúng Tôi Mua Sắm?",
-        description: "Bạn có muốn chọn cho mình một đôi giay khác không?"
+        description: "Bạn có muốn chọn cho mình một đôi giày không?"
     }
 
 ]
@@ -70,11 +71,11 @@ function SliderPage() {
                                 <div className='flex flex-col justify-center gap-4 pt-12 sm:pt-0 text-center xl:text-left order-2 xl:order-1 relative z-10'>
                                     <h1 className='text-3xl sm:text-4xl lg:text-5xl font-bold'>{data.title}</h1>
                                     <p className='text-sm'>{data?.description}</p>
-                                    <div>
+                                    {data?.title === 'Cùng Chúng Tôi Mua Sắm?' ? '' : <NavLink to={`/search?searchCategory=${data?.title}&page=1`}>
                                         <button className='bg-gradient-to-r from-primary to-secondary hover:scale-105 duration-200 text-white py-2 px-4 rounded-full'>
                                             Đặt Hàng Ngay
                                         </button>
-                                    </div>
+                                    </NavLink>}
                                 </div>
                                 <div className='order-1 xl:order-2'>
                                     <div className='z-10 relative'>
