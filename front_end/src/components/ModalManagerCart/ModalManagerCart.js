@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCartDetailByUserIdAction } from "../../redux_store/actions/OrderAction";
 import NoImage from '../../assets/no-image.jpeg';
 import { handleFormatPrice } from "../../utils/format/formatPrice";
+import { NavLink } from "react-router-dom";
 
 function ModalManagerCart({ isOpen, onClose, idUser }) {
     const dispatch = useDispatch();
@@ -71,12 +72,39 @@ function ModalManagerCart({ isOpen, onClose, idUser }) {
                 }
 
 
-                <button
-                    onClick={onClose}
-                    className="mt-4 w-full bg-black text-white py-2 rounded hover:bg-gray-800"
-                >
-                    Tiếp tục mua sắm?
-                </button>
+                <div>
+                    {hasValidOrder ? <div className="mt-4 border-t-2 border-gray-500">
+                        <h4 className="text-sm font-bold text-gray-600 mt-2">
+                            Tổng Tiền: {handleFormatPrice(
+                                orderDetailByUserId?.data
+                                    ?.filter((item) => item?.isDeleted === false)
+                                    ?.reduce((total, item) => total + (item?.totalAmount || 0), 0)
+                            )} vnđ
+                        </h4>
+                        <div className="flex flex-col items-center gap-2 mt-4">
+                            <button
+                                onClick={onClose}
+                                className="w-3/4 bg-gray-400 text-white py-1 font-semibold rounded-full hover:bg-gray-800"
+                            >
+                                Xem Giỏ Hàng
+                            </button>
+                            <button
+                                onClick={onClose}
+                                className="w-full bg-black text-white py-1 font-semibold rounded hover:bg-gray-800"
+                            >
+                                Thanh Toán
+                            </button>
+                        </div>
+                    </div> : <NavLink to={'/search?page=1&searchName=+'}>
+                        <button
+                            onClick={onClose}
+                            className="mt-4 w-full bg-black text-white py-1 font-semibold rounded hover:bg-gray-800"
+                        >
+                            Tiếp tục mua sắm?
+                        </button>
+                    </NavLink>
+                    }
+                </div>
             </div>
         </>
     );
