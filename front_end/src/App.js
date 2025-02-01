@@ -45,6 +45,7 @@ import { getCurrentUserAction } from "./redux_store/actions/AuthAction";
 import PaymentProduct from "./pages/user_page/PaymentProduct/PaymentProduct";
 import ManagerOrder from "./pages/user_page/ManagerOrder/ManagerOrder";
 import OrderDetail from "./pages/user_page/ManagerOrder/OrderDetail";
+import AdminRoute from "./AdminRoute";
 
 
 export const history = createBrowserHistory();
@@ -98,23 +99,24 @@ function App() {
         {/* Payment Detail */}
         <Route path="orderDetail/:id" element={<HomeTemplate Component={OrderDetail} />} />
         {/* Admin Routes */}
-        <Route path="/admin/dashboard" element={<AdminTemplate Component={DashBoard} />} />
+
+        <Route path="/admin/dashboard" element={<AdminRoute Component={DashBoard} />} />
         {/* Color Manager */}
-        <Route path="/admin/color-mng" element={<AdminTemplate Component={ColorMng} />} />
-        <Route path="/admin/color-mng/addcolor" element={<AdminTemplate Component={CreateColor} />} />
-        <Route path="/admin/color-mng/edit/:id" element={<AdminTemplate Component={UpdateColor} />} />
+        <Route path="/admin/color-mng" element={<AdminRoute Component={ColorMng} />} />
+        <Route path="/admin/color-mng/addcolor" element={<AdminRoute Component={CreateColor} />} />
+        <Route path="/admin/color-mng/edit/:id" element={<AdminRoute Component={UpdateColor} />} />
         {/* Category Manager */}
-        <Route path="/admin/categories-mng" element={<AdminTemplate Component={CategoryMng} />} />
-        <Route path="/admin/categories-mng/addcate" element={<AdminTemplate Component={CreateCategory} />} />
-        <Route path="/admin/categories-mng/edit/:id" element={<AdminTemplate Component={UpdateCategory} />} />
+        <Route path="/admin/categories-mng" element={<AdminRoute Component={CategoryMng} />} />
+        <Route path="/admin/categories-mng/addcate" element={<AdminRoute Component={CreateCategory} />} />
+        <Route path="/admin/categories-mng/edit/:id" element={<AdminRoute Component={UpdateCategory} />} />
         {/* Size Manager */}
-        <Route path="/admin/sizes-mng" element={<AdminTemplate Component={SizeMng} />} />
-        <Route path="/admin/sizes-mng/addsize" element={<AdminTemplate Component={CreateSize} />} />
-        <Route path="/admin/sizes-mng/edit/:id" element={<AdminTemplate Component={UpdateSize} />} />
+        <Route path="/admin/sizes-mng" element={<AdminRoute Component={SizeMng} />} />
+        <Route path="/admin/sizes-mng/addsize" element={<AdminRoute Component={CreateSize} />} />
+        <Route path="/admin/sizes-mng/edit/:id" element={<AdminRoute Component={UpdateSize} />} />
         {/* Product Manager */}
-        <Route path="/admin/product-mng" element={<AdminTemplate Component={ProductManager} />} />
-        <Route path="/admin/product-mng/add-product" element={<AdminTemplate Component={CreateProduct} />} />
-        <Route path="/admin/product-mng/edit/:id" element={<AdminTemplate Component={UpdateProduct} />} />
+        <Route path="/admin/product-mng" element={<AdminRoute Component={ProductManager} />} />
+        <Route path="/admin/product-mng/add-product" element={<AdminRoute Component={CreateProduct} />} />
+        <Route path="/admin/product-mng/edit/:id" element={<AdminRoute Component={UpdateProduct} />} />
         {/* Default Route */}
         <Route path="/" element={<HomeTemplate Component={Home} />} />
       </Routes>

@@ -4,6 +4,7 @@ import { notification } from "antd";
 import { TOKEN } from "../../../src/utils/variable";
 import { authService } from "../../service/AuthService";
 import { GET_CURRENT_USER_ACTION } from "../constants";
+import { Navigate } from "react-router-dom";
 
 export const loginAction = (loginInfo) => {
     return async (dispatch) => {
@@ -13,17 +14,22 @@ export const loginAction = (loginInfo) => {
             const result = await authService.login(loginInfo);
             if (result.status === 200) {
                 localStorage.setItem(TOKEN, result.data.data.accessToken);
-                notification.success({
-                    closeIcon: true,
-                    message: "Thành Công",
-                    description: (
-                        <>
-                            Đăng Nhập Thành Công.<br />
-                            Chào Mừng Đến Với MinhCoi Store.
-                        </>
-                    ),
-                });
-                window.location.href = '/';
+                console.log(result.data.data?.user?.role);
+                if (result.data.data?.user?.role === 'Admin') {
+                    window.location.href = '/admin/dashboard';
+                } else {
+                    notification.success({
+                        closeIcon: true,
+                        message: "Thành Công",
+                        description: (
+                            <>
+                                Đăng Nhập Thành Công.<br />
+                                Chào Mừng Đến Với MinhCoi Store.
+                            </>
+                        ),
+                    });
+                    window.location.href = '/';
+                }
             } else {
                 await dispatch(hideLoadingAction);
                 window.location.href = '/login';

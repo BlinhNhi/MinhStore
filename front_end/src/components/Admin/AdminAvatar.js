@@ -1,6 +1,7 @@
 import { Button, Avatar, Popover } from 'antd';
 
 import Image1 from '../../assets/top_product/nike.jpg'
+import { TOKEN } from '../../utils/variable';
 
 export default function AdminAvatar(props) {
     // let { userLogin } = useSelector(state => state.UserReducer);
@@ -29,10 +30,12 @@ export default function AdminAvatar(props) {
         <div style={{ width: 200 }}>
             <Button type="text" className='w-full text-left' href="/admin/tripmng">Admin</Button>
             <Button type="text" href="/users/profile" className='w-full text-left'>Profile</Button>
-            <Button type="text" href="/home" className='w-full text-left' onClick={() => {
-                // localStorage.removeItem(TOKEN)
-                // window.location.reload()
-            }}>Logout</Button>
+            <Button type="text" href="/login" className='w-full text-left'
+                onClick={() => {
+                    localStorage.removeItem(TOKEN)
+                    window.location.reload()
+                }}
+            >Logout</Button>
         </div>
     );
 

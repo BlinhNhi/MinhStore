@@ -1,10 +1,5 @@
 import React, { useEffect } from "react";
-import { FaStar } from "react-icons/fa";
 
-import Img1 from '../../assets/top_product/adidas.jpg';
-import Img2 from '../../assets/top_product/nike.jpg';
-import Img3 from '../../assets/top_product/nike2.jpg';
-import Img4 from '../../assets/top_product/nikeJodan.jpg';
 import NoImage from "../../assets/no-image.jpeg"
 
 import { useDispatch, useSelector } from "react-redux";
@@ -14,48 +9,6 @@ import { handleFormatPrice } from "../../utils/format/formatPrice";
 import { NavLink } from "react-router-dom";
 
 
-const ProductData = [
-    {
-        id: 1,
-        title: 'Women Ethnic',
-        rate: 5.0,
-        color: 'White',
-        aosDelay: "0",
-        img: Img1
-    },
-    {
-        id: 2,
-        title: 'Women western',
-        rate: 4.5,
-        color: 'Red',
-        aosDelay: "200",
-        img: Img2
-    },
-    {
-        id: 3,
-        title: 'Goggles',
-        rate: 4.7,
-        color: 'brown',
-        aosDelay: "400",
-        img: Img3
-    },
-    {
-        id: 4,
-        title: 'Printed T-Shirt',
-        rate: 4.4,
-        color: 'Yellow',
-        aosDelay: "600",
-        img: Img4
-    },
-    {
-        id: 5,
-        title: 'Fashin T-Shirt',
-        rate: 4.5,
-        color: 'Pink',
-        aosDelay: "800",
-        img: Img2
-    },
-]
 function Products() {
 
     const { arrEightCheapProducts } = useSelector((state) => state.ProductReducer);

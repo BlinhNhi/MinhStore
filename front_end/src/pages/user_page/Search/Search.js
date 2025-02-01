@@ -104,7 +104,7 @@ function Search(props) {
                         ></FilterProduct>
                         <button
                             onClick={showFilter}>
-                            <div className="fixed right-2 top-[65%]">
+                            <div className="fixed right-2 top-[65%] z-10">
                                 <MdFilterList className="block sm:hidden md:hidden lg:hidden xl:hidden 2xl:hidden
                                  dark:bg-gray-200 text-3xl rounded-lg bg-gray-700 text-gray-100  
                                 dark:text-gray-500 hover:bg-primary/80 dark:hover:bg-primary/90 dark:hover:text-gray-100">

@@ -10,6 +10,7 @@ import { Layout, Menu } from "antd";
 import AdminAvatar from "../components/Admin/AdminAvatar";
 import DarkMode from "../components/DarkMode/DarkMode";
 
+
 const { Header, Content, Sider } = Layout;
 
 function getItem(label, key, onClick, icon, children) {
@@ -22,7 +23,9 @@ function getItem(label, key, onClick, icon, children) {
     };
 }
 
+
 function AdminTemplate({ Component }) {
+
     const [collapsed, setCollapsed] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const location = useLocation();

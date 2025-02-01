@@ -18,6 +18,7 @@ import { TOKEN } from "../../utils/variable";
 import { NavLink } from "react-router-dom";
 import ModalManagerCart from "../../components/ModalManagerCart/ModalManagerCart";
 import { FaCartShopping } from "react-icons/fa6";
+import { getListCategoriesAction } from "../../redux_store/actions/CategoryAction";
 
 const setInput = {
     page: 1,
@@ -41,6 +42,12 @@ function Header() {
             }
         }, 1000)
     }, [accessToken, dispatch]);
+
+
+    useEffect(() => {
+        dispatch(getListCategoriesAction())
+    }, [dispatch])
+    const { arrCategories } = useSelector(state => state.CategoryReducer);
 
     const handelOnChangeSearch = (e) => {
         setValueSearch(e.target.value);
@@ -88,28 +95,31 @@ function Header() {
                     <ul className="flex flex-col gap-3 px-2 mt-2">
                         {Menu.map((data) => (
                             <li key={data.id}>
-                                <NavLink className="inline-block px-4 hover:text-primary duration-200 dark:text-white hover:no-underline dark:hover:text-primary" to={data.link}>{data.name}</NavLink>
+                                {/* Change NavLink */}
+                                <a className="inline-block px-4 hover:text-primary duration-200 dark:text-white hover:no-underline dark:hover:text-primary" href={data.link}>{data.name}</a>
 
                             </li>
                         ))}
-                        <li className="group relative cursor-pointer px-[16px] py-0">
-                            <div className="flex dark:text-white items-center gap-[4px]   hover:no-underline dark:hover:text-orange-400 hover:text-orange-400">
-                                Trending Products
+                        <li className="group cursor-pointer px-[16px] py-0">
+                            <div className="flex dark:text-white items-center gap-[4px] hover:no-underline dark:hover:text-orange-400 hover:text-orange-400">
+                                Hãng khác
                                 <span>
-                                    <FaAngleDown className="transition-all duration-200 group-hover:rotate-180 " />
+                                    <FaAngleDown className="transition-all duration-200 group-hover:rotate-180" />
                                 </span>
                             </div>
-                            {/* <div className="w-[200px] bg-red-500 absolute p-4 right-0 bg-transparent"></div>
-                    <div className="mt-2 absolute  hidden group-hover:block group-focus:block w-[200px] right-0 rounded-md bg-white p-2 text-black shadow-md">
-                        <ul>
-                            {DropdownLinks.map((data) => (
-                                <li key={data.id} >
-                                    <a href={data.link} className="inline-block w-full rounded-md p-2 hover:bg-primary/20 hover:no-underline">{data.name}</a>
-                                </li>
-                            ))}
-                        </ul>
-                    </div> */}
+
+                            {/* Danh sách hiển thị khi hover */}
+                            <ul className="hidden group-hover:flex flex-col gap-2 bg-white dark:bg-gray-100 shadow-md rounded-md mt-2 pb-2">
+                                {arrCategories?.map((data, i) => (
+                                    data?.name === "Adidas" || data?.name === "Nike" ? <div key={data?.id}></div> :
+                                        <li key={data.id}>
+                                            <a key={i} href={`/search?searchCategory=${data.name}&page=1`} className="p-2 text-gray-600 hover:text-primary ">{data?.name}</a>
+                                        </li>
+                                ))}
+
+                            </ul>
                         </li>
+
 
                         <li className="group relative  cursor-pointer px-[16px] py-0">
                             <NavLink to={'/system-account/my-account/'}>
@@ -181,7 +191,7 @@ function Header() {
                             {
                                 userLogin !== null ? <div className="hidden sm:block md:block xl:block lg:block 2xl:block relative group cursor-pointer">
                                     <FaUser className="text-3xl rounded-2xl p-1 border-2  hover:border-white  border-primary text-gray-400 hover:text-gray-100 bg-gray-50 hover:bg-primary z-50 " />
-                                    <div className="w-[200px] bg-transparent z-30 absolute p-4 right-0 "></div>
+                                    <div className="w-[80px] bg-transparent z-30 absolute p-4 right-0 "></div>
                                     <ul className="absolute hidden group-hover:block  bg-white z-30 
                                     shadow border border-gray-200 z-100 right-0 rounded-md mt-4 px-4 pb-4 text-left w-[200px]">
                                         <li className="text-gray-600  hover:text-primary py-2">

@@ -1,5 +1,5 @@
-import { Fragment, useEffect } from "react";
-import { Route, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import Footer from "./Layout/Footer";
 // import { useDispatch } from "react-redux";
@@ -10,14 +10,13 @@ import React from "react";
 
 export const HomeTemplate = (props) => {
     const { Component, ...restProps } = props;
-    const location = useLocation(); // Thay thế propsRoute.location
-    const navigate = useNavigate(); // Thay thế propsRoute.history
+    const location = useLocation();
+    const navigate = useNavigate();
     const params = useParams();
     useEffect(() => {
         window.scrollTo(0, 0);
     })
-    // console.log(Component);
-    // console.log(props.location);
+
 
     return (
         <div>
@@ -29,20 +28,3 @@ export const HomeTemplate = (props) => {
 };
 
 
-// export const HomeTemplate = (props) => { //path, exact, Component
-//     const { Component, ...restProps } = props;
-//     // const dispatch = useDispatch();
-
-
-//     useEffect(() => {
-//         window.scrollTo(0, 0);
-//     })
-
-//     return <Route {...restProps} render={(propsRoute) => { //props.location, props.history, props.match
-//         return <Fragment>
-//             <Header></Header>
-//             <Component {...propsRoute} />
-//             <Footer />
-//         </Fragment>
-//     }} />
-// }

@@ -40,7 +40,7 @@ function LowerNavbar() {
                     </div>
 
                 </li>
-                <li className="group relative cursor-pointer">
+                {/* <li className="group relative cursor-pointer">
                     <div className="flex items-center gap-[4px]  py-2  hover:no-underline dark:hover:text-orange-400">
                         Có Thể Bạn Quan Tâm
                         <span>
@@ -58,7 +58,7 @@ function LowerNavbar() {
                         </ul>
                     </div>
 
-                </li>
+                </li> */}
             </ul>
 
 
