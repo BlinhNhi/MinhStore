@@ -23,10 +23,10 @@ function ModalManagerCart({ isOpen, onClose, idUser }) {
                 onClick={onClose}
             />
             <div
-                className={`fixed top-0 right-0 w-[350px] h-full bg-white shadow-lg z-50 p-4 border-l transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+                className={`fixed top-0 right-0 w-[250px] sm:w-[350px] h-full bg-white shadow-lg z-50 p-4 border-l transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
             >
                 <div className="flex justify-between items-center border-b pb-2">
-                    <h2 className="text-lg font-bold text-gray-400">Giỏ Hàng Mua Sắm</h2>
+                    <h2 className="text-base sm:text-lg font-bold text-gray-400">Giỏ Hàng Mua Sắm</h2>
                     <button onClick={onClose} className="text-gray-500 hover:text-black text-2xl">
                         &times;
                     </button>
@@ -84,13 +84,13 @@ function ModalManagerCart({ isOpen, onClose, idUser }) {
                         <div className="flex flex-col items-center gap-2 mt-4">
                             <button
                                 onClick={onClose}
-                                className="w-3/4 bg-gray-400 text-white py-1 font-semibold rounded-full hover:bg-gray-800"
+                                className="w-3/4 bg-gray-400 text-white py-1 text-sm sm:text-base font-semibold rounded-full hover:bg-gray-800"
                             >
                                 Xem Giỏ Hàng
                             </button>
                             <button
                                 onClick={onClose}
-                                className="w-full bg-black text-white py-1 font-semibold rounded hover:bg-gray-800"
+                                className="w-full bg-black text-white py-1 text-sm sm:text-base font-semibold rounded hover:bg-gray-800"
                             >
                                 Thanh Toán
                             </button>
@@ -98,7 +98,7 @@ function ModalManagerCart({ isOpen, onClose, idUser }) {
                     </div> : <NavLink to={'/search?page=1&searchName=+'}>
                         <button
                             onClick={onClose}
-                            className="mt-4 w-full bg-black text-white py-1 font-semibold rounded hover:bg-gray-800"
+                            className="mt-4 w-full bg-black text-white py-1 text-sm sm:text-base font-semibold rounded hover:bg-gray-800"
                         >
                             Tiếp tục mua sắm?
                         </button>

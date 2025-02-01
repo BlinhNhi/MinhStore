@@ -17,6 +17,7 @@ import LowerNavbar from "../../components/LowerNavbar/LowerNavbar";
 import { TOKEN } from "../../utils/variable";
 import { NavLink } from "react-router-dom";
 import ModalManagerCart from "../../components/ModalManagerCart/ModalManagerCart";
+import { FaCartShopping } from "react-icons/fa6";
 
 const setInput = {
     page: 1,
@@ -87,7 +88,8 @@ function Header() {
                     <ul className="flex flex-col gap-3 px-2 mt-2">
                         {Menu.map((data) => (
                             <li key={data.id}>
-                                <a className="inline-block px-4 hover:text-primary duration-200 dark:text-white hover:no-underline dark:hover:text-primary" href={data.link}>{data.name}</a>
+                                <NavLink className="inline-block px-4 hover:text-primary duration-200 dark:text-white hover:no-underline dark:hover:text-primary" to={data.link}>{data.name}</NavLink>
+
                             </li>
                         ))}
                         <li className="group relative cursor-pointer px-[16px] py-0">
@@ -110,15 +112,22 @@ function Header() {
                         </li>
 
                         <li className="group relative  cursor-pointer px-[16px] py-0">
-                            <div className=" dark:text-white items-center flex gap-1 hover:no-underline dark:hover:text-orange-400 hover:text-orange-400">
-                                <h2 className="">My Account</h2>
-                                <TbUserCircle className="text-xl font-bold " />
-                            </div>
-                            {/* <ul>
-                        <li>test</li>
-                        <li>test</li>
-                        <li>test</li>
-                    </ul> */}
+                            <NavLink to={'/system-account/my-account/'}>
+                                <div className=" dark:text-white items-center flex gap-1 hover:no-underline dark:hover:text-orange-400 hover:text-orange-400">
+                                    <h2 className="">My Account</h2>
+                                    <TbUserCircle className="text-xl font-bold " />
+                                </div>
+                            </NavLink>
+
+                        </li>
+
+                        <li className="group relative  cursor-pointer px-[16px] py-0">
+                            <NavLink to={'/system-account/cart-shopping'}>
+                                <div className=" dark:text-white items-center flex gap-1 hover:no-underline dark:hover:text-orange-400 hover:text-orange-400">
+                                    <h2 className="">Quản lý giỏ hàng</h2>
+                                    <FaCartShopping className="text-xl font-bold " />
+                                </div>
+                            </NavLink>
                         </li>
                     </ul>
                 </div>
