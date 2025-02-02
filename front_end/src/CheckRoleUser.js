@@ -30,7 +30,9 @@ function CheckRoleUser({ Component }) {
     }
 
 
-    if (!userLogin || userLogin.role !== "User") {
+    if (!userLogin || userLogin.role === "Admin") {
+        return <Navigate to="/admin/dashboard" replace />;
+    } else if (!userLogin || userLogin.role !== "User") {
         return <Navigate to="/" replace />;
     }
 

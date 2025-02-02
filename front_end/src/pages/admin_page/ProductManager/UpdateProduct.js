@@ -23,9 +23,6 @@ const UpdateProduct = (props) => {
     let { arrCategories } = useSelector(state => state.CategoryReducer);
     const [loading, setIsLoading] = useState(false);
     const [imagePreview, setImagePreview] = useState([]);
-
-
-    // State để theo dõi xem dữ liệu đã sẵn sàng chưa
     const [loadingColor, setLoadingColor] = useState(true);
     const [defaultValue, setDefaultValue] = useState([]);
     const [defaultSizeValue, setDefaultSizeValue] = useState([]);
@@ -94,7 +91,6 @@ const UpdateProduct = (props) => {
             stockQuantity: productDetail?.stockQuantity,
             numberOfProductSold: productDetail?.numberOfProductSold,
             numberOfProductInStock: productDetail?.numberOfProductInStock,
-            // list_image: companyDetail?.list_image ? companyDetail?.list_image : null,
             imagesProduct: productDetail?.imagesProduct ? productDetail?.imagesProduct : null,
             colorId: productDetail?.colorId || [],
             createdDate: productDetail?.createdDate,

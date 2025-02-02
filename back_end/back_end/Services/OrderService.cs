@@ -15,55 +15,6 @@ namespace back_end.Services
             this.db = db;
             this.env = env;
         }
-/*
-        public async Task<bool> CreateOrder(Order order)
-        {
-            try
-            {
-                User user = await db.Users.Where(u => u.Id == order.UserId).FirstOrDefaultAsync();
-                order.User = user;
-                Color color = await db.Colors.Where(c => c.Id == order.ColorId).FirstOrDefaultAsync();
-                if (color == null) return false; // Trả về false nếu Color không tồn tại
-                order.Color = color;
-                Size size = await db.Sizes.Where(s => s.Id == order.SizeId).FirstOrDefaultAsync();
-                if (size == null) return false; // Trả về false nếu Color không tồn tại
-                order.Size = size;
-
-
-                if (order.ProductId != null)
-                {
-                    *//*List<Guid> list = order.ProductId.ToString().Split(",").ToList();*//*
-                    List<Guid> productIds = order.ProductId
-                    .ToString() // Chuyển sang string nếu chưa là string
-                    .Split(",") // Tách các phần tử dựa trên dấu phẩy
-                    .Select(id => Guid.Parse(id)) // Chuyển từng phần tử thành Guid
-                    .ToList();
-                *//*    for (int i = 0; i < productIds.Count; i++)
-                    {
-                        Guid id = productIds[i];
-                        OrderProduct product = new OrderProduct { OrderId = order.Id, ProductId = id };
-                        db.OrderProducts.Add(product);
-                        await db.SaveChangesAsync();
-                    }*//*
-                    foreach (var id in productIds)
-                    {
-                        OrderProduct product = new OrderProduct
-                        {
-                            OrderId = order.Id,
-                            ProductId = id
-                        };
-                        order.ProductOrders = product;
-                    }
-                }
-                await db.Orders.AddAsync(order);
-                await db.SaveChangesAsync();
-                return true;
-            }catch (Exception ex)
-            {
-                return false;
-
-            }
-        }*/
 
         public async Task<bool> CreateOrder(Order order)
         {

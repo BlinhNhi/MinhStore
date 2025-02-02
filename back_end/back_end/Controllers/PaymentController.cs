@@ -19,6 +19,25 @@ namespace back_end.Controllers
             this.repo = repo;
         }
 
+        [HttpGet]
+        public async Task<ActionResult> GetAllPayment()
+        {
+            try
+            {
+                var list = await repo.GetAllPayment();
+                if (list != null)
+                {
+                    var response = new ResponseData<IEnumerable<Payment>>(StatusCodes.Status200OK, "Get list of Payment successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost]
         public async Task<ActionResult> CreatePayment([FromForm] Payment payment)
         {

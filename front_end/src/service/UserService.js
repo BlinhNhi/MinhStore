@@ -6,16 +6,16 @@ export class UserService extends baseService {
         super();
     }
     getListUser = () => {
-        return this.get(`/api/User`);
+        return this.get(`/User`);
     };
     getUserById = (Id) => {
-        return this.get(`/api/User/${Id}`);
+        return this.get(`/User/${Id}`);
     }
     createUser = (formData) => {
-        return this.post(`/api/User`, formData);
+        return this.post(`/User`, formData);
     };
     deleteUser = (id) => {
-        return this.delete(`/api/User/${id}`);
+        return this.delete(`/User/${id}`);
     };
     updateUser = (id, user) => {
         return this.put(`/User/${id}`, user);

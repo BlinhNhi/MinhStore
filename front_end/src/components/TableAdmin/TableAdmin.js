@@ -1,163 +1,154 @@
-import { Table } from 'antd';
-import Img1 from '../../assets/top_product/adidas.jpg';
-import Img2 from '../../assets/top_product/nike.jpg';
-import Img3 from '../../assets/top_product/nike2.jpg';
-import Img4 from '../../assets/top_product/nike3.jpg';
+import { Button, Table } from 'antd';
+import { MdOutlineDelete } from "react-icons/md";
+import { RiFileList3Line } from "react-icons/ri";
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+import { getListUserAction } from "../../redux_store/actions/UserAction";
+import { getListPaymentAction, deletePaymentAction } from "../../redux_store/actions/PaymentAction";
+import { getCodeProduct } from '../../utils/format/getCodeProduct';
+import { formatDateTime } from '../../utils/format/formatDateTime';
+import ModalOrderDetail from '../ModalOrderDetail/ModalOrderDetail';
 
 function TableAdmin() {
-    const dataUser = [
-        {
-            key: '1',
-            name: 'Mike',
-            phoneNumber: "0902981321",
-            address: '10 Downing Street',
-        },
-        {
-            key: '2',
-            name: 'John',
-            phoneNumber: "0902981312",
-            address: '10 Downing Street',
-        },
-    ];
+    const dispatch = useDispatch();
+    const [isModalOrderDetailOpen, setIsModalOrderDetailOpen] = useState(false);
 
+    useEffect(() => {
+        dispatch(getListUserAction());
+        dispatch(getListPaymentAction());
+    }, [dispatch])
+    let { arrUser } = useSelector(state => state.UserReducer);
+    let { arrPayments } = useSelector(state => state.PaymentReducer);
+
+    const dataUser = arrUser || [];
+    console.log(arrPayments);
+    const handleOpenModalOrderDetail = () => {
+        setIsModalOrderDetailOpen(true);
+    };
+    const handleCloseModalOrderDetail = () => {
+        setIsModalOrderDetailOpen(false);
+    };
 
     const columnsUser = [
+        {
+            title: 'Email',
+            dataIndex: 'email',
+            key: 'email',
+            render: (text) => text ? text : "Không có",
+            width: '15%',
+        },
         {
             title: 'Tên',
             dataIndex: 'name',
             key: 'name',
+            render: (text) => text ? text : "Không có",
             width: '15%',
         },
         {
             title: 'Địa Chỉ',
             dataIndex: 'address',
+            render: (text) => text ? text : "Không có",
             key: 'address',
             width: '15%',
         },
         {
             title: 'Số Điện Thoại',
             dataIndex: 'phoneNumber',
+            render: (text) => text ? text : "Không có",
             key: 'phoneNumber',
             width: '15%',
         },
     ];
 
 
-    const dataOrder = [
-        {
-            key: '1',
-            name: 'Women Ethnic',
-            price: "1.000.000đ",
-            size: '42',
-            color: 'white',
-            productSold: 3,
-            numberProduct: 10,
-            inventory: 7,
-            image: Img1
-        },
-        {
-            key: '2',
-            name: 'Women western',
-            price: "2.000.000đ",
-            size: '38',
-            color: 'red',
-            productSold: 3,
-            numberProduct: 9,
-            inventory: 6,
-            image: Img2
-        },
-        {
-            key: '3',
-            name: 'Goggles',
-            price: "1.200.000đ",
-            size: '39',
-            color: 'brown',
-            productSold: 4,
-            numberProduct: 10,
-            inventory: 6,
-            image: Img3
-        },
-        {
-            key: '4',
-            name: 'Printed T-Shirt',
-            price: "2.500.000đ",
-            size: '40',
-            color: 'Yellow',
-            productSold: 0,
-            numberProduct: 5,
-            inventory: 5,
-            image: Img4
-        },
-    ];
+    const dataOrder = arrPayments || [];
 
 
     const columnsOrder = [
         {
-            title: 'Tên Sản Phẩm',
-            dataIndex: 'name',
-            key: 'name',
-        },
-        {
-            title: 'Giá Tiền',
-            dataIndex: 'price',
-            key: 'price',
-        },
-        {
-            title: 'Số Giày',
-            dataIndex: 'size',
-            key: 'size',
-        },
-        {
-            title: 'Màu Sắc',
-            dataIndex: 'color',
-            key: 'color',
-        },
-        {
-            title: 'Số Lượng Sản Phẩm',
-            dataIndex: 'numberProduct',
-            width: '15%',
-            key: 'numberProduct',
-        },
-        {
-            title: 'Sản Phẩm Đã Bán',
-            dataIndex: 'productSold',
-            width: '15%',
-            key: 'productSold',
-        },
-        {
-            title: 'Sản Phẩm Còn Lại',
-            dataIndex: 'inventory',
-            width: '15%',
-            key: 'inventory',
-        },
-        {
-            title: "Hình Ảnh",
-            dataIndex: "image",
-            width: '15%',
-            key: "image",
-            render: (text, data, index) => {
-                return data.image != "null" && data.image != null ? (
-                    <img key={index} style={{ width: 60, height: 60, objectFit: "cover", borderRadius: "20%", }}
-                        src={data?.image}
-                        alt={data.avatar}
-                    />
-                ) : (
-                    <div>Không Có Hình Ảnh</div>
-                );
+            title: 'Mã đơn hàng',
+            key: 'id',
+            dataIndex: 'id',
+            render: (text, data) => {
+                console.log(data);
+                return (<>
+                    <span>{getCodeProduct(data?.id)}</span>
+                </>)
             },
         },
+        {
+            title: 'Ngày đặt hàng',
+            key: 'dayOrder',
+            dataIndex: 'dayOrder',
+            render: (text, data) => {
+                console.log(data);
+                return (<>
+                    <span>{formatDateTime(data?.dayOrder)}</span>
+                </>)
+            },
+        },
+        {
+            title: 'Trạng thái đơn hàng',
+            key: 'statusOrder',
+            dataIndex: 'statusOrder',
+            render: (text, data) => {
+                console.log(data);
+                return (<>
+                    <span>{data?.statusOrder === 0 ? 'Đang xử lý' : data?.statusOrder === 1 ? 'Chấp nhận' : 'Đã nhận hàng'}</span>
+                </>)
+            },
+        },
+        {
+            title: 'Tác vụ',
+            width: '15%',
+            render: (text, order) => {
+                return <div className='flex gap-2'>
+                    {/* <Button key={1} href={`/admin/ordermng/edit/${order.id}`} type="link" icon={<MdModeEditOutline />} onClick={() => {
+                    }}></Button> */}
+
+                    <Button key={1} size="large" danger icon={<MdOutlineDelete />} onClick={() => {
+                        if (window.confirm('Bạn muốn xoá đơn hàng ' + order.id + '?')) {
+                            dispatch(deletePaymentAction(order.id))
+                        }
+                    }}></Button>
+                    <div>
+                        <Button
+                            key={2}
+                            onClick={() => {
+                                handleOpenModalOrderDetail();
+                            }}
+                            size="large"
+                            title='Chi tiết đơn hàng'
+                            icon={<RiFileList3Line />}
+
+                        ></Button >
+                        <ModalOrderDetail
+                            isOpen={isModalOrderDetailOpen}
+                            onClose={handleCloseModalOrderDetail}
+                            onConfirm={() => {
+                                setIsModalOrderDetailOpen(false);
+                            }}
+                            paymentId={order?.id}
+                        />
+                    </div>
+                </div>
+
+            }
+        },
+
     ];
 
 
     return (
         <div className='mt-10'>
-            <div className='flex flex-col 2xl:flex-row xl:flex-row items-start gap-6'>
-                <div className='flex flex-col gap-4 2xl:w-1/2 xl:w-1/2 w-full'>
+            <div className='flex flex-col items-start gap-6'>
+                <div className='flex flex-col gap-4 w-full'>
                     <h2 className='font-semibold text-gray-400 text-base'>Quản Lý Khách Hàng</h2>
                     <Table columns={columnsUser} dataSource={dataUser} rowKey={'id'} scroll={{ x: 1000 }} />
                 </div>
 
-                <div className='flex flex-col gap-4 2xl:w-1/2 xl:w-1/2 w-full'>
+                <div className='flex flex-col gap-4 w-full'>
                     <h2 className='font-semibold text-gray-400 text-base'>Quản Lý Đơn Hàng</h2>
                     <Table columns={columnsOrder} dataSource={dataOrder} rowKey={'id'} scroll={{ x: 1000 }} />
                 </div>

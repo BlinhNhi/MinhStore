@@ -124,7 +124,6 @@ namespace back_end.Services
                     NoteUser = pay.NoteUser,
                     TotalAmountOfOrder = pay.TotalAmountOfOrder,
                     StatusOrder = pay.StatusOrder,
-                    
                     Orders = pay.Orders.Select(or => new Order
                     {
                         Id = or.Id,
@@ -149,6 +148,42 @@ namespace back_end.Services
                     .ToListAsync();
             return (payment ?? new List<Payment>());
 
+        }
+
+        public async Task<IEnumerable<Payment>> GetAllPayment()
+        {
+           return await db.Payments.Include(pay => pay.User).Include(pay => pay.Orders).ThenInclude(o => o.Products)
+                .Select(pay => new Payment
+                {
+                    Id = pay.Id,
+                    NameUser = pay.NameUser,
+                    PhoneUser = pay.PhoneUser,
+                    AddressUser = pay.AddressUser,
+                    NoteUser = pay.NoteUser,
+                    TotalAmountOfOrder = pay.TotalAmountOfOrder,
+                    StatusOrder = pay.StatusOrder,
+                    User = pay.User,
+                    Orders = pay.Orders.Select(or => new Order
+                    {
+                        Id = or.Id,
+                        QuantityOrder = or.QuantityOrder,
+                        Size = or.Size,
+                        Color = or.Color,
+                        Products = or.ProductOrders.Select(po => new Product
+                        {
+                            Id = po.Product.Id,
+                            NameProduct = po.Product.NameProduct,
+                            PriceProduct = po.Product.PriceProduct,
+                            StockQuantity = po.Product.StockQuantity,
+                            NumberOfProductInStock = po.Product.NumberOfProductInStock,
+                            NumberOfProductSold = po.Product.NumberOfProductSold,
+                            ImagesProduct = po.Product.ImagesProduct,
+                        }).ToList(),
+                    }).ToList(),
+
+                    DayOrder = pay.DayOrder,
+                })
+                    .ToListAsync();
         }
     }
 }

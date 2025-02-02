@@ -15,7 +15,7 @@ function CartShoppingUser() {
     const dispatch = useDispatch();
 
     const [loading, setLoading] = useState(true);
-    const [currentOrderId, setCurrentOrderId] = useState(null);
+    const [currentCartId, setCurrentCartId] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
@@ -29,10 +29,10 @@ function CartShoppingUser() {
     let { orderDetailByUserId } = useSelector(state => state.OrderReducer);
     const dataUserOrder = orderDetailByUserId?.data || [];
 
-    const handleOpenModal = () => {
+    const handleOpenModalDeleteCart = () => {
         setIsModalOpen(true);
     };
-    const handleCloseModal = () => {
+    const handleCloseModalDeleteCart = () => {
         setIsModalOpen(false);
     };
 
@@ -144,8 +144,8 @@ function CartShoppingUser() {
                                 <div className="sm:hidden block">
                                     <button
                                         onClick={() => {
-                                            handleOpenModal();
-                                            setCurrentOrderId(up?.id);
+                                            handleOpenModalDeleteCart();
+                                            setCurrentCartId(up?.id);
                                         }}
                                         className="flex items-center justify-center gap-2 
                                         p-2 mt-2 rounded-md font-bold dark:hover:bg-primary text-gray-400 hover:text-gray-500
@@ -156,20 +156,20 @@ function CartShoppingUser() {
                                     </button>
                                     <ModalDeleteCart
                                         isOpen={isModalOpen}
-                                        onClose={handleCloseModal}
+                                        onClose={handleCloseModalDeleteCart}
                                         onConfirm={() => {
-                                            dispatch(deleteCartAction(currentOrderId));
+                                            dispatch(deleteCartAction(currentCartId));
                                             setIsModalOpen(false);
                                         }}
-                                        orderId={getCodeProduct(currentOrderId)}
+                                        orderId={getCodeProduct(currentCartId)}
                                     />
                                 </div>
                             </div>
                             <div className="sm:block hidden">
                                 <button
                                     onClick={() => {
-                                        handleOpenModal();
-                                        setCurrentOrderId(up?.id);
+                                        handleOpenModalDeleteCart();
+                                        setCurrentCartId(up?.id);
                                     }}
                                     className="hover:text-primary font-bold dark:hover:text-primary text-gray-500 dark:text-gray-200 text-4xl"
                                 >
@@ -177,12 +177,12 @@ function CartShoppingUser() {
                                 </button>
                                 <ModalDeleteCart
                                     isOpen={isModalOpen}
-                                    onClose={handleCloseModal}
+                                    onClose={handleCloseModalDeleteCart}
                                     onConfirm={() => {
-                                        dispatch(deleteCartAction(currentOrderId));
+                                        dispatch(deleteCartAction(currentCartId));
                                         setIsModalOpen(false);
                                     }}
-                                    orderId={getCodeProduct(currentOrderId)}
+                                    orderId={getCodeProduct(currentCartId)}
                                 />
                             </div>
                         </div>
