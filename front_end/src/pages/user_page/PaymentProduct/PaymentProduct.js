@@ -1,27 +1,20 @@
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { Form, Input, notification } from "antd";
-
-import NoImage from '../../../assets/no-image.jpeg';
-import { TOKEN } from "../../../utils/variable";
+import { RiLoader2Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+
+import { useFormik } from "formik";
+import NoImage from '../../../assets/no-image.jpeg';
 import { getCartDetailByUserIdAction, updateIsDeletedOfCartAction } from "../../../redux_store/actions/OrderAction";
 import { handleFormatPrice } from "../../../utils/format/formatPrice";
-import { RiLoader2Line } from "react-icons/ri";
-import { useFormik } from "formik";
 import { addPaymentAction } from "../../../redux_store/actions/PaymentAction";
 
 
 
 function PaymentProduct() {
-    let accessToken = {};
     const dispatch = useDispatch();
-    if (localStorage.getItem(TOKEN)) {
-        accessToken = localStorage.getItem(TOKEN);
-    } else {
-        window.location.href = '/';
-    }
     let { userLogin } = useSelector(state => state.UserReducer);
     const idUser = userLogin?.id;
     const [loading, setLoading] = useState(true);

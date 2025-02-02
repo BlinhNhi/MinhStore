@@ -55,7 +55,7 @@ function OrderDetail() {
                                     <th className="border border-gray-300 px-4 py-2 text-sm font-semibold sm:text-lg">Size</th>
                                     <th className="border border-gray-300 px-4 py-2 text-sm font-semibold sm:text-lg">Màu sắc</th>
                                     <th className="border border-gray-300 px-4 py-2 text-sm font-semibold sm:text-lg">Số lượng</th>
-                                    <th className="border border-gray-300 px-4 py-2 text-sm font-semibold sm:text-lg">Tổng</th>
+                                    <th className="border border-gray-300 px-4 py-2 text-sm font-semibold sm:text-lg">Giá / Sản phẩm</th>
                                 </tr>
                             </thead>
                             <tbody>

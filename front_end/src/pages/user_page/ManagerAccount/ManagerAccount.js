@@ -1,19 +1,12 @@
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { FaCartArrowDown } from "react-icons/fa";
 
-// import { PiListChecksBold } from "react-icons/pi";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { IoMdLogOut } from "react-icons/io";
 import { TOKEN } from "../../../utils/variable";
-import { FaCartArrowDown } from "react-icons/fa";
 
 function ManagerAccount() {
-    let accessToken = {}
-    if (localStorage.getItem(TOKEN)) {
-        accessToken = localStorage.getItem(TOKEN)
-    } else {
-        window.location.href = '/';
-    }
     let { userLogin } = useSelector(state => state.UserReducer);
     return (
         <div>
@@ -38,15 +31,6 @@ function ManagerAccount() {
                         <h3 className="font-semibold text-xl">Giỏ Hàng</h3>
                     </div>
                 </NavLink>
-                {/* <NavLink to="/system-account/view-order">
-                    <div className="py-8 border-2 shadow-lg border-gray-300 rounded-md flex flex-col gap-2 items-center hover:bg-gray-200
-                 hover:cursor-pointer hover:border-gray-40 text-gray-400 hover:text-gray-600 dark:hover:bg-primary dark:hover:text-gray-200 
-                 dark:hover:border-gray-200 transition-transform duration-300 transform hover:scale-105 active:scale-95
-                 ">
-                        <PiListChecksBold className="text-4xl font-semibold "></PiListChecksBold>
-                        <h3 className="font-semibold text-xl">Đ</h3>
-                    </div>
-                </NavLink> */}
                 <button
                     onClick={() => {
                         localStorage.removeItem(TOKEN)

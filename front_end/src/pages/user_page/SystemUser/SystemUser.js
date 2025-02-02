@@ -1,20 +1,8 @@
 import { NavLink, Outlet } from "react-router-dom";
 import SideBarUser from "../../../components/SideBarUser/SideBarUser";
-import { useSelector } from "react-redux";
-import { TOKEN } from "../../../utils/variable";
-
 
 function SystemUser() {
-    let { userLogin } = useSelector(state => state.UserReducer);
-    let accessToken = {}
-    if (localStorage.getItem(TOKEN)) {
-        accessToken = localStorage.getItem(TOKEN)
-    } else {
-        window.location.href = '/';
-    }
-    if (!userLogin == null) {
-        window.location.href = '/';
-    }
+
     return (
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200">
             <div className="container">

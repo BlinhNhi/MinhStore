@@ -8,7 +8,7 @@ import Header from "./Layout/Header";
 
 import React from "react";
 
-export const HomeTemplate = (props) => {
+function HomeTemplate(props) {
     const { Component, ...restProps } = props;
     const location = useLocation();
     const navigate = useNavigate();
@@ -26,5 +26,6 @@ export const HomeTemplate = (props) => {
         </div>
     );
 };
+export default HomeTemplate;
 
 

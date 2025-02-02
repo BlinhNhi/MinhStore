@@ -2,17 +2,10 @@ import { Button, Checkbox, Form, Input } from "antd";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { updateUserAction } from "../../../redux_store/actions/UserAction";
-import { TOKEN } from "../../../utils/variable";
 
 function ProfileUser() {
-    let accessToken = {};
-    if (localStorage.getItem(TOKEN)) {
-        accessToken = localStorage.getItem(TOKEN);
-    } else {
-        window.location.href = '/';
-    }
-
     let { userLogin } = useSelector((state) => state.UserReducer);
     const dispatch = useDispatch();
     const [checked, setChecked] = useState(false);
@@ -50,7 +43,7 @@ function ProfileUser() {
                 }
                 userLogin && dispatch(updateUserAction(id, formData));
             } else {
-                // console.log("Validation failed:", formik.errors);
+                console.log("Validation failed:", formik.errors);
             }
         },
     });
@@ -130,7 +123,7 @@ function ProfileUser() {
                             htmlType="submit"
                             className={`btn-primary bg-primary ${!hasChanges ? "disabled" : ""}`}
                             type="primary"
-                            disabled={!hasChanges} // Vô hiệu hóa nút nếu không có thay đổi
+                            disabled={!hasChanges}
                         >
                             Cập Nhật Tài Khoản
                         </Button>

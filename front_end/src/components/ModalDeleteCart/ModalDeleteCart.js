@@ -1,7 +1,7 @@
 function ModalDeleteCart({ isOpen, onClose, onConfirm, orderId }) {
     if (!isOpen) return null;
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-100/15 bg-opacity-50">
             <div className="bg-white rounded-lg shadow-lg p-6 w-2/3 sm:w-1/3">
                 <h2 className="text-xl font-bold text-gray-800 mb-4">
                     Xác nhận xóa đơn hàng

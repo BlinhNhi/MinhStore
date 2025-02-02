@@ -82,7 +82,7 @@ namespace back_end.Controllers
 
         }
 
-        [HttpGet("userOrder/{UserId}")]
+      /*  [HttpGet("userOrder/{UserId}")]
         public async Task<ActionResult> GetOrderUserByUserId(Guid UserId)
         {
             try
@@ -101,7 +101,7 @@ namespace back_end.Controllers
                 return BadRequest(ex.Message);
             }
 
-        }
+        }*/
 
         [HttpPost]
         public async Task<ActionResult> CreateUser([FromForm] User User)

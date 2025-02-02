@@ -83,31 +83,6 @@ namespace back_end.Controllers
 
 
 
-        /*        [HttpGet("user/{userId}")]
-                public IActionResult GetOrderByUserId(Guid userId)
-                {
-                    try
-                    {
-                        var (orders, isDeleted) =  repo.GetOrderByUserId(userId);
-                        if (orders.Count > 0)
-                        {
-                            var result = new
-                            {
-                                Status = StatusCodes.Status200OK,
-                                Message = "Get Order By User Id successfully",
-                                Data = orders,
-                                isDelete = isDeleted
-                            };
-                            return Ok(result);
-                        }
-                        var responseNoOrder = new ResponseData<IEnumerable<Order>>(StatusCodes.Status200OK, "No Order", orders, null);
-                        return Ok(responseNoOrder);
-                    }
-                    catch (Exception ex)
-                    {
-                        return BadRequest(ex.Message);
-                    }
-                }*/
         [HttpPost]
         public async Task<ActionResult> CreateOrder([FromForm] Order order)
         {

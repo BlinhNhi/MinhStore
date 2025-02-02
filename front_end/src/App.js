@@ -35,8 +35,7 @@ import ProductManager from "./pages/admin_page/ProductManager/ProductManager";
 import CreateProduct from "./pages/admin_page/ProductManager/CreateProduct";
 import UpdateProduct from "./pages/admin_page/ProductManager/UpdateProduct";
 
-import AdminTemplate from "./templates/AdminTemplate";
-import { HomeTemplate } from "./templates/HomeTemplate";
+import HomeTemplate from "./templates/HomeTemplate";
 import ManagerAccount from "./pages/user_page/ManagerAccount/ManagerAccount";
 import Loading from "./components/Loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,6 +45,7 @@ import PaymentProduct from "./pages/user_page/PaymentProduct/PaymentProduct";
 import ManagerOrder from "./pages/user_page/ManagerOrder/ManagerOrder";
 import OrderDetail from "./pages/user_page/ManagerOrder/OrderDetail";
 import AdminRoute from "./AdminRoute";
+import CheckRoleUser from "./CheckRoleUser";
 
 
 export const history = createBrowserHistory();
@@ -88,7 +88,7 @@ function App() {
         <Route path="/login" element={<HomeTemplate Component={Login} />} />
 
         {/* User */}
-        <Route path="/system-account/*" element={<HomeTemplate Component={SystemUser} />}>
+        <Route path="/system-account/*" element={<CheckRoleUser Component={SystemUser} />}>
           <Route path="my-account" element={<ManagerAccount />} />
           <Route path="profile" element={<ProfileUser />} />
           <Route path="cart-shopping" element={<CartShoppingUser />} />
@@ -98,8 +98,8 @@ function App() {
         <Route path="check-out" element={<HomeTemplate Component={PaymentProduct} />} />
         {/* Payment Detail */}
         <Route path="orderDetail/:id" element={<HomeTemplate Component={OrderDetail} />} />
-        {/* Admin Routes */}
 
+        {/* Admin Routes */}
         <Route path="/admin/dashboard" element={<AdminRoute Component={DashBoard} />} />
         {/* Color Manager */}
         <Route path="/admin/color-mng" element={<AdminRoute Component={ColorMng} />} />

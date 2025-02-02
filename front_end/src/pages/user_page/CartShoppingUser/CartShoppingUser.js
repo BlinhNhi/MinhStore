@@ -7,17 +7,9 @@ import NoImage from '../../../assets/no-image.jpeg';
 import { deleteCartAction, getCartDetailByUserIdAction, updateCartAction } from "../../../redux_store/actions/OrderAction";
 import ModalDeleteCart from "../../../components/ModalDeleteCart/ModalDeleteCart";
 import { getCodeProduct } from "../../../utils/format/getCodeProduct";
-import { TOKEN } from "../../../utils/variable";
 import { handleFormatPrice } from "../../../utils/format/formatPrice";
 
 function CartShoppingUser() {
-    let accessToken = {};
-    if (localStorage.getItem(TOKEN)) {
-        accessToken = localStorage.getItem(TOKEN);
-    } else {
-        window.location.href = '/';
-    }
-
     let { userLogin } = useSelector(state => state.UserReducer);
     const idUser = userLogin?.id;
     const dispatch = useDispatch();
@@ -211,7 +203,6 @@ function CartShoppingUser() {
                         <div className="flex gap-10 items-center mb-2">
                             <h3 className="text-base font-bold text-gray-600 dark:text-gray-300">Tổng</h3>
                             <h4 className="text-lg font-bold text-gray-500 dark:text-gray-200">
-                                {/* {handleFormatPrice(orderDetailByUserId?.data?.reduce((total, item) => total + item?.totalAmount, 0))}đ */}
                                 {handleFormatPrice(
                                     orderDetailByUserId?.data
                                         ?.filter((item) => item?.isDeleted === false)

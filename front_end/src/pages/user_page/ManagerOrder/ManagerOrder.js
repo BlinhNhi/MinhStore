@@ -1,20 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { TOKEN } from "../../../utils/variable";
-import { getPaymentDetailByUserIdAction } from "../../../redux_store/actions/PaymentAction";
 import { RiLoader2Line } from "react-icons/ri";
+
+import { getPaymentDetailByUserIdAction } from "../../../redux_store/actions/PaymentAction";
 import { formatDateTime } from "../../../utils/format/formatDateTime";
 import { handleFormatPrice } from "../../../utils/format/formatPrice";
 function ManagerOrder() {
-
-    let accessToken = {};
     const dispatch = useDispatch();
-    if (localStorage.getItem(TOKEN)) {
-        accessToken = localStorage.getItem(TOKEN);
-    } else {
-        window.location.href = '/';
-    }
     let { userLogin } = useSelector(state => state.UserReducer);
     const [loading, setLoading] = useState(true);
     const idUser = userLogin?.id;
@@ -34,8 +27,14 @@ function ManagerOrder() {
         </div>;
     }
     return (
-        <div className="mt-10">
-            <div className="hidden sm:block overflow-x-auto w-full ">
+        <div className="">
+            <h2 className="font-semibold text-lg text-gray-600 dark:text-gray-100">Quản lý đơn hàng</h2>
+            <h2 className="font-bold text-base text-gray-500 dark:text-primary italic">
+                Lưu ý: Vui lòng kiểm tra đơn hàng, nếu có sai sót hãy liên hệ
+                với chúng tôi qua số điện thoại: <a href="tel:0917023265">0917023265</a>, nếu không có vấn đề đơn hàng của bạn sẽ bị xoá sau 2 tháng. Cảm ơn vì sự hợp tác của bạn.
+            </h2>
+
+            <div className="hidden sm:block overflow-x-auto w-full mt-2">
                 <table className="table-auto w-full items-center">
                     <thead className="text-center ">
                         <tr>
@@ -70,7 +69,7 @@ function ManagerOrder() {
 
             </div>
 
-            <div className="sm:hidden w-full">
+            <div className="sm:hidden w-full mt-4">
                 <div className="border-2 border-gray-400 rounded-md p-4 mb-4">
                     {paymentDetailByUserId?.map((item, i) => {
                         return (
@@ -84,8 +83,8 @@ function ManagerOrder() {
                                     <span>{item?.statusOrder === 0 ? 'Đang xử lý' : item?.statusOrder === 1 ? 'Chấp Nhận' : 'Đã nhận hàng'}</span>
                                 </div>
                                 <div className="flex justify-between mb-2">
-                                    <span className="font-medium">Tổng</span>
-                                    <span>{handleFormatPrice(item?.totalAmountOfOrder)}đ cho {item?.orders.length} sản phẩm</span>
+                                    <span className="font-medium">Tổng: </span>
+                                    <span className="ml-2">{handleFormatPrice(item?.totalAmountOfOrder)}đ cho {item?.orders.length} sản phẩm</span>
                                 </div>
                                 <div className="flex justify-end">
                                     <NavLink to={`/orderDetail/${item?.id}`}>
