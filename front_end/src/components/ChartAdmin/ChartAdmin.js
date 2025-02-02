@@ -37,8 +37,8 @@ function ChartAdmin() {
     const data = {
         labels: months,
         options: {
-            responsive: true, // Tự động responsive
-            maintainAspectRatio: false, // Cho phép tùy chỉnh tỉ lệ
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 y: {
                     beginAtZero: true

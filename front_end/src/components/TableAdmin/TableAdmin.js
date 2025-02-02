@@ -13,7 +13,6 @@ import ModalOrderDetail from '../ModalOrderDetail/ModalOrderDetail';
 function TableAdmin() {
     const dispatch = useDispatch();
     const [isModalOrderDetailOpen, setIsModalOrderDetailOpen] = useState(false);
-
     useEffect(() => {
         dispatch(getListUserAction());
         dispatch(getListPaymentAction());
@@ -21,8 +20,9 @@ function TableAdmin() {
     let { arrUser } = useSelector(state => state.UserReducer);
     let { arrPayments } = useSelector(state => state.PaymentReducer);
 
+    const [currentOrderDetail, setCurrentOrderDetailId] = useState('')
     const dataUser = arrUser || [];
-    console.log(arrPayments);
+    // console.log(arrPayments);
     const handleOpenModalOrderDetail = () => {
         setIsModalOrderDetailOpen(true);
     };
@@ -71,7 +71,7 @@ function TableAdmin() {
             key: 'id',
             dataIndex: 'id',
             render: (text, data) => {
-                console.log(data);
+                // console.log(data);
                 return (<>
                     <span>{getCodeProduct(data?.id)}</span>
                 </>)
@@ -82,7 +82,7 @@ function TableAdmin() {
             key: 'dayOrder',
             dataIndex: 'dayOrder',
             render: (text, data) => {
-                console.log(data);
+                // console.log(data);
                 return (<>
                     <span>{formatDateTime(data?.dayOrder)}</span>
                 </>)
@@ -93,7 +93,7 @@ function TableAdmin() {
             key: 'statusOrder',
             dataIndex: 'statusOrder',
             render: (text, data) => {
-                console.log(data);
+                // console.log(data);
                 return (<>
                     <span>{data?.statusOrder === 0 ? 'Đang xử lý' : data?.statusOrder === 1 ? 'Chấp nhận' : 'Đã nhận hàng'}</span>
                 </>)
@@ -112,26 +112,27 @@ function TableAdmin() {
                             dispatch(deletePaymentAction(order.id))
                         }
                     }}></Button>
-                    <div>
-                        <Button
-                            key={2}
-                            onClick={() => {
-                                handleOpenModalOrderDetail();
-                            }}
-                            size="large"
-                            title='Chi tiết đơn hàng'
-                            icon={<RiFileList3Line />}
+                    <Button
+                        key={2}
+                        onClick={() => {
+                            console.log(order?.id);
+                            handleOpenModalOrderDetail();
+                            setCurrentOrderDetailId(order?.id)
+                        }}
+                        size="large"
+                        title='Chi tiết đơn hàng'
+                        icon={<RiFileList3Line />}
 
-                        ></Button >
-                        <ModalOrderDetail
-                            isOpen={isModalOrderDetailOpen}
-                            onClose={handleCloseModalOrderDetail}
-                            onConfirm={() => {
-                                setIsModalOrderDetailOpen(false);
-                            }}
-                            paymentId={order?.id}
-                        />
-                    </div>
+                    ></Button >
+                    <ModalOrderDetail
+                        isOpen={isModalOrderDetailOpen}
+                        onClose={handleCloseModalOrderDetail}
+                        onConfirm={() => {
+                            setIsModalOrderDetailOpen(false);
+                        }}
+                        paymentId={currentOrderDetail}
+                    />
+
                 </div>
 
             }
@@ -144,12 +145,12 @@ function TableAdmin() {
         <div className='mt-10'>
             <div className='flex flex-col items-start gap-6'>
                 <div className='flex flex-col gap-4 w-full'>
-                    <h2 className='font-semibold text-gray-400 text-base'>Quản Lý Khách Hàng</h2>
+                    <h2 className='font-semibold text-gray-600 dark:text-gray-200 text-base'>Quản Lý Khách Hàng</h2>
                     <Table columns={columnsUser} dataSource={dataUser} rowKey={'id'} scroll={{ x: 1000 }} />
                 </div>
 
                 <div className='flex flex-col gap-4 w-full'>
-                    <h2 className='font-semibold text-gray-400 text-base'>Quản Lý Đơn Hàng</h2>
+                    <h2 className='font-semibold text-gray-600 dark:text-gray-200 text-base'>Quản Lý Đơn Hàng</h2>
                     <Table columns={columnsOrder} dataSource={dataOrder} rowKey={'id'} scroll={{ x: 1000 }} />
                 </div>
             </div>

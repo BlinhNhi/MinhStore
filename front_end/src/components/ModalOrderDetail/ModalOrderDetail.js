@@ -1,12 +1,18 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getPaymentDetailAction } from "../../redux_store/actions/PaymentAction";
+import { getCodeProduct } from "../../utils/format/getCodeProduct";
+import { formatDateTime } from "../../utils/format/formatDateTime";
+import { handleFormatPrice } from "../../utils/format/formatPrice";
 
 function ModalOrderDetail({ isOpen, onClose, paymentId }) {
     const dispatch = useDispatch();
+    let { paymentDetail } = useSelector(state => state.PaymentReducer)
     useEffect(() => {
         dispatch(getPaymentDetailAction(paymentId));
-    }, [dispatch])
+    }, [dispatch, paymentId])
+    console.log(paymentId);
+
     if (!isOpen) return null;
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-100/50 bg-opacity-50">
@@ -14,8 +20,29 @@ function ModalOrderDetail({ isOpen, onClose, paymentId }) {
                 <h2 className="text-base sm:text-xl font-bold text-gray-800 mb-4">
                     Đơn hàng chi tiết
                 </h2>
-                <div>
+                <div className="flex gap-1 flex-col flex-1 overflow-y-auto max-h-[400px] lg:max-h-[600px]">
+                    <h2 className="text-sm sm:text-base text-gray-500 font-medium">Mã đơn hàng: {getCodeProduct(paymentDetail?.id)}</h2>
+                    <h2 className="text-sm sm:text-base text-gray-500 font-medium">Ngày đặt hàng: {formatDateTime(paymentDetail?.dayOrder)}</h2>
+                    <h2 className="text-sm sm:text-base text-gray-500 font-medium">Trạng thái đơn hàng: <span className="text-gray-600 font-bold">{paymentDetail?.statusOrder === 0 ? 'Đang xử lý' :
+                        paymentDetail?.statusOrder === 1 ? 'Chấp nhận' : 'Đã nhận hàng'
+                    }</span></h2>
 
+                    <h2 className="text-sm sm:text-base text-gray-500 font-medium">Tên khách hàng: {paymentDetail?.nameUser}</h2>
+                    <h4 className="text-sm sm:text-base text-gray-500 font-medium">Địa chỉ khách hàng: {paymentDetail?.addressUser}</h4>
+                    <h4 className="text-sm sm:text-base text-gray-500 font-medium">Số điện thoại khách hàng: {paymentDetail?.phoneUser}</h4>
+                    <h4 className="text-sm sm:text-base text-gray-500 font-medium">Ghi chú đơn hàng:</h4>
+                    <h4 className="border-2 border-gray-500 p-1 rounded-md border-double w-2/3"> <span className="text-sm md:text-base italic sm:text-base text-gray-500 font-medium " dangerouslySetInnerHTML={{ __html: paymentDetail.noteUser }}></span></h4>
+                    <h2 className="text-sm sm:text-base text-gray-600 font-bold">Số lượng sản phẩm: {paymentDetail?.orders?.length}</h2>
+                    {paymentDetail?.orders?.map((item, i) => {
+                        // console.log(item);
+                        return <div className="border-b-2 pb-2 border-gray-400  w-2/3" key={item?.id}>
+                            <h2 className="font-medium text-gray-500 text-sm sm:text-base">Tên Sản phẩm: {item?.products[0]?.nameProduct}</h2>
+                            <h4 className="font-medium text-gray-500 text-sm sm:text-base">Màu sắc: <span className="text-xs sm:text-base font-bold">{item?.color?.name}</span></h4>
+                            <h4 className="font-medium text-gray-500 text-sm sm:text-base">Size: <span className="text-xs sm:text-base font-bold">{item?.size?.numberOfSize}</span></h4>
+                            <h2 className="font-medium text-gray-500 text-sm sm:text-base">Thành tiền: <span className="text-xs sm:text-base font-normal">{handleFormatPrice(item?.products[0]?.priceProduct)} x {item?.quantityOrder} = {handleFormatPrice(item?.totalAmount)} vnd</span></h2>
+                        </div>
+                    })}
+                    <h2 className="text-sm sm:text-base  text-gray-500 font-medium md:font-bold text-right mt-2  w-2/3">Tổng đơn hàng: <span>{handleFormatPrice(paymentDetail?.totalAmountOfOrder)} vnd</span></h2>
                 </div>
                 <div className="flex justify-end mt-6 space-x-4">
                     <button

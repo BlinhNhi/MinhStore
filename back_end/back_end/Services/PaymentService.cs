@@ -111,7 +111,6 @@ namespace back_end.Services
 
         public async Task<IEnumerable<Payment>> GetPaymentById(Guid Id)
         {
-            /* return await db.Payments.Include(pay => pay.Orders).Where(p => p.Id == Id).ToListAsync();*/
             var payment = await db.Payments
                 .Where(pay => pay.Id == Id)
                 .Include(pay => pay.Orders).ThenInclude(o => o.Products)
@@ -128,6 +127,7 @@ namespace back_end.Services
                     {
                         Id = or.Id,
                         QuantityOrder = or.QuantityOrder,
+                       TotalAmount = or.TotalAmount,
                         Size = or.Size,
                         Color = or.Color,
                         Products = or.ProductOrders.Select(po => new Product
