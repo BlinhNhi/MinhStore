@@ -66,8 +66,8 @@ function CartShoppingUser() {
         return <div>Không có sản phẩm trong giỏ hàng.</div>;
     }
 
-    console.log(dataUserOrder);
-    console.log(dataUserOrder?.products);
+    // console.log(dataUserOrder);
+    // console.log(dataUserOrder?.products);
 
     return (
         <div className="">

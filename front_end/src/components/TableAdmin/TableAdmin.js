@@ -96,7 +96,11 @@ function TableAdmin() {
             render: (text, data) => {
                 // console.log(data);
                 return (<>
-                    <span>{data?.statusOrder === 0 ? <p className='text-base text-gray-500'>Đang xử lý</p> : data?.statusOrder === 1 ? <p className='text-base text-primary'>Chấp nhận</p> : 'Đã nhận hàng'}</span>
+                    <span>{data?.statusOrder === 0 ? <p className='text-base text-gray-500'>Đang xử lý</p> : data?.statusOrder === 1 ? <span className="text-primary font-bold">Xác nhận đơn hàng</span> :
+                        data?.statusOrder === 2 ? <span className="text-green-500 font-bold">Bàn giao vận chuyển</span> :
+                            data?.statusOrder === 3 ? <span className="text-blue-400 font-bold">Đang vận chuyển</span> :
+                                data?.statusOrder === 4 ? <span className="text-red-500 font-bold">Hoàn thành đơn hàng</span>
+                                    : 'Không xác định'}</span>
                 </>)
             },
         },
