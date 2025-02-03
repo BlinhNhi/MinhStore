@@ -99,6 +99,27 @@ namespace back_end.Controllers
 
         }
 
+
+        [HttpPut("updateStatus/{Id}")]
+        public async Task<ActionResult> UpdateStatusPayment(Guid Id, [FromForm] Payment payment)
+        {
+            try
+            {
+                bool list = await repo.UpdateStatusPayment(Id, payment);
+                if (list)
+                {
+                    var response = new ResponseData<Payment>(StatusCodes.Status200OK, "Edit Status Payment Successfully", payment, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
         [HttpDelete("{Id}")]
         public async Task<ActionResult> DeletePayment(Guid Id)
         {

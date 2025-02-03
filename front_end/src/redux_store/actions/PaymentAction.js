@@ -28,7 +28,7 @@ export const addPaymentAction = (formData) => {
 
         try {
             const result = await paymentService.createPayment(formData);
-            console.log(result);
+            // console.log(result);
             notification.success({
                 closeIcon: true,
                 message: 'Thành Công',
@@ -72,8 +72,6 @@ export const getPaymentDetailAction = (id) => {
     return async (dispatch) => {
         try {
             const result = await paymentService.getPaymentById(id)
-            console.log(result);
-
             if (result.data.status === 200) {
                 dispatch({
                     type: GET_PAYMENT_DETAIL,
@@ -92,7 +90,7 @@ export const getPaymentDetailByUserIdAction = (userId) => {
     return async (dispatch) => {
         try {
             const result = await paymentService.getPaymentByUserId(userId)
-            console.log(result);
+            // console.log(result);
             if (result.data.status === 200) {
                 dispatch({
                     paymentDetailByUserId: result?.data?.data,
@@ -106,29 +104,29 @@ export const getPaymentDetailByUserIdAction = (userId) => {
     }
 }
 
-// export const updateCartAction = (id, formData) => {
-//     return async () => {
-//         try {
-//             const result = await orderService.updateOrder(id, formData)
-//             if (result.data.status === 200) {
-//                 notification.success({
-//                     closeIcon: true,
-//                     message: 'Thành Công',
-//                     description: (
-//                         <>Cập Nhật Đơn Hàng Thành Công</>
-//                     ),
-//                 });
-//                 setTimeout(() => {
-//                     window.location.reload()
+export const updateStatusPaymentAction = (id, formData) => {
+    return async () => {
+        try {
+            const result = await paymentService.updateStatusPayment(id, formData)
+            if (result.data.status === 200) {
+                notification.success({
+                    closeIcon: true,
+                    message: 'Thành Công',
+                    description: (
+                        <>Cập Nhật Trạng Thái Thành Công</>
+                    ),
+                });
+                setTimeout(() => {
+                    window.location.reload()
 
-//                 }, 1000);
-//             }
-//         } catch (error) {
-//             notification.error({
-//                 closeIcon: true,
-//                 message: "Thất Bại",
-//                 description: <>Cập Nhật Đơn Hàng Thất Bại.</>,
-//             });
-//         }
-//     }
-// }
+                }, 1000);
+            }
+        } catch (error) {
+            notification.error({
+                closeIcon: true,
+                message: "Thất Bại",
+                description: <>Cập Nhật Trạng Thái Thất Bại.</>,
+            });
+        }
+    }
+}

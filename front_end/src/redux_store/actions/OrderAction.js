@@ -111,7 +111,6 @@ export const updateCartAction = (id, formData) => {
                 });
                 setTimeout(() => {
                     window.location.reload()
-
                 }, 1000);
             }
         } catch (error) {

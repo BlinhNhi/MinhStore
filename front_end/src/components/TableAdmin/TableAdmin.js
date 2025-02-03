@@ -23,6 +23,7 @@ function TableAdmin() {
     const [currentOrderDetail, setCurrentOrderDetailId] = useState('')
     const dataUser = arrUser || [];
     // console.log(arrPayments);
+
     const handleOpenModalOrderDetail = () => {
         setIsModalOrderDetailOpen(true);
     };
@@ -95,7 +96,7 @@ function TableAdmin() {
             render: (text, data) => {
                 // console.log(data);
                 return (<>
-                    <span>{data?.statusOrder === 0 ? 'Đang xử lý' : data?.statusOrder === 1 ? 'Chấp nhận' : 'Đã nhận hàng'}</span>
+                    <span>{data?.statusOrder === 0 ? <p className='text-base text-gray-500'>Đang xử lý</p> : data?.statusOrder === 1 ? <p className='text-base text-primary'>Chấp nhận</p> : 'Đã nhận hàng'}</span>
                 </>)
             },
         },
@@ -104,9 +105,6 @@ function TableAdmin() {
             width: '15%',
             render: (text, order) => {
                 return <div className='flex gap-2'>
-                    {/* <Button key={1} href={`/admin/ordermng/edit/${order.id}`} type="link" icon={<MdModeEditOutline />} onClick={() => {
-                    }}></Button> */}
-
                     <Button key={1} size="large" danger icon={<MdOutlineDelete />} onClick={() => {
                         if (window.confirm('Bạn muốn xoá đơn hàng ' + order.id + '?')) {
                             dispatch(deletePaymentAction(order.id))
@@ -127,9 +125,6 @@ function TableAdmin() {
                     <ModalOrderDetail
                         isOpen={isModalOrderDetailOpen}
                         onClose={handleCloseModalOrderDetail}
-                        onConfirm={() => {
-                            setIsModalOrderDetailOpen(false);
-                        }}
                         paymentId={currentOrderDetail}
                     />
 

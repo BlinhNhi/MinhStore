@@ -45,7 +45,8 @@ function OrderDetail() {
                 <div className="py-10">
                     <h1 className="text-lg md:text-2xl font-bold mb-4">Chi tiết đơn hàng</h1>
                     <h4 className="text-xs md:text-base">Đơn hàng #<span className="font-semibold text-xs md:text-base">{getCodeProduct(paymentDetail?.id)}
-                    </span> đã được đặt lúc <span className="font-bold text-xs md:text-base">{formatDateTime(paymentDetail.dayOrder)}</span> và hiện tại là <span className="font-bold text-xs md:text-base">{paymentDetail.statusOrder === 0 ? 'Đang xử lý' : paymentDetail.statusOrder === 1 ? 'Chấp nhận' : 'Đã giao hàng'}</span>.</h4>
+                    </span> đã được đặt lúc <span className="font-bold text-xs md:text-base">{formatDateTime(paymentDetail.dayOrder)}</span> và hiện tại là
+                        <span className="font-bold text-xs md:text-base">{paymentDetail.statusOrder === 0 ? 'Đang xử lý' : paymentDetail.statusOrder === 1 ? <span className="font-bold text-xs md:text-base text-primary"> Chấp nhận</span> : <span className="font-bold text-xs md:text-base text-red-500"> Đã giao hàng</span>}</span>.</h4>
                     <h2 className="text-base md:text-xl font-bold mt-4">SẢN PHẨM</h2>
                     <div className="overflow-x-auto w-full block py-2">
                         <table className="table-auto w-full mt-2 border-collapse border border-gray-300 ">

@@ -185,5 +185,20 @@ namespace back_end.Services
                 })
                     .ToListAsync();
         }
+
+        public async Task<bool> UpdateStatusPayment(Guid paymentId, Payment payment)
+        {
+            var ExistingPayment = await db.Payments.SingleOrDefaultAsync(or => or.Id == paymentId);
+            if (ExistingPayment != null)
+            {
+                ExistingPayment.StatusOrder = payment.StatusOrder;
+                await db.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

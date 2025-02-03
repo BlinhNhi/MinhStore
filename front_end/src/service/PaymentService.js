@@ -20,8 +20,11 @@ export class PaymentService extends baseService {
     deletePayment = (id) => {
         return this.delete(`/api/Payment/${id}`);
     };
-    updatePayment = (id, cate) => {
-        return this.put(`/api/Payment?Id=${id}`, cate);
+    updatePayment = (id, pay) => {
+        return this.put(`/api/Payment?Id=${id}`, pay);
+    };
+    updateStatusPayment = (id, pay) => {
+        return this.put(`/api/Payment/updateStatus/${id}`, pay);
     };
 }
 
