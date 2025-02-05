@@ -7,6 +7,7 @@ namespace back_end.IRepository
         Task<IEnumerable<Product>> GetAllProduct();
         Task<bool> CreateProduct(Product product);
         Task<bool> PutProduct(Guid Id, Product product);
+        Task<bool> UpdateQuantityProduct(Guid Id, Product product);
         Task<Product> DeleteProduct(Guid Id);
         Task<IEnumerable<Product>> GetProductByIdForUser(Guid Id);
         Task<IEnumerable<Product>> GetProductById(Guid Id);

@@ -23,6 +23,9 @@ export class ProductService extends baseService {
     updateProduct = (id, Product) => {
         return this.put(`/api/Product/${id}`, Product);
     };
+    updateQuantityProduct = (id, Product) => {
+        return this.put(`/api/Product/updateQuantityProduct/${id}`, Product);
+    };
     getProductListOptions = (options) => {
         return this.get(
             `/api/Product/Options?searchName=${options.searchName}&searchCategory=${options.searchCategory}&searchColor=${options.searchColor}&searchSize=${options.searchSize}&fromPrice=${options.fromPrice}&toPrice=${options.toPrice}&sort=${options.sort}&page=${options.page}`

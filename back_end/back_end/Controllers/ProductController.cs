@@ -123,6 +123,26 @@ namespace back_end.Controllers
 
         }
 
+        [HttpPut("updateQuantityProduct/{Id}")]
+        public async Task<ActionResult> UpdateQuantityProduct(Guid Id, [FromForm] Product product)
+        {
+            try
+            {
+                bool list = await repo.UpdateQuantityProduct(Id, product);
+                if (list)
+                {
+                    var response = new ResponseData<Product>(StatusCodes.Status200OK, "Edit Quantity Product Successfully", product, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
 
         [HttpDelete("{Id}")]
         public async Task<ActionResult> DeleteProduct(Guid Id)

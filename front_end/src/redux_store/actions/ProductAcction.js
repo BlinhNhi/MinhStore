@@ -122,6 +122,29 @@ export const updateProductAction = (id, formData) => {
     }
 }
 
+export const updateQuantityProductAction = (id, formData) => {
+    return async () => {
+        try {
+            const result = await productService.updateQuantityProduct(id, formData)
+            if (result.data.status === 200) {
+                notification.success({
+                    closeIcon: true,
+                    message: 'Thành Công',
+                    description: (
+                        <>Cập Nhật Số Lượng Sản Phẩm Thành Công</>
+                    ),
+                });
+            }
+        } catch (error) {
+            notification.error({
+                closeIcon: true,
+                message: "Thất Bại",
+                description: <>Cập Nhật Số Lượng Sản Phẩm Thất Bại.</>,
+            });
+        }
+    }
+}
+
 
 export const apiUploadImages = (images) => new Promise(async (resolve, reject) => {
     try {

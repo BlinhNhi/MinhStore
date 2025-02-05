@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { formatDateTime } from "../../../utils/format/formatDateTime";
 import { getCodeProduct } from "../../../utils/format/getCodeProduct";
 import { handleFormatPrice } from "../../../utils/format/formatPrice";
+import { updateQuantityProductAction } from "../../../redux_store/actions/ProductAcction";
 function OrderDetail() {
     let accessToken = {};
     const dispatch = useDispatch();
@@ -29,6 +30,8 @@ function OrderDetail() {
     }, [idUser, dispatch])
     let { paymentDetail } = useSelector(state => state.PaymentReducer)
     console.log(paymentDetail);
+    // console.log(paymentDetail?.orders[0]?.products[0]?.stockQuantity);
+
     const handleOrderComfirm = (paymentId, newStatusOrder) => {
         const formData = new FormData();
         formData.append("nameUser", paymentDetail?.nameUser);
@@ -38,6 +41,34 @@ function OrderDetail() {
         console.table("nameUser: ", paymentDetail?.nameUser, "addressUser: ", paymentDetail?.addressUser, "idPayment: ", paymentId, "statusOrder: ", newStatusOrder, paymentDetail?.dayOrder);
         dispatch(updateStatusPaymentAction(paymentId, formData));
     };
+
+    const handleUpdateQuantityProduct = () => {
+        if (!paymentDetail?.orders) return;
+
+        paymentDetail.orders.forEach(order => {
+            order.products.forEach(product => {
+                const formData = new FormData();
+                formData.append("priceProduct", product.priceProduct);
+                formData.append("nameProduct", product.nameProduct);
+                formData.append("stockQuantity", product.stockQuantity);
+                formData.append("numberOfProductSold", product.numberOfProductSold);
+                formData.append("numberOfProductInStock", product.numberOfProductInStock);
+                formData.append("quantityOrder", order.quantityOrder);
+                console.table({
+                    quantityOrder: order.quantityOrder,
+                    productId: product.id,
+                    priceProduct: product.priceProduct,
+                    nameProduct: product.nameProduct,
+                    stockQuantity: product.stockQuantity,
+                    numberOfProductSold: product.numberOfProductSold,
+                    numberOfProductInStock: product.numberOfProductInStock
+                });
+
+                // dispatch(updateQuantityProductAction(product.id, formData));
+            });
+        });
+    };
+
     if (loading) {
         return <div className="flex justify-center items-center gap-2 dark:bg-gray-900 p-8">
             <RiLoader2Line className="text-primary animate-spin text-4xl" /> <p className="text-lg italic dark:text-gray-200">Loading....</p>
@@ -108,7 +139,8 @@ function OrderDetail() {
                     <div className="mt-4">
                         <button
                             onClick={() => {
-                                handleOrderComfirm(paymentDetail?.id, 4)
+                                // handleOrderComfirm(paymentDetail?.id, 4);
+                                handleUpdateQuantityProduct();
                             }}
                             disabled={paymentDetail?.statusOrder === 0 || paymentDetail?.statusOrder === 1 || paymentDetail?.statusOrder === 2 || paymentDetail?.statusOrder === 4}
                             className={`px-2 py-1 text-base md:text-lg font-medium rounded-md transition-colors duration-300
