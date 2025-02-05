@@ -47,8 +47,8 @@ function PaymentProduct() {
             if (values.nameUser === "") {
                 notification.error({
                     closeIcon: true,
-                    message: "Error",
-                    description: <>Please fill in all required fields.</>,
+                    message: "Lỗi",
+                    description: <>Vui lòng điền đầy đủ các trường.</>,
                 });
             } else {
                 let formData = new FormData();
@@ -222,7 +222,7 @@ function PaymentProduct() {
                                         return item?.isDeleted === false && <div className="mt-6" key={item?.id}>
                                             <div>
                                                 <div className="border-b-2 border-gray-300 pb-4">
-                                                    <div className="flex justify-around">
+                                                    <div className="flex justify-around ">
                                                         <div>
                                                             {item?.products?.map((pro, i) => {
                                                                 const images = pro?.imagesProduct ? JSON.parse(pro?.imagesProduct) : [];
@@ -245,9 +245,15 @@ function PaymentProduct() {
                                                             })}
                                                             <h4 className="text-base  text-gray-600 dark:text-gray-200  leading-[0px]">Size Giày: {item?.size?.numberOfSize}</h4>
                                                             <h4 className="text-base  text-gray-600 dark:text-gray-200  leading-[0px]">Màu Sắc: {item?.color?.name}</h4>
+                                                            <div className="flex items-center gap-2 sm:hidden ">
+                                                                {item?.products?.map((pro, i) => {
+                                                                    return <h3 key={i} className="text-base  text-gray-600 dark:text-gray-200">{handleFormatPrice(pro?.priceProduct)}đ</h3>
+                                                                })}
+                                                                <p className="text-gray-600 dark:text-gray-200">x {item?.quantityOrder}</p>
+                                                            </div>
                                                         </div>
 
-                                                        <div className="flex justify-center items-center">
+                                                        <div className="hidden sm:flex justify-center items-center ">
                                                             {item?.products?.map((pro, i) => {
                                                                 return <h3 key={i} className="text-lg  text-gray-600 dark:text-gray-200">{handleFormatPrice(pro?.priceProduct)}đ</h3>
                                                             })}

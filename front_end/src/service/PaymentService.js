@@ -17,6 +17,9 @@ export class PaymentService extends baseService {
     getPaymentByUserId = (userId) => {
         return this.get(`/api/Payment/user/${userId}`);
     }
+    getTotalMountPaymentByYear = (year) => {
+        return this.get(`/api/Payment/GetMonthlyTotalAmount?year=${year}`);
+    }
     deletePayment = (id) => {
         return this.delete(`/api/Payment/${id}`);
     };

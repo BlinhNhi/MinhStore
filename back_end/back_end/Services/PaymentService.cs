@@ -1,5 +1,6 @@
 ﻿using back_end.IRepository;
 using back_end.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -186,12 +187,23 @@ namespace back_end.Services
                     .ToListAsync();
         }
 
-        public async Task<bool> UpdateStatusPayment(Guid paymentId, Payment payment)
+     /*   public async Task<bool> UpdateStatusPayment(Guid paymentId, Payment payment)
         {
             var ExistingPayment = await db.Payments.SingleOrDefaultAsync(or => or.Id == paymentId);
             if (ExistingPayment != null)
             {
                 ExistingPayment.StatusOrder = payment.StatusOrder;
+                ExistingPayment.Orders = ExistingPayment.Orders.Select(or => new Order
+                {
+
+                    Products = or.ProductOrders.Select(po => new Product
+                    {
+                      
+                        StockQuantity = po.Product.StockQuantity,
+                        NumberOfProductInStock = po.Product.NumberOfProductInStock - 1,
+                        NumberOfProductSold = po.Product.NumberOfProductSold + 1,
+                    }).ToList(),
+                }).ToList();
                 await db.SaveChangesAsync();
                 return true;
             }
@@ -199,6 +211,61 @@ namespace back_end.Services
             {
                 return false;
             }
+        }*/
+
+        public async Task<bool> UpdateStatusPayment(Guid paymentId, Payment payment)
+        {
+            var ExistingPayment = await db.Payments.SingleOrDefaultAsync(or => or.Id == paymentId);
+            if (ExistingPayment != null)
+            {
+                ExistingPayment.StatusOrder = payment.StatusOrder;
+                foreach (var order in ExistingPayment.Orders)
+                {
+                    foreach (var productOrder in order.ProductOrders)
+                    {
+                        var product = productOrder.Product;
+                        if (product.NumberOfProductInStock > 0)
+                        {
+                            product.StockQuantity = product.NumberOfProductInStock - product.NumberOfProductSold;
+                            product.NumberOfProductInStock -= 1;
+                            product.NumberOfProductSold += 1;
+                        }
+                        else
+                        {
+                            return false; 
+                        }
+                    }
+                }
+
+                await db.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        public async Task<IActionResult> GetMonthlyTotalAmount(int year)
+        {
+            var result = await db.Payments
+             .Where(o => o.DayOrder.Year == year)
+             .GroupBy(o => o.DayOrder.Month)
+             .Select(g => new
+             {
+                 Month = g.Key,
+                 TotalAmount = g.Sum(o => o.TotalAmountOfOrder)
+             })
+             .OrderBy(x => x.Month)
+             .ToListAsync();
+
+            if (result.Count == 0)
+            {
+                return new NotFoundObjectResult("Không có dữ liệu cho năm này.");
+            }
+
+            return new OkObjectResult(result);
         }
     }
 }

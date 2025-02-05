@@ -4,6 +4,7 @@ using back_end.ReponseData;
 using back_end.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace back_end.Controllers
 {
@@ -138,6 +139,24 @@ namespace back_end.Controllers
                 return BadRequest(ex.Message);
             }
 
+        }
+
+        [HttpGet("GetMonthlyTotalAmount")]
+        public async Task<IActionResult> GetMonthlyTotalAmount(int year)
+        {
+            try
+            {
+                var monthlyTotals = await repo.GetMonthlyTotalAmount(year);
+                if (monthlyTotals != null)
+                {
+                    return Ok(monthlyTotals);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

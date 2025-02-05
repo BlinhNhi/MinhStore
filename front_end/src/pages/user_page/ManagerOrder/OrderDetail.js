@@ -56,7 +56,7 @@ function OrderDetail() {
                     <h4 className="text-xs md:text-base">Đơn hàng #<span className="font-semibold text-xs md:text-base">{getCodeProduct(paymentDetail?.id)}
                     </span> đã được đặt lúc <span className="font-bold text-xs md:text-base">{formatDateTime(paymentDetail.dayOrder)}</span> và hiện tại là
                         <span className="font-bold text-xs md:text-base">
-                            {paymentDetail.statusOrder === 0 ? 'Đang xử lý' : paymentDetail.statusOrder === 1 ?
+                            {paymentDetail.statusOrder === 0 ? ' Đang xử lý' : paymentDetail.statusOrder === 1 ?
                                 <span className="font-bold text-xs md:text-base text-primary"> Chấp nhận</span>
                                 : paymentDetail.statusOrder === 2 ?
                                     <span className="font-bold text-xs md:text-base text-green-500"> Bàn giao vận chuyển</span>

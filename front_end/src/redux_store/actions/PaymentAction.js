@@ -1,6 +1,6 @@
 import { notification } from 'antd';
 import { paymentService } from '../../service/PaymentService';
-import { GET_PAYMENT_LIST, GET_PAYMENT_DETAIL_BY_USER_ID, GET_PAYMENT_DETAIL } from '../constants';
+import { GET_PAYMENT_LIST, GET_PAYMENT_DETAIL_BY_USER_ID, GET_PAYMENT_DETAIL, GET_MONTHLY_TOTAL_AMOUNT_OF_PAYMENT } from '../constants';
 
 
 
@@ -19,8 +19,6 @@ export const getListPaymentAction = () => {
         }
     };
 };
-
-
 
 
 export const addPaymentAction = (formData) => {
@@ -85,6 +83,26 @@ export const getPaymentDetailAction = (id) => {
     }
 }
 
+export const getTotalAmountPaymentByYearAction = (year) => {
+
+    return async (dispatch) => {
+        try {
+            const result = await paymentService.getTotalMountPaymentByYear(year)
+            console.log(result?.data?.statusCode);
+            console.log(result?.data?.value);
+
+            if (result?.data?.statusCode === 200) {
+                dispatch({
+                    type: GET_MONTHLY_TOTAL_AMOUNT_OF_PAYMENT,
+                    monthlyTotalAmountOfOrder: result?.data?.value,
+                })
+
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
 export const getPaymentDetailByUserIdAction = (userId) => {
 
     return async (dispatch) => {

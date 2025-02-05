@@ -144,13 +144,12 @@ function TableAdmin() {
         <div className='mt-10'>
             <div className='flex flex-col items-start gap-6'>
                 <div className='flex flex-col gap-4 w-full'>
-                    <h2 className='font-semibold text-gray-600 dark:text-gray-200 text-base'>Quản Lý Khách Hàng</h2>
-                    <Table columns={columnsUser} dataSource={dataUser} rowKey={'id'} scroll={{ x: 1000 }} />
-                </div>
-
-                <div className='flex flex-col gap-4 w-full'>
                     <h2 className='font-semibold text-gray-600 dark:text-gray-200 text-base'>Quản Lý Đơn Hàng</h2>
                     <Table columns={columnsOrder} dataSource={dataOrder} rowKey={'id'} scroll={{ x: 1000 }} />
+                </div>
+                <div className='flex flex-col gap-4 w-full'>
+                    <h2 className='font-semibold text-gray-600 dark:text-gray-200 text-base'>Quản Lý Khách Hàng</h2>
+                    <Table columns={columnsUser} dataSource={dataUser} rowKey={'id'} scroll={{ x: 1000 }} />
                 </div>
             </div>
         </div>
