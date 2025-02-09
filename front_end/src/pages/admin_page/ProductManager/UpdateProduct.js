@@ -44,17 +44,6 @@ const UpdateProduct = (props) => {
                 ),
             });
         }
-        // else if (sizeExisted === true) {
-        //     notification.error({
-        //         closeIcon: true,
-        //         message: 'Lỗi Trùng Tên Màu Sắc',
-        //         description: (
-        //             <>
-        //                 Màu Sắc Này Đã Có Rồi.
-        //             </>
-        //         ),
-        //     });
-        // }
         else {
             let formData = new FormData();
             for (let key in values) {

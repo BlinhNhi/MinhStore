@@ -49,18 +49,20 @@ function OrderDetail() {
                 const formData = new FormData();
                 formData.append("priceProduct", product.priceProduct);
                 formData.append("nameProduct", product.nameProduct);
-                formData.append("stockQuantity", product.stockQuantity - order.quantityOrder);
+                formData.append("stockQuantity", product.stockQuantity);
                 formData.append("numberOfProductSold", product.numberOfProductSold + order.quantityOrder);
-                formData.append("numberOfProductInStock", product.stockQuantity - order.quantityOrder);
-                formData.append("quantityOrder", order.quantityOrder);
+                formData.append("numberOfProductInStock", product.numberOfProductInStock - order.quantityOrder);
+                // formData.append("quantityOrder", order.quantityOrder);
                 console.table({
-                    // quantityOrder: order.quantityOrder,
                     productId: product.id,
                     priceProduct: product.priceProduct,
                     nameProduct: product.nameProduct,
-                    stockQuantity: product.stockQuantity - order.quantityOrder,
+                    beforeStockQuantity: product?.stockQuantity,
+                    beforeNumberOfProductSold: product?.numberOfProductSold,
+                    beforeNumberOfProductInStock: product?.numberOfProductInStock,
+                    stockQuantity: product?.stockQuantity,
                     numberOfProductSold: product.numberOfProductSold + order.quantityOrder,
-                    numberOfProductInStock: product.numberOfProductInStock - order.quantityOrder
+                    numberOfProductInStock: product.numberOfProductInStock - order.quantityOrder,
                 });
 
                 dispatch(updateQuantityProductAction(product.id, formData));

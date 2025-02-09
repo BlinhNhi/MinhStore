@@ -201,7 +201,7 @@ function Header() {
                                             <button
                                                 onClick={() => {
                                                     localStorage.removeItem(TOKEN)
-                                                    window.location.reload()
+                                                    window.location.href = '/login';
                                                 }}
                                             >
                                                 Đăng Xuất
