@@ -45,7 +45,7 @@ function ChartAdmin() {
     monthlyTotalAmountOfOrder?.forEach(({ month, totalAmount }) => {
         totalAmountOfOrdersByMonth[month - 1] = totalAmount;
     });
-    const totalAmount = totalAmountOfOrdersByMonth?.map(item => (item / 1000000).toFixed(1));
+    const totalAmount = totalAmountOfOrdersByMonth?.map(item => (item / 1000000).toFixed(3));
     // console.log(totalAmountOfOrdersByMonth);
     // console.log(totalAmount);
 

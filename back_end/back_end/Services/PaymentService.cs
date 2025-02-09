@@ -206,7 +206,7 @@ namespace back_end.Services
         public async Task<IActionResult> GetMonthlyTotalAmount(int year)
         {
             var result = await db.Payments
-             .Where(o => o.DayOrder.Year == year)
+             .Where(o => o.DayOrder.Year == year && o.StatusOrder == 4)
              .GroupBy(o => o.DayOrder.Month)
              .Select(g => new
              {

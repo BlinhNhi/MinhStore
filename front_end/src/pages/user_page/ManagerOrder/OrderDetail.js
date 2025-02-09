@@ -38,7 +38,6 @@ function OrderDetail() {
         formData.append("addressUser", paymentDetail?.addressUser);
         formData.append("dayOrder", paymentDetail?.dayOrder);
         formData.append("statusOrder", newStatusOrder);
-        console.table("nameUser: ", paymentDetail?.nameUser, "addressUser: ", paymentDetail?.addressUser, "idPayment: ", paymentId, "statusOrder: ", newStatusOrder, paymentDetail?.dayOrder);
         dispatch(updateStatusPaymentAction(paymentId, formData));
     };
 
@@ -50,21 +49,21 @@ function OrderDetail() {
                 const formData = new FormData();
                 formData.append("priceProduct", product.priceProduct);
                 formData.append("nameProduct", product.nameProduct);
-                formData.append("stockQuantity", product.stockQuantity);
-                formData.append("numberOfProductSold", product.numberOfProductSold);
-                formData.append("numberOfProductInStock", product.numberOfProductInStock);
+                formData.append("stockQuantity", product.stockQuantity - order.quantityOrder);
+                formData.append("numberOfProductSold", product.numberOfProductSold + order.quantityOrder);
+                formData.append("numberOfProductInStock", product.stockQuantity - order.quantityOrder);
                 formData.append("quantityOrder", order.quantityOrder);
                 console.table({
-                    quantityOrder: order.quantityOrder,
+                    // quantityOrder: order.quantityOrder,
                     productId: product.id,
                     priceProduct: product.priceProduct,
                     nameProduct: product.nameProduct,
-                    stockQuantity: product.stockQuantity,
-                    numberOfProductSold: product.numberOfProductSold,
-                    numberOfProductInStock: product.numberOfProductInStock
+                    stockQuantity: product.stockQuantity - order.quantityOrder,
+                    numberOfProductSold: product.numberOfProductSold + order.quantityOrder,
+                    numberOfProductInStock: product.numberOfProductInStock - order.quantityOrder
                 });
 
-                // dispatch(updateQuantityProductAction(product.id, formData));
+                dispatch(updateQuantityProductAction(product.id, formData));
             });
         });
     };
@@ -139,8 +138,8 @@ function OrderDetail() {
                     <div className="mt-4">
                         <button
                             onClick={() => {
-                                // handleOrderComfirm(paymentDetail?.id, 4);
                                 handleUpdateQuantityProduct();
+                                handleOrderComfirm(paymentDetail?.id, 4);
                             }}
                             disabled={paymentDetail?.statusOrder === 0 || paymentDetail?.statusOrder === 1 || paymentDetail?.statusOrder === 2 || paymentDetail?.statusOrder === 4}
                             className={`px-2 py-1 text-base md:text-lg font-medium rounded-md transition-colors duration-300

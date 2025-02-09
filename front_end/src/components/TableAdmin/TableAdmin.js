@@ -55,9 +55,9 @@ function TableAdmin() {
         },
         {
             title: 'Số Điện Thoại',
-            dataIndex: 'phoneNumber',
+            dataIndex: 'phone',
             render: (text) => text ? text : "Không có",
-            key: 'phoneNumber',
+            key: 'phone',
             width: '15%',
         },
     ];
