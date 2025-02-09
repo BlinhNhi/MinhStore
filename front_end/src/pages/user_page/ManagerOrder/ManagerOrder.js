@@ -55,16 +55,15 @@ function ManagerOrder() {
                                     <td className="px-6 py-6">{formatDateTime(item?.dayOrder)}</td>
                                     <td className="px-6 py-6 font-semibold text-base">
                                         <span className="font-bold text-xs md:text-base">
-                                            {item?.statusOrder === 0 ? ' Đang xử lý' : item?.statusOrder === 1 ?
-                                                <span className="font-bold text-xs md:text-base text-primary"> Chấp nhận</span>
+                                            {item?.statusOrder === 0 ? ' Đang xử lý.' : item?.statusOrder === 1 ?
+                                                <span className="font-bold text-xs md:text-base text-primary"> Chấp nhận.</span>
                                                 : item?.statusOrder === 2 ?
-                                                    <span className="font-bold text-xs md:text-base text-green-500"> Bàn giao vận chuyển</span>
+                                                    <span className="font-bold text-xs md:text-base text-green-500"> Bàn giao vận chuyển.</span>
                                                     : item?.statusOrder === 3 ?
-                                                        <span className="font-bold text-xs md:text-base text-blue-500"> Đang vận chuyển</span>
+                                                        <span className="font-bold text-xs md:text-base text-blue-500"> Đang vận chuyển.</span>
                                                         :
-                                                        <span className="font-bold text-xs md:text-base text-red-500"> Đã giao hàng</span>}
-                                        </span>.
-                                        {/* {item?.statusOrder === 0 ? 'Đang xử lý' : item?.statusOrder === 1 ? 'Chấp Nhận' : item?.statusOrder === 1 ? 'Đã nhận hàng' : ""} */}
+                                                        <span className="font-bold text-xs md:text-base text-red-500"> Đã giao hàng.</span>}
+                                        </span>
                                     </td>
                                     <td className="px-6 py-6 flex  md:flex-col lg:flex-col xl:flex-row 2xl:flex-row gap-1"><p className="font-semibold text-base">{handleFormatPrice(item?.totalAmountOfOrder)}đ</p> cho <p className="font-semibold text-base">{item?.orders.length} sản phẩm</p></td>
                                     <td><NavLink

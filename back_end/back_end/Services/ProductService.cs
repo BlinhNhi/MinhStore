@@ -185,6 +185,7 @@ namespace back_end.Services
                     NameProduct = p.NameProduct,
                     PriceProduct = p.PriceProduct,
                     ImagesProduct = p.ImagesProduct,
+                    NumberOfProductInStock = p.NumberOfProductInStock,
                     Colors = p.Colors,
                     Sizes = p.Sizes,
                     Category = new Category()

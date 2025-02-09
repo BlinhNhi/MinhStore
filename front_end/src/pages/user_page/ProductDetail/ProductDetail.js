@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import {
-    FaStar,
     FaOpencart,
     FaHandPointRight,
     FaTruck,
@@ -99,9 +98,18 @@ function ProductDetail(props) {
         if (!idUser || !savedIdSize || !savedIdColor || !numberProduct || !productDetailForUser?.priceProduct) {
             notification.error({
                 closeIcon: true,
-                message: 'Error',
+                message: 'Lỗi',
                 description: (
                     <>Chọn các tùy chọn cho sản phẩm trước khi cho sản phẩm vào giỏ hàng của bạn. !.</>
+                ),
+            });
+        }
+        else if (productDetailForUser?.numberOfProductInStock < numberProduct) {
+            notification.error({
+                closeIcon: true,
+                message: 'Xin lỗi',
+                description: (
+                    <>Chúng tôi chỉ còn  {productDetailForUser?.numberOfProductInStock} sản phẩm.</>
                 ),
             });
         }
@@ -119,14 +127,23 @@ function ProductDetail(props) {
             handleOpenModal();
         }
     };
-
+    console.log(productDetailForUser?.numberOfProductInStock);
     const handleBuyNow = () => {
         if (!idUser || !savedIdSize || !savedIdColor || !numberProduct || !productDetailForUser?.priceProduct) {
             notification.error({
                 closeIcon: true,
-                message: 'Error',
+                message: 'Lỗi',
                 description: (
-                    <>Chọn các tùy chọn cho sản phẩm trước khi cho sản phẩm vào giỏ hàng của bạn. !.</>
+                    <>Chọn các tùy chọn cho sản phẩm trước khi cho sản phẩm vào giỏ hàng của bạn!</>
+                ),
+            });
+        }
+        if (productDetailForUser?.numberOfProductInStock < numberProduct) {
+            notification.error({
+                closeIcon: true,
+                message: 'Xin lỗi',
+                description: (
+                    <>Chúng tôi chỉ còn  {productDetailForUser?.numberOfProductInStock} sản phẩm.</>
                 ),
             });
         }
@@ -142,16 +159,6 @@ function ProductDetail(props) {
             window.location.href = '/system-account/cart-shopping';
         }
     };
-
-    // console.log('size : ', savedIdSize);
-    // console.log('color : ', savedIdColor);
-    // console.log('id of shoes : ', id);
-    // console.log('quantity product : ', numberProduct);
-    // console.log('price product : ', productDetailForUser?.priceProduct && savedPrice);
-    // console.log('id user : ', idUser);
-
-
-
 
     return (
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200 ">
@@ -265,86 +272,89 @@ sm:mt-0 md:mt-0 lg:mt-0 xl:mt-0 2xl:mt-0
                                 </div>
                             </div>
 
-                            <div
-                                className="
+                            {productDetailForUser?.numberOfProductInStock < 1 ? <h2 className="mt-2 font-bold text-gray-600 dark:text-gray-100 text-lg">Sản phẩm này đã hết hàng.</h2> : <div>
+                                <div
+                                    className="
 flex-col
  md:flex-row lg:flex-row xl:flex-row 2xl:flex-row
 md:items-center lg:items-center xl:items-center 2xl:items-center
 flex items-start mt-3 gap-4 mb-5
 "
-                            >
-                                <div className="flex gap-2 items-center border-4 border-gray-300 bg-gray-50 dark:border-gray-300">
-                                    <button
-                                        onClick={() => {
-                                            setNumberProduct(numberProduct + 1);
-                                            handleIncrease();
-                                        }}
-                                        className="text-base font-bold
+                                >
+                                    <div className="flex gap-2 items-center border-4 border-gray-300 bg-gray-50 dark:border-gray-300">
+                                        <button
+                                            onClick={() => {
+                                                setNumberProduct(numberProduct + 1);
+                                                handleIncrease();
+                                            }}
+                                            className="text-base font-bold
      sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl
      px-3 py-1 dark:bg-gray-100 dark:text-gray-600 border-gray-200 border-r-4 hover:bg-gray-400 dark:hover:bg-gray-400"
-                                    >
-                                        +
-                                    </button>
+                                        >
+                                            +
+                                        </button>
 
-                                    <p
-                                        className="text-base font-medium
+                                        <p
+                                            className="text-base font-medium
      sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl
      py-1 px-14 bg-gray-50 dark:text-gray-600"
-                                    >
-                                        {numberProduct}
-                                    </p>
+                                        >
+                                            {numberProduct}
+                                        </p>
 
-                                    <button
-                                        onClick={() => {
-                                            setNumberProduct(numberProduct - 1);
-                                            handleDecrease();
-                                        }}
-                                        disabled={numberProduct <= 1}
-                                        className={`text-base font-bold hover:bg-gray-400 dark:hover:bg-gray-400
+                                        <button
+                                            onClick={() => {
+                                                setNumberProduct(numberProduct - 1);
+                                                handleDecrease();
+                                            }}
+                                            disabled={numberProduct <= 1}
+                                            className={`text-base font-bold hover:bg-gray-400 dark:hover:bg-gray-400
             sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl
             px-4 py-1 dark:bg-gray-100 dark:text-gray-600 border-gray-200 border-l-4
             ${numberProduct <= 1
-                                                ? "opacity-50 cursor-not-allowed dark:bg-gray-400 dark:text-gray-600 border-l-4 border-gray-300 bg-gray-400"
-                                                : ""
-                                            }`}
-                                    >
-                                        -
-                                    </button>
+                                                    ? "opacity-50 cursor-not-allowed dark:bg-gray-400 dark:text-gray-600 border-l-4 border-gray-300 bg-gray-400"
+                                                    : ""
+                                                }`}
+                                        >
+                                            -
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div
-                                className="
+                                <div
+                                    className="
     flex flex-col items-start
     gap-4
     md:gap-3 lg:gap-3 xl:gap-3 2xl:gap-3
       md:flex-row lg:flex-row xl:flex-row 2xl:flex-row
       md:items-center lg:items-center xl:items-center 2xl:items-center
     "
-                            >
-                                <button
-                                    onClick={() => {
-                                        handleOrderNow();
-                                    }}
-                                    className="
+                                >
+                                    <button
+                                        onClick={() => {
+                                            handleOrderNow();
+                                        }}
+                                        className="
         text-center cursor-pointer bg-orange-400 text-white py-1 px-2 rounded-full text-base
        flex items-center
        md:text-base lg:text-xl xl:text-xl 2xl:text-xl   hover:bg-primary/90 hover:text-gray-100
     "
-                                >
-                                    <FaOpencart className="mr-2" /> Thêm Vào Giỏ Hàng{" "}
-                                </button>
-                                <button
-                                    onClick={handleBuyNow}
-                                    className="
+                                    >
+                                        <FaOpencart className="mr-2" /> Thêm Vào Giỏ Hàng{" "}
+                                    </button>
+                                    <button
+                                        onClick={handleBuyNow}
+                                        className="
             text-center cursor-pointer bg-orange-400 text-white py-1 rounded-full text-base flex items-center
              md:text-base lg:text-xl xl:text-xl 2xl:text-xl  hover:bg-primary/90 hover:text-gray-100
             px-[50px]  md:px-4 lg:px-4 xl:px-4 2xl:px-4
     "
-                                >
-                                    Mua Ngay <FaHandPointRight className="ml-2" />
-                                </button>
-                            </div>
+                                    >
+                                        Mua Ngay <FaHandPointRight className="ml-2" />
+                                    </button>
+                                </div>
+                            </div>}
+
                         </div>
                     </div>
                     <ModalAddProductIntoCart

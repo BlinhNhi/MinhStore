@@ -8,6 +8,7 @@ import { deleteCartAction, getCartDetailByUserIdAction, updateCartAction } from 
 import ModalDeleteCart from "../../../components/ModalDeleteCart/ModalDeleteCart";
 import { getCodeProduct } from "../../../utils/format/getCodeProduct";
 import { handleFormatPrice } from "../../../utils/format/formatPrice";
+import { notification } from "antd";
 
 function CartShoppingUser() {
     let { userLogin } = useSelector(state => state.UserReducer);
@@ -36,13 +37,25 @@ function CartShoppingUser() {
         setIsModalOpen(false);
     };
 
-    const handleIncrease = (quantityOrder, totalAmount, idOfOrder) => {
+    const handleIncrease = (quantityOrder, totalAmount, idOfOrder, numberProductInStock) => {
+        console.log(numberProductInStock);
         const quantityOrderCurrent = quantityOrder + 1;
         const totalAmountCurrent = totalAmount + (totalAmount / quantityOrder);
         const formData = new FormData();
-        formData.append("QuantityOrder", quantityOrderCurrent);
-        formData.append("TotalAmount", totalAmountCurrent);
-        dispatch(updateCartAction(idOfOrder, formData));
+        if (numberProductInStock < quantityOrderCurrent) {
+            notification.error({
+                closeIcon: true,
+                message: 'Xin lỗi',
+                description: (
+                    <>Chúng tôi chỉ còn  {numberProductInStock} sản phẩm.</>
+                ),
+            });
+        } else {
+            formData.append("QuantityOrder", quantityOrderCurrent);
+            formData.append("TotalAmount", totalAmountCurrent);
+            dispatch(updateCartAction(idOfOrder, formData));
+        }
+
     };
 
     const handleDecrease = (quantityOrder, totalAmount, idOfOrder) => {
@@ -118,7 +131,7 @@ function CartShoppingUser() {
                                 ))}
                                 <div className="flex gap-2 items-center w-[232px] border-2 border-gray-300 bg-gray-50 dark:border-gray-300">
                                     <button
-                                        onClick={() => handleIncrease(up?.quantityOrder, up?.totalAmount, up?.id)}
+                                        onClick={() => handleIncrease(up?.quantityOrder, up?.totalAmount, up?.id, up?.products[0]?.numberOfProductInStock)}
                                         className="text-base font-bold sm:text-2xl px-3 py-1 dark:bg-gray-100 dark:text-gray-600 border-gray-200 border-r-2 hover:bg-gray-400"
                                     >
                                         +

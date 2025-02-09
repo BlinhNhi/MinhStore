@@ -13,7 +13,7 @@ function ModalManagerCart({ isOpen, onClose, idUser }) {
         }
     }, [isOpen, idUser, dispatch]);
     const { orderDetailByUserId } = useSelector(state => state.OrderReducer);
-    console.log(orderDetailByUserId);
+    // console.log(orderDetailByUserId);
     const hasValidOrder = orderDetailByUserId?.data?.some(order => !order?.isDeleted && order?.products?.length > 0)
     console.log(hasValidOrder);
     return (
