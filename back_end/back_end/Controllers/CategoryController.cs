@@ -19,7 +19,7 @@ namespace back_end.Controllers
             this.repo = repo;
         }
 
-        /*[Authorize(Roles = "User")]*/
+        [Authorize(Roles = "User")]
         [HttpGet]
         public async Task<ActionResult> GetAllCate()
         {
@@ -42,6 +42,8 @@ namespace back_end.Controllers
         }
 
         [HttpGet("{Id}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<ActionResult> GetCateById(int Id)
         {
             try
