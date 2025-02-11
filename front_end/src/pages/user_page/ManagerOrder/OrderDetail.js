@@ -30,7 +30,7 @@ function OrderDetail() {
     }, [idUser, dispatch])
     let { paymentDetail } = useSelector(state => state.PaymentReducer)
     console.log(paymentDetail);
-    // console.log(paymentDetail?.orders[0]?.products[0]?.stockQuantity);
+
 
     const handleOrderComfirm = (paymentId, newStatusOrder) => {
         const formData = new FormData();
@@ -113,7 +113,7 @@ function OrderDetail() {
                             <tbody>
                                 {paymentDetail?.orders?.flatMap(order =>
                                     order?.products?.map((item, index) => (
-                                        <tr key={index}>
+                                        <tr key={item?.id}>
                                             <td className="border border-gray-300 px-4 py-2 text-sm sm:text-lg">{item?.nameProduct}</td>
                                             <td className="border border-gray-300 px-4 py-2 text-sm sm:text-lg">{order?.size?.numberOfSize}</td>
                                             <td className="border border-gray-300 px-4 py-2 text-sm sm:text-lg">{order?.color?.name}</td>

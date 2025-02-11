@@ -131,20 +131,20 @@ function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory, va
     };
 
     return (
-        <div className={`w-full ${isFilterOpen === true ? 'block' : 'hidden'} md:w-full lg:w-1/4 xl:w-1/4 2xl:w-1/4 sm:block md:block lg:block xl:block 2xl:block px-2`}>
+        <div key={1} className={`w-full ${isFilterOpen === true ? 'block' : 'hidden'} md:w-full lg:w-1/4 xl:w-1/4 2xl:w-1/4 sm:block md:block lg:block xl:block 2xl:block px-2`}>
 
             <Card title="Màu Sắc" className="mt-3 bg-gray-200 text-base sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base">
-                {arrColor?.map((item, key) => {
-                    return <>
-                        <Checkbox key={key} onChange={(e) => handleOnChangeColor(e)} className="text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value={item?.name} >{item?.name}</Checkbox><br />
-                    </>
+                {arrColor?.map((item) => {
+                    return <div key={item?.id}>
+                        <Checkbox onChange={(e) => handleOnChangeColor(e)} className="text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value={item?.name} >{item?.name}</Checkbox><br />
+                    </div>
                 })}
             </Card>
             <Card title="Size Giày" className="mt-3 bg-gray-200 text-base sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base">
-                {arrSizes?.map((item, key) => {
-                    return <>
-                        <Checkbox key={key} onChange={(e) => handleOnChangeSize(e)} className="text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value={item?.numberOfSize}>{item?.numberOfSize}</Checkbox><br />
-                    </>
+                {arrSizes?.map((item) => {
+                    return <div key={item?.id}>
+                        <Checkbox onChange={(e) => handleOnChangeSize(e)} className="text-xs sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base" value={item?.numberOfSize}>{item?.numberOfSize}</Checkbox><br />
+                    </div>
                 })}
             </Card>
         </div>
@@ -152,18 +152,3 @@ function FilterProduct({ isFilterOpen, searchNameProduct, searchTypeCategory, va
 }
 
 export default memo(FilterProduct);
-
-
-// if (dataNameProduct !== null || dataNameProduct !== "") {
-//     setInput.searchName = dataNameProduct;
-//     setInput.sort = valueSortPrice || "";
-//     setInput.searchColor = setInput.searchColor.replace(event.target.value + ",", "");
-//     console.log('Value of filter cate : ', setInput);
-//     dispatch(getProductListOptionsAction(setInput));
-// } else if (categoryProduct !== null || categoryProduct !== "") {
-//     setInput.searchCategory = categoryProduct;
-//     setInput.sort = valueSortPrice || "";
-//     setInput.searchColor = setInput.searchColor.replace(event.target.value + ",", "");
-//     console.log('Value of filter name: ', setInput);
-//     dispatch(getProductListOptionsAction(setInput));
-// }

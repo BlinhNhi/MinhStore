@@ -49,9 +49,7 @@ function ManagerOrder() {
                         </thead>
                         <tbody className="text-center ">
                             {paymentDetailByUserId?.map((item, i) => {
-                                console.log();
                                 return <tr>
-                                    {/* {formatDateTime(item?.orderDate)} */}
                                     <td className="px-6 py-6">{formatDateTime(item?.dayOrder)}</td>
                                     <td className="px-6 py-6 font-semibold text-base">
                                         <span className="font-bold text-xs md:text-base">
