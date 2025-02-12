@@ -106,6 +106,7 @@ namespace back_end.Controllers
                 var accessToken = GenerateToken(user);
                 var obj = new { user = user, accessToken = accessToken } as object;
                 var response = new ResponseData<Object>(StatusCodes.Status200OK, "Login successfully", obj, null);
+               
                 return Ok(response);
             }
             else

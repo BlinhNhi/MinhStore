@@ -19,8 +19,8 @@ namespace back_end.Controllers
             this.repo = repo;
         }
 
-        [Authorize(Roles = "User")]
         [HttpGet]
+        [Authorize(Roles = "User")]
         public async Task<ActionResult> GetAllCate()
         {
             try
