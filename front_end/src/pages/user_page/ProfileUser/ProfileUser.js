@@ -16,12 +16,12 @@ function ProfileUser() {
         if (checked && (!values?.password || values?.password?.length < 10)) {
             errors.password = "Mật khẩu phải lớn hơn 10 ký tự!";
         }
-        if (values?.phone?.startsWith(' ') === true || values?.phone?.length < 10) {
-            errors.phone = "Điện thoại không được để trống và lớn hơn 10 ký tự!";
-        }
-        if (values?.name?.startsWith(' ') === true) {
-            errors.name = "Name cannot be blank!";
-        }
+        // if (values?.phone?.startsWith(' ') === true || values?.phone?.length < 10) {
+        //     errors.phone = "Điện thoại không được để trống và lớn hơn 10 ký tự!";
+        // }
+        // if (values?.name?.startsWith(' ') === true) {
+        //     errors.name = "Name cannot be blank!";
+        // }
         return errors;
     };
 
@@ -52,7 +52,6 @@ function ProfileUser() {
         setChecked(e.target.checked);
     };
 
-    // Kiểm tra sự thay đổi giữa giá trị hiện tại và giá trị ban đầu
     const hasChanges = JSON.stringify(formik.values) !== JSON.stringify(formik.initialValues);
 
     return (
