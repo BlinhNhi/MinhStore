@@ -52,8 +52,6 @@ export const loginAction = (loginInfo) => {
 };
 
 export const registerAction = (inforUser) => {
-
-    console.log(inforUser);
     return async (dispatch) => {
         dispatch(displayLoadingAction);
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -69,6 +67,7 @@ export const registerAction = (inforUser) => {
                         </>
                     ),
                 });
+                await new Promise(resolve => setTimeout(resolve, 2500));
                 await dispatch(hideLoadingAction);
                 window.location.href = '/login';
             } else {
@@ -105,11 +104,6 @@ export const forgetPassword = (emailInfo) => {
             dispatch(displayLoadingAction);
             const result = await authService.forgetPassword(emailInfo);
             if (result.data.status === 200) {
-                dispatch({
-                    type: GET_CURRENT_USER_ACTION,
-                    emailInfo: result.data.content,
-                });
-                await dispatch(hideLoadingAction);
                 notification.success({
                     closeIcon: false,
                     message: "Thành Công",
@@ -119,6 +113,8 @@ export const forgetPassword = (emailInfo) => {
                         </>
                     ),
                 });
+                await new Promise(resolve => setTimeout(resolve, 2500));
+                await dispatch(hideLoadingAction);
                 window.location.href = '/login';
 
             }

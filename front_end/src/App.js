@@ -46,6 +46,7 @@ import ManagerOrder from "./pages/user_page/ManagerOrder/ManagerOrder";
 import OrderDetail from "./pages/user_page/ManagerOrder/OrderDetail";
 import AdminRoute from "./AdminRoute";
 import CheckRoleUser from "./CheckRoleUser";
+import ForgetPassword from "./pages/user_page/ForgetPassword/ForgetPassword";
 
 
 export const history = createBrowserHistory();
@@ -86,6 +87,8 @@ function App() {
         <Route path="/search" element={<HomeTemplate Component={Search} />} />
         <Route path="/product-detail/:id" element={<HomeTemplate Component={ProductDetail} />} />
         <Route path="/login" element={<HomeTemplate Component={Login} />} />
+        <Route path="/forgetPassword" element={<HomeTemplate Component={ForgetPassword} />} />
+
 
         {/* User */}
         <Route path="/system-account/*" element={<CheckRoleUser Component={SystemUser} />}>

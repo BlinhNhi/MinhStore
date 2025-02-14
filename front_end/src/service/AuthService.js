@@ -17,6 +17,9 @@ export class AuthService extends baseService {
             return this.post(`/api/Auth/getinfo?token=${token}`);
         }
     }
+    forgetPassword = (email) => {
+        return this.post(`/api/Auth/ForgetPassword?Email=${email}`);
+    };
 }
 
 export const authService = new AuthService();
