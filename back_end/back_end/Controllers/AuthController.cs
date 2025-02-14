@@ -115,7 +115,7 @@ namespace back_end.Controllers
             }
         }
 
-       /* [AllowAnonymous]*/
+        /* [AllowAnonymous]*/
         [HttpPost("register")]
         public async Task<ActionResult> Register(string Email)
         {
@@ -168,6 +168,55 @@ namespace back_end.Controllers
             catch (Exception ex)
             {
                 return Ok(new ResponseData<Object>(StatusCodes.Status200OK, "Resigter fail", null, "Email already registerd!"));
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("ForgetPassword")]
+        public async Task<ActionResult> ForgetPassword(string Email)
+        {
+            try
+            {
+                User ExistingUser = await db.Users.SingleOrDefaultAsync(p => p.Email == Email);
+
+
+                if (ExistingUser != null)
+                {
+                    var characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                    var password = new StringBuilder();
+                    for (int i = 0; i < 8; i++)
+                    {
+                        var index = new Random().Next(characters.Length);
+                        password.Append(characters[index]);
+                    }
+                    string FilePath = Path.Combine(env.ContentRootPath, "EmailTemplate", "forgetpassword.html");
+                    string logoPath = Path.Combine(env.ContentRootPath, "Images", "logo.png");
+                    StreamReader str = new StreamReader(FilePath);
+                    string MailText = str.ReadToEnd();
+                    str.Close();
+
+                    MailText = MailText.Replace("[Logo]", logoPath);
+                    MailText = MailText.Replace("[Email]", Email);
+                    MailText = MailText.Replace("[Password]", password.ToString());
+                    Mail mail = new Mail()
+                    {
+                        ToEmail = Email,
+                        Body = MailText,
+                        Subject = "Yêu cầu đặt lại mật khẩu.",
+
+                    };
+                    await mailRepo.SendEmailAsync(mail);
+                    ExistingUser.Password = BCrypt.Net.BCrypt.HashPassword(password.ToString());
+                    await db.SaveChangesAsync();
+                    var response = new ResponseData<string>(StatusCodes.Status200OK, "Foget password successfully", Email, null);
+                    return Ok(response);
+                }
+                return BadRequest(new { msg = "Foget password fail", status = 400 });
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
     }

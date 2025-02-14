@@ -99,43 +99,44 @@ export const registerAction = (inforUser) => {
     };
 };
 
-// export const forgetPassword = (emailInfo) => {
-//     return async (dispatch) => {
-//         try {
-//             // dispatch(displayLoadingAction);
-//             const result = await userService.forgetPassword(emailInfo);
-//             if (result.data.status === 200) {
-//                 dispatch({
-//                     type: LAY_LAI_MAT_KHAU_ACTION,
-//                     emailInfo: result.data.content,
-//                 });
-//                 await dispatch(hideLoadingAction);
-//                 notification.success({
-//                     closeIcon: false,
-//                     message: "Success",
-//                     description: (
-//                         <>
-//                             Your new password has been sent to your email, please check your email or spam box and login again.
-//                         </>
-//                     ),
-//                 });
-//                 history.replace("login");
-//             }
-//         } catch (error) {
-//             console.log(error);
-//             // await dispatch(hideLoadingAction);
-//             notification.error({
-//                 closeIcon: false,
-//                 message: "Error",
-//                 description: (
-//                     <>
-//                         This email is not registered yet.
-//                     </>
-//                 ),
-//             });
-//         }
-//     };
-// };
+export const forgetPassword = (emailInfo) => {
+    return async (dispatch) => {
+        try {
+            dispatch(displayLoadingAction);
+            const result = await authService.forgetPassword(emailInfo);
+            if (result.data.status === 200) {
+                dispatch({
+                    type: GET_CURRENT_USER_ACTION,
+                    emailInfo: result.data.content,
+                });
+                await dispatch(hideLoadingAction);
+                notification.success({
+                    closeIcon: false,
+                    message: "Thành Công",
+                    description: (
+                        <>
+                            Mật khẩu mới của bạn đã được gửi đến email, vui lòng kiểm tra mail hoặc hộp thư rác và đăng nhập lại.
+                        </>
+                    ),
+                });
+                window.location.href = '/login';
+
+            }
+        } catch (error) {
+            console.log(error);
+            await dispatch(hideLoadingAction);
+            notification.error({
+                closeIcon: false,
+                message: "Thất Bại",
+                description: (
+                    <>
+                        Email này chưa được đăng ký.
+                    </>
+                ),
+            });
+        }
+    };
+};
 
 
 export const getCurrentUserAction = (token) => {
@@ -152,7 +153,6 @@ export const getCurrentUserAction = (token) => {
             }
         } catch (error) {
             localStorage.removeItem(TOKEN)
-            // console.log(error);
         }
     };
 };

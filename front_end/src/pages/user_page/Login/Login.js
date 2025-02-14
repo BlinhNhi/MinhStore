@@ -4,6 +4,7 @@ import { FaHeart } from "react-icons/fa";
 import { IoFlash } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { registerAction, loginAction } from "../../../redux_store/actions/AuthAction";
+import { NavLink } from "react-router-dom";
 // import GoogleLogin from "react-google-login";
 // import axios from "axios";
 
@@ -216,9 +217,9 @@ function Login() {
                                                 </Checkbox>
                                             </div>
                                             <div>
-                                                <h1 className="text-base font-medium hover:underline hover:text-gray-500 md:text-base lg:text-base xl:text-lg 2xl:text-lg sm:text-base dark:text-gray-100">
+                                                <NavLink to={"/forgetPassword"} className="text-base font-medium hover:underline hover:text-gray-500 md:text-base lg:text-base xl:text-lg 2xl:text-lg sm:text-base dark:text-gray-100">
                                                     Quên Mật Khẩu?
-                                                </h1>
+                                                </NavLink>
                                             </div>
                                             {/* <div>
                                                 <h1>Google Login</h1>

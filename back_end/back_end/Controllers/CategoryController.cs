@@ -20,7 +20,7 @@ namespace back_end.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "User")]
+       /* [Authorize(Roles = "User")]*/
         public async Task<ActionResult> GetAllCate()
         {
             try
@@ -42,7 +42,7 @@ namespace back_end.Controllers
         }
 
         [HttpGet("{Id}")]
-        [Authorize(Roles = "Admin")]
+      /*  [Authorize(Roles = "Admin")]*/
 
         public async Task<ActionResult> GetCateById(int Id)
         {
