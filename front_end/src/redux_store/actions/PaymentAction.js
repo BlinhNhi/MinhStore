@@ -1,6 +1,6 @@
 import { notification } from 'antd';
 import { paymentService } from '../../service/PaymentService';
-import { GET_PAYMENT_LIST, GET_PAYMENT_DETAIL_BY_USER_ID, GET_PAYMENT_DETAIL, GET_MONTHLY_TOTAL_AMOUNT_OF_PAYMENT } from '../constants';
+import { GET_PAYMENT_LIST, GET_PAYMENT_DETAIL_BY_USER_ID, GET_PAYMENT_DETAIL, GET_MONTHLY_TOTAL_AMOUNT_OF_PAYMENT, GET_MONTHLY_COUNT_ORDER } from '../constants';
 
 
 
@@ -103,6 +103,28 @@ export const getTotalAmountPaymentByYearAction = (year) => {
         }
     }
 }
+
+export const getMonthlyCountOrderAction = (year) => {
+
+    return async (dispatch) => {
+        try {
+            const result = await paymentService.getMonthlyCountOrder(year)
+            console.log(result?.data?.statusCode);
+            console.log(result?.data?.value);
+
+            if (result?.data?.statusCode === 200) {
+                dispatch({
+                    type: GET_MONTHLY_COUNT_ORDER,
+                    monthlyCountOrders: result?.data?.value,
+                })
+
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
+
 export const getPaymentDetailByUserIdAction = (userId) => {
 
     return async (dispatch) => {

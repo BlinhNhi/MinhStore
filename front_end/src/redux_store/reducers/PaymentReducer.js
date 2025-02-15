@@ -1,10 +1,12 @@
-import { GET_PAYMENT_LIST, GET_PAYMENT_DETAIL, GET_PAYMENT_DETAIL_BY_USER_ID, GET_MONTHLY_TOTAL_AMOUNT_OF_PAYMENT } from "../constants";
+import { GET_PAYMENT_LIST, GET_PAYMENT_DETAIL, GET_PAYMENT_DETAIL_BY_USER_ID, GET_MONTHLY_TOTAL_AMOUNT_OF_PAYMENT, GET_MONTHLY_COUNT_ORDER } from "../constants";
 
 const initialState = {
     arrPayments: [],
     paymentDetail: {},
     paymentDetailByUserId: [],
-    monthlyTotalAmountOfOrder: []
+    monthlyTotalAmountOfOrder: [],
+    monthlyCountOrders: []
+
 }
 
 export const PaymentReducer = (state = initialState, action) => {
@@ -21,6 +23,9 @@ export const PaymentReducer = (state = initialState, action) => {
             return { ...state }
         case GET_MONTHLY_TOTAL_AMOUNT_OF_PAYMENT:
             state.monthlyTotalAmountOfOrder = action.monthlyTotalAmountOfOrder;
+            return { ...state }
+        case GET_MONTHLY_COUNT_ORDER:
+            state.monthlyCountOrders = action.monthlyCountOrders;
             return { ...state }
         default:
             return { ...state }

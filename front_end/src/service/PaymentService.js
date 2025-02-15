@@ -20,6 +20,9 @@ export class PaymentService extends baseService {
     getTotalMountPaymentByYear = (year) => {
         return this.get(`/api/Payment/GetMonthlyTotalAmount?year=${year}`);
     }
+    getMonthlyCountOrder = (year) => {
+        return this.get(`/api/Payment/GetMonthlyCountOrder?year=${year}`);
+    }
     deletePayment = (id) => {
         return this.delete(`/api/Payment/${id}`);
     };

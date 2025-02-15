@@ -86,7 +86,6 @@ function App() {
         <Route path="/home" element={<HomeTemplate Component={Home} />} />
         <Route path="/search" element={<HomeTemplate Component={Search} />} />
         <Route path="/product-detail/:id" element={<CheckRoleUser Component={ProductDetail} />}></Route>
-        {/* <Route path="/product-detail/:id" element={<HomeTemplate Component={ProductDetail} />} /> */}
         <Route path="/login" element={<HomeTemplate Component={Login} />} />
         <Route path="/forgetPassword" element={<HomeTemplate Component={ForgetPassword} />} />
 

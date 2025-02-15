@@ -209,13 +209,7 @@ function Login() {
                                             </button>
                                         </div>
                                         <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row items-start md:items-center lg:items-center xl:items-center justify-between w-full md:w-full lg:w-full xl:w-2/3 2xl:w-2/3 sm:w-full mt-2 gap-2">
-                                            <div className="flex 2xl:flex-row items-center gap-2">
-                                                <Checkbox>
-                                                    <h1 className="text-base font-medium md:text-base lg:text-base xl:text-lg 2xl:text-lg sm:text-base dark:text-gray-100">
-                                                        Ghi Nhớ Mật Khẩu
-                                                    </h1>
-                                                </Checkbox>
-                                            </div>
+
                                             <div>
                                                 <NavLink to={"/forgetPassword"} className="text-base font-medium hover:underline hover:text-gray-500 md:text-base lg:text-base xl:text-lg 2xl:text-lg sm:text-base dark:text-gray-100">
                                                     Quên Mật Khẩu?

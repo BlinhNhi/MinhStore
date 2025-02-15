@@ -45,7 +45,7 @@ function CardDashBoard() {
                 <div className="bg-gray-300 rounded-md p-2 sm:p-4 md:p-4 lg:p-4 xl:p-4 2xl:p-4 hover:-translate-y-2 duration-500 w-full hover:shadow-md">
                     <div className="flex flex-col gap-2 text-gray-500 px-6 py-2 ">
                         <h2 className="font-medium text-base sm:text-lg md:text-lg lg:text-lg xl:text-lg 2xl:text-lg uppercase text-ellipsis overflow-hidden line-clamp-1">Tổng Thu Nhập</h2>
-                        <div className="flex  gap-2">
+                        <div className="flex items-start justify-between">
                             <h1 className="font-bold text-xl sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl text-gray-500">
                                 $<CountUp end={totalAmount} />k
                             </h1>

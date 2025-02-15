@@ -13,9 +13,9 @@ import {
 import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2'
 import { FaCoins } from "react-icons/fa6";
-import { IoBag, IoPeopleCircle } from "react-icons/io5";
+import { IoBag } from "react-icons/io5";
 import { useDispatch, useSelector } from 'react-redux';
-import { getListPaymentAction, getTotalAmountPaymentByYearAction } from '../../redux_store/actions/PaymentAction';
+import { getMonthlyCountOrderAction, getTotalAmountPaymentByYearAction } from '../../redux_store/actions/PaymentAction';
 
 ChartJS.register(
     CategoryScale,
@@ -34,22 +34,24 @@ function ChartAdmin() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getTotalAmountPaymentByYearAction('2025'));
-        dispatch(getListPaymentAction());
+        dispatch(getMonthlyCountOrderAction('2025'));
+
     }, [dispatch])
     let { monthlyTotalAmountOfOrder } = useSelector(state => state.PaymentReducer);
-    let { arrPayments } = useSelector(state => state.PaymentReducer);
+    let { monthlyCountOrders } = useSelector(state => state.PaymentReducer);
+
     const totalAmountOfOrdersByMonth = Array(12).fill(0);
     monthlyTotalAmountOfOrder?.forEach(({ month, totalAmount }) => {
         totalAmountOfOrdersByMonth[month - 1] = totalAmount;
     });
-    const totalAmount = totalAmountOfOrdersByMonth?.map(item => (item / 1000000).toFixed(3));
-    const orderCounts = Array(12).fill(0);
 
-    const filteredOrders = arrPayments?.filter(order => order.statusOrder === 4);
-    filteredOrders.forEach(order => {
-        const month = new Date(order.dayOrder).getMonth();
-        orderCounts[month]++;
+    const orderCounts = Array(12).fill(0);
+    monthlyCountOrders?.forEach(({ month, orderCount }) => {
+        orderCounts[month - 1] = orderCount;
     });
+
+
+    const totalAmount = totalAmountOfOrdersByMonth?.map(item => (item / 1000000).toFixed(3));
 
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const data = {
