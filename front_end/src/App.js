@@ -85,7 +85,8 @@ function App() {
         {/* General */}
         <Route path="/home" element={<HomeTemplate Component={Home} />} />
         <Route path="/search" element={<HomeTemplate Component={Search} />} />
-        <Route path="/product-detail/:id" element={<HomeTemplate Component={ProductDetail} />} />
+        <Route path="/product-detail/:id" element={<CheckRoleUser Component={ProductDetail} />}></Route>
+        {/* <Route path="/product-detail/:id" element={<HomeTemplate Component={ProductDetail} />} /> */}
         <Route path="/login" element={<HomeTemplate Component={Login} />} />
         <Route path="/forgetPassword" element={<HomeTemplate Component={ForgetPassword} />} />
 
@@ -97,6 +98,7 @@ function App() {
           <Route path="cart-shopping" element={<CartShoppingUser />} />
           <Route path="view-order" element={<ManagerOrder />} />
         </Route>
+
         {/* Payment */}
         <Route path="check-out" element={<HomeTemplate Component={PaymentProduct} />} />
         {/* Payment Detail */}

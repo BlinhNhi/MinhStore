@@ -30,7 +30,8 @@ const CreateProduct = () => {
 
     }, [dispatch]);
     const handleSubmitProduct = (values) => {
-        if (values.name === "" || values?.name?.startsWith(' ') === true ||
+        if (
+            values.name === "" || values?.name?.startsWith(' ') === true ||
             values.priceProduct === "" || values?.priceProduct?.startsWith(' ') === true ||
             values.stockQuantity === "" || values?.stockQuantity?.startsWith(' ') === true ||
             values.numberOfProductSold === "" || values?.numberOfProductSold?.startsWith(' ') === true ||
