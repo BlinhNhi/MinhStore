@@ -223,5 +223,26 @@ namespace back_end.Services
 
             return new OkObjectResult(result);
         }
+
+        public async Task<IActionResult> GetMonthlyCountOrder(int year)
+        {
+            var result = await db.Payments
+        .Where(o => o.DayOrder.Year == year && o.StatusOrder == 4)
+        .GroupBy(o => o.DayOrder.Month)
+        .Select(g => new
+        {
+            Month = g.Key,
+            OrderCount = g.Count()
+        })
+        .OrderBy(x => x.Month)
+        .ToListAsync();
+
+            if (result.Count == 0)
+            {
+                return new NotFoundObjectResult("Không có dữ liệu đơn hàng cho năm này.");
+            }
+
+            return new OkObjectResult(result);
+        }
     }
 }

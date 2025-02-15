@@ -13,5 +13,7 @@ namespace back_end.IRepository
         Task<bool> UpdateStatusPayment(Guid paymentId, Payment payment);
         Task<IActionResult> GetMonthlyTotalAmount(int year);
 
+        Task<IActionResult> GetMonthlyCountOrder(int year);
+
     }
 }

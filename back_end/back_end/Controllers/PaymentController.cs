@@ -158,5 +158,23 @@ namespace back_end.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("GetMonthlyCountOrder")]
+        public async Task<IActionResult> GetMonthlyCountOrder(int year)
+        {
+            try
+            {
+                var monthlyCountOrder = await repo.GetMonthlyCountOrder(year);
+                if (monthlyCountOrder != null)
+                {
+                    return Ok(monthlyCountOrder);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
