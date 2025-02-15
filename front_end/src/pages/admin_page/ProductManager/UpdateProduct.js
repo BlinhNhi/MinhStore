@@ -33,12 +33,18 @@ const UpdateProduct = (props) => {
         dispatch(getListSizesAction());
         dispatch(getListCategoriesAction())
     }, [dispatch, id])
-    const handleSubmitColor = (values) => {
+    const handleSubmitProduct = (values) => {
         // const sizeExisted = arrColor?.some(element => element.name === values?.name)
-        if (values.name === "" || values?.name?.startsWith(' ') === true) {
+        if (
+            values.nameProduct === "" || values?.nameProduct?.startsWith(' ') === true ||
+            values.priceProduct === "" || String(values?.priceProduct)?.startsWith(' ') === true |
+            values.stockQuantity === "" || String(values?.stockQuantity)?.startsWith(' ') === true ||
+            values.numberOfProductSold === "" || String(values?.numberOfProductSold)?.startsWith(' ') === true ||
+            values.numberOfProductInStock === "" || String(values?.numberOfProductInStock)?.startsWith(' ') === true
+        ) {
             notification.error({
                 closeIcon: true,
-                message: 'Error',
+                message: 'Lỗi',
                 description: (
                     <>Vui lòng điền đầy đủ thông tin và Không để trống đầu câu !.</>
                 ),
@@ -55,7 +61,6 @@ const UpdateProduct = (props) => {
     }
 
 
-    console.log(typeof (productDetail?.colorId));
     const options = [];
     arrColor.forEach(element => {
         options.push({
@@ -86,7 +91,7 @@ const UpdateProduct = (props) => {
             sizeId: productDetail?.sizeId,
             categoryId: productDetail?.categoryId
         },
-        onSubmit: handleSubmitColor
+        onSubmit: handleSubmitProduct
     })
     // hàm lấy imge khi update
     useEffect(() => {

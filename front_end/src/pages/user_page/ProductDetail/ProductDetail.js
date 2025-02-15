@@ -128,17 +128,18 @@ function ProductDetail(props) {
         }
     };
     console.log(productDetailForUser?.numberOfProductInStock);
+
     const handleBuyNow = () => {
         if (!idUser || !savedIdSize || !savedIdColor || !numberProduct || !productDetailForUser?.priceProduct) {
             notification.error({
                 closeIcon: true,
                 message: 'Lỗi',
                 description: (
-                    <>Chọn các tùy chọn cho sản phẩm trước khi cho sản phẩm vào giỏ hàng của bạn!</>
+                    <>Chọn các tùy chọn cho sản phẩm trước khi cho sản phẩm vào giỏ hàng của bạn. !.</>
                 ),
             });
         }
-        if (productDetailForUser?.numberOfProductInStock < numberProduct) {
+        else if (productDetailForUser?.numberOfProductInStock < numberProduct) {
             notification.error({
                 closeIcon: true,
                 message: 'Xin lỗi',

@@ -30,8 +30,12 @@ const CreateProduct = () => {
 
     }, [dispatch]);
     const handleSubmitProduct = (values) => {
-        // const sizeExisted = arrColor?.some(element => element.name === values?.name)
-        if (values.name === "" || values?.name?.startsWith(' ') === true) {
+        if (values.name === "" || values?.name?.startsWith(' ') === true ||
+            values.priceProduct === "" || values?.priceProduct?.startsWith(' ') === true ||
+            values.stockQuantity === "" || values?.stockQuantity?.startsWith(' ') === true ||
+            values.numberOfProductSold === "" || values?.numberOfProductSold?.startsWith(' ') === true ||
+            values.numberOfProductInStock === "" || values?.numberOfProductInStock?.startsWith(' ') === true
+        ) {
             notification.error({
                 closeIcon: true,
                 message: 'Error',
@@ -40,17 +44,6 @@ const CreateProduct = () => {
                 ),
             });
         }
-        // else if (sizeExisted === true) {
-        //     notification.error({
-        //         closeIcon: true,
-        //         message: 'Lỗi Trùng Tên Màu Sắc',
-        //         description: (
-        //             <>
-        //                 Màu Sắc Này Đã Có Rồi.
-        //             </>
-        //         ),
-        //     });
-        // }
         else {
             let formData = new FormData();
             for (let key in values) {
@@ -165,22 +158,6 @@ const CreateProduct = () => {
                 <div className='col-8 dark:text-white'>
                     <Form.Item
                         className=''
-                        label="Giá Sản Phẩm"
-                        name="priceProduct"
-                        style={{ minWidth: '100%' }}
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Bắt Buộc Nhập Giá Tiền!',
-                                transform: (value) => value.trim(),
-                            },
-                        ]}
-                    >
-                        <Input name="priceProduct" onChange={formik.handleChange} />
-                    </Form.Item>
-
-                    <Form.Item
-                        className=''
                         label="Tên Sản Phẩm"
                         name="nameProduct"
                         style={{ minWidth: '100%' }}
@@ -194,16 +171,30 @@ const CreateProduct = () => {
                     >
                         <Input name="nameProduct" onChange={formik.handleChange} />
                     </Form.Item>
-
                     <Form.Item
                         className=''
-                        label="Tổng Sản Phẩm"
+                        label="Giá Sản Phẩm"
+                        name="priceProduct"
+                        style={{ minWidth: '100%' }}
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Bắt Buộc Nhập Giá Tiền!',
+                                transform: (value) => value.trim(),
+                            },
+                        ]}
+                    >
+                        <Input name="priceProduct" onChange={formik.handleChange} />
+                    </Form.Item>
+                    <Form.Item
+                        className=''
+                        label="Số Lượng Sản Phẩm"
                         name="stockQuantity"
                         style={{ minWidth: '100%' }}
                         rules={[
                             {
                                 required: true,
-                                message: 'Bắt Buộc Nhập Tổng Sản Phẩm!',
+                                message: 'Bắt Buộc Nhập Số Lượng Sản Phẩm!',
                                 transform: (value) => value.trim(),
                             },
                         ]}

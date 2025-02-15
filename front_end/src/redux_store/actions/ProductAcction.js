@@ -27,7 +27,7 @@ export const addProductAction = (formData) => {
             const result = await productService.createProduct(formData)
             notification.success({
                 closeIcon: true,
-                message: 'Success',
+                message: 'Thành Công',
                 description: (
                     <>Thêm Sản Phẩm Thành Công</>
                 ),
@@ -36,7 +36,7 @@ export const addProductAction = (formData) => {
         } catch (error) {
             notification.error({
                 closeIcon: true,
-                message: "Fail",
+                message: "Thất Bại",
                 description: <>Thêm Sản Phẩm Thất Bại.</>,
             });
         }

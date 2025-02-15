@@ -18,6 +18,7 @@ function CardDashBoard() {
     useEffect(() => {
         dispatch(getListPaymentAction());
         dispatch(getListUserAction());
+        dispatch(getListProductsAction());
     }, [dispatch])
 
     const totalAmount = arrPayments
@@ -25,14 +26,7 @@ function CardDashBoard() {
         ?.reduce((sum, order) => sum + order.totalAmountOfOrder, 0) / 1000;
     const countOrder = arrPayments?.filter(order => order?.statusOrder === 4)?.length;
 
-    // const totalProductInStock = arrPayments?.reduce((total, userOrder) => {
-    //     return total + userOrder.orders.reduce((orderTotal, order) => {
-    //         return orderTotal + order.products.reduce((productTotal, product) => {
-    //             return productTotal + product.numberOfProductInStock;
-    //         }, 0);
-    //     }, 0);
-    // }, 0);
-    // Tính tổng numberOfProductInStock
+
     const totalProductInStock = arrProducts?.reduce((total, product) => {
         return total + product.numberOfProductInStock;
     }, 0);
