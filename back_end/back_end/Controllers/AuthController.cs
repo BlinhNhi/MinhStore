@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.VisualBasic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -44,9 +45,6 @@ namespace back_end.Controllers
                 ClockSkew = TimeSpan.Zero
             }, out SecurityToken validatedToken);
             var jwtToken = (JwtSecurityToken)validatedToken;
-
-         /*   var role = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;*/
-            /*string role = (string)jwtToken.Claims.First(x => x.Type == "Role").Value;*/
             string email = (string)jwtToken.Claims.First(x => x.Type == "Email").Value;
             User user = db.Users.Where(u => u.Email == email).FirstOrDefault();
             return Ok(user);

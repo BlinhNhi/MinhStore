@@ -88,15 +88,17 @@ export const getTotalAmountPaymentByYearAction = (year) => {
     return async (dispatch) => {
         try {
             const result = await paymentService.getTotalMountPaymentByYear(year)
-            console.log(result?.data?.statusCode);
-            console.log(result?.data?.value);
-
             if (result?.data?.statusCode === 200) {
                 dispatch({
                     type: GET_MONTHLY_TOTAL_AMOUNT_OF_PAYMENT,
                     monthlyTotalAmountOfOrder: result?.data?.value,
                 })
-
+            }
+            else if (result?.data?.statusCode === 404) {
+                dispatch({
+                    type: GET_MONTHLY_TOTAL_AMOUNT_OF_PAYMENT,
+                    monthlyTotalAmountOfOrder: [],
+                })
             }
         } catch (e) {
             console.log(e)
@@ -109,15 +111,16 @@ export const getMonthlyCountOrderAction = (year) => {
     return async (dispatch) => {
         try {
             const result = await paymentService.getMonthlyCountOrder(year)
-            console.log(result?.data?.statusCode);
-            console.log(result?.data?.value);
-
             if (result?.data?.statusCode === 200) {
                 dispatch({
                     type: GET_MONTHLY_COUNT_ORDER,
                     monthlyCountOrders: result?.data?.value,
                 })
-
+            } else if (result?.data?.statusCode === 404) {
+                dispatch({
+                    type: GET_MONTHLY_COUNT_ORDER,
+                    monthlyCountOrders: [],
+                })
             }
         } catch (e) {
             console.log(e)

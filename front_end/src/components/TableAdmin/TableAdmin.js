@@ -22,7 +22,6 @@ function TableAdmin() {
 
     const [currentOrderDetail, setCurrentOrderDetailId] = useState('')
     const dataUser = arrUser || [];
-    // console.log(arrPayments);
 
     const handleOpenModalOrderDetail = () => {
         setIsModalOrderDetailOpen(true);

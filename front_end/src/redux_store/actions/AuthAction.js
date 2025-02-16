@@ -4,7 +4,6 @@ import { notification } from "antd";
 import { TOKEN } from "../../../src/utils/variable";
 import { authService } from "../../service/AuthService";
 import { GET_CURRENT_USER_ACTION } from "../constants";
-import { Navigate } from "react-router-dom";
 
 export const loginAction = (loginInfo) => {
     return async (dispatch) => {

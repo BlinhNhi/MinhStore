@@ -1,4 +1,4 @@
-import { Checkbox, Form, Input } from "antd";
+import { Form, Input } from "antd";
 import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { IoFlash } from "react-icons/io5";
