@@ -15,7 +15,6 @@ const CreateSize = () => {
     }, []);
     const handleSubmitColor = (values) => {
         const sizeExisted = arrSizes?.some(element => element.numberOfSize === values?.numberOfSize)
-        console.log(sizeExisted);
         if (values.numberOfSize === "" || values?.numberOfSize?.startsWith(' ') === true) {
             notification.error({
                 closeIcon: true,
@@ -41,7 +40,6 @@ const CreateSize = () => {
             for (let key in values) {
                 formData.append(key, values[key]);
             }
-            console.table('formData', [...formData])
             dispatch(addSizeAction(formData));
         }
     }

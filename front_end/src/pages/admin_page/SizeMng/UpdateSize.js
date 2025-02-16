@@ -43,7 +43,6 @@ const UpdateSize = (props) => {
             for (let key in values) {
                 formData.append(key, values[key]);
             }
-            console.table('formData', [...formData])
             dispatch(updateSizeAction(id, formData))
         }
     }

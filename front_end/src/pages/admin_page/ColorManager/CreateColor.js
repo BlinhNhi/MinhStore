@@ -39,7 +39,6 @@ const CreateColor = () => {
             for (let key in values) {
                 formData.append(key, values[key]);
             }
-            console.table('formData', [...formData])
             dispatch(addColorAction(formData));
         }
     }

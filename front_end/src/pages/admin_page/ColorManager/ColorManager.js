@@ -4,8 +4,8 @@ import { Button, Input, Space, Table } from 'antd';
 import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { getListColorAction, getColorDetailAction, deleteColorAction } from '../../../redux_store/actions/ColorAction';
-// import { deleteFAQAction, getFAQByIdAction, getFAQListAction } from '../../../redux/actions/FAQAction';
 
 
 export default function ColorMng() {

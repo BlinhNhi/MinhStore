@@ -1,8 +1,12 @@
-import { Button, Table } from 'antd';
+import { Button, Input, Table, Space } from 'antd';
 import { MdOutlineDelete } from "react-icons/md";
 import { RiFileList3Line } from "react-icons/ri";
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { SearchOutlined } from '@ant-design/icons';
+import Highlighter from 'react-highlight-words';
+
+
 
 import { getListUserAction } from "../../redux_store/actions/UserAction";
 import { getListPaymentAction, deletePaymentAction } from "../../redux_store/actions/PaymentAction";
@@ -13,6 +17,20 @@ import ModalOrderDetail from '../ModalOrderDetail/ModalOrderDetail';
 function TableAdmin() {
     const dispatch = useDispatch();
     const [isModalOrderDetailOpen, setIsModalOrderDetailOpen] = useState(false);
+    const [searchText, setSearchText] = useState('');
+    const [searchedColumn, setSearchedColumn] = useState('');
+    const searchInput = useRef(null);
+    const handleSearch = (selectedKeys, confirm, dataIndex) => {
+        confirm();
+        setSearchText(selectedKeys[0]);
+        setSearchedColumn(dataIndex);
+    };
+
+    const resetSearch = (selectedKeys, confirm, dataIndex) => {
+        confirm();
+        setSearchText(selectedKeys[0] = '');
+        setSearchedColumn(dataIndex);
+    };
     useEffect(() => {
         dispatch(getListUserAction());
         dispatch(getListPaymentAction());
@@ -64,6 +82,76 @@ function TableAdmin() {
 
     const dataOrder = arrPayments || [];
 
+    const getColumnSearchProps = (dataIndex) => ({
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
+            <div style={{ padding: 8, }} onKeyDown={(e) => e.stopPropagation()} >
+                <Input
+                    ref={searchInput}
+                    placeholder={`Search ${dataIndex}`}
+                    value={selectedKeys[0]}
+                    onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                    onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+                    style={{
+                        marginBottom: 8,
+                        display: 'block',
+                    }}
+                />
+                <Space>
+                    <Button
+                        type="primary"
+                        onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+                        icon={<SearchOutlined />}
+                        size="small"
+                        className='bg-primary'
+                        style={{
+                            width: 90,
+                        }}
+                    >
+                        Search
+                    </Button>
+                    <Button
+                        onClick={() => clearFilters && resetSearch(selectedKeys, confirm, dataIndex)}
+                        size="small"
+                        style={{
+                            width: 90,
+                        }}
+                    >
+                        Reset
+                    </Button>
+
+                </Space>
+            </div>
+        ),
+        filterIcon: (filtered) => (
+            <SearchOutlined
+                style={{
+                    color: filtered ? '#1677ff' : undefined,
+                }}
+            />
+        ),
+        onFilter: (value, record) =>
+            record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+        onFilterDropdownOpenChange: (visible) => {
+            if (visible) {
+                setTimeout(() => searchInput.current?.select(), 100);
+            }
+        },
+        render: (text, index) =>
+            searchedColumn === dataIndex ? (
+                <Highlighter
+                    key={index}
+                    highlightStyle={{
+                        backgroundColor: '#ffc069',
+                        padding: 0,
+                    }}
+                    searchWords={[searchText]}
+                    autoEscape
+                    textToHighlight={text ? text.toString() : ''}
+                />
+            ) : (
+                text
+            ),
+    });
 
     const columnsOrder = [
         {
@@ -71,7 +159,6 @@ function TableAdmin() {
             key: 'id',
             dataIndex: 'id',
             render: (text, data) => {
-                // console.log(data);
                 return (<>
                     <span>{getCodeProduct(data?.id)}</span>
                 </>)
@@ -81,12 +168,26 @@ function TableAdmin() {
             title: 'Ngày đặt hàng',
             key: 'dayOrder',
             dataIndex: 'dayOrder',
+            ...getColumnSearchProps('dayOrder'),
             render: (text, data) => {
-                // console.log(data);
                 return (<>
                     <span>{formatDateTime(data?.dayOrder)}</span>
                 </>)
             },
+        },
+        {
+            title: 'Tên khách hàng',
+            key: 'nameUser',
+            dataIndex: 'nameUser',
+            ...getColumnSearchProps('nameUser'),
+            render: (name) => name ? name : "Không có",
+        },
+        {
+            title: 'Địa chỉ giao hàng',
+            key: 'addressUser',
+            dataIndex: 'addressUser',
+            ...getColumnSearchProps('addressUser'),
+            render: (name) => name ? name : "Không có",
         },
         {
             title: 'Trạng thái đơn hàng',

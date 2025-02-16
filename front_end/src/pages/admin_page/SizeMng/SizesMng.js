@@ -10,7 +10,6 @@ import { getListSizesAction, deleteSizeAction, getSizeDetailAction } from '../..
 
 export default function SizeMng() {
     let { arrSizes } = useSelector(state => state.SizeReducer);
-    console.log(arrSizes);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getListSizesAction())

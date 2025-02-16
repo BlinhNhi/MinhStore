@@ -31,14 +31,6 @@ function CardDashBoard() {
         return total + product.numberOfProductInStock;
     }, 0);
 
-    console.log("Tổng số sản phẩm trong kho:", totalProductInStock);
-
-    console.log("Tổng numberOfProductInStock:", totalProductInStock);
-    console.log(arrPayments);
-    console.log(countOrder);
-    console.log(totalAmount);
-    console.log(arrProducts);
-
     return (
         <div>
             <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-2 place-items-start gap-4 mt-4" >

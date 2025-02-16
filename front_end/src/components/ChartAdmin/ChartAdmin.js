@@ -140,7 +140,7 @@ function ChartAdmin() {
         plugins: {
             legend: {
                 labels: {
-                    color: isDarkMode ? "#A9A9A9" : "#999", // Chữ của chú thích
+                    color: isDarkMode ? "#A9A9A9" : "#999",
                 },
             },
         },
@@ -164,7 +164,7 @@ function ChartAdmin() {
         },
     };
     return (
-        <div>
+        <div className='hidden sm:block'>
             <div className="mb-4">
                 <label className="mr-2 text-sm text-gray-600 dark:text-gray-100 font-semibold">Xem thống kê của từng tháng doanh thu và đơn hàng theo năm:</label>
                 <select

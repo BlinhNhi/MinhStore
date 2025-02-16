@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, notification, Select } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { getListProductsAction, getDetailProductAction, updateProductAction, apiUploadImages } from '../../../redux_store/actions/ProductAcction';
+import { FaCamera, FaRegTrashAlt } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
+
+import { getDetailProductAction, updateProductAction, apiUploadImages } from '../../../redux_store/actions/ProductAcction';
 import { getListColorAction } from '../../../redux_store/actions/ColorAction';
 import { getListSizesAction } from '../../../redux_store/actions/SizeAction'
 import { getListCategoriesAction } from '../../../redux_store/actions/CategoryAction';
-import { FaCamera, FaRegTrashAlt } from 'react-icons/fa';
 import LoadingImage from '../../../components/LoadingImage/LoadingImage';
-import { useParams } from 'react-router-dom';
 
 
 
@@ -37,7 +38,7 @@ const UpdateProduct = (props) => {
         // const sizeExisted = arrColor?.some(element => element.name === values?.name)
         if (
             values.nameProduct === "" || values?.nameProduct?.startsWith(' ') === true ||
-            values.priceProduct === "" || String(values?.priceProduct)?.startsWith(' ') === true |
+            values.priceProduct === "" || String(values?.priceProduct)?.startsWith(' ') === true ||
             values.stockQuantity === "" || String(values?.stockQuantity)?.startsWith(' ') === true ||
             values.numberOfProductSold === "" || String(values?.numberOfProductSold)?.startsWith(' ') === true ||
             values.numberOfProductInStock === "" || String(values?.numberOfProductInStock)?.startsWith(' ') === true
@@ -47,6 +48,17 @@ const UpdateProduct = (props) => {
                 message: 'Lỗi',
                 description: (
                     <>Vui lòng điền đầy đủ thông tin và Không để trống đầu câu !.</>
+                ),
+            });
+        }
+        else if (
+            values?.stockQuantity < values?.numberOfProductInStock
+        ) {
+            notification.error({
+                closeIcon: true,
+                message: 'Lỗi',
+                description: (
+                    <>Số lượng sản phẩm trong kho phải lớn hơn số lượng sản phẩm còn lại !.</>
                 ),
             });
         }

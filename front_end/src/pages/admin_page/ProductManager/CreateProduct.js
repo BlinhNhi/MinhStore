@@ -39,9 +39,17 @@ const CreateProduct = () => {
         ) {
             notification.error({
                 closeIcon: true,
-                message: 'Error',
+                message: 'Lỗi',
                 description: (
-                    <>Vui lòng điền đầy đủ thông tin và Không để trống đầu câu !.</>
+                    <>Vui lòng điền đầy đủ thông tin và Không để trống đầu câu!</>
+                ),
+            });
+        } else if (values?.stockQuantity < values?.numberOfProductInStock) {
+            notification.error({
+                closeIcon: true,
+                message: 'Lỗi',
+                description: (
+                    <>Số lượng sản phẩm trong kho phải lớn hơn số lượng sản phẩm còn lại !.</>
                 ),
             });
         }
@@ -189,13 +197,13 @@ const CreateProduct = () => {
                     </Form.Item>
                     <Form.Item
                         className=''
-                        label="Số Lượng Sản Phẩm"
+                        label="Số Lượng Sản Phẩm Trong Kho"
                         name="stockQuantity"
                         style={{ minWidth: '100%' }}
                         rules={[
                             {
                                 required: true,
-                                message: 'Bắt Buộc Nhập Số Lượng Sản Phẩm!',
+                                message: 'Bắt Buộc Nhập Số Lượng Sản Phẩm Trong Kho!',
                                 transform: (value) => value.trim(),
                             },
                         ]}

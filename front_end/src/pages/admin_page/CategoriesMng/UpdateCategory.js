@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Form, Input, Button, notification } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { getListCategoriesAction, updateCategoryAction, getCategoryDetailAction } from '../../../redux_store/actions/CategoryAction';
 import { useParams } from 'react-router-dom';
 
+import { getListCategoriesAction, updateCategoryAction, getCategoryDetailAction } from '../../../redux_store/actions/CategoryAction';
 
 const UpdateCategory = (props) => {
     const dispatch = useDispatch();
@@ -43,7 +43,6 @@ const UpdateCategory = (props) => {
             for (let key in values) {
                 formData.append(key, values[key]);
             }
-            console.table('formData', [...formData])
             dispatch(updateCategoryAction(id, formData))
         }
     }

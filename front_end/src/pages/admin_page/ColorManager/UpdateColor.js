@@ -10,7 +10,6 @@ const UpdateColor = (props) => {
     const dispatch = useDispatch();
     const { colorDetail } = useSelector(state => state.ColorReducer)
     const { arrColor } = useSelector(state => state.ColorReducer)
-    console.log(arrColor);
     let { id } = useParams();
     useEffect(() => {
         dispatch(getColorDetailAction(id));
@@ -43,7 +42,6 @@ const UpdateColor = (props) => {
             for (let key in values) {
                 formData.append(key, values[key]);
             }
-            console.table('formData', [...formData])
             dispatch(updateColorAction(id, formData))
         }
     }

@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Button, Input, Space, Table, Tag } from 'antd';
+import { Button, Input, Space, Table } from 'antd';
 import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteProductAction, getDetailProductAction, getListProductsAction } from '../../../redux_store/actions/ProductAcction';
 
+import { deleteProductAction, getDetailProductAction, getListProductsAction } from '../../../redux_store/actions/ProductAcction';
 import NoImage from '../../../assets/no-image.jpeg'
+import { NavLink } from 'react-router-dom';
 
 export default function ProductMng() {
     let { arrProducts } = useSelector(state => state.ProductReducer);
@@ -230,7 +231,9 @@ export default function ProductMng() {
         <div className="text-gray-800 dark:text-gray-200">
             <div className='d-flex mb-4'>
                 <h3 className='text-lg font-bold'>Quản Lý Sản Phẩm</h3>
-                <Button href='/admin/product-mng/add-product' type="primary" className='ml-3 mt-3 small bg-blue-600'>+ Thêm Sản Phẩm</Button>
+                <NavLink to="/admin/product-mng/add-product">
+                    <Button type="primary" className='ml-3 mt-3 small bg-blue-600'>+ Thêm Sản Phẩm</Button>
+                </NavLink>
             </div>
             <Table columns={columns} dataSource={data} rowKey={'id'} scroll={{ x: 1000 }} />
         </div>

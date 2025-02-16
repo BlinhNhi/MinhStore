@@ -4,9 +4,8 @@ import { Button, Input, Space, Table } from 'antd';
 import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { getListCategoriesAction, deleteCategoryAction, getCategoryDetailAction } from '../../../redux_store/actions/CategoryAction';
-
-
 
 export default function CategoryMng() {
     let { arrCategories } = useSelector(state => state.CategoryReducer);
