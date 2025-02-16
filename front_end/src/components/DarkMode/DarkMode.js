@@ -17,7 +17,6 @@ function DarkMode() {
             localStorage.setItem("theme", "light");
         }
     }, [theme])
-    // console.log(element);
     return (
         <div className='relative'>
             <img
