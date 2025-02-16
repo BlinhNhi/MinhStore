@@ -36,20 +36,17 @@ function ChartAdmin() {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        console.log(selectedYear);
-
+        const handleStorageChange = () => {
+            setIsDarkMode(localStorage.getItem("theme") === "dark");
+        };
+        window.addEventListener("storage", handleStorageChange);
+        return () => window.removeEventListener("storage", handleStorageChange);
+    }, []);
+    useEffect(() => {
         dispatch(getTotalAmountPaymentByYearAction(selectedYear.toString()));
         dispatch(getMonthlyCountOrderAction(selectedYear.toString()));
     }, [dispatch, selectedYear]);
 
-    useEffect(() => {
-        const handleStorageChange = () => {
-            setIsDarkMode(localStorage.getItem("theme") === "dark");
-        };
-
-        window.addEventListener("storage", handleStorageChange);
-        return () => window.removeEventListener("storage", handleStorageChange);
-    }, []);
 
     let { monthlyTotalAmountOfOrder } = useSelector(state => state.PaymentReducer);
     let { monthlyCountOrders } = useSelector(state => state.PaymentReducer);
@@ -58,48 +55,65 @@ function ChartAdmin() {
     monthlyTotalAmountOfOrder?.forEach(({ month, totalAmount }) => {
         totalAmountOfOrdersByMonth[month - 1] = totalAmount;
     });
-
     const orderCounts = Array(12).fill(0);
     monthlyCountOrders?.forEach(({ month, orderCount }) => {
         orderCounts[month - 1] = orderCount;
     });
-
     const totalAmount = totalAmountOfOrdersByMonth?.map(item => (item / 1000000).toFixed(3));
-    console.log(monthlyCountOrders);
-    console.log(monthlyTotalAmountOfOrder);
-
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    // const data = {
+    //     labels: months,
+    //     options: {
+    //         responsive: true,
+    //         maintainAspectRatio: false,
+    //         plugins: {
+    //             legend: {
+    //                 labels: {
+    //                     color: isDarkMode ? "#fff" : "#000", // Chữ của chú thích
+    //                 },
+    //             },
+    //         },
+    //         scales: {
+    //             x: {
+    //                 ticks: {
+    //                     color: isDarkMode ? "#fff" : "#000",
+    //                 },
+    //                 grid: {
+    //                     color: isDarkMode ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.1)",
+    //                 },
+    //             },
+    //             y: {
+    //                 ticks: {
+    //                     color: isDarkMode ? "#fff" : "#000",
+    //                 },
+    //                 grid: {
+    //                     color: isDarkMode ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.1)",
+    //                 },
+    //             },
+    //         },
+    //     },
+    //     datasets: [
+    //         {
+    //             label: "Tổng doanh thu theo tháng / triệu đồng",
+    //             backgroundColor: "rgb(75, 192, 192,0.4)",
+    //             borderColor: "rgb(75, 192, 192,0.9)",
+    //             data: totalAmount || [],
+    //             hidden: !isOrderVisible,
+    //         },
+    //         {
+    //             label: "Tổng Đơn Hàng Đã Giao Theo Tháng",
+    //             backgroundColor: "rgb(157, 196, 248)",
+    //             borderColor: "rgb(157, 196, 248)",
+    //             data: orderCounts || [],
+    //             tension: 0.5,
+    //             type: 'line',
+    //             borderDash: [5, 5],
+    //             hidden: !isRevenueVisible
+    //         },
+    //     ],
+    // };
     const data = {
         labels: months,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: isDarkMode ? "#fff" : "#000", // Chữ của chú thích
-                    },
-                },
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: isDarkMode ? "#fff" : "#000",
-                    },
-                    grid: {
-                        color: isDarkMode ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.1)",
-                    },
-                },
-                y: {
-                    ticks: {
-                        color: isDarkMode ? "#fff" : "#000",
-                    },
-                    grid: {
-                        color: isDarkMode ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.1)",
-                    },
-                },
-            },
-        },
         datasets: [
             {
                 label: "Tổng doanh thu theo tháng / triệu đồng",
@@ -120,43 +134,31 @@ function ChartAdmin() {
             },
         ],
     };
-    // const data = {
-    //     labels: months,
-    //     datasets: [
-    //         {
-    //             label: "Tổng doanh thu theo tháng / triệu đồng",
-    //             backgroundColor: "rgba(75, 192, 192, 0.4)",
-    //             borderColor: "rgba(75, 192, 192, 0.9)",
-    //             data: [10, 20, 30, 40],
-    //         },
-    //     ],
-    // };
-
     const options = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
             legend: {
                 labels: {
-                    color: isDarkMode ? "#fff" : "#000", // Chữ của chú thích
+                    color: isDarkMode ? "#A9A9A9" : "#999", // Chữ của chú thích
                 },
             },
         },
         scales: {
             x: {
                 ticks: {
-                    color: isDarkMode ? "#fff" : "#000",
+                    color: isDarkMode ? "#A9A9A9" : "#999",
                 },
                 grid: {
-                    color: isDarkMode ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.1)",
+                    color: isDarkMode ? "#D3D3D3" : "rgba(0,0,0,0.1)",
                 },
             },
             y: {
                 ticks: {
-                    color: isDarkMode ? "#fff" : "#000",
+                    color: isDarkMode ? "#A9A9A9" : "#999",
                 },
                 grid: {
-                    color: isDarkMode ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.1)",
+                    color: isDarkMode ? "#D3D3D3" : "rgba(0,0,0,0.1)",
                 },
             },
         },
@@ -177,7 +179,7 @@ function ChartAdmin() {
             </div>
 
             <div className='2xl:h-[60] xl:h-[60] lg:h-[60] md:h-[80] hidden md:block lg:block xl:block 2xl:block'>
-                <Bar data={data} />
+                <Bar data={data} options={options} />
             </div>
 
             <div className='hidden items-center justify-center gap-4 mt-8 md:flex lg:flex xl:flex 2xl:flex'>

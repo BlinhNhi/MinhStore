@@ -93,7 +93,6 @@ function TableAdmin() {
             key: 'statusOrder',
             dataIndex: 'statusOrder',
             render: (text, data) => {
-                // console.log(data);
                 return (<>
                     <span>{data?.statusOrder === 0 ? <p className='text-base text-gray-500'>Đang xử lý</p> : data?.statusOrder === 1 ? <span className="text-primary font-bold">Xác nhận đơn hàng</span> :
                         data?.statusOrder === 2 ? <span className="text-green-500 font-bold">Bàn giao vận chuyển</span> :

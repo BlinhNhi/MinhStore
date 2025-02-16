@@ -22,22 +22,7 @@ function ModalOrderDetail({ isOpen, onClose, paymentId }) {
         console.table("nameUser: ", paymentDetail?.nameUser, "addressUser: ", paymentDetail?.addressUser, "idPayment: ", paymentId, "statusOrder: ", newStatusOrder);
         dispatch(updateStatusPaymentAction(paymentId, formData));
     };
-    // const getStatusText = (status) => {
-    //     switch (status) {
-    //         case 0:
-    //             return "Xác nhận đơn hàng";
-    //         case 1:
-    //             return "Đã xác nhận";
-    //         case 2:
-    //             return "Bàn giao vận chuyển";
-    //         case 3:
-    //             return "Đang vận chuyển";
-    //         case 4:
-    //             return "Hoàn thành đơn hàng";
-    //         default:
-    //             return "Trạng thái không xác định";
-    //     }
-    // };
+
     if (!isOpen) return null;
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-100/50 bg-opacity-50">
@@ -50,11 +35,13 @@ function ModalOrderDetail({ isOpen, onClose, paymentId }) {
 
                     <h2 className="text-sm sm:text-base text-gray-500 font-medium">Ngày đặt hàng: {paymentDetail?.dayOrder ? formatDateTime(paymentDetail.dayOrder) : "Không xác định"}</h2>
                     <h2 className="text-sm sm:text-base text-gray-500 font-medium">Trạng thái đơn hàng: <span className="text-gray-600 font-bold">
-                        {paymentDetail?.statusOrder === 0 ? 'Đang xử lý' :
-                            paymentDetail?.statusOrder === 1 ? <span className="text-primary font-bold">Xác nhận đơn hàng</span> :
-                                paymentDetail?.statusOrder === 2 ? <span className="text-green-500 font-bold">Bàn giao vận chuyển</span> :
-                                    paymentDetail?.statusOrder === 3 ? <span className="text-blue-400 font-bold">Đang vận chuyển</span> :
-                                        paymentDetail?.statusOrder === 4 ? <span className="text-red-500 font-bold">Hoàn thành đơn hàng</span>
+                        {paymentDetail?.statusOrder === 0 ? 'Đang xử lý, xác nhận đơn hàng để có thể chấp nhận đơn hàng.' :
+                            paymentDetail?.statusOrder === 1 ? <span className="text-primary font-bold">Xác nhận đơn hàng, bạn có thể bàn giao vận chuyển.</span> :
+                                paymentDetail?.statusOrder === 2 ? <span className="text-green-500 font-bold">Bàn giao vận chuyển, người giao hàng đã đến lấy sản phẩm để giao?</span> :
+                                    paymentDetail?.statusOrder === 3 ? <span className="text-blue-400 font-bold">Đang vận chuyển, bạn có thể chuyển về bàn giao vận chuyển
+                                        khi đơn hàng gặp sự cố chỉ cần 1 nút bấm!
+                                    </span> :
+                                        paymentDetail?.statusOrder === 4 ? <span className="text-red-500 font-bold">Hoàn thành đơn hàng, chúc mừng bạn khách hàng đã nhận hàng.</span>
                                             : 'Không xác định'
                         }</span></h2>
 
