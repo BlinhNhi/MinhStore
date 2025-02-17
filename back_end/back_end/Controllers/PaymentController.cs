@@ -4,6 +4,8 @@ using back_end.ReponseData;
 using back_end.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 namespace back_end.Controllers
@@ -14,10 +16,12 @@ namespace back_end.Controllers
     {
         private readonly IPaymentRepo repo;
         private readonly IConfiguration _config;
+        private readonly IHubContext<PaymentHub> _hubContext;
 
-        public PaymentController(IPaymentRepo repo)
+        public PaymentController(IPaymentRepo repo, IHubContext<PaymentHub> hubContext)
         {
             this.repo = repo;
+            _hubContext = hubContext;
         }
 
         [HttpGet]
@@ -109,7 +113,10 @@ namespace back_end.Controllers
                 bool list = await repo.UpdateStatusPayment(Id, payment);
                 if (list)
                 {
+                    await _hubContext.Clients.All.SendAsync("ReceiveOrderStatusUpdate", Id.ToString(), payment.StatusOrder);
                     var response = new ResponseData<Payment>(StatusCodes.Status200OK, "Edit Status Payment Successfully", payment, null);
+
+                    /*var response = new ResponseData<Payment>(StatusCodes.Status200OK, "Edit Status Payment Successfully", payment, null);*/
                     return Ok(response);
                 }
                 return BadRequest();

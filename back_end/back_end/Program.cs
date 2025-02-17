@@ -44,7 +44,8 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
-
+// Thêm dịch vụ SignalR
+builder.Services.AddSignalR();
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("MySqlConn"), new MySqlServerVersion(new Version(7, 0, 0))));    
@@ -63,6 +64,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
+
+
+
+
+
 
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<IProductRepo, ProductService>();
@@ -92,7 +98,8 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
-
+app.UseRouting();
+app.MapHub<PaymentHub>("/paymentHub");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -105,5 +112,4 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
-app.Run();
 

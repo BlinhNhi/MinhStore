@@ -159,10 +159,10 @@ export const updateStatusPaymentAction = (id, formData) => {
                         <>Cập Nhật Trạng Thái Thành Công</>
                     ),
                 });
-                setTimeout(() => {
-                    window.location.reload()
+                // setTimeout(() => {
+                //     window.location.reload()
 
-                }, 1000);
+                // }, 1000);
             }
         } catch (error) {
             notification.error({

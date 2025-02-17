@@ -1,26 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { TOKEN } from "../../../utils/variable";
-import { getPaymentDetailAction, updateStatusPaymentAction } from "../../../redux_store/actions/PaymentAction";
 import { RiLoader2Line } from "react-icons/ri";
 import { useParams } from "react-router-dom";
+
+import useSignalR from "../../../hook/useSignalR";
+import { getPaymentDetailAction, updateStatusPaymentAction } from "../../../redux_store/actions/PaymentAction";
 import { formatDateTime } from "../../../utils/format/formatDateTime";
 import { getCodeProduct } from "../../../utils/format/getCodeProduct";
 import { handleFormatPrice } from "../../../utils/format/formatPrice";
 import { updateQuantityProductAction } from "../../../redux_store/actions/ProductAcction";
 function OrderDetail() {
-    let accessToken = {};
     const dispatch = useDispatch();
-    // if (localStorage.getItem(TOKEN)) {
-    //     accessToken = localStorage.getItem(TOKEN);
-    // } else {
-    //     window.location.href = '/';
-    // }
     let { userLogin } = useSelector(state => state.UserReducer);
     const [loading, setLoading] = useState(true);
+    const [orderDetail, setOrderDetail] = useState();
     const idUser = userLogin?.id;
     let { id } = useParams();
     console.log(id);
+
     useEffect(() => {
         if (idUser || id) {
             setLoading(true);
@@ -31,7 +28,11 @@ function OrderDetail() {
     let { paymentDetail } = useSelector(state => state.PaymentReducer)
     console.log(paymentDetail);
 
-
+    useSignalR((orderId, newStatus) => {
+        if (paymentDetail.id === orderId) {
+            setOrderDetail(prev => ({ ...prev, statusOrder: newStatus }));
+        }
+    });
     const handleOrderComfirm = (paymentId, newStatusOrder) => {
         const formData = new FormData();
         formData.append("nameUser", paymentDetail?.nameUser);
@@ -52,18 +53,7 @@ function OrderDetail() {
                 formData.append("stockQuantity", product.stockQuantity);
                 formData.append("numberOfProductSold", product.numberOfProductSold + order.quantityOrder);
                 formData.append("numberOfProductInStock", product.numberOfProductInStock - order.quantityOrder);
-                // formData.append("quantityOrder", order.quantityOrder);
-                console.table({
-                    productId: product.id,
-                    priceProduct: product.priceProduct,
-                    nameProduct: product.nameProduct,
-                    beforeStockQuantity: product?.stockQuantity,
-                    beforeNumberOfProductSold: product?.numberOfProductSold,
-                    beforeNumberOfProductInStock: product?.numberOfProductInStock,
-                    stockQuantity: product?.stockQuantity,
-                    numberOfProductSold: product.numberOfProductSold + order.quantityOrder,
-                    numberOfProductInStock: product.numberOfProductInStock - order.quantityOrder,
-                });
+
 
                 dispatch(updateQuantityProductAction(product.id, formData));
             });
@@ -140,7 +130,7 @@ function OrderDetail() {
                     <div className="mt-4">
                         <button
                             onClick={() => {
-                                handleUpdateQuantityProduct();
+                                // handleUpdateQuantityProduct();
                                 handleOrderComfirm(paymentDetail?.id, 4);
                             }}
                             disabled={paymentDetail?.statusOrder === 0 || paymentDetail?.statusOrder === 1 || paymentDetail?.statusOrder === 2 || paymentDetail?.statusOrder === 4}
