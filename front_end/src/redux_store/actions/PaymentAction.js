@@ -4,6 +4,7 @@ import { GET_PAYMENT_LIST, GET_PAYMENT_DETAIL_BY_USER_ID, GET_PAYMENT_DETAIL, GE
 
 
 
+
 export const getListPaymentAction = () => {
     return async (dispatch) => {
         try {
@@ -21,12 +22,13 @@ export const getListPaymentAction = () => {
 };
 
 
+
+
 export const addPaymentAction = (formData) => {
     return async (dispatch) => {
 
         try {
             const result = await paymentService.createPayment(formData);
-            // console.log(result);
             notification.success({
                 closeIcon: true,
                 message: 'Thành Công',
@@ -59,6 +61,7 @@ export const deletePaymentAction = (id) => {
                     )
                 });
             }
+            dispatch(getListPaymentAction());
         }
         catch (e) {
             console.log(e)
@@ -133,7 +136,6 @@ export const getPaymentDetailByUserIdAction = (userId) => {
     return async (dispatch) => {
         try {
             const result = await paymentService.getPaymentByUserId(userId)
-            // console.log(result);
             if (result.data.status === 200) {
                 dispatch({
                     paymentDetailByUserId: result?.data?.data,
@@ -147,10 +149,37 @@ export const getPaymentDetailByUserIdAction = (userId) => {
     }
 }
 
+// export const updateStatusPaymentAction = (id, formData) => {
+//     return async (dispatch) => {
+//         try {
+//             const result = await paymentService.updateStatusPayment(id, formData)
+//             if (result.data.status === 200) {
+//                 notification.success({
+//                     closeIcon: true,
+//                     message: 'Thành Công',
+//                     description: (
+//                         <>Cập Nhật Trạng Thái Thành Công</>
+//                     ),
+//                 }
+//                 );
+//             }
+//             dispatch(getPaymentDetailAction(id));
+//             dispatch(getListPaymentAction());
+//         } catch (error) {
+//             console.log(error);
+//             notification.error({
+//                 closeIcon: true,
+//                 message: "Thất Bại",
+//                 description: <>Cập Nhật Trạng Thái Thất Bại.</>,
+//             });
+//         }
+//     }
+// }
+
 export const updateStatusPaymentAction = (id, formData) => {
-    return async () => {
+    return async (dispatch) => {
         try {
-            const result = await paymentService.updateStatusPayment(id, formData)
+            const result = await paymentService.updateStatusPayment(id, formData);
             if (result.data.status === 200) {
                 notification.success({
                     closeIcon: true,
@@ -159,17 +188,27 @@ export const updateStatusPaymentAction = (id, formData) => {
                         <>Cập Nhật Trạng Thái Thành Công</>
                     ),
                 });
-                // setTimeout(() => {
-                //     window.location.reload()
 
-                // }, 1000);
+                // Lấy lại dữ liệu chi tiết thanh toán ngay sau khi cập nhật thành công
+                await dispatch(getPaymentDetailAction(id));
+
+                // Lấy lại danh sách thanh toán
+                await dispatch(getListPaymentAction());
+
+                // Thông báo thành công sau khi dữ liệu đã được cập nhật
+                notification.success({
+                    closeIcon: true,
+                    message: 'Dữ liệu đã được cập nhật',
+                    description: 'Dữ liệu thanh toán đã được cập nhật thành công',
+                });
             }
         } catch (error) {
+            console.log(error);
             notification.error({
                 closeIcon: true,
                 message: "Thất Bại",
                 description: <>Cập Nhật Trạng Thái Thất Bại.</>,
             });
         }
-    }
+    };
 }

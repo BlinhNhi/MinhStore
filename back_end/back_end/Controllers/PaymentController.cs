@@ -16,12 +16,12 @@ namespace back_end.Controllers
     {
         private readonly IPaymentRepo repo;
         private readonly IConfiguration _config;
-        private readonly IHubContext<PaymentHub> _hubContext;
+       /* private readonly IHubContext<PaymentHub> _hubContext;*/
 
-        public PaymentController(IPaymentRepo repo, IHubContext<PaymentHub> hubContext)
+        public PaymentController(IPaymentRepo repo)
         {
             this.repo = repo;
-            _hubContext = hubContext;
+            /*_hubContext = hubContext;*/
         }
 
         [HttpGet]
@@ -113,10 +113,10 @@ namespace back_end.Controllers
                 bool list = await repo.UpdateStatusPayment(Id, payment);
                 if (list)
                 {
-                    await _hubContext.Clients.All.SendAsync("ReceiveOrderStatusUpdate", Id.ToString(), payment.StatusOrder);
-                    var response = new ResponseData<Payment>(StatusCodes.Status200OK, "Edit Status Payment Successfully", payment, null);
+                    /* await _hubContext.Clients.All.SendAsync("ReceiveOrderStatusUpdate", Id.ToString(), payment.StatusOrder);
+                     var response = new ResponseData<Payment>(StatusCodes.Status200OK, "Edit Status Payment Successfully", payment, null);*/
 
-                    /*var response = new ResponseData<Payment>(StatusCodes.Status200OK, "Edit Status Payment Successfully", payment, null);*/
+                    var response = new ResponseData<Payment>(StatusCodes.Status200OK, "Edit Status Payment Successfully", payment, null);
                     return Ok(response);
                 }
                 return BadRequest();

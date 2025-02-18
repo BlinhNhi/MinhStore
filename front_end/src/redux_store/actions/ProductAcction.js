@@ -1,7 +1,6 @@
 import { productService } from "../../service/ProductService";
 import { GET_EIGHT_CHEAP_PRODUCTS, GET_EIGHT_PRODUCTS, GET_PRODUCT_DETAIL, GET_PRODUCT_DETAIL_FOR_USER, GET_PRODUCT_LIST } from "../constants";
 import { notification } from 'antd';
-import { history } from '../../App';
 import axios from "axios";
 
 
@@ -126,15 +125,6 @@ export const updateQuantityProductAction = (id, formData) => {
     return async () => {
         try {
             const result = await productService.updateQuantityProduct(id, formData)
-            // if (result.data.status === 200) {
-            //     notification.success({
-            //         closeIcon: true,
-            //         message: 'Thành Công',
-            //         description: (
-            //             <>Cập Nhật Số Lượng Sản Phẩm Thành Công</>
-            //         ),
-            //     });
-            // }
         } catch (error) {
             notification.error({
                 closeIcon: true,
@@ -163,7 +153,6 @@ export const apiUploadImages = (images) => new Promise(async (resolve, reject) =
 export const getProductListOptionsAction = (options) => {
     return async (dispatch) => {
         try {
-            // dispatch(displayLoadingAction);
             const result = await productService.getProductListOptions(options);
             if (result.data.status === 200) {
                 dispatch({
@@ -171,7 +160,6 @@ export const getProductListOptionsAction = (options) => {
                     arrProducts: result.data.data,
                     quantityProducts: result?.data?.quantityProducts
                 });
-                // await dispatch(hideLoadingAction);
             }
         } catch (error) {
             console.log("error", error);
@@ -182,7 +170,6 @@ export const getProductListOptionsAction = (options) => {
 export const getProductsOfSearchNameAction = (options) => {
     return async (dispatch) => {
         try {
-            // dispatch(displayLoadingAction);
             const result = await productService.getProductsOfSearch(options);
             if (result.data.status === 200) {
                 dispatch({
@@ -190,7 +177,6 @@ export const getProductsOfSearchNameAction = (options) => {
                     arrProducts: result.data.data,
                     quantityProducts: result?.data?.quantityProducts
                 });
-                // await dispatch(hideLoadingAction);
             }
         } catch (error) {
             console.log("error", error);
@@ -201,7 +187,6 @@ export const getProductsOfSearchNameAction = (options) => {
 export const getProductsOfCategoryAction = (options) => {
     return async (dispatch) => {
         try {
-            // dispatch(displayLoadingAction);
             const result = await productService.getProductsOfCategory(options);
             if (result.data.status === 200) {
                 dispatch({
@@ -209,7 +194,6 @@ export const getProductsOfCategoryAction = (options) => {
                     arrProducts: result.data.data,
                     quantityProducts: result?.data?.quantityProducts
                 });
-                // await dispatch(hideLoadingAction);
             }
         } catch (error) {
             console.log("error", error);

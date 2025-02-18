@@ -22,31 +22,6 @@ export const getListSizesAction = () => {
     };
 };
 
-// export const addSizeAction = (formData) => {
-//     return async (dispatch) => {
-//         const navigate = useNavigate();
-//         try {
-//             const result = await sizeService.createSize(formData)
-//             console.log(result);
-//             notification.success({
-//                 closeIcon: true,
-//                 message: 'Thành Công',
-//                 description: (
-//                     <>Tạo Kích Thước Thành Công</>
-//                 ),
-//             });
-//             navigate('/admin/sizes-mng');
-//         } catch (error) {
-//             notification.error({
-//                 closeIcon: true,
-//                 message: "Thất Bại",
-//                 description: <>Tạo Kích Thước Thất Bại.</>,
-//             });
-//         }
-//     }
-// }
-
-
 export const addSizeAction = (formData) => {
     return async (dispatch) => {
 

@@ -46,7 +46,7 @@ namespace back_end.Controllers
             }, out SecurityToken validatedToken);
             var jwtToken = (JwtSecurityToken)validatedToken;
             string email = (string)jwtToken.Claims.First(x => x.Type == "Email").Value;
-            User user = db.Users.Where(u => u.Email == email).FirstOrDefault();
+            User user =  db.Users.Where(u => u.Email == email).FirstOrDefault();
             return Ok(user);
         }
 
