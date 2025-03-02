@@ -1,9 +1,6 @@
 import { notification } from 'antd';
 import { orderService } from '../../service/OrderService';
 import { GET_ORDER_DETAIL, GET_ORDER_DETAIL_BY_USER_ID, GET_ORDER_LIST } from '../constants';
-import { Navigate } from 'react-router-dom';
-
-
 
 export const getListCartAction = () => {
     return async (dispatch) => {
@@ -20,9 +17,6 @@ export const getListCartAction = () => {
         }
     };
 };
-
-
-
 
 export const addCartAction = (formData) => {
     return async (dispatch) => {
@@ -97,11 +91,13 @@ export const getCartDetailByUserIdAction = (userId) => {
     }
 }
 
-export const updateCartAction = (id, formData) => {
-    return async () => {
+export const updateCartAction = (id, formData, idUser) => {
+    console.log(idUser);
+    return async (dispatch) => {
         try {
             const result = await orderService.updateOrder(id, formData)
             if (result.data.status === 200) {
+                await dispatch(getCartDetailByUserIdAction(idUser));
                 notification.success({
                     closeIcon: true,
                     message: 'Thành Công',
@@ -109,9 +105,6 @@ export const updateCartAction = (id, formData) => {
                         <>Cập Nhật Giỏ Hàng Thành Công</>
                     ),
                 });
-                setTimeout(() => {
-                    window.location.reload()
-                }, 1000);
             }
         } catch (error) {
             notification.error({

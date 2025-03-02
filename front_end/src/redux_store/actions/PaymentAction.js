@@ -188,14 +188,8 @@ export const updateStatusPaymentAction = (id, formData) => {
                         <>Cập Nhật Trạng Thái Thành Công</>
                     ),
                 });
-
-                // Lấy lại dữ liệu chi tiết thanh toán ngay sau khi cập nhật thành công
                 await dispatch(getPaymentDetailAction(id));
-
-                // Lấy lại danh sách thanh toán
                 await dispatch(getListPaymentAction());
-
-                // Thông báo thành công sau khi dữ liệu đã được cập nhật
                 notification.success({
                     closeIcon: true,
                     message: 'Dữ liệu đã được cập nhật',

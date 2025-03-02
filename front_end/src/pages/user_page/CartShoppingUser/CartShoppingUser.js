@@ -14,11 +14,12 @@ function CartShoppingUser() {
     let { userLogin } = useSelector(state => state.UserReducer);
     const idUser = userLogin?.id;
     const dispatch = useDispatch();
-
     const [loading, setLoading] = useState(true);
     const [currentCartId, setCurrentCartId] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    let { orderDetailByUserId } = useSelector(state => state.OrderReducer);
+    console.log(orderDetailByUserId);
+    const dataUserOrder = orderDetailByUserId?.data || [];
     useEffect(() => {
         if (idUser) {
             setLoading(true);
@@ -27,9 +28,6 @@ function CartShoppingUser() {
         }
     }, [idUser, dispatch]);
 
-    let { orderDetailByUserId } = useSelector(state => state.OrderReducer);
-    const dataUserOrder = orderDetailByUserId?.data || [];
-
     const handleOpenModalDeleteCart = () => {
         setIsModalOpen(true);
     };
@@ -37,8 +35,8 @@ function CartShoppingUser() {
         setIsModalOpen(false);
     };
 
-    const handleIncrease = (quantityOrder, totalAmount, idOfOrder, numberProductInStock) => {
-        console.log(numberProductInStock);
+    const handleIncrease = (quantityOrder, totalAmount, idOfOrder, numberProductInStock, idUser) => {
+        console.log(idUser);
         const quantityOrderCurrent = quantityOrder + 1;
         const totalAmountCurrent = totalAmount + (totalAmount / quantityOrder);
         const formData = new FormData();
@@ -53,9 +51,8 @@ function CartShoppingUser() {
         } else {
             formData.append("QuantityOrder", quantityOrderCurrent);
             formData.append("TotalAmount", totalAmountCurrent);
-            dispatch(updateCartAction(idOfOrder, formData));
+            dispatch(updateCartAction(idOfOrder, formData, idUser));
         }
-
     };
 
     const handleDecrease = (quantityOrder, totalAmount, idOfOrder) => {
@@ -65,7 +62,7 @@ function CartShoppingUser() {
             const formData = new FormData();
             formData.append("QuantityOrder", quantityOrderCurrent);
             formData.append("TotalAmount", totalAmountCurrent);
-            dispatch(updateCartAction(idOfOrder, formData));
+            dispatch(updateCartAction(idOfOrder, formData, idUser));
         }
     };
 
@@ -131,7 +128,7 @@ function CartShoppingUser() {
                                 ))}
                                 <div className="flex gap-2 items-center w-[232px] border-2 border-gray-300 bg-gray-50 dark:border-gray-300">
                                     <button
-                                        onClick={() => handleIncrease(up?.quantityOrder, up?.totalAmount, up?.id, up?.products[0]?.numberOfProductInStock)}
+                                        onClick={() => handleIncrease(up?.quantityOrder, up?.totalAmount, up?.id, up?.products[0]?.numberOfProductInStock, idUser)}
                                         className="text-base font-bold sm:text-2xl px-3 py-1 dark:bg-gray-100 dark:text-gray-600 border-gray-200 border-r-2 hover:bg-gray-400"
                                     >
                                         +
@@ -140,7 +137,7 @@ function CartShoppingUser() {
                                         {up?.quantityOrder}
                                     </p>
                                     <button
-                                        onClick={() => handleDecrease(up?.quantityOrder, up?.totalAmount, up?.id)}
+                                        onClick={() => handleDecrease(up?.quantityOrder, up?.totalAmount, up?.id, idUser)}
                                         disabled={up?.quantityOrder <= 1}
                                         className={`text-base font-bold sm:text-2xl px-4 py-1 dark:bg-gray-100 dark:text-gray-600 border-gray-200 border-l-2 ${up?.quantityOrder <= 1 ? "cursor-not-allowed opacity-50" : ""
                                             }`}

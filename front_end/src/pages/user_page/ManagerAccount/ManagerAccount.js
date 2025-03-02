@@ -33,7 +33,7 @@ function ManagerAccount() {
                 </NavLink>
                 <button
                     onClick={() => {
-                        localStorage.removeItem(TOKEN)
+                        localStorage.removeItem(TOKEN);
                         window.location.href = '/';
                     }}
                     className="py-8 border-2 shadow-lg border-gray-300 rounded-md flex flex-col gap-2 items-center hover:bg-gray-200

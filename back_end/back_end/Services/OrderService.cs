@@ -16,11 +16,72 @@ namespace back_end.Services
             this.env = env;
         }
 
+        /*  public async Task<bool> CreateOrder(Order order)
+          {
+              try
+              {
+                  // Kiểm tra User
+                  User user = await db.Users.FirstOrDefaultAsync(u => u.Id == order.UserId);
+                  if (user == null)
+                  {
+                      Console.WriteLine("User không tồn tại");
+                      return false;
+                  }
+                  order.User = user;
+
+                  // Kiểm tra Color
+                  Color color = await db.Colors.FirstOrDefaultAsync(c => c.Id == order.ColorId);
+                  if (color == null)
+                  {
+                      Console.WriteLine("Color không tồn tại");
+                      return false;
+                  }
+                  order.Color = color;
+
+                  // Kiểm tra Size
+                  Size size = await db.Sizes.FirstOrDefaultAsync(s => s.Id == order.SizeId);
+                  if (size == null)
+                  {
+                      Console.WriteLine("Size không tồn tại");
+                      return false;
+                  }
+                  order.Size = size;
+                  if (order.ProductId != null)
+                  {
+                      List<Guid> productIds = order.ProductId
+                          .ToString()
+                          .Split(",")
+                          .Select(id => Guid.Parse(id.Trim()))
+                          .ToList();
+                      foreach (var id in productIds)
+                      {
+                          db.OrderProducts.Add(new OrderProduct
+                          {
+
+                              OrderId = order.Id,
+                              ProductId = id
+                          });
+                      }
+                  }
+                  order.IsDeleted = false;
+                  await db.Orders.AddAsync(order);
+                  await db.SaveChangesAsync();
+                  return true;
+              }
+              catch (Exception ex)
+              {
+                  // Log lỗi
+                  Console.WriteLine($"Lỗi khi tạo đơn hàng: {ex.Message}");
+                  return false;
+              }
+          }
+  */
+
         public async Task<bool> CreateOrder(Order order)
         {
+            using var transaction = await db.Database.BeginTransactionAsync();
             try
             {
-                // Kiểm tra User
                 User user = await db.Users.FirstOrDefaultAsync(u => u.Id == order.UserId);
                 if (user == null)
                 {
@@ -29,7 +90,6 @@ namespace back_end.Services
                 }
                 order.User = user;
 
-                // Kiểm tra Color
                 Color color = await db.Colors.FirstOrDefaultAsync(c => c.Id == order.ColorId);
                 if (color == null)
                 {
@@ -38,7 +98,6 @@ namespace back_end.Services
                 }
                 order.Color = color;
 
-                // Kiểm tra Size
                 Size size = await db.Sizes.FirstOrDefaultAsync(s => s.Id == order.SizeId);
                 if (size == null)
                 {
@@ -46,6 +105,7 @@ namespace back_end.Services
                     return false;
                 }
                 order.Size = size;
+
                 if (order.ProductId != null)
                 {
                     List<Guid> productIds = order.ProductId
@@ -53,8 +113,23 @@ namespace back_end.Services
                         .Split(",")
                         .Select(id => Guid.Parse(id.Trim()))
                         .ToList();
+
                     foreach (var id in productIds)
                     {
+                        var product = await db.Products.FirstOrDefaultAsync(p => p.Id == id);
+                        if (product == null || product.NumberOfProductInStock < 1)
+                        {
+                            Console.WriteLine($"Sản phẩm {id} không đủ hàng.");
+                            await transaction.RollbackAsync();
+                            return false;
+                        }
+
+                        // Giảm số lượng sản phẩm trong kho
+                      /*  product.NumberOfProductInStock -= 1;
+                        product.NumberOfProductSold += 1;
+                        db.Products.Update(product);*/
+
+                        // Lưu sản phẩm vào đơn hàng
                         db.OrderProducts.Add(new OrderProduct
                         {
                             OrderId = order.Id,
@@ -62,14 +137,18 @@ namespace back_end.Services
                         });
                     }
                 }
+
                 order.IsDeleted = false;
                 await db.Orders.AddAsync(order);
                 await db.SaveChangesAsync();
+
+                // Commit transaction nếu không có lỗi
+                await transaction.CommitAsync();
                 return true;
             }
             catch (Exception ex)
             {
-                // Log lỗi
+                await transaction.RollbackAsync();
                 Console.WriteLine($"Lỗi khi tạo đơn hàng: {ex.Message}");
                 return false;
             }

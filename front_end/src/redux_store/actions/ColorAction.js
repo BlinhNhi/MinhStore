@@ -1,5 +1,4 @@
 import { notification } from 'antd';
-import { history } from '../../App';
 import { colorService } from "../../service/ColorService";
 import { GET_COLOR_DETAIL, GET_COLOR_LIST } from '../constants';
 
