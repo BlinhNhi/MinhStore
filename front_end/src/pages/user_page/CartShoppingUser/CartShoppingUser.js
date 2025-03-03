@@ -2,23 +2,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { RiLoader2Line } from "react-icons/ri";
+import { notification } from "antd";
 
 import NoImage from '../../../assets/no-image.jpeg';
 import { deleteCartAction, getCartDetailByUserIdAction, updateCartAction } from "../../../redux_store/actions/OrderAction";
 import ModalDeleteCart from "../../../components/ModalDeleteCart/ModalDeleteCart";
 import { getCodeProduct } from "../../../utils/format/getCodeProduct";
 import { handleFormatPrice } from "../../../utils/format/formatPrice";
-import { notification } from "antd";
 
 function CartShoppingUser() {
     let { userLogin } = useSelector(state => state.UserReducer);
-    const idUser = userLogin?.id;
+    let { orderDetailByUserId } = useSelector(state => state.OrderReducer);
+
     const dispatch = useDispatch();
+    const idUser = userLogin?.id;
     const [loading, setLoading] = useState(true);
     const [currentCartId, setCurrentCartId] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    let { orderDetailByUserId } = useSelector(state => state.OrderReducer);
-    console.log(orderDetailByUserId);
+    const showButtonPayment = orderDetailByUserId?.data
+        ?.filter(order => !order.isDeleted)
+        .every(order =>
+            order.products.every(product => product.numberOfProductInStock > 0)
+        );
     const dataUserOrder = orderDetailByUserId?.data || [];
     useEffect(() => {
         if (idUser) {
@@ -36,7 +41,6 @@ function CartShoppingUser() {
     };
 
     const handleIncrease = (quantityOrder, totalAmount, idOfOrder, numberProductInStock, idUser) => {
-        console.log(idUser);
         const quantityOrderCurrent = quantityOrder + 1;
         const totalAmountCurrent = totalAmount + (totalAmount / quantityOrder);
         const formData = new FormData();
@@ -55,7 +59,7 @@ function CartShoppingUser() {
         }
     };
 
-    const handleDecrease = (quantityOrder, totalAmount, idOfOrder) => {
+    const handleDecrease = (quantityOrder, totalAmount, idOfOrder, idUser) => {
         if (quantityOrder > 1) {
             const quantityOrderCurrent = quantityOrder - 1;
             const totalAmountCurrent = totalAmount - (totalAmount / quantityOrder);
@@ -121,9 +125,17 @@ function CartShoppingUser() {
                                 {up?.products?.map((it, i) => (
                                     <h3
                                         key={i}
-                                        className="text-base font-semibold rounded-md text-gray-500 dark:text-gray-200 mb-2"
+                                        className="text-base font-semibold rounded-md text-gray-500 dark:text-gray-200"
                                     >
                                         Giá: {handleFormatPrice(it?.priceProduct)}đ
+                                    </h3>
+                                ))}
+                                {up?.products?.map((it, i) => (
+                                    <h3
+                                        key={i}
+                                        className="text-base font-semibold rounded-md text-primary dark:text-primary mb-2"
+                                    >
+                                        Số lượng sản phẩm còn lại: {it?.numberOfProductInStock}
                                     </h3>
                                 ))}
                                 <div className="flex gap-2 items-center w-[232px] border-2 border-gray-300 bg-gray-50 dark:border-gray-300">
@@ -157,7 +169,7 @@ function CartShoppingUser() {
                                         }}
                                         className="flex items-center justify-center gap-2 
                                         p-2 mt-2 rounded-md font-bold dark:hover:bg-primary text-gray-400 hover:text-gray-500
-                                         dark:text-gray-200 text-2xl dark:border-gray-200 dark:hover:border-primary 
+                                         dark:text-gray-600 text-2xl dark:border-gray-200 dark:hover:border-primary 
                                          border-2 border-gray-300 hover:border-gray-400 bg-gray-300 hover:bg-gray-400 hove"
                                     >
                                         <IoMdCloseCircleOutline /><p className="text-base font-medium">Xoá sản phẩm</p>
@@ -218,13 +230,15 @@ function CartShoppingUser() {
                                 )}đ
                             </h4>
                         </div>
-                        <a href="/check-out">
-                            <button
-                                className="w-full px-2 py-2 border-gray-200 border-2 rounded-md font-bold bg-primary text-white hover:bg-gray-400 hover:text-black"
-                            >
-                                Thanh Toán
-                            </button>
-                        </a>
+                        {
+                            showButtonPayment === true ? <a href="/check-out">
+                                <button
+                                    className="w-full px-2 py-2 border-gray-200 border-2 rounded-md font-bold bg-primary text-white hover:bg-gray-400 hover:text-black"
+                                >
+                                    Thanh Toán
+                                </button>
+                            </a> : <h2 className="text-primary font-bold">Có sản phẩm đã hết hàng. Vui lòng xoá sản phẩm và thanh toán lại </h2>
+                        }
 
                     </div>
                 </div>

@@ -35,8 +35,6 @@ function OrderDetail() {
         formData.append("dayOrder", paymentDetail?.dayOrder);
         formData.append("statusOrder", newStatusOrder);
         dispatch(updateStatusPaymentAction(paymentId, formData));
-        dispatch(getListPaymentAction());
-        console.log('Đã vào hàm dispath');
     };
 
     const handleUpdateQuantityProduct = () => {
@@ -49,7 +47,6 @@ function OrderDetail() {
                 formData.append("stockQuantity", product.stockQuantity);
                 formData.append("numberOfProductSold", product.numberOfProductSold + order.quantityOrder);
                 formData.append("numberOfProductInStock", product.numberOfProductInStock - order.quantityOrder);
-                // formData.append("quantityOrder", order.quantityOrder);
                 console.table({
                     productId: product.id,
                     priceProduct: product.priceProduct,
@@ -61,7 +58,6 @@ function OrderDetail() {
                     numberOfProductSold: product.numberOfProductSold + order.quantityOrder,
                     numberOfProductInStock: product.numberOfProductInStock - order.quantityOrder,
                 });
-
                 dispatch(updateQuantityProductAction(product.id, formData));
             });
         });
@@ -137,7 +133,7 @@ function OrderDetail() {
                     <div className="mt-4">
                         <button
                             onClick={() => {
-                                // handleUpdateQuantityProduct();
+                                handleUpdateQuantityProduct();
                                 handleOrderComfirm(paymentDetail?.id, 4);
                             }}
                             disabled={paymentDetail?.statusOrder === 0 || paymentDetail?.statusOrder === 1 || paymentDetail?.statusOrder === 2 || paymentDetail?.statusOrder === 4}
@@ -149,7 +145,6 @@ function OrderDetail() {
                         >
                             Đã nhận hàng
                         </button>
-
                     </div>
                 </div>
             </div>

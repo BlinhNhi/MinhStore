@@ -149,45 +149,13 @@ export const getPaymentDetailByUserIdAction = (userId) => {
     }
 }
 
-// export const updateStatusPaymentAction = (id, formData) => {
-//     return async (dispatch) => {
-//         try {
-//             const result = await paymentService.updateStatusPayment(id, formData)
-//             if (result.data.status === 200) {
-//                 notification.success({
-//                     closeIcon: true,
-//                     message: 'Thành Công',
-//                     description: (
-//                         <>Cập Nhật Trạng Thái Thành Công</>
-//                     ),
-//                 }
-//                 );
-//             }
-//             dispatch(getPaymentDetailAction(id));
-//             dispatch(getListPaymentAction());
-//         } catch (error) {
-//             console.log(error);
-//             notification.error({
-//                 closeIcon: true,
-//                 message: "Thất Bại",
-//                 description: <>Cập Nhật Trạng Thái Thất Bại.</>,
-//             });
-//         }
-//     }
-// }
+
 
 export const updateStatusPaymentAction = (id, formData) => {
     return async (dispatch) => {
         try {
             const result = await paymentService.updateStatusPayment(id, formData);
             if (result.data.status === 200) {
-                notification.success({
-                    closeIcon: true,
-                    message: 'Thành Công',
-                    description: (
-                        <>Cập Nhật Trạng Thái Thành Công</>
-                    ),
-                });
                 await dispatch(getPaymentDetailAction(id));
                 await dispatch(getListPaymentAction());
                 notification.success({
