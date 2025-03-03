@@ -123,12 +123,6 @@ namespace back_end.Services
                             await transaction.RollbackAsync();
                             return false;
                         }
-
-                        // Giảm số lượng sản phẩm trong kho
-                      /*  product.NumberOfProductInStock -= 1;
-                        product.NumberOfProductSold += 1;
-                        db.Products.Update(product);*/
-
                         // Lưu sản phẩm vào đơn hàng
                         db.OrderProducts.Add(new OrderProduct
                         {
