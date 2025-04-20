@@ -10,6 +10,8 @@ export const GET_USER_DETAIL = "GET_USER_DETAIL"
 // Color
 export const GET_COLOR_LIST = "GET_COLOR_LIST";
 export const GET_COLOR_DETAIL = "GET_COLOR_DETAIL"
+// Comment
+export const GET_COMMENT_LIST = "GET_COMMENT_LIST";
 //Category
 export const GET_CATEGORY_LIST = "GET_CATEGORY_LIST";
 export const GET_CATEGORY_DETAIL = "GET_ CATEGORY_DETAIL"

@@ -189,6 +189,35 @@ namespace back_end.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Message = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ProductId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    UserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comments_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "ProductColors",
                 columns: table => new
                 {
@@ -382,10 +411,10 @@ namespace back_end.Migrations
                 columns: new[] { "Id", "Email", "GoogleId", "Name", "Password", "Phone", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("09a0a3ec-7289-4626-a23a-b9022bc5506b"), "admin@minhstore.com", null, null, "$2a$11$6gZyecpmruZLVEvZ2nliJeL5zgfpbPICN8uQyLNeiyje7mJRTl.ry", null, "Admin" },
-                    { new Guid("6423dd4f-f89d-465b-97c9-ebe031bb5f28"), "user123@gmail.com", null, null, "$2a$11$T8HvDW777dATRmAwzVz22O0Y1kB3WRj/ZtZQ6LsNNhwdDiio3BGnq", null, "User" },
-                    { new Guid("cb2071d2-3bd9-40b0-80bb-2daac274289f"), "user789@gmail.com", null, null, "$2a$11$n0QrFt0QwLeIZv4ICvQzTubWfKZ3c8utKht34roII.ZjDtY.oo8T6", null, "User" },
-                    { new Guid("daf5de83-c672-45c9-8bc4-b5a009dbcddb"), "user456@gmail.com", null, null, "$2a$11$zuO33P0dwz1dmnBNr5JQSueyWZ8u0vgot5srcWp2bnB8K2fEIA7uS", null, "User" }
+                    { new Guid("1fe8a88b-0186-471a-af66-b7940f0f6db2"), "admin@minhstore.com", null, null, "$2a$11$s8mxA62g/uaayDxWZNezH.xDWFYm/qESFeWh/gDddAXZiU8Q5l8pi", null, "Admin" },
+                    { new Guid("6e1a5786-314c-4f16-95f8-cc8376952268"), "user123@gmail.com", null, null, "$2a$11$zNuj8.spO8TIYh5UdjFkOOneXpY51RvoPpfVjf0eP515GWXEsLVuC", null, "User" },
+                    { new Guid("81d81309-a680-4041-a8ec-4ba5455deb54"), "user456@gmail.com", null, null, "$2a$11$zv4y7ZXbYIQ4RhNuPOygZ.pg.QtJ/eEqqBr6AatvinivrSv3vuqaO", null, "User" },
+                    { new Guid("b41c95f8-d43e-4fa2-be70-8fe2dce891e4"), "user789@gmail.com", null, null, "$2a$11$ebrmyRdJtyA3OeIUpRje3eTrdTcA19sjMiT665.DodoulVApNOBlG", null, "User" }
                 });
 
             migrationBuilder.InsertData(
@@ -578,6 +607,16 @@ namespace back_end.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comments_ProductId",
+                table: "Comments",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_UserId",
+                table: "Comments",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderProduct_ProductsId",
                 table: "OrderProduct",
                 column: "ProductsId");
@@ -636,6 +675,9 @@ namespace back_end.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Comments");
+
             migrationBuilder.DropTable(
                 name: "OrderProduct");
 

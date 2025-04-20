@@ -1,5 +1,4 @@
 import Banner from "../../../components/Banner/Banner";
-import Comment from "../../../components/Comment/Comment";
 import Products from "../../../components/Products/Products";
 import SliderPage from "../../../components/Slider/Slider";
 import NewProduct from "../../../components/NewProduct/NewProduct";
@@ -15,7 +14,7 @@ function Home() {
             <NewProduct></NewProduct>
             <Banner dataAdidas={dataAdidas} ></Banner>
             <Banner dataNike={dataNike}></Banner>
-            <Comment></Comment>
+            {/* <Comment></Comment> */}
         </div>
     );
 }

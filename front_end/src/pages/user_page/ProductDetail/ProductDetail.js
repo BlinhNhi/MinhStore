@@ -18,6 +18,7 @@ import { useParams } from "react-router-dom";
 import { addCartAction } from "../../../redux_store/actions/OrderAction";
 import { notification } from "antd";
 import ModalAddProductIntoCart from "../../../components/ModalAddProductIntoCart/ModalAddProductIntoCart";
+import Comment from "../../../components/Comment/Comment";
 
 function CancelArrowSlider(props) {
     const { style } = props;
@@ -31,6 +32,7 @@ function ProductDetail(props) {
     const { productDetailForUser } = useSelector((state) => state.ProductReducer);
     const { arrEightProducts } = useSelector((state) => state.ProductReducer);
     const idUser = userLogin?.id;
+    // console.log(productDetailForUser?.numberOfProductInStock);
 
     useEffect(() => {
         dispatch(getDetailProductForUserAction(id));
@@ -105,6 +107,7 @@ function ProductDetail(props) {
             });
         }
         else if (productDetailForUser?.numberOfProductInStock < numberProduct) {
+            console.log('handle Now render');
             notification.error({
                 closeIcon: true,
                 message: 'Xin lỗi',
@@ -127,7 +130,6 @@ function ProductDetail(props) {
             handleOpenModal();
         }
     };
-    console.log(productDetailForUser?.numberOfProductInStock);
 
     const handleBuyNow = () => {
         if (!idUser || !savedIdSize || !savedIdColor || !numberProduct || !productDetailForUser?.priceProduct) {
@@ -140,6 +142,7 @@ function ProductDetail(props) {
             });
         }
         else if (productDetailForUser?.numberOfProductInStock < numberProduct) {
+            console.log('handle Now render');
             notification.error({
                 closeIcon: true,
                 message: 'Xin lỗi',
@@ -377,7 +380,7 @@ flex items-start mt-3 gap-4 mb-5
                         <FaTruck></FaTruck>Thời gian vận chuyển trung bình 3-4 ngày.
                     </h1>
                 </div>
-
+                <Comment productId={id} userId={idUser} />
                 <ListNewsProducts listProducts={arrEightProducts}></ListNewsProducts>
             </div>
         </div>

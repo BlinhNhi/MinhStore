@@ -8,6 +8,8 @@ import { CategoryReducer } from "./reducers/CategoryReducer";
 import { SizeReducer } from "./reducers/SizeReducer";
 import { OrderReducer } from "./reducers/OrderReducer";
 import { PaymentReducer } from "./reducers/PaymentReducer";
+import { CommentReducer } from "./reducers/CommentReducer";
+
 
 
 
@@ -24,7 +26,8 @@ const rootReducer = combineReducers({
     CategoryReducer,
     SizeReducer,
     OrderReducer,
-    PaymentReducer
+    PaymentReducer,
+    CommentReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(reduxThunk));

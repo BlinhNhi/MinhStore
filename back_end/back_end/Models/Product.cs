@@ -17,6 +17,7 @@
         public ICollection<Color>? Colors { get; set; }
         public ICollection<Size>? Sizes { get; set; }
         public ICollection<Order>? Orders { get; set; }
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
         public DateTime ? CreatedDate { get; set; }
 

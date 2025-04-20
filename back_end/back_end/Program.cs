@@ -11,7 +11,6 @@ using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -44,8 +43,7 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
-// Thêm dịch vụ SignalR/*
-/*builder.Services.AddSignalR();*/
+
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("MySqlConn"), new MySqlServerVersion(new Version(7, 0, 0))));    
@@ -73,6 +71,8 @@ builder.Services.AddScoped<IUserRepo, UserService>();
 builder.Services.AddScoped<ISendMail, SendMailService>();
 builder.Services.AddScoped<IOrderRepo, OrderService>();
 builder.Services.AddScoped<IPaymentRepo, PaymentService>();
+builder.Services.AddScoped<ICommentRepo, CommentService>();
+
 
 
 builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));
@@ -89,11 +89,10 @@ builder.Services.AddCors(options =>
                         .AllowAnyMethod()
                         .AllowCredentials());
 });
-
-
+builder.Services.AddSignalR();
 var app = builder.Build();
 app.UseRouting();
-/*app.MapHub<PaymentHub>("/paymentHub");*/
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -105,5 +104,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapHub<CommentHub>("/commentHub");
 app.Run();
 

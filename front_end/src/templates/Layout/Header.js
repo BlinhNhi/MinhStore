@@ -63,7 +63,6 @@ function Header() {
         }
     }
 
-    console.log(userLogin?.id);
     return (
         <div className='shadow-md  dark:bg-gray-900 dark:text-white duration-200 relative z-40'>
             {/* Navbar of Phone */}

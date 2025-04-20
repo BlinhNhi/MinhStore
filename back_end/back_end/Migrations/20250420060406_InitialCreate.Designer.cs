@@ -11,7 +11,7 @@ using back_end.Models;
 namespace back_end.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250211175820_InitialCreate")]
+    [Migration("20250420060406_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -169,6 +169,34 @@ namespace back_end.Migrations
                             Id = 13,
                             Name = "Xám"
                         });
+                });
+
+            modelBuilder.Entity("back_end.Models.Comment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("back_end.Models.Order", b =>
@@ -1655,30 +1683,30 @@ namespace back_end.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("09a0a3ec-7289-4626-a23a-b9022bc5506b"),
+                            Id = new Guid("1fe8a88b-0186-471a-af66-b7940f0f6db2"),
                             Email = "admin@minhstore.com",
-                            Password = "$2a$11$6gZyecpmruZLVEvZ2nliJeL5zgfpbPICN8uQyLNeiyje7mJRTl.ry",
+                            Password = "$2a$11$s8mxA62g/uaayDxWZNezH.xDWFYm/qESFeWh/gDddAXZiU8Q5l8pi",
                             Role = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("6423dd4f-f89d-465b-97c9-ebe031bb5f28"),
+                            Id = new Guid("6e1a5786-314c-4f16-95f8-cc8376952268"),
                             Email = "user123@gmail.com",
-                            Password = "$2a$11$T8HvDW777dATRmAwzVz22O0Y1kB3WRj/ZtZQ6LsNNhwdDiio3BGnq",
+                            Password = "$2a$11$zNuj8.spO8TIYh5UdjFkOOneXpY51RvoPpfVjf0eP515GWXEsLVuC",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("daf5de83-c672-45c9-8bc4-b5a009dbcddb"),
+                            Id = new Guid("81d81309-a680-4041-a8ec-4ba5455deb54"),
                             Email = "user456@gmail.com",
-                            Password = "$2a$11$zuO33P0dwz1dmnBNr5JQSueyWZ8u0vgot5srcWp2bnB8K2fEIA7uS",
+                            Password = "$2a$11$zv4y7ZXbYIQ4RhNuPOygZ.pg.QtJ/eEqqBr6AatvinivrSv3vuqaO",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("cb2071d2-3bd9-40b0-80bb-2daac274289f"),
+                            Id = new Guid("b41c95f8-d43e-4fa2-be70-8fe2dce891e4"),
                             Email = "user789@gmail.com",
-                            Password = "$2a$11$n0QrFt0QwLeIZv4ICvQzTubWfKZ3c8utKht34roII.ZjDtY.oo8T6",
+                            Password = "$2a$11$ebrmyRdJtyA3OeIUpRje3eTrdTcA19sjMiT665.DodoulVApNOBlG",
                             Role = "User"
                         });
                 });
@@ -1696,6 +1724,25 @@ namespace back_end.Migrations
                         .HasForeignKey("ProductsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("back_end.Models.Comment", b =>
+                {
+                    b.HasOne("back_end.Models.Product", "Product")
+                        .WithMany("Comments")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("back_end.Models.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("back_end.Models.Order", b =>
@@ -1841,6 +1888,11 @@ namespace back_end.Migrations
                     b.Navigation("ProductOrders");
                 });
 
+            modelBuilder.Entity("back_end.Models.Product", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
             modelBuilder.Entity("back_end.Models.Size", b =>
                 {
                     b.Navigation("Orders");
@@ -1848,6 +1900,8 @@ namespace back_end.Migrations
 
             modelBuilder.Entity("back_end.Models.User", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Orders");
 
                     b.Navigation("Payments");

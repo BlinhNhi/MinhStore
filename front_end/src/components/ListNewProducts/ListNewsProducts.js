@@ -1,9 +1,9 @@
-import { NavLink } from "react-router-dom";
 import Slider from "react-slick";
 import { PiSneakerMoveFill } from "react-icons/pi";
 
 import NoImage from '../../assets/no-image.jpeg';
 import { handleFormatPrice } from "../../utils/format/formatPrice";
+import React from "react";
 
 
 
@@ -116,6 +116,7 @@ function ListNewsProducts(listProducts) {
         ]
     };
 
+    console.log('render list new product');
     return (
         <div
             data-aos="fade-up"
@@ -126,7 +127,7 @@ function ListNewsProducts(listProducts) {
             <div className="slider-container">
                 <Slider {...settings}>
                     {listEightProduct?.map((data, i) => (
-                        <div className="px-10 py-8">
+                        <div className="px-10 py-8" key={i}>
                             <a href={`/product-detail/${data?.id}`}>
                                 <div className=" border-4 border-gray-300 hover:border-gray-400  hover:dark:border-primary hover:cursor-pointer rounded-md  hover:translate-y-2 duration-500">
                                     <div className="flex flex-col dark:bg-gray-800 hover:bg-black/80 dark:hover:bg-primary hover:text-white duration-300 shadow-xl gap-2">
@@ -150,4 +151,4 @@ function ListNewsProducts(listProducts) {
     );
 }
 
-export default ListNewsProducts;
+export default React.memo(ListNewsProducts);

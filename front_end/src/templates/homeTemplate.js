@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import Footer from "./Layout/Footer";
-// import { useDispatch } from "react-redux";
 import Header from "./Layout/Header";
+import Footer from "./Layout/Footer";
 
 
 import React from "react";

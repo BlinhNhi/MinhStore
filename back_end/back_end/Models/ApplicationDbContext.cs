@@ -19,6 +19,7 @@ namespace back_end.Models
         public DbSet<OrderProduct> OrderProducts { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<PaymentOrder> PaymentOrders { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -124,6 +125,16 @@ namespace back_end.Models
                 pay.HasKey(pay => new { pay.OrderId, pay.PaymentId });
 
             });
+
+            modelBuilder.Entity<Comment>()
+               .HasOne(c => c.Product)
+               .WithMany(p => p.Comments)
+               .HasForeignKey(c => c.ProductId);
+
+            modelBuilder.Entity<Comment>()
+               .HasOne(c => c.User)
+               .WithMany(u => u.Comments)
+               .HasForeignKey(c => c.UserId);
             /*  modelBuilder.Entity<Product>()
                   .Property(p
        => p.CreatedAt)
