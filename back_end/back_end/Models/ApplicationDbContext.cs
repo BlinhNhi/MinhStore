@@ -100,6 +100,7 @@ namespace back_end.Models
                 p.HasOne(o => o.Category).WithMany(o => o.Products).HasForeignKey(h => h.CategoryId);
                 p.HasData(SeedData.productData.ProductSeedData());
             });
+
             modelBuilder.Entity<Order>(o =>
             {
                 o.HasKey(n => n.Id);
@@ -135,18 +136,7 @@ namespace back_end.Models
                .HasOne(c => c.User)
                .WithMany(u => u.Comments)
                .HasForeignKey(c => c.UserId);
-            /*  modelBuilder.Entity<Product>()
-                  .Property(p
-       => p.CreatedAt)
-                  .HasDefaultValueSql("getutcdate()"); // adjust based on your database
-
-              modelBuilder.Entity<Product>()
-                  .Property(p => p.UpdatedAt)
-                  .HasDefaultValueSql("getutcdate()"); // adjust based on your database
-
-              modelBuilder.Entity<Product>()
-                  .HasQueryFilter(p => p.DeletedAt == null); // soft delete*/
-
+           
         }
     }
 }

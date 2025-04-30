@@ -11,7 +11,7 @@ using back_end.Models;
 namespace back_end.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250420060406_InitialCreate")]
+    [Migration("20250430105659_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -1683,30 +1683,30 @@ namespace back_end.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1fe8a88b-0186-471a-af66-b7940f0f6db2"),
+                            Id = new Guid("5cb74d8e-9312-4639-a717-8ff4c14804cd"),
                             Email = "admin@minhstore.com",
-                            Password = "$2a$11$s8mxA62g/uaayDxWZNezH.xDWFYm/qESFeWh/gDddAXZiU8Q5l8pi",
+                            Password = "$2a$11$KpZWtd5YKTwOe4UOHxXnEONxsnXDloBWaolWBuxvlUMLYSht6/gom",
                             Role = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("6e1a5786-314c-4f16-95f8-cc8376952268"),
+                            Id = new Guid("aa4d4dc6-900a-4a2d-ae8b-48471087a3bd"),
                             Email = "user123@gmail.com",
-                            Password = "$2a$11$zNuj8.spO8TIYh5UdjFkOOneXpY51RvoPpfVjf0eP515GWXEsLVuC",
+                            Password = "$2a$11$WblBJqfBs4lYRibGwbfZGuA3JsnQpXliYqIbc2dzgbPDgDCvTva5G",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("81d81309-a680-4041-a8ec-4ba5455deb54"),
+                            Id = new Guid("7445acd8-2763-47dd-84c0-a81c66b5f45b"),
                             Email = "user456@gmail.com",
-                            Password = "$2a$11$zv4y7ZXbYIQ4RhNuPOygZ.pg.QtJ/eEqqBr6AatvinivrSv3vuqaO",
+                            Password = "$2a$11$iBAuPe/MAjENRhTpHasqBuYL7.35KcNjrz7bncpOTpxyLyvO1s6ge",
                             Role = "User"
                         },
                         new
                         {
-                            Id = new Guid("b41c95f8-d43e-4fa2-be70-8fe2dce891e4"),
+                            Id = new Guid("30550b66-8fb5-45cc-9e52-85ae0a5753a2"),
                             Email = "user789@gmail.com",
-                            Password = "$2a$11$ebrmyRdJtyA3OeIUpRje3eTrdTcA19sjMiT665.DodoulVApNOBlG",
+                            Password = "$2a$11$l7Tz46oGhy5qHYjYbFNTqOksGEnmv9HKybybkNDLk/fE/SV1ZYVY2",
                             Role = "User"
                         });
                 });

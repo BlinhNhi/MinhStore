@@ -411,10 +411,10 @@ namespace back_end.Migrations
                 columns: new[] { "Id", "Email", "GoogleId", "Name", "Password", "Phone", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("1fe8a88b-0186-471a-af66-b7940f0f6db2"), "admin@minhstore.com", null, null, "$2a$11$s8mxA62g/uaayDxWZNezH.xDWFYm/qESFeWh/gDddAXZiU8Q5l8pi", null, "Admin" },
-                    { new Guid("6e1a5786-314c-4f16-95f8-cc8376952268"), "user123@gmail.com", null, null, "$2a$11$zNuj8.spO8TIYh5UdjFkOOneXpY51RvoPpfVjf0eP515GWXEsLVuC", null, "User" },
-                    { new Guid("81d81309-a680-4041-a8ec-4ba5455deb54"), "user456@gmail.com", null, null, "$2a$11$zv4y7ZXbYIQ4RhNuPOygZ.pg.QtJ/eEqqBr6AatvinivrSv3vuqaO", null, "User" },
-                    { new Guid("b41c95f8-d43e-4fa2-be70-8fe2dce891e4"), "user789@gmail.com", null, null, "$2a$11$ebrmyRdJtyA3OeIUpRje3eTrdTcA19sjMiT665.DodoulVApNOBlG", null, "User" }
+                    { new Guid("30550b66-8fb5-45cc-9e52-85ae0a5753a2"), "user789@gmail.com", null, null, "$2a$11$l7Tz46oGhy5qHYjYbFNTqOksGEnmv9HKybybkNDLk/fE/SV1ZYVY2", null, "User" },
+                    { new Guid("5cb74d8e-9312-4639-a717-8ff4c14804cd"), "admin@minhstore.com", null, null, "$2a$11$KpZWtd5YKTwOe4UOHxXnEONxsnXDloBWaolWBuxvlUMLYSht6/gom", null, "Admin" },
+                    { new Guid("7445acd8-2763-47dd-84c0-a81c66b5f45b"), "user456@gmail.com", null, null, "$2a$11$iBAuPe/MAjENRhTpHasqBuYL7.35KcNjrz7bncpOTpxyLyvO1s6ge", null, "User" },
+                    { new Guid("aa4d4dc6-900a-4a2d-ae8b-48471087a3bd"), "user123@gmail.com", null, null, "$2a$11$WblBJqfBs4lYRibGwbfZGuA3JsnQpXliYqIbc2dzgbPDgDCvTva5G", null, "User" }
                 });
 
             migrationBuilder.InsertData(
