@@ -29,29 +29,41 @@ const Comment = ({ productId, userId }) => {
         const startConnection = async () => {
             try {
                 if (connection.state === signalR.HubConnectionState.Disconnected) {
-                    await connection.start();  // Bắt đầu kết nối tới SignalR Hub
+                    await connection.start();
                 }
             } catch (err) {
                 console.error("Connection failed: ", err);
             }
         };
         startConnection();
-        // Lắng nghe sự kiện "ReceiveComment" từ SignalR
-        connection.on("ReceiveComment", (receivedProductId, senderId, message, createdAt) => {
-            if (receivedProductId === productId) {
-                setComments(prev => [...prev, { userId: senderId, message, createdAt }]);
+        connection.on("ReceiveComment", (newComment) => {
+            if (newComment.productId === productId) {
+                setComments(prev => [...prev, newComment]);
             }
         });
+
+        // connection.on("UpdateComment", (updatedComment) => {
+        //     setComments(prev => prev.map(c =>
+        //         c.id === updatedComment.id ? { ...c, message: updatedComment.message } : c
+        //     ));
+        // });
+
+        // connection.on("DeleteComment", (deletedId) => {
+        //     setComments(prev => prev.filter(c => c.id !== deletedId));
+        // });
+
         setComments(arrComment);
-        // Clean up khi component bị unmount hoặc khi productId thay đổi
+
         return () => {
             connection.off("ReceiveComment");
+            // connection.off("UpdateComment");
+            // connection.off("DeleteComment");
         };
     }, [productId, arrComment]);
 
     const handleSend = async () => {
         if (!message.trim()) return;
-        await connection.invoke("SendComment", productId, userId, message);
+        await connection.invoke("CreateComment", productId, userId, message);
         editorRef.current.setData("");
     };
 

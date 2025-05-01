@@ -24,6 +24,7 @@ namespace back_end.Controllers
             var comments = await repo.GetCommentByProductId(productId);
             return Ok(comments);
         }
+
         [HttpPost]
         public async Task<ActionResult> CreateComment([FromForm] Comment Comment)
         {
@@ -43,6 +44,7 @@ namespace back_end.Controllers
             }
 
         }
+
         [HttpDelete("{Id}")]
         public async Task<ActionResult> DeleteComment(Guid Id)
         {
