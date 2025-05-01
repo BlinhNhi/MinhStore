@@ -1,8 +1,11 @@
 ﻿using back_end.Models;
 using Microsoft.AspNetCore.SignalR;
+using System;
+using System.Threading.Tasks;
 
 public class CommentHub : Hub
 {
+    // Broadcast comment mới
     private readonly ApplicationDbContext _context;
 
     public CommentHub(ApplicationDbContext context)
@@ -10,20 +13,13 @@ public class CommentHub : Hub
         _context = context;
     }
 
-    public async Task SendComment(string productId, string userId, string message)
+    public async Task CreateComment(string productId, string userId, string message)
     {
-        Console.WriteLine($"[SignalR] Received comment - ProductId: {productId}, UserId: {userId}, Message: {message}");
-
-        if (!Guid.TryParse(productId, out Guid pid) || !Guid.TryParse(userId, out Guid uid))
-        {
-            Console.WriteLine("[SignalR] Failed to parse GUIDs.");
-            return;
-        }
-
         var comment = new Comment
         {
-            ProductId = pid,
-            UserId = uid,
+            Id = Guid.NewGuid(),
+            ProductId = Guid.Parse(productId),
+            UserId = Guid.Parse(userId),
             Message = message,
             CreatedAt = DateTime.UtcNow
         };
@@ -31,6 +27,43 @@ public class CommentHub : Hub
         _context.Comments.Add(comment);
         await _context.SaveChangesAsync();
 
-        await Clients.All.SendAsync("ReceiveComment", productId, userId, message, comment.CreatedAt);
+        await Clients.All.SendAsync("ReceiveComment", new
+        {
+            comment.Id,
+            comment.ProductId,
+            comment.UserId,
+            comment.Message,
+            comment.CreatedAt
+        });
+    }
+
+    public async Task UpdateComment(string id, string newMessage)
+    {
+        var cid = Guid.Parse(id);
+        var comment = await _context.Comments.FindAsync(cid);
+        if (comment != null)
+        {
+            comment.Message = newMessage;
+            await _context.SaveChangesAsync();
+
+            await Clients.All.SendAsync("UpdateComment", new
+            {
+                comment.Id,
+                comment.Message
+            });
+        }
+    }
+
+    public async Task DeleteComment(string id)
+    {
+        var cid = Guid.Parse(id);
+        var comment = await _context.Comments.FindAsync(cid);
+        if (comment != null)
+        {
+            _context.Comments.Remove(comment);
+            await _context.SaveChangesAsync();
+
+            await Clients.All.SendAsync("DeleteComment", comment.Id);
+        }
     }
 }

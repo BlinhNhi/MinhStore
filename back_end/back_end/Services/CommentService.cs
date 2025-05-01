@@ -1,5 +1,6 @@
 ﻿using back_end.IRepository;
 using back_end.Models;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace back_end.Services
@@ -7,10 +8,12 @@ namespace back_end.Services
     public class CommentService : ICommentRepo
     {
         private readonly ApplicationDbContext db;
+        private readonly IHubContext<CommentHub> _hubContext;
 
-        public CommentService(ApplicationDbContext db)
+        public CommentService(ApplicationDbContext db, IHubContext<CommentHub> hubContext)
         {
             this.db = db;
+            _hubContext = hubContext;
         }
 
         public async Task<bool> CreateComment(Comment comment)
@@ -25,6 +28,14 @@ namespace back_end.Services
 
                 await db.Comments.AddAsync(comment);
                 await db.SaveChangesAsync();
+                await _hubContext.Clients.All.SendAsync("ReceiveComment", new
+                {
+                    comment.Id,
+                    comment.ProductId,
+                    comment.UserId,
+                    comment.Message,
+                    comment.CreatedAt
+                });
                 return true;
 
             }
@@ -41,6 +52,7 @@ namespace back_end.Services
             {
                 db.Comments.Remove(ExistingComment);
                 await db.SaveChangesAsync();
+                await _hubContext.Clients.All.SendAsync("DeleteComment", ExistingComment.Id);
                 return ExistingComment;
             }
             return null;
@@ -62,6 +74,14 @@ namespace back_end.Services
             {
                 ExistingComment.Message = Comment.Message;
                 await db.SaveChangesAsync();
+                await _hubContext.Clients.All.SendAsync("UpdateComment", new
+                {
+                    ExistingComment.Id,
+                    ExistingComment.ProductId,
+                    ExistingComment.UserId,
+                    ExistingComment.Message,
+                    ExistingComment.CreatedAt
+                });
                 return true;
             }
             else
