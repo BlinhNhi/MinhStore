@@ -15,16 +15,19 @@ import ActionPopover from "../ActionPopover/ActionPopover";
 const connection = createConnection("https://localhost:7234/commentHub");
 const Comment = ({ productId, userId }) => {
     const dispatch = useDispatch();
+
     let { arrComment } = useSelector((state) => state.CommentReducer);
     const [message, setMessage] = useState("");
     const [comments, setComments] = useState(arrComment);
     const [menuOpen, setMenuOpen] = useState(null);
+
     const editorRef = useRef();
 
     useEffect(() => {
         dispatch(getCommentByIdProductAction(productId));
-    }, [productId]);
+    }, [productId, dispatch]);
 
+    console.log(arrComment);
     useEffect(() => {
         const startConnection = async () => {
             try {
@@ -42,29 +45,33 @@ const Comment = ({ productId, userId }) => {
             }
         });
 
-        // connection.on("UpdateComment", (updatedComment) => {
-        //     setComments(prev => prev.map(c =>
-        //         c.id === updatedComment.id ? { ...c, message: updatedComment.message } : c
-        //     ));
-        // });
+        connection.on("UpdateComment", (updatedComment) => {
+            setComments(prev => prev.map(c =>
+                c.id === updatedComment.id ? { ...c, message: updatedComment.message } : c
+            ));
+        });
 
-        // connection.on("DeleteComment", (deletedId) => {
-        //     setComments(prev => prev.filter(c => c.id !== deletedId));
-        // });
+        connection.on("DeleteComment", (deletedId) => {
+            setComments(prev => prev.filter(c => c.id !== deletedId));
+        });
 
         setComments(arrComment);
 
         return () => {
             connection.off("ReceiveComment");
             // connection.off("UpdateComment");
-            // connection.off("DeleteComment");
+            connection.off("DeleteComment");
         };
     }, [productId, arrComment]);
 
-    const handleSend = async () => {
+    const handleCreateMessage = async () => {
         if (!message.trim()) return;
         await connection.invoke("CreateComment", productId, userId, message);
         editorRef.current.setData("");
+    };
+
+    const handleDeleteComment = async (id) => {
+        await connection.invoke("DeleteComment", id);
     };
 
     const handleCancelSend = () => {
@@ -72,6 +79,9 @@ const Comment = ({ productId, userId }) => {
         if (editorRef.current) {
             editorRef.current.setData("");
         }
+    };
+    const handleUpdateComment = async (id, newMessage) => {
+        await connection.invoke("UpdateComment", id, newMessage);
     };
 
     const toggleMenu = (index) => setMenuOpen(prev => prev === index ? null : index);
@@ -90,11 +100,16 @@ const Comment = ({ productId, userId }) => {
                             <div className="text-gray-500" dangerouslySetInnerHTML={{ __html: c.message }}></div>
                         </div>
                         <div className="relative">
-                            <button onClick={() => toggleMenu(idx)}>
+                            {c.userId === userId && <button onClick={() => toggleMenu(idx)}>
                                 <BsThreeDots className="text-xl cursor-pointer dark:text-gray-400 dark:hover:text-gray-500" />
-                            </button>
+                            </button>}
                             {menuOpen === idx && (
-                                <ActionPopover id={c.id}></ActionPopover>
+                                <ActionPopover
+                                    id={c.id}
+                                    message={c.message}
+                                    onDelete={handleDeleteComment}
+                                    onUpdate={handleUpdateComment}
+                                ></ActionPopover>
                             )}
                         </div>
                     </div>
@@ -127,7 +142,7 @@ const Comment = ({ productId, userId }) => {
                 </Form.Item>
                 <div className="flex gap-2 w-full">
                     <button
-                        onClick={handleSend}
+                        onClick={handleCreateMessage}
                         className="px-3  py-2 bg-orange-400 text-white rounded-lg hover:bg-orange-500 focus:outline-none"
                     >
                         Bình luận
