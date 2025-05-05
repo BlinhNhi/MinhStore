@@ -20,6 +20,8 @@ namespace back_end.Models
         public DbSet<Payment> Payments { get; set; }
         public DbSet<PaymentOrder> PaymentOrders { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<RestrictedWords> RestrictedWords { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -136,7 +138,11 @@ namespace back_end.Models
                .HasOne(c => c.User)
                .WithMany(u => u.Comments)
                .HasForeignKey(c => c.UserId);
-           
+
+            modelBuilder.Entity<RestrictedWords>(c =>
+            {
+                c.HasKey(c => c.Id);
+            });
         }
     }
 }

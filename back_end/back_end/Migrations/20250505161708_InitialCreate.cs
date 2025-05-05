@@ -48,6 +48,21 @@ namespace back_end.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "RestrictedWords",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Word = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RestrictedWords", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Sizes",
                 columns: table => new
                 {
@@ -411,10 +426,10 @@ namespace back_end.Migrations
                 columns: new[] { "Id", "Email", "GoogleId", "Name", "Password", "Phone", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("30550b66-8fb5-45cc-9e52-85ae0a5753a2"), "user789@gmail.com", null, null, "$2a$11$l7Tz46oGhy5qHYjYbFNTqOksGEnmv9HKybybkNDLk/fE/SV1ZYVY2", null, "User" },
-                    { new Guid("5cb74d8e-9312-4639-a717-8ff4c14804cd"), "admin@minhstore.com", null, null, "$2a$11$KpZWtd5YKTwOe4UOHxXnEONxsnXDloBWaolWBuxvlUMLYSht6/gom", null, "Admin" },
-                    { new Guid("7445acd8-2763-47dd-84c0-a81c66b5f45b"), "user456@gmail.com", null, null, "$2a$11$iBAuPe/MAjENRhTpHasqBuYL7.35KcNjrz7bncpOTpxyLyvO1s6ge", null, "User" },
-                    { new Guid("aa4d4dc6-900a-4a2d-ae8b-48471087a3bd"), "user123@gmail.com", null, null, "$2a$11$WblBJqfBs4lYRibGwbfZGuA3JsnQpXliYqIbc2dzgbPDgDCvTva5G", null, "User" }
+                    { new Guid("4c821772-f947-4548-ba66-1b4cc7de34df"), "admin@minhstore.com", null, null, "$2a$11$fVqymb2iJ0bqto6.4fQeFe3F1J62NAfnDXIfLw/Vt1NlTVBJiq76W", null, "Admin" },
+                    { new Guid("8a9eaca4-329e-4c8e-827b-b920ca2350c4"), "user456@gmail.com", null, null, "$2a$11$FrtBr9r1XkezwhG.cTLrJ.yOsBD8m//ggu30BRfrVibxQuS3bTIWy", null, "User" },
+                    { new Guid("9f3a314c-01e8-4206-8e34-e04f0d6eaf54"), "user789@gmail.com", null, null, "$2a$11$wSQcTYtXwy4xYehuTG5FTuj0NQfQ0RhwZ9AKB9sNg8.l9Dmbu5KCu", null, "User" },
+                    { new Guid("ad033943-43db-4bca-8b18-b81c6abfb6b5"), "user123@gmail.com", null, null, "$2a$11$ojkLJOiFwuc4plQjW0FCEObN2iXYxSCMpTbzvy7.Suuun5NQlZmg.", null, "User" }
                 });
 
             migrationBuilder.InsertData(
@@ -692,6 +707,9 @@ namespace back_end.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProductSizes");
+
+            migrationBuilder.DropTable(
+                name: "RestrictedWords");
 
             migrationBuilder.DropTable(
                 name: "Orders");

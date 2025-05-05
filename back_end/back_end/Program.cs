@@ -72,6 +72,8 @@ builder.Services.AddScoped<ISendMail, SendMailService>();
 builder.Services.AddScoped<IOrderRepo, OrderService>();
 builder.Services.AddScoped<IPaymentRepo, PaymentService>();
 builder.Services.AddScoped<ICommentRepo, CommentService>();
+builder.Services.AddScoped<IRestrictedWord, RestrictedWordService>();
+
 
 
 
