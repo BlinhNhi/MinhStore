@@ -6,7 +6,7 @@ import { Form, notification } from "antd";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { BsThreeDots } from "react-icons/bs";
-
+import { FaRegComment } from "react-icons/fa";
 import { getCommentByIdProductAction } from "../../redux_store/actions/CommentAction";
 import { getListRestrictedWordAction } from "../../redux_store/actions/RestrictedWordAction";
 import ActionPopover from "../ActionPopover/ActionPopover";
@@ -123,8 +123,13 @@ const Comment = ({ productId, userId }) => {
 
     const toggleMenu = (index) => setMenuOpen(prev => prev === index ? null : index);
     return (
-        <div className="space-y-4 w-full lg:w-1/2 xl:w-1/2 2xl:w-1/2">
+        <div className="space-y-4 w-full lg:w-1/2 xl:w-1/2 2xl:w-1/2 py-4 border-t-2  border-gray-400">
             <div className="space-y-2">
+                {listComments?.length > 0 ? <h3 className="text-xl font-semibold">Đánh giá sản phẩm: </h3> :
+                    <div className="flex items-center gap-2 italic">
+                        <FaRegComment className="font-semibold text-xl" />
+                        <p className="font-semibold text-xl ">Chưa tìm được đánh giá sản phẩm.</p>
+                    </div>}
                 {listComments.map((c, idx) => (
                     <div key={idx} className="p-3 border rounded-lg shadow-md bg-gray-100 flex items-center justify-between">
                         <div>
@@ -154,6 +159,7 @@ const Comment = ({ productId, userId }) => {
             </div>
 
             <div className="flex flex-col">
+                <h3 className="font-semibold text-xl pb-1">Bình luận sản phẩm: </h3>
                 <Form.Item >
                     <CKEditor
                         className="rounded-lg overflow-hidden"

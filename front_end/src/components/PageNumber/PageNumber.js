@@ -10,29 +10,8 @@ function PageNumber({ number, currentPage, icon, setCurrentPage, type }) {
 
     const [searchParams] = useSearchParams()
     let entries = searchParams.entries();
-    // console.log('entries', entries);
     const location = useLocation()
-    // const append = (entries) => {
-    //     let params = [];
-    //     searchParams.append('page', +number);
-    //     for (let entry of entries) {
-    //         params.push(entry)
-    //         console.log('entry', entry);
-    //         console.log('entries', entries);
 
-    //     }
-    //     let searchParamsObject = {};
-    //     params?.forEach(i => {
-    //         if (Object.keys(searchParamsObject)?.some(item => item === i[0] && item !== 'page')) {
-    //             searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
-    //         } else {
-
-    //             searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
-    //         }
-
-    //     });
-    //     return searchParamsObject
-    // }
     const append = (entries) => {
         let params = {};
         for (let [key, value] of entries) {

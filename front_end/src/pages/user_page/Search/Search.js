@@ -25,8 +25,8 @@ const setInput = {
 function Search(props) {
     const dispatch = useDispatch()
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    let { userLogin } = useSelector(state => state.UserReducer);
-    console.log(userLogin);
+    // let { userLogin } = useSelector(state => state.UserReducer);
+    // console.log(userLogin);
     let searchParams = new URLSearchParams(props.location.search);
     let searchNameProduct = searchParams.get('searchName');
     let searchTypeCategory = searchParams.get('searchCategory');

@@ -331,7 +331,7 @@ flex items-start mt-3 gap-4 mb-5
                 {/* Body */}
 
                 <div className="py-4 border-t-2  border-gray-400 w-full lg:w-[50%] xl:w-[50%] 2xl:w-[50%]">
-                    <h1 className="font-medium text-lg sm:text-lg md:text-lg lg:text-lg xl:text-lg 2xl:text-lg items-center  flex gap-4 mt-4">
+                    <h1 className="font-medium text-lg sm:text-lg md:text-lg lg:text-lg xl:text-lg 2xl:text-lg items-center  flex gap-4 ">
                         <FaCoins /> Miễn phí vận chuyển toàn quốc cho đơn hàng trên 1tr.
                     </h1>
                     <h1 className="font-medium text-lg sm:text-lg md:text-lg lg:text-lg xl:text-lg 2xl:text-lg items-center  flex gap-4 mt-1">
