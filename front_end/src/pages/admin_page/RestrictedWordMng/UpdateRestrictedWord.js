@@ -4,21 +4,21 @@ import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { getListCategoriesAction, updateCategoryAction, getCategoryDetailAction } from '../../../redux_store/actions/CategoryAction';
+import { getListRestrictedWordAction, updateRestrictedWordAction, getRestrictedWordDetailAction } from '../../../redux_store/actions/RestrictedWordAction';
 
-const UpdateCategory = (props) => {
+const UpdateRestrictedWord = (props) => {
     const dispatch = useDispatch();
-    const { categoryDetail } = useSelector(state => state.CategoryReducer)
-    let { arrCategories } = useSelector(state => state.CategoryReducer);
+    const { restrictedWordDetail } = useSelector(state => state.RestrictedWordReducer)
+    let { arrRestrictedWord } = useSelector(state => state.RestrictedWordReducer);
     let { id } = useParams();
     useEffect(() => {
-        dispatch(getCategoryDetailAction(id));
-        dispatch(getListCategoriesAction())
+        dispatch(getRestrictedWordDetailAction(id));
+        dispatch(getListRestrictedWordAction())
     }, [dispatch, id]);
 
     const handleSubmitCategory = (values) => {
-        const categoryExisted = arrCategories?.some(element => element.name === values?.name)
-        if (values.name === "" || values?.name?.startsWith(' ') === true) {
+        const restrictedWordExisted = arrRestrictedWord?.some(element => element.word === values?.word)
+        if (values.word === "" || values?.word?.startsWith(' ') === true) {
             notification.error({
                 closeIcon: true,
                 message: 'Error',
@@ -27,13 +27,13 @@ const UpdateCategory = (props) => {
                 ),
             });
         }
-        else if (categoryExisted === true) {
+        else if (restrictedWordExisted === true) {
             notification.error({
                 closeIcon: true,
-                message: 'Lỗi Trùng Tên Danh Mục',
+                message: 'Lỗi Trùng Tên Từ Khoá',
                 description: (
                     <>
-                        Danh Mục Này Đã Có Rồi.
+                        Từ Khoá Này Đã Có Rồi.
                     </>
                 ),
             });
@@ -43,14 +43,14 @@ const UpdateCategory = (props) => {
             for (let key in values) {
                 formData.append(key, values[key]);
             }
-            dispatch(updateCategoryAction(id, formData))
+            dispatch(updateRestrictedWordAction(id, formData))
         }
     }
 
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            name: categoryDetail?.name,
+            word: restrictedWordDetail?.word,
         },
         onSubmit: handleSubmitCategory
     })
@@ -66,11 +66,11 @@ const UpdateCategory = (props) => {
             }}
             layout="horizontal"
         >
-            <h3 className="text-lg md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl font-medium mb-4 dark:text-white">Cập Nhật Danh Mục:</h3>
+            <h3 className="text-lg md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl font-medium mb-4 dark:text-white">Cập Nhật Từ Khoá:</h3>
             <div className='row'>
                 <div className='col-8'>
                     <Form.Item
-                        label="Danh Mục"
+                        label="Từ Khoá"
                         style={{ minWidth: '100%' }}
                         rules={[
                             {
@@ -80,11 +80,11 @@ const UpdateCategory = (props) => {
                             },
                         ]}
                     >
-                        <Input name="name" onChange={formik.handleChange} value={formik.values.name} />
+                        <Input name="word" onChange={formik.handleChange} value={formik.values.word} />
                     </Form.Item>
 
                     <Form.Item label="Action">
-                        <Button htmlType="submit" type='primary'>Cập Nhật Danh Mục</Button>
+                        <Button htmlType="submit" type='primary'>Cập Nhật Từ Khoá</Button>
                     </Form.Item>
                 </div>
             </div>
@@ -92,4 +92,4 @@ const UpdateCategory = (props) => {
     );
 };
 
-export default UpdateCategory;
+export default UpdateRestrictedWord;

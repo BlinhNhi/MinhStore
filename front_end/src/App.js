@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom"; // Dùng Route thay vì Router
 import AOS from "aos";
 import "aos/dist/aos.css";
 import React, { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 // General
 import Home from "./pages/user_page/Home/Home";
 import Search from "./pages/user_page/Search/Search";
@@ -11,18 +12,22 @@ import Login from "./pages/user_page/Login/Login";
 import DashBoard from "./pages/admin_page/DashBoard/DashBoard";
 
 // User
+// Manager account.
 import SystemUser from "./pages/user_page/SystemUser/SystemUser"
 import ProfileUser from "./pages/user_page/ProfileUser/ProfileUser"
+import ManagerAccount from "./pages/user_page/ManagerAccount/ManagerAccount";
+// Order, Payment
 import CartShoppingUser from "./pages/user_page/CartShoppingUser/CartShoppingUser"
-
-
+import PaymentProduct from "./pages/user_page/PaymentProduct/PaymentProduct";
+import ManagerOrder from "./pages/user_page/ManagerOrder/ManagerOrder";
+import OrderDetail from "./pages/user_page/ManagerOrder/OrderDetail";
 
 // Admin
-// Color Manager
+// Color 
 import ColorMng from "./pages/admin_page/ColorManager/ColorManager";
 import CreateColor from "./pages/admin_page/ColorManager/CreateColor";
 import UpdateColor from "./pages/admin_page/ColorManager/UpdateColor";
-// Category Manager
+// Category 
 import CategoryMng from "./pages/admin_page/CategoriesMng/CategoriesMng";
 import CreateCategory from "./pages/admin_page/CategoriesMng/CreateCategory";
 import UpdateCategory from "./pages/admin_page/CategoriesMng/UpdateCategory";
@@ -35,18 +40,18 @@ import ProductManager from "./pages/admin_page/ProductManager/ProductManager";
 import CreateProduct from "./pages/admin_page/ProductManager/CreateProduct";
 import UpdateProduct from "./pages/admin_page/ProductManager/UpdateProduct";
 
+
 import HomeTemplate from "./templates/HomeTemplate";
-import ManagerAccount from "./pages/user_page/ManagerAccount/ManagerAccount";
 import Loading from "./components/Loading/Loading";
-import { useDispatch, useSelector } from "react-redux";
 import { TOKEN } from "./utils/variable";
 import { getCurrentUserAction } from "./redux_store/actions/AuthAction";
-import PaymentProduct from "./pages/user_page/PaymentProduct/PaymentProduct";
-import ManagerOrder from "./pages/user_page/ManagerOrder/ManagerOrder";
-import OrderDetail from "./pages/user_page/ManagerOrder/OrderDetail";
+
 import AdminRoute from "./AdminRoute";
 import CheckRoleUser from "./CheckRoleUser";
 import ForgetPassword from "./pages/user_page/ForgetPassword/ForgetPassword";
+import RestrictedWordMng from "./pages/admin_page/RestrictedWordMng/RestrictedWordMng";
+import CreateRestrictedWord from "./pages/admin_page/RestrictedWordMng/CreateRestrictedWord";
+import UpdateRestrictedWord from "./pages/admin_page/RestrictedWordMng/UpdateRestrictedWord";
 
 
 export const history = createBrowserHistory();
@@ -62,20 +67,20 @@ function App() {
     AOS.refresh();
   }, []);
 
-  const dispatch = useDispatch();
-  let { userLogin } = useSelector(state => state.UserReducer);
-  const accessToken = useMemo(() => {
-    return localStorage.getItem(TOKEN) || "";
-  }, []);
+  // const dispatch = useDispatch();
+  // let { userLogin } = useSelector(state => state.UserReducer);
+  // const accessToken = useMemo(() => {
+  //   return localStorage.getItem(TOKEN) || "";
+  // }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (accessToken && accessToken != null) {
-        dispatch(getCurrentUserAction(accessToken))
-      }
-    }, 1000)
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (accessToken && accessToken != null) {
+  //       dispatch(getCurrentUserAction(accessToken))
+  //     }
+  //   }, 1000)
 
-  }, [accessToken, dispatch]);
+  // }, [accessToken, dispatch]);
 
 
   return (
@@ -121,6 +126,10 @@ function App() {
         <Route path="/admin/product-mng" element={<AdminRoute Component={ProductManager} />} />
         <Route path="/admin/product-mng/add-product" element={<AdminRoute Component={CreateProduct} />} />
         <Route path="/admin/product-mng/edit/:id" element={<AdminRoute Component={UpdateProduct} />} />
+        {/* Restricted Word */}
+        <Route path="/admin/restricted-word-mng" element={<AdminRoute Component={RestrictedWordMng} />} />
+        <Route path="/admin/restricted-word-mng/addrestrictedword" element={<AdminRoute Component={CreateRestrictedWord} />} />
+        <Route path="/admin/restricted-word-mng/edit/:id" element={<AdminRoute Component={UpdateRestrictedWord} />} />
         {/* Default Route */}
         <Route path="/" element={<HomeTemplate Component={Home} />} />
       </Routes>
