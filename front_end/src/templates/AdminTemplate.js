@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { PiSneakerFill } from "react-icons/pi";
+import { PiSneakerFill, PiChatSlashBold } from "react-icons/pi";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { IoIosColorPalette } from "react-icons/io";
 import { MdOutlineCategory } from "react-icons/md";
@@ -77,6 +77,14 @@ function AdminTemplate({ Component }) {
             closeModal,
             <NavLink className="text-decoration-none" to="/admin/sizes-mng">
                 <RxDimensions />
+            </NavLink>
+        ),
+        getItem(
+            "Quản Lý Từ Khoá Chặn",
+            "6",
+            closeModal,
+            <NavLink className="text-decoration-none" to="/admin/restricted-word-mng">
+                <PiChatSlashBold />
             </NavLink>
         ),
     ];

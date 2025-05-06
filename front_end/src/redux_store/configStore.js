@@ -9,14 +9,9 @@ import { SizeReducer } from "./reducers/SizeReducer";
 import { OrderReducer } from "./reducers/OrderReducer";
 import { PaymentReducer } from "./reducers/PaymentReducer";
 import { CommentReducer } from "./reducers/CommentReducer";
-
-
-
-
+import { RestrictedWordReducer } from "./reducers/RestrictedWordReducer";
 
 import { LoadingReducer } from './reducers/LoadingReducer';
-
-
 
 const rootReducer = combineReducers({
     UserReducer,
@@ -27,7 +22,8 @@ const rootReducer = combineReducers({
     SizeReducer,
     OrderReducer,
     PaymentReducer,
-    CommentReducer
+    CommentReducer,
+    RestrictedWordReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(reduxThunk));

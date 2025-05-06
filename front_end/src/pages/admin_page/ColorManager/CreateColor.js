@@ -19,7 +19,7 @@ const CreateColor = () => {
                 closeIcon: true,
                 message: 'Error',
                 description: (
-                    <>Vui lòng điền đầy đủ thông tin và Không để trống đầu câu !.</>
+                    <>Vui lòng điền đầy đủ thông tin và không để trống đầu câu!</>
                 ),
             });
         }
