@@ -17,9 +17,11 @@ const Comment = ({ productId, userId }) => {
     const dispatch = useDispatch();
 
     let { arrComment } = useSelector((state) => state.CommentReducer);
-    const [message, setMessage] = useState("");
-    const [comments, setComments] = useState(arrComment);
+    const [comment, setComment] = useState("");
+    const [editId, setEditId] = useState(null);
+    const [listComments, setListComments] = useState(arrComment);
     const [menuOpen, setMenuOpen] = useState(null);
+    const popoverRef = useRef(null);
 
     const editorRef = useRef();
 
@@ -27,7 +29,6 @@ const Comment = ({ productId, userId }) => {
         dispatch(getCommentByIdProductAction(productId));
     }, [productId, dispatch]);
 
-    console.log(arrComment);
     useEffect(() => {
         const startConnection = async () => {
             try {
@@ -41,56 +42,76 @@ const Comment = ({ productId, userId }) => {
         startConnection();
         connection.on("ReceiveComment", (newComment) => {
             if (newComment.productId === productId) {
-                setComments(prev => [...prev, newComment]);
+                setListComments(prev => [...prev, newComment]);
             }
         });
 
         connection.on("UpdateComment", (updatedComment) => {
-            setComments(prev => prev.map(c =>
+            setListComments(prev => prev.map(c =>
                 c.id === updatedComment.id ? { ...c, message: updatedComment.message } : c
             ));
         });
 
         connection.on("DeleteComment", (deletedId) => {
-            setComments(prev => prev.filter(c => c.id !== deletedId));
+            setListComments(prev => prev.filter(c => c.id !== deletedId));
         });
 
-        setComments(arrComment);
+        setListComments(arrComment);
 
         return () => {
             connection.off("ReceiveComment");
-            connection.off("UpdateComment");
             connection.off("DeleteComment");
         };
     }, [productId, arrComment]);
 
-    const handleCreateMessage = async () => {
-        if (!message.trim()) return;
-        await connection.invoke("CreateComment", productId, userId, message);
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (popoverRef.current && !popoverRef.current.contains(event.target)) {
+                setMenuOpen(null);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    const handleCreateComment = async () => {
+        if (!comment.trim()) return;
+        if (editId) {
+            await connection.invoke("UpdateComment", editId, comment);
+            setEditId(null);
+        } else {
+            await connection.invoke("CreateComment", productId, userId, comment);
+        }
         editorRef.current.setData("");
+        setComment("");
     };
 
     const handleDeleteComment = async (id) => {
         await connection.invoke("DeleteComment", id);
     };
 
+    const handleEdit = (id, comment) => {
+        setEditId(id);
+        setComment(comment);
+        editorRef.current?.focus();
+        editorRef.current?.setData(comment);
+    };
+
     const handleCancelSend = () => {
-        setMessage("");
+        setComment("");
         if (editorRef.current) {
             editorRef.current.setData("");
         }
     };
-    const handleUpdateComment = async (id, newMessage) => {
-        await connection.invoke("UpdateComment", id, newMessage);
-    };
 
     const toggleMenu = (index) => setMenuOpen(prev => prev === index ? null : index);
-
-
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 w-full lg:w-1/2 xl:w-1/2 2xl:w-1/2">
             <div className="space-y-2">
-                {comments.map((c, idx) => (
+                {listComments.map((c, idx) => (
+
                     <div key={idx} className="p-3 border rounded-lg shadow-md bg-gray-100 flex items-center justify-between">
                         <div>
                             <div className="flex gap-2 items-center">
@@ -104,12 +125,14 @@ const Comment = ({ productId, userId }) => {
                                 <BsThreeDots className="text-xl cursor-pointer dark:text-gray-400 dark:hover:text-gray-500" />
                             </button>}
                             {menuOpen === idx && (
-                                <ActionPopover
-                                    id={c.id}
-                                    message={c.message}
-                                    onDelete={handleDeleteComment}
-                                    onUpdate={handleUpdateComment}
-                                ></ActionPopover>
+                                <div ref={popoverRef}>
+                                    <ActionPopover
+                                        id={c.id}
+                                        comment={c.message}
+                                        onDelete={handleDeleteComment}
+                                        onEdit={handleEdit}
+                                    />
+                                </div>
                             )}
                         </div>
                     </div>
@@ -126,7 +149,7 @@ const Comment = ({ productId, userId }) => {
                             placeholder: "Nhập bình luận tại đây..."
                         }}
                         onChange={(event, editor) => {
-                            setMessage(editor.getData())
+                            setComment(editor.getData())
                         }}
                         onReady={(editor) => {
                             editorRef.current = editor;
@@ -142,10 +165,10 @@ const Comment = ({ productId, userId }) => {
                 </Form.Item>
                 <div className="flex gap-2 w-full">
                     <button
-                        onClick={handleCreateMessage}
-                        className="px-3  py-2 bg-orange-400 text-white rounded-lg hover:bg-orange-500 focus:outline-none"
+                        onClick={handleCreateComment}
+                        className="px-3 py-2 bg-orange-400 text-white rounded-lg hover:bg-orange-500"
                     >
-                        Bình luận
+                        {editId ? "Cập nhật" : "Bình luận"}
                     </button>
                     <button
                         onClick={handleCancelSend}
