@@ -1,11 +1,9 @@
 import Slider from "react-slick";
 import { PiSneakerMoveFill } from "react-icons/pi";
+import React from "react";
 
 import NoImage from '../../assets/no-image.jpeg';
 import { handleFormatPrice } from "../../utils/format/formatPrice";
-import React from "react";
-
-
 
 function ListNewsProducts(listProducts) {
     const data = listProducts

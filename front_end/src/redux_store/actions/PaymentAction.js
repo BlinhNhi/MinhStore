@@ -38,7 +38,6 @@ export const addPaymentAction = (formData) => {
             });
             window.location.href = '/system-account/view-order';
         } catch (error) {
-            console.log(error);
             notification.error({
                 closeIcon: true,
                 message: "Thất Bại",
