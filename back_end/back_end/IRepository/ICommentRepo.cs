@@ -8,5 +8,6 @@ namespace back_end.IRepository
         Task<bool> CreateComment(Comment comment);
         Task<bool> PutComment(Guid Id, Comment Comment);
         Task<Comment> DeleteComment(Guid Id);
+        List<Comment> GetCommentByPagination(Guid ProductId , int page = 1);
     }
 }

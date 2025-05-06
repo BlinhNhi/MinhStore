@@ -15,6 +15,7 @@ namespace back_end.Services
             this.db = db;
             _hubContext = hubContext;
         }
+        public static int PAGE_SIZE_COMMENT { get; set; } = 5;
 
         public async Task<bool> CreateComment(Comment comment)
         {
@@ -58,6 +59,22 @@ namespace back_end.Services
             return null;
         }
 
+        public List<Comment> GetCommentByPagination(Guid ProductId, int page = 1)
+        {
+            var comments =  db.Comments
+              .Where(c => c.ProductId == ProductId)
+              .OrderByDescending(c => c.CreatedAt)
+              .AsQueryable();
+
+            comments = comments.Skip((page - 1) * PAGE_SIZE_COMMENT).Take(PAGE_SIZE_COMMENT);
+            var result = comments.Select(cm => new Comment
+            {
+                Id = cm.Id,
+               Message = cm.Message,
+            });
+            return result.ToList();
+        }
+
         public async Task<IEnumerable<Comment>> GetCommentByProductId(Guid productId)
         {
             var comments = await db.Comments
@@ -91,4 +108,3 @@ namespace back_end.Services
         }
     }
 }
-   /* .Include(c => c.User) // rất quan trọng để truy cập tên user*/
