@@ -20,9 +20,6 @@ function ManagerOrder() {
         }
     }, [idUser, dispatch])
     let { paymentDetailByUserId } = useSelector(state => state.PaymentReducer)
-    console.log(paymentDetailByUserId);
-    console.log(paymentDetailByUserId?.length);
-
     if (loading) {
         return <div className="flex justify-center items-center gap-2 dark:bg-gray-900 p-8">
             <RiLoader2Line className="text-primary animate-spin text-4xl" /> <p className="text-lg italic dark:text-gray-200">Loading....</p>
@@ -49,7 +46,7 @@ function ManagerOrder() {
                         </thead>
                         <tbody className="text-center ">
                             {paymentDetailByUserId?.map((item, i) => {
-                                return <tr>
+                                return <tr key={i}>
                                     <td className="px-6 py-6">{formatDateTime(item?.dayOrder)}</td>
                                     <td className="px-6 py-6 font-semibold text-base">
                                         <span className="font-bold text-xs md:text-base">
@@ -85,7 +82,7 @@ function ManagerOrder() {
                     <div className="border-2 border-gray-400 rounded-md p-4 mb-4">
                         {paymentDetailByUserId?.map((item, i) => {
                             return (
-                                <div className={`${i !== 0 ? "border-t-2 mt-2" : ""} p-2 flex flex-col gap-2`}>
+                                <div className={`${i !== 0 ? "border-t-2 mt-2" : ""} p-2 flex flex-col gap-2`} key={i}>
                                     <div className="flex justify-between mb-2">
                                         <span className="font-medium">Ngày</span>
                                         <span>{formatDateTime(item?.dayOrder)}</span>

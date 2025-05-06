@@ -239,9 +239,9 @@ function PaymentProduct() {
                                                         </div>
                                                         <div className="flex flex-col justify-around ">
                                                             {item?.products?.map((pro, i) => {
-                                                                return <>
-                                                                    <h3 key={pro?.id} className="text-lg font-medium text-gray-600 dark:text-gray-200  leading-[0px]">{pro?.nameProduct}</h3>
-                                                                </>
+                                                                return <div key={pro?.id}>
+                                                                    <h3 className="text-lg font-medium text-gray-600 dark:text-gray-200  leading-[0px]">{pro?.nameProduct}</h3>
+                                                                </div>
                                                             })}
                                                             <h4 className="text-base  text-gray-600 dark:text-gray-200  leading-[0px]">Size Giày: {item?.size?.numberOfSize}</h4>
                                                             <h4 className="text-base  text-gray-600 dark:text-gray-200  leading-[0px]">Màu Sắc: {item?.color?.name}</h4>

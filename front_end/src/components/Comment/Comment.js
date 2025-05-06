@@ -16,7 +16,6 @@ import { createConnection } from "../../utils/signalR";
 
 const connection = createConnection("https://localhost:7234/commentHub");
 const Comment = ({ productId, userId }) => {
-    console.log(productId);
     const dispatch = useDispatch();
 
     let { arrComment } = useSelector((state) => state.CommentReducer);
@@ -49,9 +48,6 @@ const Comment = ({ productId, userId }) => {
                 setListComments(prev => [...prev, newComment]);
             }
         });
-
-
-
         connection.on("DeleteComment", (deletedId) => {
             setListComments(prev => prev.filter(c => c.id !== deletedId));
         });
@@ -59,7 +55,6 @@ const Comment = ({ productId, userId }) => {
         setListComments(arrComment);
         return () => {
             connection.off("ReceiveComment");
-            // connection.off("UpdateComment");
             connection.off("DeleteComment");
         };
     }, [productId, arrComment]);

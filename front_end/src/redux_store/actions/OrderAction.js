@@ -121,10 +121,10 @@ export const updateIsDeletedOfCartAction = (userId) => {
         try {
             const result = await orderService.updateIsDeletedOfOrder(userId)
             if (result.data.status === 200) {
-                setTimeout(() => {
-                    window.location.reload()
+                // setTimeout(() => {
+                //     window.location.reload()
 
-                }, 1000);
+                // }, 1000);
             }
         } catch (error) {
             console.log(error);

@@ -113,8 +113,6 @@ function ListNewsProducts(listProducts) {
             }
         ]
     };
-
-    console.log('render list new product');
     return (
         <div
             data-aos="fade-up"

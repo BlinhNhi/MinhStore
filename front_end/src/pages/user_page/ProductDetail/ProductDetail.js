@@ -26,15 +26,16 @@ function CancelArrowSlider(props) {
 }
 
 function ProductDetail(props) {
+    console.log('re-render');
     let { id } = useParams();
     let { userLogin } = useSelector((state) => state.UserReducer);
     const dispatch = useDispatch();
     const { productDetailForUser } = useSelector((state) => state.ProductReducer);
     const { arrEightProducts } = useSelector((state) => state.ProductReducer);
     const idUser = userLogin?.id;
-    // console.log(productDetailForUser?.numberOfProductInStock);
 
     useEffect(() => {
+        console.log('re-render useEffect');
         dispatch(getDetailProductForUserAction(id));
         dispatch(getEightProductsAction())
     }, [dispatch]);
@@ -70,68 +71,25 @@ function ProductDetail(props) {
     const [savedPrice, setSavePrice] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleIncrease = () => {
-        const newNumberProduct = numberProduct + 1;
-        console.log(productDetailForUser?.priceProduct);
+    const handleChangeQuantity = (type) => {
+        let newNumberProduct;
+        if (type === 'increase') {
+            newNumberProduct = numberProduct + 1;
+        } else if (type === 'decrease' && numberProduct > 1) {
+            newNumberProduct = numberProduct - 1;
+        }
         const newPriceProduct = newNumberProduct * (productDetailForUser?.priceProduct);
         setNumberProduct(newNumberProduct);
         setSavePrice(newPriceProduct);
-        console.log(newPriceProduct);
-        console.log(newNumberProduct);
     };
 
-    const handleDecrease = () => {
-        if (numberProduct > 1) {
-            const newNumberProduct = numberProduct - 1;
-            const newPriceProduct = newNumberProduct * (productDetailForUser?.priceProduct);
-            setNumberProduct(newNumberProduct);
-            setSavePrice(newPriceProduct);
-        }
-    };
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
+    const handleModal = (params) => {
+        console.log(params);
+        setIsModalOpen(params);
     };
 
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
 
-    const handleOrderNow = () => {
-        if (!idUser || !savedIdSize || !savedIdColor || !numberProduct || !productDetailForUser?.priceProduct) {
-            notification.error({
-                closeIcon: true,
-                message: 'Lỗi',
-                description: (
-                    <>Chọn các tùy chọn cho sản phẩm trước khi cho sản phẩm vào giỏ hàng của bạn. !.</>
-                ),
-            });
-        }
-        else if (productDetailForUser?.numberOfProductInStock < numberProduct) {
-            console.log('handle Now render');
-            notification.error({
-                closeIcon: true,
-                message: 'Xin lỗi',
-                description: (
-                    <>Chúng tôi chỉ còn  {productDetailForUser?.numberOfProductInStock} sản phẩm.</>
-                ),
-            });
-        }
-        else {
-            const formData = new FormData();
-            formData.append("UserId", idUser);
-            formData.append("ProductId", id);
-            formData.append("QuantityOrder", numberProduct);
-            formData.append("TotalAmount", savedPrice || productDetailForUser?.priceProduct);
-            console.log("TotalAmount savedPrice: ", savedPrice);
-            console.log("Total Amount: ", productDetailForUser?.priceProduct);
-            formData.append("SizeId", savedIdSize);
-            formData.append("ColorId", savedIdColor);
-            dispatch(addCartAction(formData));
-            handleOpenModal();
-        }
-    };
-
-    const handleBuyNow = () => {
+    const handleBuyProduct = (urlPage) => {
         if (!idUser || !savedIdSize || !savedIdColor || !numberProduct || !productDetailForUser?.priceProduct) {
             notification.error({
                 closeIcon: true,
@@ -160,9 +118,12 @@ function ProductDetail(props) {
             formData.append("SizeId", savedIdSize);
             formData.append("ColorId", savedIdColor);
             dispatch(addCartAction(formData));
-            window.location.href = '/system-account/cart-shopping';
+            if (urlPage) window.location.href = urlPage;
+            else handleModal(true);
         }
     };
+
+
 
     return (
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200 ">
@@ -289,7 +250,7 @@ flex items-start mt-3 gap-4 mb-5
                                         <button
                                             onClick={() => {
                                                 setNumberProduct(numberProduct + 1);
-                                                handleIncrease();
+                                                handleChangeQuantity('increase');
                                             }}
                                             className="text-base font-bold
      sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl
@@ -309,7 +270,7 @@ flex items-start mt-3 gap-4 mb-5
                                         <button
                                             onClick={() => {
                                                 setNumberProduct(numberProduct - 1);
-                                                handleDecrease();
+                                                handleChangeQuantity('decrease');
                                             }}
                                             disabled={numberProduct <= 1}
                                             className={`text-base font-bold hover:bg-gray-400 dark:hover:bg-gray-400
@@ -336,7 +297,7 @@ flex items-start mt-3 gap-4 mb-5
                                 >
                                     <button
                                         onClick={() => {
-                                            handleOrderNow();
+                                            handleBuyProduct();
                                         }}
                                         className="
         text-center cursor-pointer bg-orange-400 text-white py-1 px-2 rounded-full text-base
@@ -347,7 +308,7 @@ flex items-start mt-3 gap-4 mb-5
                                         <FaOpencart className="mr-2" /> Thêm Vào Giỏ Hàng{" "}
                                     </button>
                                     <button
-                                        onClick={handleBuyNow}
+                                        onClick={() => { handleBuyProduct('/system-account/cart-shopping') }}
                                         className="
             text-center cursor-pointer bg-orange-400 text-white py-1 rounded-full text-base flex items-center
              md:text-base lg:text-xl xl:text-xl 2xl:text-xl  hover:bg-primary/90 hover:text-gray-100
@@ -363,20 +324,20 @@ flex items-start mt-3 gap-4 mb-5
                     </div>
                     <ModalAddProductIntoCart
                         isOpen={isModalOpen}
-                        onClose={handleCloseModal}
+                        onClose={() => { handleModal(false) }}
                         nameProduct={productDetailForUser?.nameProduct}
                     />
                 </div>
                 {/* Body */}
 
                 <div className="py-4 border-t-2  border-gray-400 w-full lg:w-[50%] xl:w-[50%] 2xl:w-[50%]">
-                    <h1 className="font-medium text-base sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base items-center  flex gap-4 mt-4">
+                    <h1 className="font-medium text-lg sm:text-lg md:text-lg lg:text-lg xl:text-lg 2xl:text-lg items-center  flex gap-4 mt-4">
                         <FaCoins /> Miễn phí vận chuyển toàn quốc cho đơn hàng trên 1tr.
                     </h1>
-                    <h1 className="font-medium text-base sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base items-center  flex gap-4 mt-1">
+                    <h1 className="font-medium text-lg sm:text-lg md:text-lg lg:text-lg xl:text-lg 2xl:text-lg items-center  flex gap-4 mt-1">
                         <IoIosFlash /> Giao nhanh 2h trong nội thành HCM.
                     </h1>
-                    <h1 className="font-medium text-base sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base items-center  flex gap-4 mt-1">
+                    <h1 className="font-medium text-lg sm:text-lg md:text-lg lg:text-lg xl:text-lg 2xl:text-lg items-center  flex gap-4 mt-1">
                         <FaTruck></FaTruck>Thời gian vận chuyển trung bình 3-4 ngày.
                     </h1>
                 </div>
