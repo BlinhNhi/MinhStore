@@ -1,4 +1,7 @@
+import React from "react";
+
 function ActionPopover({ id, comment, onDelete, onEdit }) {
+    console.log('re-render');
     console.log(comment);
     return (
         <div className="absolute right-0 mt-2 w-24 bg-white border rounded shadow z-10">
@@ -18,4 +21,4 @@ function ActionPopover({ id, comment, onDelete, onEdit }) {
     );
 }
 
-export default ActionPopover;
+export default React.memo(ActionPopover);

@@ -1,33 +1,31 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as signalR from "@microsoft/signalr";
 
-import { Form } from "antd";
+import { Form, notification } from "antd";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { BsThreeDots } from "react-icons/bs";
 
 import { getCommentByIdProductAction } from "../../redux_store/actions/CommentAction";
 import { getListRestrictedWordAction } from "../../redux_store/actions/RestrictedWordAction";
+import ActionPopover from "../ActionPopover/ActionPopover";
 
 import { getCodeProduct } from "../../utils/format/getCodeProduct";
 import { createConnection } from "../../utils/signalR";
-import ActionPopover from "../ActionPopover/ActionPopover";
 
 const connection = createConnection("https://localhost:7234/commentHub");
 const Comment = ({ productId, userId }) => {
+    console.log(productId);
     const dispatch = useDispatch();
 
     let { arrComment } = useSelector((state) => state.CommentReducer);
     let { arrRestrictedWord } = useSelector((state) => state.RestrictedWordReducer);
-    console.log(arrRestrictedWord);
-
     const [comment, setComment] = useState("");
-    const [editId, setEditId] = useState(null);
-    const [listComments, setListComments] = useState(arrComment);
+    const [editCommentId, setEditCommentId] = useState(null);
+    const [listComments, setListComments] = useState([]);
     const [menuOpen, setMenuOpen] = useState(null);
     const popoverRef = useRef(null);
-
     const editorRef = useRef();
 
     useEffect(() => {
@@ -52,20 +50,16 @@ const Comment = ({ productId, userId }) => {
             }
         });
 
-        connection.on("UpdateComment", (updatedComment) => {
-            setListComments(prev => prev.map(c =>
-                c.id === updatedComment.id ? { ...c, message: updatedComment.message } : c
-            ));
-        });
+
 
         connection.on("DeleteComment", (deletedId) => {
             setListComments(prev => prev.filter(c => c.id !== deletedId));
         });
 
         setListComments(arrComment);
-
         return () => {
             connection.off("ReceiveComment");
+            // connection.off("UpdateComment");
             connection.off("DeleteComment");
         };
     }, [productId, arrComment]);
@@ -88,13 +82,24 @@ const Comment = ({ productId, userId }) => {
         }
         );
         if (containsRestricted) {
-            alert("Bình luận chứa từ không phù hợp!");
+            notification.error({
+                closeIcon: true,
+                message: "Tạo bình luận thất bại",
+                description: <>Bình luận không hợp lệ.</>,
+            });
             return;
         }
-        if (!comment.trim()) return;
-        if (editId) {
-            await connection.invoke("UpdateComment", editId, comment);
-            setEditId(null);
+        else if (!comment.trim()) {
+            notification.error({
+                closeIcon: true,
+                message: "Tạo bình luận thất bại",
+                description: <>Vui lòng không nhập khoảng trắng.</>,
+            });
+            return;
+        }
+        if (editCommentId) {
+            await connection.invoke("UpdateComment", editCommentId, comment);
+            setEditCommentId(null);
         } else {
             await connection.invoke("CreateComment", productId, userId, comment);
         }
@@ -102,16 +107,17 @@ const Comment = ({ productId, userId }) => {
         setComment("");
     };
 
-    const handleDeleteComment = async (id) => {
+    const handleDeleteComment = useCallback(async (id) => {
         await connection.invoke("DeleteComment", id);
-    };
+        setMenuOpen(null);
+    }, []);
 
-    const handleEdit = (id, comment) => {
-        setEditId(id);
+    const handleEdit = useCallback((id, comment) => {
+        setEditCommentId(id);
         setComment(comment);
         editorRef.current?.focus();
         editorRef.current?.setData(comment);
-    };
+    }, []);
 
     const handleCancelSend = () => {
         setComment("");
@@ -125,7 +131,6 @@ const Comment = ({ productId, userId }) => {
         <div className="space-y-4 w-full lg:w-1/2 xl:w-1/2 2xl:w-1/2">
             <div className="space-y-2">
                 {listComments.map((c, idx) => (
-
                     <div key={idx} className="p-3 border rounded-lg shadow-md bg-gray-100 flex items-center justify-between">
                         <div>
                             <div className="flex gap-2 items-center">
@@ -182,7 +187,7 @@ const Comment = ({ productId, userId }) => {
                         onClick={handleCreateComment}
                         className="px-3 py-2 bg-orange-400 text-white rounded-lg hover:bg-orange-500"
                     >
-                        {editId ? "Cập nhật" : "Bình luận"}
+                        {editCommentId ? "Cập nhật" : "Bình luận"}
                     </button>
                     <button
                         onClick={handleCancelSend}
