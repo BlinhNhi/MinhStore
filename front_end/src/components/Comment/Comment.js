@@ -8,6 +8,8 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { BsThreeDots } from "react-icons/bs";
 
 import { getCommentByIdProductAction } from "../../redux_store/actions/CommentAction";
+import { getListRestrictedWordAction } from "../../redux_store/actions/RestrictedWordAction";
+
 import { getCodeProduct } from "../../utils/format/getCodeProduct";
 import { createConnection } from "../../utils/signalR";
 import ActionPopover from "../ActionPopover/ActionPopover";
@@ -17,6 +19,9 @@ const Comment = ({ productId, userId }) => {
     const dispatch = useDispatch();
 
     let { arrComment } = useSelector((state) => state.CommentReducer);
+    let { arrRestrictedWord } = useSelector((state) => state.RestrictedWordReducer);
+    console.log(arrRestrictedWord);
+
     const [comment, setComment] = useState("");
     const [editId, setEditId] = useState(null);
     const [listComments, setListComments] = useState(arrComment);
@@ -27,7 +32,8 @@ const Comment = ({ productId, userId }) => {
 
     useEffect(() => {
         dispatch(getCommentByIdProductAction(productId));
-    }, [productId, dispatch]);
+        dispatch(getListRestrictedWordAction())
+    }, [dispatch]);
 
     useEffect(() => {
         const startConnection = async () => {
@@ -77,6 +83,14 @@ const Comment = ({ productId, userId }) => {
     }, []);
 
     const handleCreateComment = async () => {
+        const containsRestricted = arrRestrictedWord.some((it) => {
+            return comment?.toLowerCase().includes(it?.word?.toLowerCase())
+        }
+        );
+        if (containsRestricted) {
+            alert("Bình luận chứa từ không phù hợp!");
+            return;
+        }
         if (!comment.trim()) return;
         if (editId) {
             await connection.invoke("UpdateComment", editId, comment);
