@@ -59,7 +59,7 @@ const Comment = ({ productId, userId }) => {
 
         return () => {
             connection.off("ReceiveComment");
-            // connection.off("UpdateComment");
+            connection.off("UpdateComment");
             connection.off("DeleteComment");
         };
     }, [productId, arrComment]);
