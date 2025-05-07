@@ -1,14 +1,14 @@
 import { Modal } from "antd";
 import { MdFilterList } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
 import SelectProduct from "../../../components/SelectProduct/SelectProduct";
 import ListProduct from "../../../components/ListProduct/ListProduct";
 import FilterProduct from "../../../components/FilterProduct/FilterProduct";
-import Pagination from "../../../components/Pagination/Pagination";
-import { getProductListOptionsAction, getProductsOfCategoryAction } from "../../../redux_store/actions/ProductAcction";
+import PaginationSearch from "../../../components/PaginationSearch/PaginationSearch";
 
+import { getProductListOptionsAction, getProductsOfCategoryAction } from "../../../redux_store/actions/ProductAcction";
 
 const setInput = {
     searchName: "",
@@ -21,35 +21,27 @@ const setInput = {
     dayStart: "",
     page: 1
 };
-// console.log('test setinput : ', setInput);
 function Search(props) {
     const dispatch = useDispatch()
-    const [isFilterOpen, setIsFilterOpen] = useState(false);
-    // let { userLogin } = useSelector(state => state.UserReducer);
-    // console.log(userLogin);
     let searchParams = new URLSearchParams(props.location.search);
     let searchNameProduct = searchParams.get('searchName');
     let searchTypeCategory = searchParams.get('searchCategory');
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [valueSortPrice, setValueSortPrice] = useState("");
     const [valueSelectPrice, setValueSelectPrice] = useState("");
     const [valueFilterColor, setValueFilterColor] = useState("");
     const [valueFilterSize, setValueFilterSize] = useState("");
-    // console.log('test search name product form search : ', searchNameProduct);
-    // console.log('test search category product form search : ', searchTypeCategory);
     const handleValueFromSortPrice = (valueSortPrice) => {
         setValueSortPrice(valueSortPrice);
     };
     const handleValueFromSelectPrice = (valueSelectPrice) => {
         setValueSelectPrice(valueSelectPrice);
-        // console.log('test select price : ', valueSelectPrice);
     };
     const handleValueFromFilterColor = (valueFilterColor) => {
         setValueFilterColor(valueFilterColor)
-        // console.log('test filter color : ', valueFilterColor);
     }
     const handleValueFromFilterSize = (valueFilterSize) => {
         setValueFilterSize(valueFilterSize)
-        // console.log('test filter color : ', valueFilterSize);
     }
 
     useEffect(() => {
@@ -67,11 +59,10 @@ function Search(props) {
         }
         else if (searchTypeCategory !== "" && searchTypeCategory !== null) {
             setInput.searchCategory = searchParams.get('searchCategory')
-            // console.log('test input category', setInput);
             dispatch(getProductsOfCategoryAction(setInput));
         }
-
     }, [dispatch]);
+
     const showFilter = () => {
         setIsFilterOpen(true);
     };
@@ -134,14 +125,14 @@ function Search(props) {
 
                         <div className="w-full  pt-1 px-2 md:w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4">
                             <ListProduct></ListProduct>
-                            <Pagination
+                            <PaginationSearch
                                 searchNameProduct={searchNameProduct}
                                 searchTypeCategory={searchTypeCategory}
                                 valueSortPrice={valueSortPrice}
                                 valueSelectPrice={valueSelectPrice}
                                 valueFilterColor={valueFilterColor}
                                 valueFilterSize={valueFilterSize}
-                            ></Pagination>
+                            ></PaginationSearch>
                         </div>
                     </div>
                 </div>

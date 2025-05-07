@@ -1,133 +1,61 @@
+import React from "react";
+import { TbPlayerTrackPrev, TbPlayerTrackNext } from "react-icons/tb";
 
-import { useDispatch, useSelector } from "react-redux";
+const Pagination = ({ currentPage, totalCount, pageSize, onPageChange }) => {
+    console.log(currentPage, totalCount, pageSize); //175
+    const totalPages = Math.ceil(totalCount / pageSize);
+    if (totalPages === 1) return null;
+    const getPageNumbers = () => {
+        const maxPageButtons = 5;
+        let start = Math.max(1, currentPage - Math.floor(maxPageButtons / 2));
+        let end = start + maxPageButtons - 1;
 
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import PageNumber from "../PageNumber/PageNumber";
-import { getProductListOptionsAction } from "../../redux_store/actions/ProductAcction";
-
-const setInput = {
-    searchName: "",
-    searchCategory: "",
-    searchColor: "",
-    searchSize: "",
-    fromPrice: "",
-    toPrice: "",
-    sort: "",
-    dayStart: "",
-    page: 1
-};
-
-function Pagination({ sendValueToSearch, searchNameProduct, searchTypeCategory, valueSortPrice, valueSelectPrice, valueFilterColor, valueFilterSize }) {
-    // console.log(valueSortPrice);
-    // console.log(valueSelectPrice);
-    // console.log('value of color from pagination : ', valueFilterColor);
-    // console.log('value of size from pagination : ', valueFilterSize);
-    const dispatch = useDispatch();
-    let { arrProducts, quantityProducts } = useSelector(state => state.ProductReducer)
-    const [arrPage, setArrPage] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [isHideEnd, setIsHideEnd] = useState(false);
-    const [isHideStart, setIsHideStart] = useState(false);
-    const [searchParams] = useSearchParams();
-
-    useEffect(() => {
-        const page = searchParams.get('page');
-        // console.log('test page of pagination cate : ', page);
-        page && +page !== currentPage && setCurrentPage(+page);
-        !page && setCurrentPage(1)
-        // console.log('test select price : ', valueSelectPrice);
-        const [from, to] = valueSelectPrice.split('-').map(Number);
-        if (searchNameProduct != null) {
-            // console.log('ham name chạy');
-            setInput.page = +page;
-            setInput.searchName = searchNameProduct
-            if (valueSelectPrice !== null && valueSelectPrice !== "") {
-                setInput.fromPrice = from;
-                setInput.toPrice = to;
-            }
-            setInput.sort = valueSortPrice
-            // setInput.searchCategory = "";
-            setInput.searchColor = valueFilterColor || "";
-            setInput.searchSize = valueFilterSize || "";
-            // console.log('value setInput of Pagination', setInput);
-            dispatch(getProductListOptionsAction(setInput));
+        if (end > totalPages) {
+            end = totalPages;
+            start = Math.max(1, end - maxPageButtons + 1);
         }
-        else if (searchTypeCategory != null) {
-            // console.log('ham category chạy');
-            setInput.page = +page;
-            setInput.searchCategory = searchTypeCategory
-            if (valueSelectPrice !== null && valueSelectPrice !== "") {
-                setInput.fromPrice = from;
-                setInput.toPrice = to;
-            }
-            setInput.sort = valueSortPrice
-            // setInput.searchName = ""
-            setInput.searchColor = valueFilterColor || "";
-            setInput.searchSize = valueFilterSize || "";
-            // console.log('value setInput of Pagination', setInput);
-            dispatch(getProductListOptionsAction(setInput));
-        }
-    }, [searchParams]);
 
-
-
-
-    useEffect(() => {
-        let maxPage = Math.ceil(quantityProducts / 8);
-        //console.log('max page : ', maxPage);
-        let end = (currentPage + 2) > maxPage ? maxPage : (currentPage + 2);
-        let start = (currentPage - 2) <= 0 ? 1 : (currentPage - 2);
-        let temp = [];
+        const pages = [];
         for (let i = start; i <= end; i++) {
-            // push so trang dc hien thi trong phân trang
-            temp.push(i);
+            pages.push(i);
         }
-        setArrPage(temp);
-        // //console.log(temp);
+        return pages;
+    };
 
-        // Ẩn thanh start end khi page là 1 và 16
-        currentPage >= (maxPage - 2) ? setIsHideEnd(true) : setIsHideEnd(false);
-        currentPage <= 3 ? setIsHideStart(true) : setIsHideStart(false);
-
-    }, [quantityProducts, arrProducts, currentPage]);
-    // //console.log(arrPage);
-
-
+    const pages = getPageNumbers();
 
     return (
-        <div className="flex items-center justify-center gap-2 py-5">
-            {!isHideStart && (
-                <PageNumber
-                    number={1}
-                    setCurrentPage={setCurrentPage}
-                ></PageNumber>
-            )}
-            {(!isHideStart && currentPage !== 4) && <PageNumber number={"..."}></PageNumber>}
+        <div className="flex gap-2 justify-center items-center mt-4">
+            <button
+                onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-3 py-3 border text-lg rounded-lg bg-orange-400 text-white hover:bg-orange-500 disabled:opacity-70 disabled:cursor-not-allowed"
+            >
+                <TbPlayerTrackPrev className="font-bold"></TbPlayerTrackPrev>
+            </button>
 
-            {arrPage.length > 0 &&
-                arrPage.map((item) => {
-                    return (
-                        <PageNumber
-                            key={item}
-                            number={item}
-                            currentPage={currentPage}
-                            setCurrentPage={setCurrentPage}
-                        ></PageNumber>
-                    );
-                })}
+            {pages.map((page) => (
+                <button
+                    key={page}
+                    onClick={() => onPageChange(page)}
+                    className={`px-4 py-3 border rounded-lg text-sm 
+                        ${currentPage === page
+                            ? 'bg-orange-400 text-white'
+                            : 'bg-gray-200 text-black hover:bg-gray-300'}`}
+                >
+                    {page}
+                </button>
+            ))}
 
-            {!isHideEnd && <PageNumber number={"..."}></PageNumber>}
-            {!isHideEnd && (
-                <PageNumber
-                    icon={">"}
-                    number={Math.floor(quantityProducts / arrProducts.length)}
-                    // ?
-                    setCurrentPage={setCurrentPage}
-                ></PageNumber>
-            )}
+            <button
+                onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="px-3 py-3 border text-lg rounded-lg  bg-orange-400 text-white hover:bg-orange-500 disabled:opacity-70 disabled:cursor-not-allowed"
+            >
+                <TbPlayerTrackNext></TbPlayerTrackNext>
+            </button>
         </div>
     );
-}
+};
 
-export default Pagination;
+export default React.memo(Pagination);

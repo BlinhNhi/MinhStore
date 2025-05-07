@@ -59,24 +59,33 @@ namespace back_end.Services
             return null;
         }
 
-        public List<Comment> GetCommentByPagination(Guid ProductId, int page = 1)
+        public (List<Comment> Comment, int TotalCount) GetCommentByPagination(Guid ProductId, int page = 1)
         {
-            var comments =  db.Comments
+            var comments = db.Comments
               .Where(c => c.ProductId == ProductId)
               .OrderByDescending(c => c.CreatedAt)
               .AsQueryable();
+
+            var allComment =  db.Comments
+               .Where(c => c.ProductId == ProductId)
+               .OrderByDescending(c => c.CreatedAt)
+               .AsQueryable();
 
             comments = comments.Skip((page - 1) * PAGE_SIZE_COMMENT).Take(PAGE_SIZE_COMMENT);
             var result = comments.Select(cm => new Comment
             {
                 Id = cm.Id,
-               Message = cm.Message,
-            });
-            return result.ToList();
+                ProductId = cm.ProductId,
+                Message = cm.Message,
+                UserId = cm.UserId
+            }).ToList();
+            var totalCount = allComment.Count();
+            return (result, totalCount);
         }
 
         public async Task<IEnumerable<Comment>> GetCommentByProductId(Guid productId)
         {
+           
             var comments = await db.Comments
                 .Where(c => c.ProductId == productId)
                 .OrderByDescending(c => c.CreatedAt)
@@ -106,5 +115,7 @@ namespace back_end.Services
                 return false;
             }
         }
+
+       
     }
 }

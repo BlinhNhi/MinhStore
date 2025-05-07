@@ -207,6 +207,7 @@ namespace back_end.Services
                                           .Include(c => c.Colors)
                                           .Include(s => s.Sizes)
                                           .AsQueryable();
+
             if (!string.IsNullOrEmpty(sort))
             {
                 switch (sort)
