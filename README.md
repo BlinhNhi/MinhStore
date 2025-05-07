@@ -2,6 +2,7 @@
 MinhCoiStore is a shoe sales system implemented using ASP.NET, ReactJS, SQL Server.
 
 MinhCoiStore is designed to make online shoe shopping through the website easy. With MinhCoiStore Shoe Sales System, you can:
+
 ++ For users:
 + Easily choose shoe models by size, color, choose shoes that fit your money.
 + Easily comment (real-time with signalR) to respond to product reviews to help sellers better understand product quality.
