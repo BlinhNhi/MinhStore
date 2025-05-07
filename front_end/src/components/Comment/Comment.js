@@ -7,29 +7,35 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment } from "react-icons/fa";
-import { getCommentByIdProductAction } from "../../redux_store/actions/CommentAction";
+import { paginationCommentByIdProductAction } from "../../redux_store/actions/CommentAction";
 import { getListRestrictedWordAction } from "../../redux_store/actions/RestrictedWordAction";
 import ActionPopover from "../ActionPopover/ActionPopover";
 
 import { getCodeProduct } from "../../utils/format/getCodeProduct";
 import { createConnection } from "../../utils/signalR";
+import Pagination from "../Pagination/Pagination";
 
 const connection = createConnection("https://localhost:7234/commentHub");
 const Comment = ({ productId, userId }) => {
     const dispatch = useDispatch();
 
-    let { arrComment } = useSelector((state) => state.CommentReducer);
+    let { arrCommentPagination, numberPage } = useSelector((state) => state.CommentReducer);
     let { arrRestrictedWord } = useSelector((state) => state.RestrictedWordReducer);
+
     const [comment, setComment] = useState("");
     const [editCommentId, setEditCommentId] = useState(null);
     const [listComments, setListComments] = useState([]);
     const [menuOpen, setMenuOpen] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const commentsPerPage = 5;
     const popoverRef = useRef(null);
     const editorRef = useRef();
+    const totalCount = numberPage;
 
     useEffect(() => {
-        dispatch(getCommentByIdProductAction(productId));
-        dispatch(getListRestrictedWordAction())
+        dispatch(paginationCommentByIdProductAction(productId, 1));
+        dispatch(getListRestrictedWordAction());
     }, [dispatch]);
 
     useEffect(() => {
@@ -48,16 +54,22 @@ const Comment = ({ productId, userId }) => {
                 setListComments(prev => [...prev, newComment]);
             }
         });
+        connection.on("UpdateComment", (comment) => {
+            setListComments(prev =>
+                prev.map(c => (c.id === comment.id ? { ...c, message: comment.message } : c))
+            );
+        });
         connection.on("DeleteComment", (deletedId) => {
             setListComments(prev => prev.filter(c => c.id !== deletedId));
         });
 
-        setListComments(arrComment);
+        setListComments(arrCommentPagination);
         return () => {
             connection.off("ReceiveComment");
+            connection.off("UpdateComment");
             connection.off("DeleteComment");
         };
-    }, [productId, arrComment]);
+    }, [productId, arrCommentPagination]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -70,6 +82,11 @@ const Comment = ({ productId, userId }) => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    const handleCommentChange = (page) => {
+        setCurrentPage(page);
+        dispatch(paginationCommentByIdProductAction(productId, page));
+    };
 
     const handleCreateComment = async () => {
         const containsRestricted = arrRestrictedWord.some((it) => {
@@ -93,6 +110,7 @@ const Comment = ({ productId, userId }) => {
             return;
         }
         if (editCommentId) {
+            console.log(editCommentId, comment);
             await connection.invoke("UpdateComment", editCommentId, comment);
             setEditCommentId(null);
         } else {
@@ -157,6 +175,13 @@ const Comment = ({ productId, userId }) => {
                     </div>
                 ))}
             </div>
+
+            <Pagination
+                currentPage={currentPage}
+                totalCount={totalCount}
+                pageSize={commentsPerPage}
+                onPageChange={handleCommentChange}
+            />
 
             <div className="flex flex-col">
                 <h3 className="font-semibold text-xl pb-1">Bình luận sản phẩm: </h3>

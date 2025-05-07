@@ -1,4 +1,4 @@
-import { GET_COMMENT_LIST } from '../constants';
+import { GET_COMMENT_LIST, GET_COMMENT_PAGINATION } from '../constants';
 import { commentService } from '../../service/CommentService';
 
 export const getCommentByIdProductAction = (id) => {
@@ -16,3 +16,23 @@ export const getCommentByIdProductAction = (id) => {
         }
     }
 }
+
+export const paginationCommentByIdProductAction = (id, page) => {
+    return async (dispatch) => {
+        try {
+            const result = await commentService.paginationCommentByProductId(id, page)
+            console.log(result);
+            console.log(result?.data?.totalCount);
+            if (result.status === 200) {
+                dispatch({
+                    type: GET_COMMENT_PAGINATION,
+                    arrCommentPagination: result.data?.data,
+                    numberPage: result?.data?.totalCount,
+                })
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
+

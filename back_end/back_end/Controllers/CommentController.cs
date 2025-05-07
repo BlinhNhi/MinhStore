@@ -88,14 +88,26 @@ namespace back_end.Controllers
         [HttpGet("getcomment-by-pagination")]
         public IActionResult GetCommentByPagination(Guid ProductId, int page = 1)
         {
+        
             try
             {
-                var result = repo.GetCommentByPagination(ProductId,page);
-                return Ok(result);
+                var (list, totalCount) = repo.GetCommentByPagination(ProductId, page);
+                if (list != null)
+                {
+                    var result = new
+                    {
+                        Status = StatusCodes.Status200OK,
+                        Message = "Get Comment Successfully",
+                        Data = list,
+                        TotalCount = totalCount
+                    };
+                    return Ok(result);
+                }
+                return BadRequest();
             }
             catch
             {
-                return BadRequest("We canot found data comment");
+                return BadRequest("We Cannot Get Product");
             }
         }
 
