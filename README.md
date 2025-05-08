@@ -66,7 +66,7 @@ If you find this project useful, please consider giving it a ⭐ on Github and f
 
 
 <h3>Search/Sort/Filter the shoes:</h3>
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/145688135/441680439-a1ede3dc-5c44-4776-9998-6a1c3799d01b.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250508%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250508T111022Z&X-Amz-Expires=300&X-Amz-Signature=456feaf0f030ea47ab69c28264f23e04df87b6dc922d14727f2816f2933c29d9&X-Amz-SignedHeaders=host" width="100%" alt="Search/Sort/Filter the shoes">
+<img src="https://github.com/user-attachments/assets/6f9b7d8e-ab9b-4077-b627-daa6de581564" width="100%" alt="Search/Sort/Filter the shoes">
 
 
 
@@ -90,7 +90,8 @@ If you find this project useful, please consider giving it a ⭐ on Github and f
 
 
 <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/145688135/441685288-5ae0a537-034f-441c-b9c2-a070da69e07a.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250508%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250508T112500Z&X-Amz-Expires=300&X-Amz-Signature=77d1e9f0fda841a16c24aa12998f45005b873bbd512b2a6b9539dbd463f9ce74&X-Amz-SignedHeaders=host" width="100%" alt="manager order 2">
-![image](https://github.com/user-attachments/assets/0f1ba31b-3c1a-4e02-963b-3c6e8b4e8d52)
+![image]()
+
 
 
 
