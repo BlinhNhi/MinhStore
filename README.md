@@ -59,7 +59,7 @@ If you find this project useful, please consider giving it a ⭐ on Github and f
 <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/145688135/441311496-e362e66a-d638-4d44-a209-7dc272404552.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250507%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250507T150648Z&X-Amz-Expires=300&X-Amz-Signature=38c17cd77cbc6862cf658474927a37daba8ef10c0fe83bac9447e5aa4dbaf61f&X-Amz-SignedHeaders=host" width="100%" alt="Login Page">
 
 <h3>Home page:</h3>
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/145688135/441679631-351e87a9-051f-4c97-9a31-5bd11c705f08.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250508%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250508T110746Z&X-Amz-Expires=300&X-Amz-Signature=4fdc0c57d6ac23f498423d78f3da6624ad0c30fa52dc3efcd3fbac908d6bcec4&X-Amz-SignedHeaders=host" width="100%" alt="Home Page">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/145688135/441685895-4a6b0801-7b95-4278-a0d4-0884e8904a41.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250508%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250508T112700Z&X-Amz-Expires=300&X-Amz-Signature=ad35b79d4c0c6189bb342f5c1f5e14aa7ced84366010f4881548f734adf167aa&X-Amz-SignedHeaders=host" width="100%" alt="Home Page">
 
 <h3>Search/Sort/Filter the shoes:</h3>
 <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/145688135/441680439-a1ede3dc-5c44-4776-9998-6a1c3799d01b.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250508%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250508T111022Z&X-Amz-Expires=300&X-Amz-Signature=456feaf0f030ea47ab69c28264f23e04df87b6dc922d14727f2816f2933c29d9&X-Amz-SignedHeaders=host" width="100%" alt="Search/Sort/Filter the shoes">
@@ -77,6 +77,7 @@ If you find this project useful, please consider giving it a ⭐ on Github and f
 <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/145688135/441685002-47186345-f6fa-489c-8f83-1686669e14d5.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250508%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250508T112411Z&X-Amz-Expires=300&X-Amz-Signature=a49b2fb6f3105979cae7134763e56c4bb0ba5244b2b3b96bb9c09b4902b7ed80&X-Amz-SignedHeaders=host" width="100%" alt="manager order">
 
 <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/145688135/441685288-5ae0a537-034f-441c-b9c2-a070da69e07a.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250508%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250508T112500Z&X-Amz-Expires=300&X-Amz-Signature=77d1e9f0fda841a16c24aa12998f45005b873bbd512b2a6b9539dbd463f9ce74&X-Amz-SignedHeaders=host" width="100%" alt="manager order 2">
+![image]()
 
 
 
