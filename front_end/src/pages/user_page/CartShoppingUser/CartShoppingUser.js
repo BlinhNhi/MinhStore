@@ -6,9 +6,9 @@ import { notification } from "antd";
 
 import NoImage from '../../../assets/no-image.jpeg';
 import { deleteCartAction, getCartDetailByUserIdAction, updateCartAction } from "../../../redux_store/actions/OrderAction";
-import ModalDeleteCart from "../../../components/ModalDeleteCart/ModalDeleteCart";
 import { getCodeProduct } from "../../../utils/format/getCodeProduct";
 import { handleFormatPrice } from "../../../utils/format/formatPrice";
+import ModalHandleCart from "../../../components/ModalHandleCart/ModalHandleCart";
 
 function CartShoppingUser() {
     let { userLogin } = useSelector(state => state.UserReducer);
@@ -161,6 +161,7 @@ function CartShoppingUser() {
                                 <h3 className="text-lg font-bold text-gray-500 mt-2 dark:text-gray-200">
                                     Tạm Tính: {handleFormatPrice(up?.totalAmount)}đ
                                 </h3>
+                                {/* Phone */}
                                 <div className="sm:hidden block">
                                     <button
                                         onClick={() => {
@@ -174,7 +175,7 @@ function CartShoppingUser() {
                                     >
                                         <IoMdCloseCircleOutline /><p className="text-base font-medium">Xoá sản phẩm</p>
                                     </button>
-                                    <ModalDeleteCart
+                                    <ModalHandleCart
                                         isOpen={isModalOpen}
                                         onClose={handleCloseModalDeleteCart}
                                         onConfirm={() => {
@@ -185,6 +186,7 @@ function CartShoppingUser() {
                                     />
                                 </div>
                             </div>
+                            {/* > 1280px */}
                             <div className="sm:block hidden">
                                 <button
                                     onClick={() => {
@@ -195,7 +197,7 @@ function CartShoppingUser() {
                                 >
                                     <IoMdCloseCircleOutline />
                                 </button>
-                                <ModalDeleteCart
+                                <ModalHandleCart
                                     isOpen={isModalOpen}
                                     onClose={handleCloseModalDeleteCart}
                                     onConfirm={() => {

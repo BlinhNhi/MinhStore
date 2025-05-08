@@ -30,7 +30,6 @@ function CardDashBoard() {
     const totalProductInStock = arrProducts?.reduce((total, product) => {
         return total + product.numberOfProductInStock;
     }, 0);
-
     return (
         <div>
             <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-2 place-items-start gap-4 mt-4" >

@@ -10,8 +10,6 @@ import { handleFormatPrice } from "../../utils/format/formatPrice";
 
 function ListProduct() {
     let { arrProducts } = useSelector(state => state.ProductReducer)
-    // console.log(quantityProducts);
-    // console.log(arrProducts);
 
 
     return (

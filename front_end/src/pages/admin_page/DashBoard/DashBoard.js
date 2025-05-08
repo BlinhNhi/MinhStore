@@ -1,3 +1,4 @@
+import React from "react";
 import CardDashBoard from "../../../components/CardDashBoard/CardDashBoard";
 import ChartAdmin from "../../../components/ChartAdmin/ChartAdmin";
 import TableAdmin from "../../../components/TableAdmin/TableAdmin";
@@ -20,4 +21,4 @@ function DashBoard() {
     );
 }
 
-export default DashBoard;
+export default React.memo(DashBoard);

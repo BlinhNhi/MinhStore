@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import Slider from "react-slick";
 import {
     FaOpencart,
@@ -8,17 +10,15 @@ import {
 } from "react-icons/fa";
 import { IoIosFlash } from "react-icons/io";
 import { } from "react-icons/fa";
+import { notification } from "antd";
 
 import ListNewsProducts from "../../../components/ListNewProducts/ListNewsProducts";
-import { useDispatch, useSelector } from "react-redux";
 import { getDetailProductForUserAction, getEightProductsAction } from "../../../redux_store/actions/ProductAcction";
 import { handleFormatPrice } from "../../../utils/format/formatPrice";
 import { getCodeProduct } from "../../../utils/format/getCodeProduct";
-import { useParams } from "react-router-dom";
 import { addCartAction } from "../../../redux_store/actions/OrderAction";
-import { notification } from "antd";
-import ModalAddProductIntoCart from "../../../components/ModalAddProductIntoCart/ModalAddProductIntoCart";
 import Comment from "../../../components/Comment/Comment";
+import ModalHandleCart from "../../../components/ModalHandleCart/ModalHandleCart";
 
 function CancelArrowSlider(props) {
     const { style } = props;
@@ -35,7 +35,6 @@ function ProductDetail(props) {
     const idUser = userLogin?.id;
 
     useEffect(() => {
-        console.log('re-render useEffect');
         dispatch(getDetailProductForUserAction(id));
         dispatch(getEightProductsAction())
     }, [dispatch]);
@@ -100,7 +99,6 @@ function ProductDetail(props) {
             });
         }
         else if (productDetailForUser?.numberOfProductInStock < numberProduct) {
-            console.log('handle Now render');
             notification.error({
                 closeIcon: true,
                 message: 'Xin lỗi',
@@ -118,12 +116,13 @@ function ProductDetail(props) {
             formData.append("SizeId", savedIdSize);
             formData.append("ColorId", savedIdColor);
             dispatch(addCartAction(formData));
+            setSavedIdSize(0);
+            setSavedIdColor(0);
+            setNumberProduct(1);
             if (urlPage) window.location.href = urlPage;
             else handleModal(true);
         }
     };
-
-
 
     return (
         <div className="bg-gray-100 dark:bg-gray-900 dark:text-white duration-200 ">
@@ -322,7 +321,7 @@ flex items-start mt-3 gap-4 mb-5
 
                         </div>
                     </div>
-                    <ModalAddProductIntoCart
+                    <ModalHandleCart
                         isOpen={isModalOpen}
                         onClose={() => { handleModal(false) }}
                         nameProduct={productDetailForUser?.nameProduct}

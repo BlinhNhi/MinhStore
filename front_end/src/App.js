@@ -1,9 +1,9 @@
 import { createBrowserHistory } from "history";
-import { Routes, Route } from "react-router-dom"; // Dùng Route thay vì Router
+import { Routes, Route } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import React, { useEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+
 // General
 import Home from "./pages/user_page/Home/Home";
 import Search from "./pages/user_page/Search/Search";
@@ -43,8 +43,7 @@ import UpdateProduct from "./pages/admin_page/ProductManager/UpdateProduct";
 
 import HomeTemplate from "./templates/HomeTemplate";
 import Loading from "./components/Loading/Loading";
-import { TOKEN } from "./utils/variable";
-import { getCurrentUserAction } from "./redux_store/actions/AuthAction";
+
 
 import AdminRoute from "./AdminRoute";
 import CheckRoleUser from "./CheckRoleUser";
@@ -66,21 +65,6 @@ function App() {
     });
     AOS.refresh();
   }, []);
-
-  // const dispatch = useDispatch();
-  // let { userLogin } = useSelector(state => state.UserReducer);
-  // const accessToken = useMemo(() => {
-  //   return localStorage.getItem(TOKEN) || "";
-  // }, []);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if (accessToken && accessToken != null) {
-  //       dispatch(getCurrentUserAction(accessToken))
-  //     }
-  //   }, 1000)
-
-  // }, [accessToken, dispatch]);
 
 
   return (

@@ -1,5 +1,5 @@
 import { FaAngleDown } from "react-icons/fa";
-import { DropdownLinks, Menu } from "../../utils/data/dataMenuNavbar";
+import { Menu } from "../../utils/data/dataMenuNavbar";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getListCategoriesAction } from "../../redux_store/actions/CategoryAction";
@@ -40,25 +40,6 @@ function LowerNavbar() {
                     </div>
 
                 </li>
-                {/* <li className="group relative cursor-pointer">
-                    <div className="flex items-center gap-[4px]  py-2  hover:no-underline dark:hover:text-orange-400">
-                        Có Thể Bạn Quan Tâm
-                        <span>
-                            <FaAngleDown className="transiton-all duration-200 group-hover:rotate-180 " />
-                        </span>
-                    </div>
-                    <div className="w-[200px] bg-red-500 absolute p-4 right-0 bg-transparent"></div>
-                    <div className="mt-2 absolute z-[30] hidden group-hover:block group-focus:block w-[200px] right-0 rounded-md bg-white p-2 text-black shadow-md">
-                        <ul>
-                            {DropdownLinks.map((data) => (
-                                <li key={data.id} >
-                                    <a href={data.link} className="inline-block w-full text-base rounded-md p-2 hover:bg-primary/20 hover:no-underline">{data.name}</a>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                </li> */}
             </ul>
 
 

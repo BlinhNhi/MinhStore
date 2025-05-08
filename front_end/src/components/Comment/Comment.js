@@ -12,7 +12,7 @@ import { getListRestrictedWordAction } from "../../redux_store/actions/Restricte
 import ActionPopover from "../ActionPopover/ActionPopover";
 
 import { getCodeProduct } from "../../utils/format/getCodeProduct";
-import { createConnection } from "../../utils/signalR";
+import { createConnection } from "../../utils/signalr";
 import Pagination from "../Pagination/Pagination";
 
 const connection = createConnection("https://localhost:7234/commentHub");
@@ -176,12 +176,16 @@ const Comment = ({ productId, userId }) => {
                 ))}
             </div>
 
-            <Pagination
-                currentPage={currentPage}
-                totalCount={totalCount}
-                pageSize={commentsPerPage}
-                onPageChange={handleCommentChange}
-            />
+            <div>
+                {
+                    listComments?.length > 0 && <Pagination
+                        currentPage={currentPage}
+                        totalCount={totalCount}
+                        pageSize={commentsPerPage}
+                        onPageChange={handleCommentChange}
+                    />
+                }
+            </div>
 
             <div className="flex flex-col">
                 <h3 className="font-semibold text-xl pb-1">Bình luận sản phẩm: </h3>

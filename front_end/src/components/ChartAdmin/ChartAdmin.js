@@ -42,6 +42,7 @@ function ChartAdmin() {
         window.addEventListener("storage", handleStorageChange);
         return () => window.removeEventListener("storage", handleStorageChange);
     }, []);
+
     useEffect(() => {
         dispatch(getTotalAmountPaymentByYearAction(selectedYear.toString()));
         dispatch(getMonthlyCountOrderAction(selectedYear.toString()));
@@ -61,57 +62,6 @@ function ChartAdmin() {
     });
     const totalAmount = totalAmountOfOrdersByMonth?.map(item => (item / 1000000).toFixed(3));
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    // const data = {
-    //     labels: months,
-    //     options: {
-    //         responsive: true,
-    //         maintainAspectRatio: false,
-    //         plugins: {
-    //             legend: {
-    //                 labels: {
-    //                     color: isDarkMode ? "#fff" : "#000", // Chữ của chú thích
-    //                 },
-    //             },
-    //         },
-    //         scales: {
-    //             x: {
-    //                 ticks: {
-    //                     color: isDarkMode ? "#fff" : "#000",
-    //                 },
-    //                 grid: {
-    //                     color: isDarkMode ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.1)",
-    //                 },
-    //             },
-    //             y: {
-    //                 ticks: {
-    //                     color: isDarkMode ? "#fff" : "#000",
-    //                 },
-    //                 grid: {
-    //                     color: isDarkMode ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.1)",
-    //                 },
-    //             },
-    //         },
-    //     },
-    //     datasets: [
-    //         {
-    //             label: "Tổng doanh thu theo tháng / triệu đồng",
-    //             backgroundColor: "rgb(75, 192, 192,0.4)",
-    //             borderColor: "rgb(75, 192, 192,0.9)",
-    //             data: totalAmount || [],
-    //             hidden: !isOrderVisible,
-    //         },
-    //         {
-    //             label: "Tổng Đơn Hàng Đã Giao Theo Tháng",
-    //             backgroundColor: "rgb(157, 196, 248)",
-    //             borderColor: "rgb(157, 196, 248)",
-    //             data: orderCounts || [],
-    //             tension: 0.5,
-    //             type: 'line',
-    //             borderDash: [5, 5],
-    //             hidden: !isRevenueVisible
-    //         },
-    //     ],
-    // };
     const data = {
         labels: months,
         datasets: [
