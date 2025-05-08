@@ -107,7 +107,7 @@ If you find this project useful, please consider giving it a ⭐ on Github and f
 <h3>Revenue/Profit chart:</h3>
 <img src="https://github.com/user-attachments/assets/db33f56c-d76e-42fc-bee2-4c09f855fa5d" width="100%" alt="Revenue/Profit">
 
-![image]()
+
 
 
 
