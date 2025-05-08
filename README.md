@@ -90,7 +90,25 @@ If you find this project useful, please consider giving it a ⭐ on Github and f
 
 
 <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/145688135/441685288-5ae0a537-034f-441c-b9c2-a070da69e07a.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250508%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250508T112500Z&X-Amz-Expires=300&X-Amz-Signature=77d1e9f0fda841a16c24aa12998f45005b873bbd512b2a6b9539dbd463f9ce74&X-Amz-SignedHeaders=host" width="100%" alt="manager order 2">
-![image]()
+
+
+
+<h3>Dart/Light Mode:</h3>
+<img src="https://github.com/user-attachments/assets/9b65bc7d-5227-416c-9ed1-437d5eb83d07" width="100%" alt="dark mode">
+
+<img src="https://github.com/user-attachments/assets/519ea952-7e7c-4ac0-ad4f-065f11eb9ab8" width="100%" alt="light mode">
+
+
+
+<h3>Admin Page:</h3>
+<img src="https://github.com/user-attachments/assets/89e6bcb3-dc54-4812-ac20-5871b05d05a3" width="100%" alt="Adminpage">
+
+
+<h3>Revenue/Profit chart:</h3>
+<img src="https://github.com/user-attachments/assets/db33f56c-d76e-42fc-bee2-4c09f855fa5d" width="100%" alt="Revenue/Profit">
+
+
+
 
 
 
