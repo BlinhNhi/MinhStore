@@ -1,13 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import AdminTemplate from "../../templates/AdminTemplate";
+import { useEffect, useState } from "react";
+import { TOKEN } from "../variable";
+import { getCurrentUserAction } from "../../redux_store/actions/AuthAction";
+import Loading from "../../components/Loading/Loading";
 
-import HomeTemplate from "./templates/HomeTemplate";
-import { TOKEN } from "./utils/variable";
-import { getCurrentUserAction } from "./redux_store/actions/AuthAction";
-import Loading from "./components/Loading/Loading";
-
-function CheckRoleUser({ Component }) {
+const CheckRoleAdmin = ({ Component }) => {
     const dispatch = useDispatch();
     const { userLogin } = useSelector((state) => state.UserReducer);
     const [isLoading, setIsLoading] = useState(true);
@@ -30,14 +29,11 @@ function CheckRoleUser({ Component }) {
     }
 
 
-    if (!userLogin || userLogin.role === "Admin") {
-        return <Navigate to="/admin/dashboard" replace />;
-    } else if (!userLogin || userLogin.role !== "User") {
+    if (!userLogin || userLogin.role !== "Admin") {
         return <Navigate to="/" replace />;
     }
 
-    return <HomeTemplate Component={Component} />;
+    return <AdminTemplate Component={Component} />;
+};
 
-}
-
-export default CheckRoleUser;
+export default CheckRoleAdmin;

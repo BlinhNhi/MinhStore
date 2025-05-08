@@ -1,12 +1,13 @@
-import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import AdminTemplate from "./templates/AdminTemplate";
 import { useEffect, useState } from "react";
-import { TOKEN } from "./utils/variable";
-import { getCurrentUserAction } from "./redux_store/actions/AuthAction";
-import Loading from "./components/Loading/Loading";
+import { Navigate } from "react-router-dom";
 
-const AdminRoute = ({ Component }) => {
+import HomeTemplate from "../../templates/HomeTemplate";
+import { TOKEN } from "../variable";
+import { getCurrentUserAction } from "../../redux_store/actions/AuthAction";
+import Loading from "../../components/Loading/Loading";
+
+function CheckRoleUser({ Component }) {
     const dispatch = useDispatch();
     const { userLogin } = useSelector((state) => state.UserReducer);
     const [isLoading, setIsLoading] = useState(true);
@@ -29,11 +30,14 @@ const AdminRoute = ({ Component }) => {
     }
 
 
-    if (!userLogin || userLogin.role !== "Admin") {
+    if (!userLogin || userLogin.role === "Admin") {
+        return <Navigate to="/admin/dashboard" replace />;
+    } else if (!userLogin || userLogin.role !== "User") {
         return <Navigate to="/" replace />;
     }
 
-    return <AdminTemplate Component={Component} />;
-};
+    return <HomeTemplate Component={Component} />;
 
-export default AdminRoute;
+}
+
+export default CheckRoleUser;

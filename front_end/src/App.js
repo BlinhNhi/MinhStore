@@ -45,8 +45,8 @@ import HomeTemplate from "./templates/HomeTemplate";
 import Loading from "./components/Loading/Loading";
 
 
-import AdminRoute from "./AdminRoute";
-import CheckRoleUser from "./CheckRoleUser";
+import CheckRoleAdmin from "./utils/Authentication/CheckRoleAdmin";
+import CheckRoleUser from "./utils/Authentication/CheckRoleUser";
 import ForgetPassword from "./pages/user_page/ForgetPassword/ForgetPassword";
 import RestrictedWordMng from "./pages/admin_page/RestrictedWordMng/RestrictedWordMng";
 import CreateRestrictedWord from "./pages/admin_page/RestrictedWordMng/CreateRestrictedWord";
@@ -93,27 +93,27 @@ function App() {
         <Route path="orderDetail/:id" element={<HomeTemplate Component={OrderDetail} />} />
 
         {/* Admin Routes */}
-        <Route path="/admin/dashboard" element={<AdminRoute Component={DashBoard} />} />
+        <Route path="/admin/dashboard" element={<CheckRoleAdmin Component={DashBoard} />} />
         {/* Color Manager */}
-        <Route path="/admin/color-mng" element={<AdminRoute Component={ColorMng} />} />
-        <Route path="/admin/color-mng/addcolor" element={<AdminRoute Component={CreateColor} />} />
-        <Route path="/admin/color-mng/edit/:id" element={<AdminRoute Component={UpdateColor} />} />
+        <Route path="/admin/color-mng" element={<CheckRoleAdmin Component={ColorMng} />} />
+        <Route path="/admin/color-mng/addcolor" element={<CheckRoleAdmin Component={CreateColor} />} />
+        <Route path="/admin/color-mng/edit/:id" element={<CheckRoleAdmin Component={UpdateColor} />} />
         {/* Category Manager */}
-        <Route path="/admin/categories-mng" element={<AdminRoute Component={CategoryMng} />} />
-        <Route path="/admin/categories-mng/addcate" element={<AdminRoute Component={CreateCategory} />} />
-        <Route path="/admin/categories-mng/edit/:id" element={<AdminRoute Component={UpdateCategory} />} />
+        <Route path="/admin/categories-mng" element={<CheckRoleAdmin Component={CategoryMng} />} />
+        <Route path="/admin/categories-mng/addcate" element={<CheckRoleAdmin Component={CreateCategory} />} />
+        <Route path="/admin/categories-mng/edit/:id" element={<CheckRoleAdmin Component={UpdateCategory} />} />
         {/* Size Manager */}
-        <Route path="/admin/sizes-mng" element={<AdminRoute Component={SizeMng} />} />
-        <Route path="/admin/sizes-mng/addsize" element={<AdminRoute Component={CreateSize} />} />
-        <Route path="/admin/sizes-mng/edit/:id" element={<AdminRoute Component={UpdateSize} />} />
+        <Route path="/admin/sizes-mng" element={<CheckRoleAdmin Component={SizeMng} />} />
+        <Route path="/admin/sizes-mng/addsize" element={<CheckRoleAdmin Component={CreateSize} />} />
+        <Route path="/admin/sizes-mng/edit/:id" element={<CheckRoleAdmin Component={UpdateSize} />} />
         {/* Product Manager */}
-        <Route path="/admin/product-mng" element={<AdminRoute Component={ProductManager} />} />
-        <Route path="/admin/product-mng/add-product" element={<AdminRoute Component={CreateProduct} />} />
-        <Route path="/admin/product-mng/edit/:id" element={<AdminRoute Component={UpdateProduct} />} />
+        <Route path="/admin/product-mng" element={<CheckRoleAdmin Component={ProductManager} />} />
+        <Route path="/admin/product-mng/add-product" element={<CheckRoleAdmin Component={CreateProduct} />} />
+        <Route path="/admin/product-mng/edit/:id" element={<CheckRoleAdmin Component={UpdateProduct} />} />
         {/* Restricted Word */}
-        <Route path="/admin/restricted-word-mng" element={<AdminRoute Component={RestrictedWordMng} />} />
-        <Route path="/admin/restricted-word-mng/addrestrictedword" element={<AdminRoute Component={CreateRestrictedWord} />} />
-        <Route path="/admin/restricted-word-mng/edit/:id" element={<AdminRoute Component={UpdateRestrictedWord} />} />
+        <Route path="/admin/restricted-word-mng" element={<CheckRoleAdmin Component={RestrictedWordMng} />} />
+        <Route path="/admin/restricted-word-mng/addrestrictedword" element={<CheckRoleAdmin Component={CreateRestrictedWord} />} />
+        <Route path="/admin/restricted-word-mng/edit/:id" element={<CheckRoleAdmin Component={UpdateRestrictedWord} />} />
         {/* Default Route */}
         <Route path="/" element={<HomeTemplate Component={Home} />} />
       </Routes>
