@@ -71,7 +71,7 @@ If you find this project useful, please consider giving it a ⭐ on Github and f
 
 
 <h3>Shoes selecting and comment (real-time) of user about shoes purchased:</h3>
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/145688135/441687249-d90f8dfb-222a-498d-a7aa-20321b91dbf8.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250508%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250508T113125Z&X-Amz-Expires=300&X-Amz-Signature=54647a50826353321393bc100711b6e7879f0bf643abf419a094becf57f855aa&X-Amz-SignedHeaders=host" width="100%" alt="shoes selecting">
+<img src="https://github.com/user-attachments/assets/d902c793-0828-4db6-91c8-f8ddc6f2da10" width="100%" alt="shoes selecting">
 
 
 
@@ -106,6 +106,9 @@ If you find this project useful, please consider giving it a ⭐ on Github and f
 
 <h3>Revenue/Profit chart:</h3>
 <img src="https://github.com/user-attachments/assets/db33f56c-d76e-42fc-bee2-4c09f855fa5d" width="100%" alt="Revenue/Profit">
+
+![image]()
+
 
 
 
