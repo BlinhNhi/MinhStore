@@ -56,12 +56,12 @@ If you find this project useful, please consider giving it a ⭐ on Github and f
        
 ## Screenshots:
 <h3>Login, Register, Forgot password Page:</h3>
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/145688135/441311496-e362e66a-d638-4d44-a209-7dc272404552.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250507%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250507T150648Z&X-Amz-Expires=300&X-Amz-Signature=38c17cd77cbc6862cf658474927a37daba8ef10c0fe83bac9447e5aa4dbaf61f&X-Amz-SignedHeaders=host" width="100%" alt="Login Page">
+<img src="https://github.com/user-attachments/assets/f0a29f01-5864-45be-a567-dd01ee5feab2" width="100%" alt="Login Page">
 
 
 
 <h3>Home page:</h3>
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/145688135/441685895-4a6b0801-7b95-4278-a0d4-0884e8904a41.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250508%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250508T112700Z&X-Amz-Expires=300&X-Amz-Signature=ad35b79d4c0c6189bb342f5c1f5e14aa7ced84366010f4881548f734adf167aa&X-Amz-SignedHeaders=host" width="100%" alt="Home Page">
+<img src="https://github.com/user-attachments/assets/6ac6e5da-3a3f-4ae9-8648-72671d2f89fc" width="100%" alt="Home Page">
 
 
 
@@ -106,6 +106,10 @@ If you find this project useful, please consider giving it a ⭐ on Github and f
 
 <h3>Revenue/Profit chart:</h3>
 <img src="https://github.com/user-attachments/assets/db33f56c-d76e-42fc-bee2-4c09f855fa5d" width="100%" alt="Revenue/Profit">
+
+
+
+
 
 
 
