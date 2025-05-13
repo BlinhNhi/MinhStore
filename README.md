@@ -76,20 +76,20 @@ If you find this project useful, please consider giving it a ⭐ on Github and f
 
 
 <h3>Manager Cart:</h3>
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/145688135/441687725-0f1ba31b-3c1a-4e02-963b-3c6e8b4e8d52.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250508%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250508T113241Z&X-Amz-Expires=300&X-Amz-Signature=fe25ea66aa5ba1ffcffb38c343fcf62f590199840ef99c267c28e0988613eef1&X-Amz-SignedHeaders=host" width="100%" alt="manager cart">
+<img src="https://github.com/user-attachments/assets/2af25b7f-7e5b-46d2-b836-7aef7d1b8624" width="100%" alt="manager cart">
 
 
 
 <h3>Purchase confirmation:</h3>
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/145688135/441684338-a06d1bf6-7fec-450a-92b3-a3e655389603.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250508%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250508T112216Z&X-Amz-Expires=300&X-Amz-Signature=17a18dd438c3532fe87215d1ccbacfd236454aacf329aaf1912f183de737a971&X-Amz-SignedHeaders=host" width="100%" alt="purchase comfirm">
+<img src="https://github.com/user-attachments/assets/45c6019c-e49c-48e5-b0d2-2c031f675dc2" width="100%" alt="purchase comfirm">
 
 
 
 <h3>Manager Order:</h3>
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/145688135/441685002-47186345-f6fa-489c-8f83-1686669e14d5.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250508%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250508T112411Z&X-Amz-Expires=300&X-Amz-Signature=a49b2fb6f3105979cae7134763e56c4bb0ba5244b2b3b96bb9c09b4902b7ed80&X-Amz-SignedHeaders=host" width="100%" alt="manager order">
+<img src="https://github.com/user-attachments/assets/563ef02c-8143-4ac8-8288-c1d1f6821018" width="100%" alt="manager order">
 
 
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/145688135/441685288-5ae0a537-034f-441c-b9c2-a070da69e07a.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250508%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250508T112500Z&X-Amz-Expires=300&X-Amz-Signature=77d1e9f0fda841a16c24aa12998f45005b873bbd512b2a6b9539dbd463f9ce74&X-Amz-SignedHeaders=host" width="100%" alt="manager order 2">
+<img src="https://github.com/user-attachments/assets/8277ef28-0d13-4124-9472-613bf19b5c7f" width="100%" alt="manager order 2">
 
 
 
@@ -106,6 +106,12 @@ If you find this project useful, please consider giving it a ⭐ on Github and f
 
 <h3>Revenue/Profit chart:</h3>
 <img src="https://github.com/user-attachments/assets/db33f56c-d76e-42fc-bee2-4c09f855fa5d" width="100%" alt="Revenue/Profit">
+
+
+
+
+
+
 
 
 
